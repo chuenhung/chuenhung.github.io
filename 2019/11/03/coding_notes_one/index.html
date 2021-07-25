@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "http://www.liquanhong.com/";
+            }
+        }
+    })();
+</script>
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,JavaScript,jQuery,MyBatis,Tomcat,JSP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="搬砖笔记(一) 作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搬砖笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2019/11/03/coding_notes_one/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="搬砖笔记(一) 作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。">
+<meta property="article:published_time" content="2019-11-03T02:11:00.000Z">
+<meta property="article:modified_time" content="2021-07-24T10:28:27.031Z">
+<meta property="article:author" content="Li Quanhong">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="jQuery">
+<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="Tomcat">
+<meta property="article:tag" content="JSP">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/03/coding_notes_one/"/>
+
+
+
+
+
+  <title>搬砖笔记(一) | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">www.liquanhong.com</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/coding_notes_one/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Quanhong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">搬砖笔记(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T10:11:00+08:00">
+                2019-11-03 10:11
+              </time>
+            
+			
+			  <span class="post-updated">
+				&nbsp; | &nbsp; 更新于
+				<time itemprop="dateUpdated" datetime="2021-07-24T18:28:27+08:00" content="2021-07-24 18:28">
+				  2021-07-24 18:28
+				</time>
+			  </span>
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="搬砖笔记-一"><a class="header-anchor" href="#搬砖笔记-一"></a>搬砖笔记(一)</h2>
+<p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
+<blockquote>
+<p>好记性不如烂笔头</p>
+</blockquote>
+<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
+<a id="more"></a>
+<p>这篇笔记截至时间2019年11月3日。</p>
+<p>1、Tomcat设置jvm</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms128m -Xmx1024m -XX:MaxPermSize=<span class="number">512</span>m</span><br></pre></td></tr></table></figure>
+<p>2、el表达式判断字符串是否为空<br>
+${值 eq  null  or 值 eq ’ '} 返回true 的话，表示为空。例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">"$&#123;company.custName eq  null or company.custName eq ' '&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>${empty 值}  返回true ,表示为空字符串。例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">"$&#123;empty  company.custNam&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>用empty方法更好,el表达式封装了</p>
+<p>3、el表达式判断<br>
+==、eq、//相等<br>
+!=、ne、// 不相等(inequality)<br>
+&lt;、lt、//小于(less than)<br>
+&gt;、gt、//大于(greter than)<br>
+&lt;=、le、//小于等于(less equal)<br>
+&gt;=、ge。//大于等于(greter equal)<br>
+例子：判断传过来的值是否大等于2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">"$&#123;product.validity ge 2&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>4、MyBatis遍历集合</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span> =<span class="string">"array"</span> <span class="attr">item</span>=<span class="string">"classIds"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">	#&#123;classIds&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">foreach</span> &gt;</span></span><br></pre></td></tr></table></figure>
+<p>MyBatis foreach的collection参数可以是java的Array或者List<br>
+5、 jQuery的data()方法，相比attr()更安全<br>
+访问id为test的元素 的data-name属性例子：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#test'</span>).data(<span class="string">"name"</span>);</span><br></pre></td></tr></table></figure>
+<p>6、数据库权限问题</p>
+<ul>
+<li>cmd进入mysql/bin目录下后,mysql -u root -p并输入密码登陆</li>
+<li>grant all privileges on <em>.</em> to root@&quot;%&quot; identified by “.”; 注意root替换为报的错</li>
+<li>flush privileges;</li>
+</ul>
+<p>7、MySQL的date_format函数用法<br>
+语法如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date_format(now(),'%Y-%m-%d %H:%i:%s')&lt;结束时间</span><br></pre></td></tr></table></figure>
+<p>  <a href="http://www.w3school.com.cn/sql/func_date_format.asp" target="_blank" rel="noopener">参考链接</a></p>
+<p>8、MyBatis中小于号都要写成&amp;lt;大于号可以不用转</p>
+<p>9、MyBatis传入参数为0被误认为是空字符串,解决方法是去掉等于0的判断</p>
+<p>10、JavaScript保留两位小数方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toDecimal</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> f = <span class="built_in">parseFloat</span>(x);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">isNaN</span>(f)) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	f = <span class="built_in">Math</span>.round(x*<span class="number">100</span>)/<span class="number">100</span>;</span><br><span class="line">	<span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>11、jQuery判断checkbox是否选中的一些方法<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($(<span class="string">"#checkbox-id"</span>).get(<span class="number">0</span>).checked) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($(<span class="string">"#checkbox-id"</span>)[<span class="number">0</span>].checked) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法三（建议）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>($(<span class="string">'#checkbox-id'</span>).is(<span class="string">':checked'</span>)) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>12、checkbox赋值方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#checkbox-id"</span>).prop(<span class="string">"checked"</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>13、JavaScript页面加载前调用的一些方法<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="comment">//do something</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="comment">//do something</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.readyState==<span class="string">"complete"</span>)&#123;</span><br><span class="line"> <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>14、判断页面元素是否显示<br>
+  <a href="https://www.jb51.net/article/49760.htm" target="_blank" rel="noopener">参考链接</a></p>
+<p>15、加红色样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span>测试<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:red"</span>&gt;</span>测试<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>16、连续数字或字母换行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style=<span class="string">"word-break:break-all; width:200px; overflow:auto;"</span></span><br></pre></td></tr></table></figure>
+<p>17、表格内容过长时截取显示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">"鼠标放上去显示的内容"</span>&gt;</span>实际显示的内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>18、科学计数法格式化<br>
+Java  返回字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DecimalFormat df = <span class="keyword">new</span> DecimalFormat();</span><br><span class="line">df.setMaximumFractionDigits(<span class="number">2</span>);</span><br><span class="line">df.setMinimumFractionDigits(<span class="number">2</span>);<span class="comment">//强制保留两位小数</span></span><br><span class="line">String productPrice= df.format(productViewVo.getProductPrice());</span><br></pre></td></tr></table></figure>
+<p>注意这种方法还需要替换&quot;,&quot;</p>
+<p>JavaScript简单粗暴的方法 返回字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> formatScientificNumber = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> result = <span class="built_in">String</span>(value);<span class="comment">//可以用0.0000001测试</span></span><br><span class="line">		<span class="keyword">if</span> (result.indexOf(<span class="string">'-'</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">			result = <span class="string">'0'</span> + <span class="built_in">String</span>(<span class="built_in">Number</span>(result) + <span class="number">1</span>).substr(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<p>19、输入框限制只能输入数字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onkeyup=<span class="string">"this.value=this.value.replace(/[^\d]/g,'')"</span></span><br></pre></td></tr></table></figure>
+<p>20、jQuery需要用text()取span的值</p>
+<p>21、jQuery获取table的所有tr以及td</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#tabbleId tr'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;          <span class="comment">// 遍历 tr</span></span><br><span class="line">  $(<span class="keyword">this</span>).children(<span class="string">'td'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">j</span>)</span>&#123;  <span class="comment">// 遍历tr的各个td</span></span><br><span class="line">	 alert(<span class="string">"第"</span>+(i+<span class="number">1</span>)+<span class="string">"行，第"</span>+(j+<span class="number">1</span>)+<span class="string">"个td的值："</span>+$(<span class="keyword">this</span>).text()+<span class="string">"。"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>22、MySQL的concat_ws(sperator,str1,str2,str…)、concat()、repeat()方法</p>
+<ul>
+<li>concat_ws()方法可以将两个字段的值拼接起来，它的本意是有分隔符的字符串连接。但要注意为null的情况(不然整个都会为null)<br>
+例子：   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat_ws(c.city_code,<span class="string">''</span>,ifnull(c.company_address,<span class="string">''</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li>concat()函数可以连接一个或者多个字符串,只要一个为null就会返回Null</li>
+<li>repeat()函数用来复制字符串,比如select repeat(‘ab’,2);//abab</li>
+</ul>
+<p>23、MySQL删除所有表数据(不是删除数据库)<br>
+返回所有drop table语句语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">concat</span>(<span class="string">'DROP TABLE IF EXISTS '</span>, table_name, <span class="string">';'</span>)</span><br><span class="line"><span class="keyword">FROM</span> information_schema.tables</span><br><span class="line"><span class="keyword">WHERE</span> table_schema = <span class="string">'saas_mcjd'</span>;</span><br></pre></td></tr></table></figure>
+<p>24、将Double类型的数据保留2位小数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Double a = <span class="number">2.34566</span>; </span><br><span class="line">BigDecimal bd = <span class="keyword">new</span> BigDecimal(a); </span><br><span class="line">Double d = bd.setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP).doubleValue();</span><br></pre></td></tr></table></figure>
+<p>d输出就是2.35,  注意会四舍五入</p>
+<p>25、将String转Double,并保留2位小数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a = “<span class="number">6.145</span>”; </span><br><span class="line">Double d= Double.parseDouble(a); </span><br><span class="line">DecimalFormat df = <span class="keyword">new</span> DecimalFormat(“<span class="number">0.00</span>”); </span><br><span class="line">String s = df.format(d);</span><br></pre></td></tr></table></figure>
+<p>s输出就是6.15,注意会四舍五入</p>
+<p>26、JavaScript修改网页标题<br>
+可以在页面加载完时执行下面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.title =<span class="string">"产品详情"</span></span><br></pre></td></tr></table></figure>
+<p>27、JavaScript比较时间大小</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CompareDate</span>(<span class="params">d1,d2</span>)</span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">return</span> ((<span class="keyword">new</span> <span class="built_in">Date</span>(d1.toString().replace(<span class="regexp">/-/g</span>,<span class="string">"\/"</span>))) &lt; (<span class="keyword">new</span> <span class="built_in">Date</span>(d2.toString().replace(<span class="regexp">/-/g</span>,<span class="string">"\/"</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>28、页面定期刷新</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setInterval(func,time);</span><br></pre></td></tr></table></figure>
+<p>29、JSP根据参数默认选中radio</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"va-m text-right text-dark6"</span> <span class="attr">width</span>=<span class="string">"20%"</span>&gt;</span>是否集团审批：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"checkbox checkbox-circle mn"</span>&gt;</span></span><br><span class="line">			&lt;input type="radio" name="isApproval" id="isApproval"  value="1" &lt;c:if test="$&#123;businessModeViewVo.isApproval eq 1&#125;"&gt;checked&lt;/c:if&gt;/&gt;</span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"font-bolder"</span> <span class="attr">for</span>=<span class="string">"isApproval"</span>&gt;</span>需要<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"checkbox checkbox-circle mn ml10"</span>&gt;</span></span><br><span class="line">			&lt;input type="radio" name="isApproval" id="noIsApproval" value="2" &lt;c:if test="$&#123;businessModeViewVo.isApproval eq 2&#125;"&gt;checked&lt;/c:if&gt;/&gt;</span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"font-bolder"</span> <span class="attr">for</span>=<span class="string">"noIsApproval"</span> &gt;</span>不需要<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关键代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;businessModeViewVo.isApproval eq 2&#125;"</span>&gt;</span>checked<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>30、页面元素的禁用与启用<br>
+禁用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#id"</span>).attr(<span class="string">"disabled"</span>,<span class="string">"true"</span>);  </span><br><span class="line">$(<span class="string">"#id"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">true</span>);  </span><br><span class="line">$(<span class="string">"#id"</span>).attr(<span class="string">"disabled"</span>,<span class="string">"disabled"</span>);</span><br></pre></td></tr></table></figure>
+<p>启用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#id"</span>).removeAttr(<span class="string">"disabled"</span>);  </span><br><span class="line">$(<span class="string">"#id"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>注意：$(&quot;#id&quot;).attr(“disabled”,“false”);不起作用,disabled只能禁用button，对超链接不起作用</p>
+<p>31、handlebars 时间格式化</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;dateFormat addTime 'YYYY-MM-DD HH:mm:ss'&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>32、handlerbars判空,if 和unless</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#if logisticsId&#125;&#125;</span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"text-button text-blue3 pr10"</span> <span class="attr">data-toggle</span>=<span class="string">"tooltip"</span> <span class="attr">data-placement</span>=<span class="string">"left"</span> <span class="attr">onclick</span>=<span class="string">"seeDetail('&#123;&#123;logisticsId&#125;&#125;')"</span> &gt;</span>查看<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;&#123;/if&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>它是尝试去读取logisticsId属性，如果返回的为undefined、null、&quot;&quot;、[]、false任意一个，都会导致最终结果为假。unless和if正好相反,当返回false的时候执行。</p>
+<p>33、正则校验所有输入框</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> $(<span class="string">"input[name='unitPrice']"</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> unitPrice = $(<span class="keyword">this</span>).val();</span><br><span class="line">	<span class="keyword">var</span> reg = <span class="regexp">/^([1-9][\d]&#123;0,7&#125;|0)(\.[\d]&#123;1,2&#125;)?$/</span>;</span><br><span class="line">	<span class="keyword">var</span> reslut = unitPrice.match(reg);</span><br><span class="line">	<span class="keyword">if</span>(reslut==<span class="literal">null</span>)&#123;</span><br><span class="line">		toastrWarning(<span class="string">'无效金额，整数8位，小数2位，示例：247.23'</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>34、</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> htm = $($(<span class="string">'#checkMethodDiv'</span>).html()); htm[<span class="number">0</span>].outerHTML;<span class="comment">//1     </span></span><br><span class="line"><span class="keyword">var</span> htm = $(<span class="string">'#checkMethodDiv'</span>);htm.html();<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>1返回的是文本 整个返回的貌似是一个对话框对象<br>
+2返回的是document对象</p>
+<p>35、禁止textarea拉伸</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style=<span class="string">"resize:none"</span></span><br></pre></td></tr></table></figure>
+<p>36、做申请开票的时候,订单列表从表格中删除了,但下次点申请开票时还在。使用空串替换某一个订单号，则是可以实现去除指定字符串功能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orderIds = orderIds.replace(orderId+<span class="string">","</span>,<span class="string">" "</span>);</span><br></pre></td></tr></table></figure>
+<p>37、登陆后跳回原来的页面的问题<br>
+思路：点击登录的时候用一个SpringMVC获取到当前url，并把其放到session中，登陆后从session中取出url 清空后跳转</p>
+<p>38、jQuery在不知道数组元素下标的时删除数组元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>($.inArray(templateId.toString(),templateIdSelected)&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">	templateIdSelected.splice($.inArray(templateId.toString(), templateIdSelected), <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>$.inArray(),函数用于在数组中查找指定值，并返回它的索引值（如果没有找到，则返回-1），源数组不受影响</li>
+<li>arrayObject.splice(index,howmany,item1,…,itemX)<br>
+index:		必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。<br>
+howmany：   必需。要删除的项目数量。如果设置为 0，则不会删除项目。<br>
+item1, …, itemX: 可选。向数组添加的新项目。<br>
+splice() 方法可删除从 index 处开始的零个或多个元素，并且用参数列表中声明的一个或多个值来替换那些被删除的元素。</li>
+</ul>
+<p>39、JSP千分位</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;fmt:formatNumber value=<span class="string">"$&#123;subscriptionMoney &#125;"</span> pattern=<span class="string">"#,###.####"</span>/&gt;	</span><br><span class="line">subscriptionMoney.replace(/(?&lt;=\d)(?&lt; !.\d*)(?=(\d&#123;<span class="number">3</span>&#125;)+(.|$))/g,<span class="string">','</span>);	</span><br><span class="line">paymentFee.toFixed(<span class="number">2</span>).replace(/(\d)(?=(\d&#123;<span class="number">3</span>&#125;)+\.)/g, <span class="string">'$1,'</span>)</span><br></pre></td></tr></table></figure>
+<p>40、数组需要JSON格式化传到后台，不能直接用隐藏域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = $(<span class="string">'#settlementForm'</span>).serializeJson();<span class="comment">//不是serialize();</span></span><br><span class="line">data.fileAttachIds = $(<span class="string">"#uploader2"</span>).catUpload(<span class="string">"getUniqueId"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url : <span class="string">'/member/purchaseentrustmgr/ajaxpaybond'</span>,</span><br><span class="line">contentType:<span class="string">"application/json"</span>,</span><br><span class="line">data :  <span class="built_in">JSON</span>.stringify(data),</span><br></pre></td></tr></table></figure>
+<p>41、Java千分位</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DecimalFormat df = <span class="keyword">new</span> DecimalFormat(<span class="string">"#,###.00"</span>);	<span class="comment">//0用于小数部分,不足补0.</span></span><br><span class="line">System.out.println(df.format(vo.getStockPrice()));</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/weixin_42884584/article/details/83538523" target="_blank" rel="noopener">参考链接</a></p>
+<p>42、在使用removeAttr()移除了radio的checked属性后，使用attr()重新增加不起作用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#invoiceStatus2"</span>).prop(<span class="string">"checked"</span>,<span class="string">"checked"</span>);</span><br><span class="line">$(<span class="string">"#invoiceStatus1"</span>).removeAttr(<span class="string">"checked"</span>);</span><br></pre></td></tr></table></figure>
+<p>即使用prop()可重新配置上该属性, 具有 true 和 false 两个属性的属性，如 checked, selected 或者 disabled 使用prop()，其他的使用 attr()</p>
+<p>43、MySQL查询一张表的详细信息(注释)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">full</span> <span class="keyword">columns</span> <span class="keyword">from</span> 表名;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> information_schema;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema =<span class="string">'数据库名'</span> <span class="keyword">and</span> table_name = <span class="string">'表名'</span>  (<span class="keyword">and</span> column_name=<span class="string">'CONTRACT_status'</span> <span class="keyword">limit</span> <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>44、查询MySQL创建表的sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+<p>45、textarea开始标签和结束标签中间不要有“回车”。 否则内容不是从头开始的</p>
+<p>46、JavaScript科学计数法还原<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">0.00000001</span>;</span><br><span class="line"><span class="keyword">let</span> result = <span class="built_in">String</span>(a);</span><br><span class="line"><span class="keyword">if</span> (result.indexOf(<span class="string">'-'</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">   result = <span class="string">'0'</span> + <span class="built_in">String</span>(<span class="built_in">Number</span>(result) + <span class="number">1</span>).substr(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toNonExponential</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> m = num.toExponential().match(<span class="regexp">/\d(?:\.(\d*))?e([+-]\d+)/</span>);</span><br><span class="line">    <span class="keyword">return</span> num.toFixed(<span class="built_in">Math</span>.max(<span class="number">0</span>, (m[<span class="number">1</span>] || <span class="string">''</span>).length - m[<span class="number">2</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>47、textarea没有value属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">"summary"</span> <span class="attr">name</span>=<span class="string">"summary"</span> <span class="attr">rows</span>=<span class="string">"8"</span> <span class="attr">cols</span>=<span class="string">"50"</span> "&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">summary</span> %&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>48、MySQL不等于null语法is not null，MySQL等于null语法is null</p>
+<p>49、JavaScript正则匹配</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="built_in">RegExp</span>(<span class="regexp">/^[0-9a-zA-Z_]+$/</span>);</span><br><span class="line"><span class="keyword">if</span>(!material.match(reg))&#123;</span><br><span class="line">   alert(<span class="string">"内部料号为数字、字母、下划线或三者组合"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>50、jQuery获取选中值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取radio checkbox选中值</span></span><br><span class="line"><span class="keyword">var</span> item = $(<span class="string">'input[name=items][checked]'</span>).val(); </span><br><span class="line"><span class="comment">//获取option选中值</span></span><br><span class="line"><span class="keyword">var</span> item = $(<span class="string">"select[name=items] option[selected]"</span>).text();</span><br></pre></td></tr></table></figure>
+<p>51、MyBatis 的&lt;trim/&gt;标签<br>
+prefix 给sql语句拼接的前缀  suffix 给sql语句拼接的后缀<br>
+prefixOverrides 去除sql语句前面的关键字或者字符，该关键字或者字符由prefixOverrides属性指定，假设该属性指定为&quot;AND&quot;，当sql语句的开头为&quot;AND&quot;，trim标签将会去除该&quot;AND&quot;<br>
+suffixOverrides	去除sql语句后面的关键字或者字符，该关键字或者字符由suffixOverrides属性指定</p>
+<p>52、MySQL的group_concat()函数默认拼接字符串长度是1024,可以手动设置。 做双贸项目分组查了分类下的所有扩展属性,后面分类多了肯定出问题😂</p>
+<p>53、jQuery的on()方法不起作用的解决方法。双贸前台商品列表扩展属性监听用到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).on(<span class="string">'click'</span>,<span class="string">'.attrList li'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法每次执行点击事件 的时候，它会先找到document对象，然后去检测有没有子对象，如果有的话，他就将事件给到子对象，子对象得到该事件之后就开始触发事件后面的方法</p>
+<p>54、MyBatis返回List<String>只需要resultType=&quot;java.lang.String&quot;就可以了</p>
+<p>55、jQuery下拉框默认选中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#businessModeAll option[businessId='104']"</span>).prop(<span class="string">"selected"</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>其中businessId是自定义属性,正常用value就可以了。attr方法正常取属性值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#businessModeAll option:selected"</span>).attr(<span class="string">"businessId"</span>);</span><br></pre></td></tr></table></figure>
+<p>56、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SimpleDateFormat simpleDateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br></pre></td></tr></table></figure>
+<p>这个月份和分钟一个是大写M一个是小写m,不能混用不能混用不能混用,不然会出现离奇解析错误；H表示小时按24小时制，h不按24小时制</p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/wechatPay.jpg" alt="Li Quanhong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/aliPay.png" alt="Li Quanhong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/jQuery/" rel="tag"><i class="fa fa-tag"></i> jQuery</a>
+          
+            <a href="/tags/MyBatis/" rel="tag"><i class="fa fa-tag"></i> MyBatis</a>
+          
+            <a href="/tags/Tomcat/" rel="tag"><i class="fa fa-tag"></i> Tomcat</a>
+          
+            <a href="/tags/JSP/" rel="tag"><i class="fa fa-tag"></i> JSP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/02/undergraduate/" rel="next" title="本科四年">
+                <i class="fa fa-chevron-left"></i> 本科四年
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/03/coding_notes_two/" rel="prev" title="搬砖笔记(二)">
+                搬砖笔记(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="Li Quanhong" />
+            
+              <p class="site-author-name" itemprop="name">Li Quanhong</p>
+              <p class="site-description motion-element" itemprop="description">管理时间 培养习惯 塑造性格 改变一生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搬砖笔记-一"><span class="nav-number">1.</span> <span class="nav-text">搬砖笔记(一)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Quanhong</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+
