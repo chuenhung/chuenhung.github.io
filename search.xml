@@ -5926,8 +5926,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Linux</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -5966,8 +5966,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Nginx</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
