@@ -7,8 +7,8 @@
 <a id="more"></a>
 <h2 id="大致思路"><a class="header-anchor" href="#大致思路"></a>大致思路</h2>
 <ul>
-<li>通过Java反射得到字段名、字段类型和注释信息</li>
-<li>通过EasyExcel导出</li>
+<li>通过Java反射得到字段名、字段类型和注释信息。</li>
+<li>通过EasyExcel导出。</li>
 </ul>
 <h2 id="完整源码"><a class="header-anchor" href="#完整源码"></a>完整源码</h2>
 <p>pom.xml引入的依赖：</p>
@@ -173,8 +173,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>MyBatis</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -5442,9 +5442,9 @@ java代码：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
+        <tag>MySQL</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
