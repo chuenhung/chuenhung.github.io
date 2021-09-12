@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Java反射和EasyExcel把实体信息导出为Excel表格</title>
-    <url>/2021/09/12/java_reflex_easyExcel_to_excel/</url>
+    <url>/2021/09/12/java_reflex_easyexcel_to_excel/</url>
     <content><![CDATA[<p>前后端分离，后端虽然用了Swagger但有时候还是需要手动维护文档的，Java实体字段很多的时候，维护起来还是很费时间。本文介绍如何通过Java反射和EasyExcel把实体信息导出为Excel表格，<strong>表格可用于维护接口文档</strong>。</p>
 <a id="more"></a>
 <h2 id="大致思路"><a class="header-anchor" href="#大致思路"></a>大致思路</h2>
@@ -173,8 +173,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>MyBatis</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -5442,9 +5442,9 @@ java代码：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
+        <tag>MySQL</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -6149,8 +6149,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Git</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -6189,8 +6189,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Linux</tag>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -6889,8 +6889,8 @@ sql列子：</p>
         <tag>Java</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>Spring</tag>
         <tag>POI</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
