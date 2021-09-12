@@ -173,8 +173,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MyBatis</tag>
         <tag>MySQL</tag>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -5442,9 +5442,9 @@ java代码：</p>
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>MySQL</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>MySQL</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -6149,8 +6149,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Git</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -6189,8 +6189,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Linux</tag>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -6889,8 +6889,8 @@ sql列子：</p>
         <tag>Java</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>POI</tag>
         <tag>Spring</tag>
+        <tag>POI</tag>
       </tags>
   </entry>
   <entry>
