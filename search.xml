@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PageHelper分页总数、页数错误问题</title>
+    <url>/2021/10/16/pagehelper_issues/</url>
+    <content><![CDATA[<h2 id="问题描述"><a class="header-anchor" href="#问题描述"></a>问题描述</h2>
+<p>在使用PageHelper进行分页的时候，大部分时候都是正常的，但是有一个接口的分页总数一直有问题(<strong>为当前页的数量、页数一直为1</strong>)。先看看目前的代码:</p>
+<a id="more"></a>
+<p>Controller层代码（修改前）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> PageResponseMsg <span class="title">queryPolicyTypePageList</span><span class="params">(@RequestBody PageRequest&lt;PolicyTypePageReq&gt; noticePageReq)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(noticePageReq == <span class="keyword">null</span> || noticePageReq.getPage() == <span class="keyword">null</span> || noticePageReq.getRows() == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getPageResponseMsg(MessageCode.Param_NULL.code);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 设置分页</span></span><br><span class="line">        PageHelper.startPage(noticePageReq.getPage(),noticePageReq.getRows());</span><br><span class="line">        <span class="comment">//查询列表</span></span><br><span class="line">        List&lt;PolicyTypeResp&gt; noticeList = policyTypeService.queryPolicyTypeList(noticePageReq);</span><br><span class="line">        <span class="keyword">if</span>(noticeList == <span class="keyword">null</span> || noticeList.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getPageResponseMsg(MessageCode.Data_Not_Found.code);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//获取分页数据</span></span><br><span class="line">        PageInfo&lt;PolicyTypeResp&gt; pageInfo = <span class="keyword">new</span> PageInfo&lt;&gt;(noticeList,noticePageReq.getPage());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getPageResponseMsg(MessageCode.RSP_CODE_SUCCED.code,pageInfo.getList(),pageInfo.getPageNum(),pageInfo.getTotal(),pageInfo.getPages());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Service层代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;PolicyTypeResp&gt; <span class="title">queryPolicyTypeList</span><span class="params">(PageRequest&lt;PolicyTypePageReq&gt; noticePageReq)</span> </span>&#123;</span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = policyTypeMapper.queryPolicyTypeList(BeanMap.create(noticePageReq));</span><br><span class="line">    List&lt;PolicyTypeResp&gt; policyTypeRespList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span>(list == <span class="keyword">null</span> || list.size()&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(Map&lt;String, Object&gt; map: list)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            PolicyTypeResp resp = MapTransformUtil.mapToObject(map,PolicyTypeResp.class);</span><br><span class="line">            policyTypeRespList.add(resp);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"PolicyTypeServiceImpl.queryPolicyTypeList转换异常："</span>+e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> policyTypeRespList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>controller代码与其他分页查询接口完全一样，service也没做其他数据库的操作，真是奇怪了。</p>
+<h2 id="问题原因"><a class="header-anchor" href="#问题原因"></a>问题原因</h2>
+<p>搜了几篇博客，发现问题出现在Map转实体这个步骤。原因如下：</p>
+<ul>
+<li>PageHelper.startPage(pageIndex, pageSize);<strong>返回Page对象(继承ArrayList)</strong>，里面有总数、当前页、页数等信息。</li>
+<li>policyTypeService.queryPolicyTypePageList(pageReq);返回的实际也是Page对象，所以在进行Map转换的时候会丢失Page的分页信息。</li>
+</ul>
+<p>PageHelper的部分源码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PageInfo</span><span class="params">(List&lt;T&gt; list, <span class="keyword">int</span> navigatePages)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(list);</span><br><span class="line">    <span class="keyword">this</span>.isFirstPage = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.isLastPage = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.hasPreviousPage = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.hasNextPage = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (list <span class="keyword">instanceof</span> Page) &#123;<span class="comment">// 本来应该走这个逻辑</span></span><br><span class="line">        Page page = (Page)list;</span><br><span class="line">        <span class="keyword">this</span>.pageNum = page.getPageNum();</span><br><span class="line">        <span class="keyword">this</span>.pageSize = page.getPageSize();</span><br><span class="line">        <span class="keyword">this</span>.pages = page.getPages();</span><br><span class="line">        <span class="keyword">this</span>.size = page.size();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.size == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.startRow = <span class="number">0L</span>;</span><br><span class="line">            <span class="keyword">this</span>.endRow = <span class="number">0L</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.startRow = page.getStartRow() + <span class="number">1L</span>;</span><br><span class="line">            <span class="keyword">this</span>.endRow = <span class="keyword">this</span>.startRow - <span class="number">1L</span> + (<span class="keyword">long</span>)<span class="keyword">this</span>.size;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (list <span class="keyword">instanceof</span> Collection) &#123;<span class="comment">// 实际走的这个逻辑</span></span><br><span class="line">        <span class="keyword">this</span>.pageNum = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>.pageSize = list.size();</span><br><span class="line">        <span class="keyword">this</span>.pages = <span class="keyword">this</span>.pageSize &gt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.size = list.size();</span><br><span class="line">        <span class="keyword">this</span>.startRow = <span class="number">0L</span>;</span><br><span class="line">        <span class="keyword">this</span>.endRow = list.size() &gt; <span class="number">0</span> ? (<span class="keyword">long</span>)(list.size() - <span class="number">1</span>) : <span class="number">0L</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (list <span class="keyword">instanceof</span> Collection) &#123;</span><br><span class="line">        <span class="keyword">this</span>.calcByNavigatePages(navigatePages);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="问题解决"><a class="header-anchor" href="#问题解决"></a>问题解决</h2>
+<p>把服务层代码修改一下，核心就是数据库查出list后，直接创建PageInfo对象，具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 设置分页</span></span><br><span class="line">PageHelper.startPage(pageReq.getPage(),pageReq.getRows());</span><br><span class="line">List&lt;Map&lt;String, Object&gt;&gt; list = policyTypeMapper.queryPolicyTypeList(BeanMap.create(pageReq));</span><br><span class="line"><span class="keyword">if</span>(list == <span class="keyword">null</span> || list.size()&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取分页数据</span></span><br><span class="line">PageInfo&lt;Map&lt;String, Object&gt;&gt; pageInfo = <span class="keyword">new</span> PageInfo&lt;&gt;(list,pageReq.getPage());</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>PageHelper</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决IntelliJ IDEA多模块项目依赖错误问题</title>
     <url>/2021/10/02/intelliJ_idea_dependency_erro/</url>
     <content><![CDATA[<h2 id="问题描述"><a class="header-anchor" href="#问题描述"></a>问题描述</h2>
@@ -254,8 +286,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MyBatis</tag>
         <tag>MySQL</tag>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -5529,10 +5561,10 @@ java代码：</p>
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>MySQL</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
         <tag>Spring</tag>
-        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -6976,8 +7008,8 @@ sql列子：</p>
         <tag>Java</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>POI</tag>
         <tag>Spring</tag>
+        <tag>POI</tag>
       </tags>
   </entry>
   <entry>
