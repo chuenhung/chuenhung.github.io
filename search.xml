@@ -360,9 +360,9 @@ Template text的代码如下：</p>
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记(五)</title>
+    <title>Java程序猿搬砖笔记(五)</title>
     <url>/2021/07/24/coding_notes_five/</url>
-    <content><![CDATA[<h1>搬砖笔记(五)</h1>
+    <content><![CDATA[<h1>Java程序猿搬砖笔记(五)</h1>
 <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
 <blockquote>
 <p>好记性不如烂笔头</p>
@@ -4977,9 +4977,9 @@ SUBSCRIBE 、PUBLISH</li>
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记(四)</title>
+    <title>Java程序猿搬砖笔记(四)</title>
     <url>/2020/06/14/coding_notes_four/</url>
-    <content><![CDATA[<h2 id="搬砖笔记-四"><a class="header-anchor" href="#搬砖笔记-四"></a>搬砖笔记(四)</h2>
+    <content><![CDATA[<h2 id="Java程序猿搬砖笔记-四"><a class="header-anchor" href="#Java程序猿搬砖笔记-四"></a>Java程序猿搬砖笔记(四)</h2>
 <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
 <blockquote>
 <p>好记性不如烂笔头</p>
@@ -5470,9 +5470,9 @@ alter table 表名 rename to 新表名</p>
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记(三)</title>
+    <title>Java程序猿搬砖笔记(三)</title>
     <url>/2020/04/04/coding_notes_three/</url>
-    <content><![CDATA[<h2 id="搬砖笔记-三"><a class="header-anchor" href="#搬砖笔记-三"></a>搬砖笔记(三)</h2>
+    <content><![CDATA[<h2 id="Java程序猿搬砖笔记-三"><a class="header-anchor" href="#Java程序猿搬砖笔记-三"></a>Java程序猿搬砖笔记(三)</h2>
 <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
 <blockquote>
 <p>好记性不如烂笔头</p>
@@ -6268,8 +6268,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Linux</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -6308,8 +6308,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Nginx</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -6919,9 +6919,9 @@ would not be able to go to school</p>
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记(二)</title>
+    <title>Java程序猿搬砖笔记(二)</title>
     <url>/2019/11/03/coding_notes_two/</url>
-    <content><![CDATA[<h2 id="搬砖笔记-二"><a class="header-anchor" href="#搬砖笔记-二"></a>搬砖笔记(二)</h2>
+    <content><![CDATA[<h2 id="Java程序猿搬砖笔记-二"><a class="header-anchor" href="#Java程序猿搬砖笔记-二"></a>Java程序猿搬砖笔记(二)</h2>
 <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
 <blockquote>
 <p>好记性不如烂笔头</p>
@@ -7013,9 +7013,9 @@ sql列子：</p>
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记(一)</title>
+    <title>Java程序猿搬砖笔记(一)</title>
     <url>/2019/11/03/coding_notes_one/</url>
-    <content><![CDATA[<h2 id="搬砖笔记-一"><a class="header-anchor" href="#搬砖笔记-一"></a>搬砖笔记(一)</h2>
+    <content><![CDATA[<h2 id="Java程序猿搬砖笔记-一"><a class="header-anchor" href="#Java程序猿搬砖笔记-一"></a>Java程序猿搬砖笔记(一)</h2>
 <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
 <blockquote>
 <p>好记性不如烂笔头</p>
