@@ -1,6 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL命令行导入导出文件(全)</title>
+    <url>/2021/12/02/mysql_import%20_export_command/</url>
+    <content><![CDATA[<h2 id="命令行导出数据库相关表为SQL文件"><a class="header-anchor" href="#命令行导出数据库相关表为SQL文件"></a>命令行导出数据库相关表为SQL文件</h2>
+<p>语法：mysqldump -h[主机所在IP] -u[用户名] -p [要导出的数据库]&gt;[导出的路径//[文件名].sql]<br>
+例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mysqldump -hlocalhost -uroot -p reward_testdb&gt;E:<span class="comment">//reward_testdb.sql</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="导出数据库表结构"><a class="header-anchor" href="#导出数据库表结构"></a>导出数据库表结构</h3>
+<p>语法：mysqldump -d [数据库名] -u [用户名] -p[密码] --tables [表名1] [表名2] [表名3]&gt;[导出路径]<br>
+例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mysqldump -d reward_testdb -u root -p123456 --tables t_awards t_awards_detail &gt;D:\t_awards.sql</span><br></pre></td></tr></table></figure>
+<h3 id="导出数据库表结构和数据"><a class="header-anchor" href="#导出数据库表结构和数据"></a>导出数据库表结构和数据</h3>
+<p>语法(去掉-d)：mysqldump [数据库名] -u [用户名] -p[密码] --tables [表名1] [表名2] &gt;[导出路径]<br>
+例子(去掉-d)：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mysqldump reward_testdb -u root -pa123456 --tables t_awards t_awards_detail &gt;D:\t_awards.sql</span><br></pre></td></tr></table></figure>
+<h2 id="命令行导入SQL文件到MySQL"><a class="header-anchor" href="#命令行导入SQL文件到MySQL"></a>命令行导入SQL文件到MySQL</h2>
+<h3 id="命令行登陆到MySQL并选择要使用的数据库"><a class="header-anchor" href="#命令行登陆到MySQL并选择要使用的数据库"></a>命令行登陆到MySQL并选择要使用的数据库</h3>
+<p>语法：mysql -u[用户名] -h[主机所在地址，默认不写是localhost] -p<br>
+例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">use 数据库名;</span><br></pre></td></tr></table></figure>
+<h3 id="将SQL文件进行导入"><a class="header-anchor" href="#将SQL文件进行导入"></a>将SQL文件进行导入</h3>
+<p>语法：source [所在的路径//*.sql]<br>
+例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">source E:<span class="comment">//t_awards_detail.sql</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/xiaoxuetu/p/3204511.html" target="_blank" rel="noopener">参考链接1</a>、<a href="https://www.cnblogs.com/go-jzg/p/4192118.html" target="_blank" rel="noopener">参考链接2</a>、<a href="https://www.cnblogs.com/linjiqin/p/11888943.html" target="_blank" rel="noopener">参考链接3</a>、<a href="https://blog.csdn.net/qq_26900081/article/details/103183332" target="_blank" rel="noopener">参考链接4</a></p>
+<h2 id="命令行直接导出Excle文件"><a class="header-anchor" href="#命令行直接导出Excle文件"></a>命令行直接导出Excle文件</h2>
+<h3 id="在my-ini文件中新增下面的配置，重启MySQL"><a class="header-anchor" href="#在my-ini文件中新增下面的配置，重启MySQL"></a>在my.ini文件中新增下面的配置，重启MySQL</h3>
+<ul>
+<li>在My.ini文件的[mysqld]下面添加；文件路径必须存在否则MySQL服务无法启动</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ""表示所有目录都有权限，也可写成secure_file_priv=""</span></span><br><span class="line">secure-file-priv=""</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止、重启MySQL(不区分大小写)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">C:\Users\liquanhong&gt;net stop MySQL</span><br><span class="line">MySQL 服务正在停止.</span><br><span class="line">MySQL 服务已成功停止。</span><br><span class="line">C:\Users\liquanhong&gt;net start MySQL</span><br><span class="line">MySQL 服务正在启动 .</span><br><span class="line">MySQL 服务已经启动成功。</span><br></pre></td></tr></table></figure>
+<h3 id="命令行登陆到MySQL并选择要使用的数据库-v2"><a class="header-anchor" href="#命令行登陆到MySQL并选择要使用的数据库-v2"></a>命令行登陆到MySQL并选择要使用的数据库</h3>
+<p>语法：mysql -u[用户名] -h[主机所在地址，默认不写是localhost] -p</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line"><span class="keyword">use</span> 数据库名;</span><br></pre></td></tr></table></figure>
+<h3 id="导出命令"><a class="header-anchor" href="#导出命令"></a>导出命令</h3>
+<p>语法：SQL查询语句 into outfile ‘文件路径(左划线分割)’;<br>
+例子一(不含列名)：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 文件后缀可以随便写 txt、csv、xls、xlsx、sql都可以</span></span><br><span class="line"> <span class="keyword">select</span> achievement_id,<span class="keyword">name</span> <span class="keyword">from</span> t_achievement <span class="keyword">limit</span> <span class="number">20</span> <span class="keyword">into</span> <span class="keyword">outfile</span> <span class="string">'d:/export/achievement1.xlsx'</span>;</span><br></pre></td></tr></table></figure>
+<p>例子二(含列名)：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用union all查列名，文件后缀可以随便写 txt、csv、xls、xlsx、sql都可以</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'achievement_id'</span>,<span class="string">'name'</span>  <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> achievement_id,<span class="keyword">name</span> <span class="keyword">from</span> t_achievement <span class="keyword">limit</span> <span class="number">20</span> <span class="keyword">into</span> <span class="keyword">outfile</span> <span class="string">'d:/export/achievement.txt'</span>;</span><br></pre></td></tr></table></figure>
+<p>如果数据库文本有换行，用上面的两个SQL格式会乱，所以需要<strong>对每个字段的数据都用&quot; &quot;包起来，然后用,分割</strong>。<br>
+例子三(支持导出换行的文本不乱码，推荐)：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用union all查列名，FIELDS TERMINATED BY 和ENCLOSED BY把每个字段的数据包起来</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'achievement_id'</span>,<span class="string">'name'</span>  <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> achievement_id,<span class="keyword">name</span> <span class="keyword">from</span> t_achievement <span class="keyword">limit</span> <span class="number">20</span> <span class="keyword">into</span> <span class="keyword">outfile</span> <span class="string">'d:/export/achievement.csv'</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">","</span> <span class="keyword">ENCLOSED</span> <span class="keyword">BY</span> <span class="string">'"'</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="命令行直接导入Excle文件"><a class="header-anchor" href="#命令行直接导入Excle文件"></a>命令行直接导入Excle文件</h2>
+<h3 id="使用命令load-data-local-infile"><a class="header-anchor" href="#使用命令load-data-local-infile"></a>使用命令load data local infile</h3>
+<h4 id="设置客户端加载功能，并选择数据库"><a class="header-anchor" href="#设置客户端加载功能，并选择数据库"></a>设置客户端加载功能，并选择数据库</h4>
+<p>若不设置，会出现Loading local data is disabled； this must be enabled on both the client and server sides错误。<br>
+按顺序执行下面的命令即可：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 登陆MySQL</span></span><br><span class="line">mysql <span class="comment">--local-infile=1 -uroot -p</span></span><br><span class="line"><span class="comment"># 设置客户端加载功能</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> local_infile = <span class="number">1</span>;</span><br><span class="line"><span class="comment"># 选择数据库</span></span><br><span class="line"><span class="keyword">use</span> [数据库名];</span><br></pre></td></tr></table></figure>
+<h4 id="导入命令"><a class="header-anchor" href="#导入命令"></a>导入命令</h4>
+<p>语法：load data local infile ‘文件路径(左划线分割)’  into  table 数据库表名;<br>
+例子：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> <span class="keyword">infile</span> <span class="string">'d:/export/t_achievement_company_map.xls'</span>  <span class="keyword">into</span>  <span class="keyword">table</span> t_achievement_company_map;</span><br></pre></td></tr></table></figure>
+<h3 id="使用命令mysqlimport"><a class="header-anchor" href="#使用命令mysqlimport"></a>使用命令mysqlimport</h3>
+<h4 id="在my-ini文件中新增下面的配置，重启MySQL-v2"><a class="header-anchor" href="#在my-ini文件中新增下面的配置，重启MySQL-v2"></a>在my.ini文件中新增下面的配置，重启MySQL</h4>
+<p>参考前文</p>
+<h4 id="导入命令-v2"><a class="header-anchor" href="#导入命令-v2"></a>导入命令</h4>
+<p>使用命令mysqlimport时文件名必须和数据库里面表名一样。<br>
+语法：mysqlimport  -uroot -p 数据库名  文件路径(左划线分割)<br>
+例子：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">C:\Users\liquanhong&gt; mysqlimport -uroot -p reward_testdb d:/export/t_achievement_company_map.xls</span><br></pre></td></tr></table></figure>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/mysqlimport.html" target="_blank" rel="noopener">详细语法参考官网</a><br>
+写了这么多，还是数据库连接工具香啊😂</p>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BeanUtils和BeanCopier拷贝对象对比</title>
+    <url>/2021/12/01/beanutils_compare_beancopier/</url>
+    <content><![CDATA[<h2 id="需求描述"><a class="header-anchor" href="#需求描述"></a>需求描述</h2>
+<p>在Java后端开发的时候，我们有时为了隔离变化，经常需要把数据库查询出来的实体转为返回前端的对象，我们不希望写很长的set方法去完成，于是可以考虑使用BeanUtils或BeanCopier工具类。下面通过Awards和AwardsResp类的转换简单说明下用法。</p>
+<a id="more"></a>
+<p>Awards类代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Awards</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String topClass;</span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardsDetail&gt; detailList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AwardsResp类代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwardsResp</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String topClass;</span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardsDetailResp&gt; detailList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BeanUtils"><a class="header-anchor" href="#BeanUtils"></a>BeanUtils</h2>
+<p>BeanUtils 是org.springframework.beans下面的一个类。<br>
+简单用法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AwardsResp resp = <span class="keyword">new</span> AwardsResp();</span><br><span class="line">BeanUtils.copyProperties(awards,resp);</span><br></pre></td></tr></table></figure>
+<p>copyProperties方法相关说明：</p>
+<ul>
+<li>不能复制属性名相同但是类型不同的属性(比如Long和Integer)</li>
+<li>不能复制list属性</li>
+<li>可以把map中的属性设置到对象中<br>
+<strong>需要用org.apache.commons.beanutils包下面的类</strong></li>
+</ul>
+<h2 id="BeanCopier"><a class="header-anchor" href="#BeanCopier"></a>BeanCopier</h2>
+<p>BeanCopier是org.springframework.cglib.beans包下面的一个类。<br>
+简单用法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AwardsResp resp = <span class="keyword">new</span> AwardsResp();</span><br><span class="line"><span class="comment">// 获取对象</span></span><br><span class="line"><span class="comment">// 第三个参数userConverter,是否开启Convert,默认BeanCopier只会做同名。对于属性名相同类型不同的需要自己写转换器</span></span><br><span class="line">BeanCopier copier = BeanCopier.create(awards.getClass(), resp.getClass(), <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 开始复制</span></span><br><span class="line"><span class="comment">// 第三个参数也是转换器</span></span><br><span class="line">copier.copy(awards, resp, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>copy方法相关说明：</p>
+<ul>
+<li>默认不能复制属性名相同但是类型不同的属性(比如Long和Integer)。当然可以自己写转换器实现。</li>
+<li>可以&quot;复制&quot;list属性(<strong>只是把对象的引用指向改变了</strong>)<br>
+比如复制后AwardsResp的detailList指向的是Awards的detailList对象地址，Awards的detailList是什么样最终返回的就是什么样，不受List<AwardsDetailResp>中的类型影响。</li>
+</ul>
+<h2 id="Gson或者Fastjson实现对象拷贝"><a class="header-anchor" href="#Gson或者Fastjson实现对象拷贝"></a>Gson或者Fastjson实现对象拷贝</h2>
+<p>BeanUtils和BeanCopier都不真正支持复制list属性，用Gson或者Fastjson就可以实现。<br>
+Gson代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">AwardsResp resq = gson.fromJson(gson.toJson(awards),AwardsResp.class);</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/a1275302036/article/details/119544832" target="_blank" rel="noopener">参考链接</a></p>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MyBatis大数据量批量插入或者更新(on duplicate key update)的详细说明以及项目碰坑记录</title>
     <url>/2021/11/21/on_duplicate_key_update/</url>
     <content><![CDATA[<h2 id="背景"><a class="header-anchor" href="#背景"></a>背景</h2>
@@ -781,7 +904,7 @@ Template text的代码如下：</p>
     <url>/2021/06/12/java_create_mysql_date/</url>
     <content><![CDATA[<h2 id="生成数据"><a class="header-anchor" href="#生成数据"></a>生成数据</h2>
 <p>用for循环不断的往字符流中写数据，然后输出到文件系统。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过IO流造100万条文本数据并输出到磁盘</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateData</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File writeName = <span class="keyword">new</span> File(<span class="string">"F:\\log.txt"</span>);</span><br><span class="line">            <span class="comment">//如果没有则新建一个文件，有同名的则覆盖</span></span><br><span class="line">            writeName.createNewFile();</span><br><span class="line">            <span class="keyword">try</span> (FileWriter writer = <span class="keyword">new</span> FileWriter(writeName);</span><br><span class="line">                 BufferedWriter out = <span class="keyword">new</span> BufferedWriter(writer)</span><br><span class="line">            ) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i= <span class="number">1</span>;i&lt;<span class="number">1000001</span>;i++)&#123;</span><br><span class="line">                    out.write(i+<span class="string">"\t"</span>+  <span class="comment">//自增主键</span></span><br><span class="line">                            <span class="string">"192.168.43.151"</span>+<span class="string">"\t"</span>+</span><br><span class="line">                            <span class="string">"user_"</span>+i+<span class="string">"\t"</span>+</span><br><span class="line">                            <span class="string">"我是测试日志内容\r\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                out.flush();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过IO流造100万条文本数据并输出到磁盘</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateData</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File writeName = <span class="keyword">new</span> File(<span class="string">"F:\\log.txt"</span>);</span><br><span class="line">            <span class="comment">//如果没有则新建一个文件，有同名的则覆盖</span></span><br><span class="line">            writeName.createNewFile();</span><br><span class="line">            <span class="keyword">try</span> (FileWriter writer = <span class="keyword">new</span> FileWriter(writeName);</span><br><span class="line">                 BufferedWriter out = <span class="keyword">new</span> BufferedWriter(writer)</span><br><span class="line">            ) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i= <span class="number">1</span>;i&lt;<span class="number">1000001</span>;i++)&#123;</span><br><span class="line">                    out.write(i+<span class="string">"\t"</span>+  <span class="comment">//自增主键</span></span><br><span class="line">                            <span class="string">"192.168.43.151"</span>+<span class="string">"\t"</span>+</span><br><span class="line">                            <span class="string">"user_"</span>+i+<span class="string">"\t"</span>+</span><br><span class="line">                            <span class="string">"我是测试日志内容\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                out.flush();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>导出后log.txt部分数据如下：<br>
 1	192.168.43.151	user_1	我是测试日志内容<br>
