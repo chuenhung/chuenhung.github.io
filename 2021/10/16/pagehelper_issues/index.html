@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="我可能在扯淡">
 <meta property="og:description" content="问题描述 在使用PageHelper进行分页的时候，大部分时候都是正常的，但是有一个接口的分页总数一直有问题(为当前页的数量、页数一直为1)。先看看目前的代码:">
 <meta property="article:published_time" content="2021-10-16T14:53:00.000Z">
-<meta property="article:modified_time" content="2021-10-16T14:53:00.000Z">
+<meta property="article:modified_time" content="2021-12-05T03:53:00.000Z">
 <meta property="article:author" content="Li Quanhong">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="PageHelper">
@@ -349,6 +349,13 @@
               </time>
             
 			
+			  <span class="post-updated">
+				&nbsp; | &nbsp; 更新于
+				<time itemprop="dateUpdated" datetime="2021-12-05T11:53:00+08:00" content="2021-12-05 11:53">
+				  2021-12-05 11:53
+				</time>
+			  </span>
+			
             
 
             
@@ -409,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  625字
+                  747字
                 </span>
               
 
@@ -465,6 +472,14 @@
 <h2 id="问题解决"><a class="header-anchor" href="#问题解决"></a>问题解决</h2>
 <p>把服务层代码修改一下，核心就是数据库查出list后，直接创建PageInfo对象，具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置分页</span></span><br><span class="line">PageHelper.startPage(pageReq.getPage(),pageReq.getRows());</span><br><span class="line">List&lt;Map&lt;String, Object&gt;&gt; list = policyTypeMapper.queryPolicyTypeList(BeanMap.create(pageReq));</span><br><span class="line"><span class="keyword">if</span>(list == <span class="keyword">null</span> || list.size()&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取分页数据</span></span><br><span class="line">PageInfo&lt;Map&lt;String, Object&gt;&gt; pageInfo = <span class="keyword">new</span> PageInfo&lt;&gt;(list,pageReq.getPage());</span><br></pre></td></tr></table></figure>
+<h2 id="其他问题"><a class="header-anchor" href="#其他问题"></a>其他问题</h2>
+<p>在分页开始后对pageReq进行数据封装也会使分页失效。解决方法一样：PageHelper代码放在操作数据库前后(Mapper层)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取分页</span></span><br><span class="line">PageHelper.startPage(pageReq.getPage(),pageReq.getRows());</span><br><span class="line"><span class="comment">// 如果对pageReq进行数据封装也会使分页失效</span></span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a class="header-anchor" href="#小结"></a>小结</h2>
+<ul>
+<li>用PageHelper分页不能对pageReq对象进行赋值，不能对查询出的结果进行对象转换。</li>
+<li>PageHelper代码要放在service层，且紧跟着查询数据库的代码。</li>
+</ul>
 
       
     </div>
@@ -629,7 +644,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">97</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -684,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">2.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">2.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">4.</span> <span class="nav-text">其他问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
