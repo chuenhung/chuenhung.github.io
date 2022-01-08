@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL表备份语句（包括索引等）</title>
+    <url>/2022/01/09/mysql_backup_table_sql/</url>
+    <content><![CDATA[<h2 id="快速备份表字段和数据-不包含主键、索引"><a class="header-anchor" href="#快速备份表字段和数据-不包含主键、索引"></a>快速备份表字段和数据(不包含主键、索引)</h2>
+<p>语法：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;新表名&gt;  </span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> &lt;旧表名&gt;;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="快速备份表字段-不包含主键、索引"><a class="header-anchor" href="#快速备份表字段-不包含主键、索引"></a>快速备份表字段(不包含主键、索引)</h2>
+<p>语法：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;新表名&gt;  </span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> &lt;旧表名&gt; <span class="keyword">WHERE</span> <span class="number">1</span> &lt;&gt; <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="备份表字段-包含主键、索引-和数据"><a class="header-anchor" href="#备份表字段-包含主键、索引-和数据"></a>备份表字段(包含主键、索引)和数据</h2>
+<p>第一步，备份表字段(包含主键、索引)，语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;新表名&gt; <span class="keyword">LIKE</span> &lt;旧表名&gt;;</span><br></pre></td></tr></table></figure>
+<p>第二步，迁移数据：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span>  &lt;新表名&gt; <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> &lt;旧表名&gt;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL把带有分隔符的数据迁移到另一个表</title>
+    <url>/2022/01/08/mysql_migrate_delimited_data/</url>
+    <content><![CDATA[<h2 id="需求"><a class="header-anchor" href="#需求"></a>需求</h2>
+<p>需要把t_achievement表的所属公司id（company_id）、所属公司名称（company_name）、insert_time字段迁移到t_achievement_company_map表，其中company_id和company_name都是通过&quot;、&quot;拼接。这个时候就需要<a href="https://blog.csdn.net/weixin_45127309/article/details/104504970?utm_term=mysql%E5%B0%86%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E6%8B%86%E5%88%86&amp;utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-104504970&amp;spm=3001.4430" target="_blank" rel="noopener">根据分隔符将一行数据拆分成多行数据</a>。t_achievement_company_map表结构如下图所示：</p>
+<a id="more"></a>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t_achievement_company_map`</span> (</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键id'</span>,</span><br><span class="line">	<span class="string">`type`</span> <span class="built_in">VARCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span> <span class="string">'所属类别   1研发单位  2销售单位  3所属公司'</span> <span class="keyword">COLLATE</span> <span class="string">'utf8_general_ci'</span>,</span><br><span class="line">	<span class="string">`achievement_id`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'成果库id'</span>,</span><br><span class="line">	<span class="string">`company_id`</span> <span class="built_in">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span> <span class="string">'t_company表id'</span> <span class="keyword">COLLATE</span> <span class="string">'utf8_general_ci'</span>,</span><br><span class="line">	<span class="string">`company_name`</span> <span class="built_in">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'t_company表name'</span> <span class="keyword">COLLATE</span> <span class="string">'utf8_general_ci'</span>,</span><br><span class="line">	<span class="string">`insert_time`</span> <span class="built_in">BIGINT</span>(<span class="number">19</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'录入时间'</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">)</span><br><span class="line"><span class="keyword">COMMENT</span>=<span class="string">'集团级成果库与公司关联表'</span></span><br><span class="line"><span class="keyword">COLLATE</span>=<span class="string">'utf8_general_ci'</span></span><br><span class="line"><span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span></span><br><span class="line">AUTO_INCREMENT=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="关键函数"><a class="header-anchor" href="#关键函数"></a>关键函数</h2>
+<p>substring_index(str,delim,count)</p>
+<ul>
+<li>str是要处理的字符串</li>
+<li>delim是分隔符</li>
+<li>count如果是正数从左往右计数，如果是负数从右往左计数<br>
+举几个例子：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 返回550000</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTRING_INDEX(<span class="string">'550000、680000、470000、120000'</span>,<span class="string">'、'</span>,<span class="number">1</span>)</span><br><span class="line"><span class="comment">-- 返回550000、680000、470000</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTRING_INDEX(<span class="string">'550000、680000、470000、120000'</span>,<span class="string">'、'</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">-- 返回120000</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTRING_INDEX(<span class="string">'550000、680000、470000、120000'</span>,<span class="string">'、'</span>,<span class="number">-1</span>)</span><br><span class="line"><span class="comment">-- 返回680000、470000、120000</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTRING_INDEX(<span class="string">'550000、680000、470000、120000'</span>,<span class="string">'、'</span>,<span class="number">-3</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="迁移步骤（方法一）"><a class="header-anchor" href="#迁移步骤（方法一）"></a>迁移步骤（方法一）</h2>
+<h3 id="先查询出cmpany-id字段长度最大的记录"><a class="header-anchor" href="#先查询出cmpany-id字段长度最大的记录"></a>先查询出cmpany_id字段长度最大的记录</h3>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(<span class="keyword">length</span>(company_id)) <span class="keyword">FROM</span> t_achievement;</span><br><span class="line"><span class="comment">-- 返回company_id为"110000、120000、130000、150000、170100、490200"</span></span><br><span class="line"><span class="keyword">SELECT</span> achievement_id,company_id,company_name <span class="keyword">FROM</span> t_achievement <span class="keyword">WHERE</span> <span class="keyword">length</span>(company_id)=<span class="number">51</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="往auto-increment表插入数据"><a class="header-anchor" href="#往auto-increment表插入数据"></a>往auto_increment表插入数据</h3>
+<p>auto_increment表的建表sql如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`auto_increment`</span> (</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">COLLATE</span>=<span class="string">'utf8_general_ci'</span></span><br><span class="line"><span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>上面查询出的最大company_id为&quot;110000、120000、130000、150000、170100、490200&quot;。所以至少需要在auto_increment表中插入6条记录。</p>
+<h3 id="开始迁移"><a class="header-anchor" href="#开始迁移"></a>开始迁移</h3>
+<p>如果有些company_id不足6个就会重复，加入DISTINCT去重就行。具体代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_achievement_company_map(<span class="keyword">TYPE</span>,achievement_id,company_id,company_name,insert_time)</span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="keyword">DISTINCT</span> <span class="string">'3'</span>, </span><br><span class="line">	 a.achievement_id <span class="keyword">AS</span> achievement_id,</span><br><span class="line">    substring_index(</span><br><span class="line">        substring_index(</span><br><span class="line">            a.company_id,</span><br><span class="line">            <span class="string">'、'</span>,</span><br><span class="line">            b.id+ <span class="number">1</span></span><br><span class="line">        ),</span><br><span class="line">        <span class="string">'、'</span> ,- <span class="number">1</span></span><br><span class="line">    ) <span class="keyword">AS</span> company_id,</span><br><span class="line">    substring_index(</span><br><span class="line">        substring_index(</span><br><span class="line">            a.company_name,</span><br><span class="line">            <span class="string">'、'</span>,</span><br><span class="line">            b.id+ <span class="number">1</span></span><br><span class="line">        ),</span><br><span class="line">        <span class="string">'、'</span> ,- <span class="number">1</span></span><br><span class="line">    ) <span class="keyword">AS</span> company_name,</span><br><span class="line">    a.insert_time <span class="keyword">AS</span> insert_time</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    t_achievement a</span><br><span class="line"><span class="keyword">JOIN</span> auto_increment b <span class="keyword">ON</span> b.id &lt; (</span><br><span class="line">    <span class="keyword">length</span>(a.company_id) - <span class="keyword">length</span>(</span><br><span class="line">        <span class="keyword">REPLACE</span> (a.company_id, <span class="string">'、'</span>, <span class="string">''</span>)</span><br><span class="line">    ) + <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> company_id <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">AND</span> company_name <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+<h2 id="迁移步骤（方法二）"><a class="header-anchor" href="#迁移步骤（方法二）"></a>迁移步骤（方法二）</h2>
+<p>利用MySQL的help_topic中的help_topic_id，即把auto_increment 替换为mysql.help_topic、id替换为help_topic_id。具体代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test.t_achievement_company_map(<span class="keyword">TYPE</span>,achievement_id,company_id,company_name,insert_time)</span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="keyword">DISTINCT</span> <span class="string">'3'</span>, </span><br><span class="line">	 a.achievement_id <span class="keyword">AS</span> achievement_id,</span><br><span class="line">    substring_index(</span><br><span class="line">        substring_index(</span><br><span class="line">            a.company_id,</span><br><span class="line">            <span class="string">'、'</span>,</span><br><span class="line">            b.help_topic_id+ <span class="number">1</span></span><br><span class="line">        ),</span><br><span class="line">        <span class="string">'、'</span> ,- <span class="number">1</span></span><br><span class="line">    ) <span class="keyword">AS</span> company_id,</span><br><span class="line">    substring_index(</span><br><span class="line">        substring_index(</span><br><span class="line">            a.company_name,</span><br><span class="line">            <span class="string">'、'</span>,</span><br><span class="line">            b.help_topic_id+ <span class="number">1</span></span><br><span class="line">        ),</span><br><span class="line">        <span class="string">'、'</span> ,- <span class="number">1</span></span><br><span class="line">    ) <span class="keyword">AS</span> company_name,</span><br><span class="line">    a.insert_time <span class="keyword">AS</span> insert_time</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    test.t_achievement a</span><br><span class="line"><span class="keyword">JOIN</span> mysql.help_topic b <span class="keyword">ON</span> b.help_topic_id  &lt; (</span><br><span class="line">    <span class="keyword">length</span>(a.company_id) - <span class="keyword">length</span>(</span><br><span class="line">        <span class="keyword">REPLACE</span> (a.company_id, <span class="string">'、'</span>, <span class="string">''</span>)</span><br><span class="line">    ) + <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> company_id <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">AND</span> company_name <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java List对象拷贝(属性相同)</title>
+    <url>/2022/01/08/list_object_copy/</url>
+    <content><![CDATA[<h2 id="方法一"><a class="header-anchor" href="#方法一"></a>方法一</h2>
+<ul>
+<li>循环originList</li>
+<li>用Fastjson或者Gson把每一个元素转为JSON字符串</li>
+<li>再把JSON字符串转为Java目标实体对象</li>
+<li>把目标实体对象加入到集合中<br>
+Gson代码如下：</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;T&gt; distinList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line"><span class="keyword">for</span> (Object  obj : originList) &#123;</span><br><span class="line">	T t = gson.fromJson(gson.toJson(obj),T.class);</span><br><span class="line">	<span class="comment">// do something</span></span><br><span class="line">	distinList.add(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法一适用于需要对单个属性处理的场景，如果不需要对单个属性单独处理参考方法二。</p>
+<h2 id="方法二"><a class="header-anchor" href="#方法二"></a>方法二</h2>
+<ul>
+<li>用Fastjson或者Gson把list转为JSON字符串</li>
+<li>再把JSON字符串转为Java实体集合对象<br>
+Gson代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">List&lt;T&gt; distinList = gson.fromJson(gson.toJson(originList),<span class="keyword">new</span> TypeToken&lt;List&lt;T&gt;&gt;()&#123;&#125;.getType());</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Fastjson</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IntelliJ IDEA中External Libraries删除多余的jar</title>
     <url>/2021/12/05/delete_external_jar_in_idea/</url>
     <content><![CDATA[<p>有时候把pom.xml依赖去除了，但是IntelliJ IDEA中External Libraries还显示之前的依赖。解决方法如下：</p>
@@ -6050,9 +6143,9 @@ java代码：</p>
       <tags>
         <tag>Java</tag>
         <tag>MySQL</tag>
-        <tag>Spring</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -7494,9 +7587,9 @@ sql列子：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Spring</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
+        <tag>Spring</tag>
         <tag>POI</tag>
       </tags>
   </entry>
