@@ -192,9 +192,9 @@ java.lang.IllegalStateException: Duplicate key 11<br>
         <tag>Linux</tag>
         <tag>Java</tag>
         <tag>MySQL</tag>
-        <tag>MyBatis</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -6340,9 +6340,9 @@ java代码：</p>
       <tags>
         <tag>Java</tag>
         <tag>MySQL</tag>
+        <tag>Spring</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -7046,8 +7046,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Linux</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -7086,8 +7086,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Nginx</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -7784,9 +7784,9 @@ sql列子：</p>
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Spring</tag>
         <tag>jQuery</tag>
         <tag>MyBatis</tag>
-        <tag>Spring</tag>
         <tag>POI</tag>
       </tags>
   </entry>
