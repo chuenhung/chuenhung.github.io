@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  900字
+                  907字
                 </span>
               
 
@@ -489,7 +489,7 @@
 <p>例子二(含列名)：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用union all查列名，文件后缀可以随便写 txt、csv、xls、xlsx、sql都可以</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'achievement_id'</span>,<span class="string">'name'</span>  <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> achievement_id,<span class="keyword">name</span> <span class="keyword">from</span> t_achievement <span class="keyword">limit</span> <span class="number">20</span> <span class="keyword">into</span> <span class="keyword">outfile</span> <span class="string">'d:/export/achievement.txt'</span>;</span><br></pre></td></tr></table></figure>
 <p>如果数据库文本有换行，用上面的两个SQL格式会乱，所以需要<strong>对每个字段的数据都用&quot; &quot;包起来，然后用,分割</strong>。<br>
-例子三(支持导出换行的文本不乱码，推荐)：</p>
+例子三(支持导出换行的文本不乱码，需要csv格式才行，推荐)：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用union all查列名，FIELDS TERMINATED BY 和ENCLOSED BY把每个字段的数据包起来</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'achievement_id'</span>,<span class="string">'name'</span>  <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> achievement_id,<span class="keyword">name</span> <span class="keyword">from</span> t_achievement <span class="keyword">limit</span> <span class="number">20</span> <span class="keyword">into</span> <span class="keyword">outfile</span> <span class="string">'d:/export/achievement.csv'</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">","</span> <span class="keyword">ENCLOSED</span> <span class="keyword">BY</span> <span class="string">'"'</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="命令行直接导入Excle文件"><a class="header-anchor" href="#命令行直接导入Excle文件"></a>命令行直接导入Excle文件</h2>
 <h3 id="使用命令load-data-local-infile"><a class="header-anchor" href="#使用命令load-data-local-infile"></a>使用命令load data local infile</h3>
