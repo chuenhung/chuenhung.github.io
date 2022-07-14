@@ -152,8 +152,8 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Nginx</tag>
+        <tag>Linux</tag>
         <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
@@ -613,7 +613,10 @@ git log<br>
 <p>xml映射文件代码：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"nextList"</span> <span class="attr">ofType</span>=<span class="string">"com.aspirecn.kjcgkmh.rms.vo.RecommendedReadingVo"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">select</span>=<span class="string">"selectNextList"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">column</span>=<span class="string">"&#123;id=id,projectYear=project_year,cgkCompanyCode=cgk_company_code,roleKey=roleKey&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>其中，id、project_year、cgk_company_code是当前表的字段，id、projectYear、cgkCompanyCode作为SQL查询参数传入id为selectNextList的SQL。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 后五条 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectNextList"</span> <span class="attr">resultType</span>=<span class="string">"com.aspirecn.kjcgkmh.rms.vo.RecommendedReadingVo"</span>&gt;</span></span><br><span class="line">  SELECT project_code,project_name</span><br><span class="line">  FROM t_project_base_info</span><br><span class="line">  WHERE delete_flag = 0</span><br><span class="line">  <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleKey != null and roleKey != ''"</span>&gt;</span></span><br><span class="line">    and cgk_company_code = #&#123;cgkCompanyCode&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">  AND ((project_year = #&#123;projectYear&#125; and id &amp;lt; #&#123;id&#125;) or project_year &amp;lt; #&#123;projectYear&#125;)</span><br><span class="line">  order by project_year desc,id desc</span><br><span class="line">  LIMIT 0,5</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 前五条 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectPreviousList"</span> <span class="attr">resultType</span>=<span class="string">"com.aspirecn.kjcgkmh.rms.vo.RecommendedReadingVo"</span>&gt;</span></span><br><span class="line">  SELECT project_code,project_name</span><br><span class="line">  FROM t_project_base_info</span><br><span class="line">  WHERE delete_flag = 0</span><br><span class="line">  <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleKey != null and roleKey != ''"</span>&gt;</span></span><br><span class="line">    and cgk_company_code = #&#123;cgkCompanyCode&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">  AND ((project_year = #&#123;projectYear&#125; and id &gt; #&#123;id&#125;) or project_year &gt; #&#123;projectYear&#125;)</span><br><span class="line">  order by project_year asc,id asc</span><br><span class="line">  LIMIT 0,5</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 后五条 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectNextList"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"com.aspirecn.kjcgkmh.rms.vo.RecommendedReadingVo"</span>&gt;</span></span><br><span class="line">  SELECT project_code,project_name</span><br><span class="line">  FROM t_project_base_info</span><br><span class="line">  WHERE delete_flag = 0 and cgk_company_code !=100</span><br><span class="line">  <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleKey != null and roleKey != ''"</span>&gt;</span></span><br><span class="line">    and cgk_company_code = #&#123;cgkCompanyCode&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">  and ((project_year = #&#123;projectYear&#125; and id &amp;lt; #&#123;id&#125;) or project_year &amp;lt; #&#123;projectYear&#125;)</span><br><span class="line">  order by project_year desc,id desc</span><br><span class="line">  LIMIT 0,5</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 前五条 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectPreviousList"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"com.aspirecn.kjcgkmh.rms.vo.RecommendedReadingVo"</span>&gt;</span></span><br><span class="line">  SELECT project_code,project_name</span><br><span class="line">  FROM t_project_base_info</span><br><span class="line">  WHERE delete_flag = 0 and cgk_company_code !=100</span><br><span class="line">  <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleKey != null and roleKey != ''"</span>&gt;</span></span><br><span class="line">    and cgk_company_code = #&#123;cgkCompanyCode&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">  and ((project_year = #&#123;projectYear&#125; and id &gt; #&#123;id&#125;) or project_year &gt; #&#123;projectYear&#125;)</span><br><span class="line">  order by project_year asc,id asc</span><br><span class="line">  LIMIT 0,5</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Mapper.java代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">List&lt;RecommendedReadingVo&gt; <span class="title">selectNextList</span><span class="params">(Map&lt;String,Object&gt; map)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>注意，因为接收有多个参数，<strong>方法的参数应该为map类型(即使只有一个参数)</strong>，否则会报错！</p>
 <h2 id="Springboot获取配置文件属性的几种方法"><a class="header-anchor" href="#Springboot获取配置文件属性的几种方法"></a>Springboot获取配置文件属性的几种方法</h2>
 <p><a href="https://blog.csdn.net/baidu_35160588/article/details/100749171" target="_blank" rel="noopener">参考链接1</a>、<a href="https://www.cnblogs.com/zad27/p/10483484.html" target="_blank" rel="noopener">参考链接2</a></p>
 <h2 id="BeanMap不能进行put操作"><a class="header-anchor" href="#BeanMap不能进行put操作"></a>BeanMap不能进行put操作</h2>
@@ -7569,8 +7572,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Linux</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -7609,8 +7612,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Nginx</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
