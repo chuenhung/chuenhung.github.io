@@ -348,6 +348,13 @@
               </time>
             
 			
+			  <span class="post-updated">
+				&nbsp; | &nbsp; 更新于
+				<time itemprop="dateUpdated" datetime="2022-09-06T21:35:00+08:00" content="2022-09-06 21:35">
+				  2022-09-06 21:35
+				</time>
+			  </span>
+			
             
 
             
@@ -446,17 +453,11 @@
 
       
         
-          <h2 id="ZipOutputStream打包文件成一个zip，自定义写入文件夹和文件"><a class="header-anchor" href="#ZipOutputStream打包文件成一个zip，自定义写入文件夹和文件"></a>ZipOutputStream打包文件成一个zip，自定义写入文件夹和文件</h2>
-<p>Java实现将文件(包括压缩包)、文件夹压缩成zip，并且压缩包里面保留文件夹结构<br>
-<a href="https://www.cnblogs.com/zeng1994/p/7862288.html" target="_blank" rel="noopener">参考链接</a>、<a href="https://www.bilibili.com/video/BV1wK4y1Z7h9?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener">参考链接</a> 、<a href="https://blog.csdn.net/wolfies/article/details/79523181" target="_blank" rel="noopener">参考链接</a></p>
-<h2 id="Get请求且用-号形式传参，那么list参数必须加-RequestParam主键否则会报错"><a class="header-anchor" href="#Get请求且用-号形式传参，那么list参数必须加-RequestParam主键否则会报错"></a>Get请求且用?号形式传参，那么list参数必须加@RequestParam主键否则会报错</h2>
-<p><a href="https://blog.csdn.net/weixin_43404791/article/details/105664692?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1-105664692-blog-88707785.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1-105664692-blog-88707785.pc_relevant_default&amp;utm_relevant_index=1" target="_blank" rel="noopener">参考链接</a></p>
-<h2 id="Java7文件复制方法"><a class="header-anchor" href="#Java7文件复制方法"></a>Java7文件复制方法</h2>
-<p>Java源码中有Files.copy(source, target, options)方法，options可以不传值。<br>
-例如：D:/a.txt文件要复制到E:/xx/b.txt中，先要得到得到两文件的path。<br>
-Ps：这里要求目标文件b.txt文件不存在(存在会报错)，而且目标文件的路径必须要有，源代码方法中没有创建dir的方法。<br>
-参考代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//要确认拷贝的路径存在</span></span><br><span class="line">File destDir = <span class="keyword">new</span> File(<span class="string">"E:/xx"</span>);</span><br><span class="line"><span class="keyword">if</span>(!(destDir.exists()&amp;&amp; destDir.isDirectory())) &#123;</span><br><span class="line">	destDir.mkdirs();</span><br><span class="line">&#125;</span><br><span class="line">File source = <span class="keyword">new</span> File(<span class="string">"D:/a.txt"</span>);</span><br><span class="line">File dest = <span class="keyword">new</span> File(<span class="string">"E:/xx/b.txt"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	Files.copy(source.toPath(), dest.toPath());</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">	 e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
+<blockquote>
+<p>好记性不如烂笔头</p>
+</blockquote>
+<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2022/09/03/coding_notes_nine/#more" rel="contents">
