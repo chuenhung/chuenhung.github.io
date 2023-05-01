@@ -1516,10 +1516,10 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Maven</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
-        <tag>Maven</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
       </tags>
