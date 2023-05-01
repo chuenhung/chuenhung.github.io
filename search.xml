@@ -1516,10 +1516,10 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Maven</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
+        <tag>Maven</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
       </tags>
@@ -4678,15 +4678,22 @@ intercept方法返回<br>
 <li>spring-core-5.2.6.RELEASE.jar</li>
 <li>spring-expression-5.2.6.RELEASE.jar</li>
 </ul>
-<p>AspectJ的切入点表达式相关说明如下：</p>
+<h4 id="AspectJ的切入点表达式语法说明"><a class="header-anchor" href="#AspectJ的切入点表达式语法说明"></a>AspectJ的切入点表达式语法说明</h4>
 <ul>
-<li>作用<br>
-知道对哪个类里面的哪个方法进行增强</li>
 <li>语法</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">execution([权限修饰符] [返回类型] [类全路径] [方法名称]([参数列表]) )</span><br></pre></td></tr></table></figure>
 <ul>
-<li>示例</li>
+<li>示例语法详细说明</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">execution (* com.sample.service.impl..*. *(..))</span><br></pre></td></tr></table></figure>
+<p>1、execution(): 表达式主体。<br>
+2、第一个*号：表示返回类型， <em>号表示所有的类型。<br>
+3、包名：表示需要拦截的包名，后面的两个句点表示当前包和当前包的所有子包，com.sample.service.impl包、子孙包下所有类的方法。<br>
+4、第二个</em>号：表示类名，<em>号表示所有的类。<br>
+5、</em>(…):最后这个星号表示方法名，*号表示所有的方法，后面括弧里面表示方法的参数，两个句点表示任何参数</p>
+<ul>
+<li>其他示例</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//例1 对com.dao.BookDao 类里面的 add 进行增强</span></span><br><span class="line">execution(* com.dao.BookDao.add(..))</span><br><span class="line"><span class="comment">// 例2 对多个方法进行增强 用||和or都可以</span></span><br><span class="line">execution(* com.dao.BookDao.add(..))  || excution(* com.dao.BookDao.delete(..))</span><br><span class="line"><span class="meta">@AfterReturning</span>(value = <span class="string">"execution(* com.dao.BookDao.add(..)) || execution(* com.dao.BookDao.delete(..))"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//例3 对com.dao.BookDao 类里面的所有的方法进行增强</span></span><br><span class="line">execution(* com.dao.BookDao.* (..))</span><br><span class="line"><span class="comment">//例4 对com.dao 包里面所有类里面的所有方法进行增强</span></span><br><span class="line">execution(* com.dao.*.* (..))</span><br></pre></td></tr></table></figure>
 <h4 id="基于注解实现"><a class="header-anchor" href="#基于注解实现"></a>基于注解实现</h4>
@@ -4767,6 +4774,19 @@ java.lang.ArithmeticException: / by zero</p>
 I am before…<br>
 I want to buy a book…<br>
 I am afterReturn…</p>
+<h3 id="AspectJ获取方法参数和返回值"><a class="header-anchor" href="#AspectJ获取方法参数和返回值"></a>AspectJ获取方法参数和返回值</h3>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取方法参数</span></span><br><span class="line"><span class="comment">// joinPoint.getArgs() 返回方法参数数组，0、1、2对应第1、2、3个参数</span></span><br><span class="line"><span class="meta">@AfterReturning</span>(value = <span class="string">"execution(* com.xxxImpl.doBusiness(..))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">secondProposition</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">	PropositionApprovalBo bo = (PropositionApprovalBo) joinPoint.getArgs()[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取方法返回值</span></span><br><span class="line"><span class="meta">@AfterReturning</span>(value = <span class="string">"execution(* com.xxxImpl.addPropositionList(..))"</span>,</span><br><span class="line">				returning=<span class="string">"returnValue"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPropositionList</span><span class="params">(JoinPoint joinPoint, Object returnValue)</span></span>&#123;</span><br><span class="line">	List&lt;PropositionCollect&gt; propositionCollectList = (List&lt;PropositionCollect&gt;) returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>只使用返回值时，joinPoint可以省略。</strong></p>
+<h3 id="AOP失效场景"><a class="header-anchor" href="#AOP失效场景"></a>AOP失效场景</h3>
+<p><strong>1、类内部调用被代理方法，此时被代理方法并不会被增强。<br>
+2、被代理方法非public修饰 (未验证，最好改为public)。</strong></p>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PropositionManageServiceImpl</span> <span class="keyword">implements</span> <span class="title">PropositionManageService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BatchImport</span><span class="params">(MultipartFile file, ISessionUser sessionUser)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.addPropositionList();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;PropositionCollect&gt; <span class="title">addPropositionList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>由于addPropositionList方法是在PropositionManageServiceImpl类内部调用的，所以AOP代理会失效。不会执行这个切面方法。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AfterReturning</span>(value = <span class="string">"execution(* com.xxxImpl.addPropositionList(..))"</span>,</span><br><span class="line">				returning=<span class="string">"returnValue"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPropositionList</span><span class="params">(JoinPoint joinPoint, Object returnValue)</span></span>&#123;</span><br><span class="line">	List&lt;PropositionCollect&gt; propositionCollectList = (List&lt;PropositionCollect&gt;) returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决方法：使用service调用需要代理的方法。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PropositionManageServiceImpl</span> <span class="keyword">implements</span> <span class="title">PropositionManageService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PropositionManageService propositionManageService;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BatchImport</span><span class="params">(MultipartFile file, ISessionUser sessionUser)</span> </span>&#123;</span><br><span class="line">		propositionManageService.addPropositionList();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;PropositionCollect&gt; <span class="title">addPropositionList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>如有错误，欢迎指正！</strong></p>
 ]]></content>
       <categories>
