@@ -123,8 +123,8 @@ strip-prefix可用于路由配置和zuul.routes.routeName.path结合使用</p>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Java</tag>
+        <tag>Nginx</tag>
         <tag>Centos</tag>
         <tag>Zuul</tag>
       </tags>
@@ -1516,10 +1516,10 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Maven</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
+        <tag>Maven</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
       </tags>
@@ -1912,9 +1912,9 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
         <category>Java</category>
       </categories>
       <tags>
+        <tag>Java</tag>
         <tag>Linux</tag>
         <tag>Nginx</tag>
-        <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>MyBatis</tag>
       </tags>
@@ -2157,9 +2157,9 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
         <category>Java</category>
       </categories>
       <tags>
+        <tag>Java</tag>
         <tag>Linux</tag>
         <tag>Nginx</tag>
-        <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
@@ -2720,8 +2720,8 @@ java.lang.IllegalStateException: Duplicate key 11<br>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Java</tag>
+        <tag>Linux</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
@@ -3711,8 +3711,8 @@ Template text的代码如下：</p>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Java</tag>
+        <tag>Git</tag>
         <tag>PostgreSQL</tag>
       </tags>
   </entry>
@@ -8421,8 +8421,8 @@ SUBSCRIBE 、PUBLISH</li>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Java</tag>
+        <tag>Git</tag>
         <tag>MySQL</tag>
       </tags>
   </entry>
@@ -9993,8 +9993,8 @@ would not be able to go to school</p>
         <category>Git</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Java</tag>
+        <tag>Git</tag>
         <tag>Gitblit</tag>
         <tag>Copssh</tag>
       </tags>
@@ -10519,8 +10519,8 @@ suffixOverrides	去除sql语句后面的关键字或者字符，该关键字或�
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MyBatis</tag>
         <tag>JavaScript</tag>
+        <tag>MyBatis</tag>
         <tag>jQuery</tag>
         <tag>Tomcat</tag>
         <tag>JSP</tag>
