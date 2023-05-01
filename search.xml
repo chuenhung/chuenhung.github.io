@@ -1,6 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java程序猿搬砖笔记(十二)</title>
+    <url>/2023/05/02/coding_notes_twelve/</url>
+    <content><![CDATA[<h2 id="PostConstruct注解"><a class="header-anchor" href="#PostConstruct注解"></a>@PostConstruct注解</h2>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(&#123;<span class="string">"com.aspirecn.external.reward"</span>&#125;)</span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"com.aspirecn.external.reward.mapper"</span>)</span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExternalRewardConfiguration</span> </span>&#123;</span><br><span class="line">   <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"自动装配ExternalRewardConfiguration"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/sunayn/article/details/92840439" target="_blank" rel="noopener">参考链接</a></p>
+<a id="more"></a>
+<h2 id="Mybatis的mapper-locations配置"><a class="header-anchor" href="#Mybatis的mapper-locations配置"></a>Mybatis的mapper-locations配置</h2>
+<ul>
+<li>当mapper接口和mapper接口对应的配置文件在命名上相同、所在的路径相同时，则mapper-locations可以不用配置，配置也不会生效。</li>
+<li>当mapper接口和mapper接口对应的配置文件在命名上不相同、或者所在的路径不相同时，需要配置mapper-locations才能实现接口的绑定</li>
+</ul>
+<p><strong>YML文件配置参考：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  mapper-locations: classpath:mapper<span class="comment">/*Mapper.xml,classpath*:com/reward/promotion/mapper/*.xml</span></span><br></pre></td></tr></table></figure>
+<p><strong>mapper和xml对应不上会报错：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">Invalid bound <span class="title">statement</span> <span class="params">(not found)</span>: com.reward.promotion.mapper.CompanyRecordMapper.queryRecordList</span></span><br></pre></td></tr></table></figure>
+<h2 id="JsonFormat实现原理"><a class="header-anchor" href="#JsonFormat实现原理"></a>@JsonFormat实现原理</h2>
+<p><a href="https://www.jianshu.com/p/1031c09da1db" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="IDEA-String-Manipulation插件使用及设置快捷键"><a class="header-anchor" href="#IDEA-String-Manipulation插件使用及设置快捷键"></a>IDEA String Manipulation插件使用及设置快捷键</h2>
+<p><strong>设置步骤演示：</strong><br>
+1、快捷键&quot;ALT+M&quot; -&gt; Switch Case -&gt; Open Settings -&gt; 增加&quot;小写下划线转驼峰&quot;操作<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/342aab0c597e4c07a07505860b4d9f47.png#pic_center" alt="在这里插入图片描述"><br>
+2、打开IDEA设置 -&gt; 点击Keymap -&gt; 搜索&quot;小写下划线转驼峰&quot; -&gt; 将快捷键设置为&quot;ALT+SHIFT+U&quot;<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/033b41042e3341c6904e9e405f3e326c.png#pic_center" alt="在这里插入图片描述"><br>
+<strong>注意：版本9以后才实现了&quot;小写下划线snake_case&quot;功能</strong><br>
+<a href="http://www.360doc.com/content/22/0620/23/10087950_1036801812.shtml" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="在Windows中测试服务器端口是否开放"><a class="header-anchor" href="#在Windows中测试服务器端口是否开放"></a>在Windows中测试服务器端口是否开放</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">命令语法：telnet 服务器id 服务器端口</span><br><span class="line">示例命令：telnet <span class="number">10.12</span>.7.181 <span class="number">9098</span></span><br></pre></td></tr></table></figure>
+<h2 id="Centos开放端口"><a class="header-anchor" href="#Centos开放端口"></a>Centos开放端口</h2>
+<p>1、开启防火墙<br>
+systemctl start firewalld<br>
+2、开放某个端口<br>
+firewall-cmd --zone=public --add-port=6379/tcp --permanent<br>
+其中zone表示作用域，参数permanent表示永久生效<br>
+3、重启防火墙<br>
+firewall-cmd --reload</p>
+<h2 id="Nginx常用配置详解"><a class="header-anchor" href="#Nginx常用配置详解"></a>Nginx常用配置详解</h2>
+<p><a href="https://blog.csdn.net/qq_50909707/article/details/123817709" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Nginx里面的路径定位关键词root、alias"><a class="header-anchor" href="#Nginx里面的路径定位关键词root、alias"></a>Nginx里面的路径定位关键词root、alias</h2>
+<p>1、root：设置请求的根目录。是最上层目录的意思。<br>
+处理结果为：<strong>root路径+location路径</strong>。<br>
+2、alias：用来更改location的路径。是目录别名的意思。<br>
+处理结果为：<strong>使用alias路径替换location路径</strong>。<br>
+3、如果location路径是以/结尾,则alias也必须是以/结尾，root没有要求。<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/094921d3b5f14f7bbcd280db0298059f.png#pic_center" alt="参考图片"><br>
+<a href="https://www.cnblogs.com/xiongzaiqiren/p/16969984.html" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Zuul里面的prefix-和-strip-prefix学习"><a class="header-anchor" href="#Zuul里面的prefix-和-strip-prefix学习"></a>Zuul里面的prefix 和 strip-prefix学习</h2>
+<p>1、strip-prefix<br>
+true 移除前缀 false 不移除(增加)前缀<br>
+2、strip-prefix可用于全局配置和zuul.prefix结合使用<br>
+strip-prefix可用于路由配置和zuul.routes.routeName.path结合使用</p>
+<p>从2.8路由前缀开始看就好，前面的例子举得不太好。<br>
+<a href="https://blog.csdn.net/u010953880/article/details/102977884" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="解决Mybatis嵌套的结果集不能被安全地转为自定义ResultHandler"><a class="header-anchor" href="#解决Mybatis嵌套的结果集不能被安全地转为自定义ResultHandler"></a>解决Mybatis嵌套的结果集不能被安全地转为自定义ResultHandler</h2>
+<p><strong>报错信息：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.executor.ExecutorException: Mapped Statements with nested result mappings cannot be safely used with a custom ResultHandler. Use safeResultHandlerEnabled=<span class="keyword">false</span> setting to bypass <span class="keyword">this</span> check.</span><br></pre></td></tr></table></figure>
+<p><strong>意思：不允许自定义ResultHand处理器</strong></p>
+<p><strong>解决方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"># 增加配置：safe-result-handler-enabled: false</span><br><span class="line">mybatis:</span><br><span class="line">  mapper-locations: classpath:mapper<span class="comment">/*Mapper.xml</span></span><br><span class="line"><span class="comment">  configuration:</span></span><br><span class="line"><span class="comment">    call-setters-on-nulls: true</span></span><br><span class="line"><span class="comment">    safe-result-handler-enabled: false</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://www.10k.cn/article/9025.html" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Mybatis中文文档"><a class="header-anchor" href="#Mybatis中文文档"></a>Mybatis中文文档</h2>
+<p><a href="https://mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="TortoiseGit-TortoiseGit中文语言包详细安装使用教程-windows版"><a class="header-anchor" href="#TortoiseGit-TortoiseGit中文语言包详细安装使用教程-windows版"></a>TortoiseGit+TortoiseGit中文语言包详细安装使用教程(windows版)</h2>
+<p><a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">官方下载链接</a>、<a href="https://blog.csdn.net/m0_37467586/article/details/105075965?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-105075965-blog-123401492.pc_relevant_recovery_v2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-105075965-blog-123401492.pc_relevant_recovery_v2&amp;utm_relevant_index=10" target="_blank" rel="noopener">详细安装使用教程</a></p>
+<h2 id="Java文件类型校验之Apache-Tika"><a class="header-anchor" href="#Java文件类型校验之Apache-Tika"></a>Java文件类型校验之Apache Tika</h2>
+<p><a href="https://blog.csdn.net/qq_43602576/article/details/128645634?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-128645634-blog-124193512.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-128645634-blog-124193512.pc_relevant_default&amp;utm_relevant_index=4" target="_blank" rel="noopener">Java文件类型校验之Apache Tika</a>、<a href="https://blog.csdn.net/WindNolose/article/details/124625049" target="_blank" rel="noopener">Java实现流和文件的转换 将InoutStream转为File输出到磁盘</a></p>
+<h2 id="Jackson解析器接收JSON实体-需要这个实体有无参构造方法，否则会报错"><a class="header-anchor" href="#Jackson解析器接收JSON实体-需要这个实体有无参构造方法，否则会报错"></a>Jackson解析器接收JSON实体,需要这个实体有无参构造方法，否则会报错</h2>
+<p>奖励平台动态登录时，LoginParam没有无参构造方法(@NoArgsConstructor)会报<strong>org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class com…entity</strong>错误</p>
+<h2 id="Excel中数字变成E-的原因分析及两种解决方法"><a class="header-anchor" href="#Excel中数字变成E-的原因分析及两种解决方法"></a>Excel中数字变成E+的原因分析及两种解决方法</h2>
+<p><strong>原因：</strong><br>
+<strong>Excel中默认数字在超过11位后，就用科学计数法的显示方式。</strong></p>
+<p><strong>解决方法：</strong><br>
+<strong>方法一：单元格格式设置为数值，小数位数改为0</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/fb65d6ed380d4ce99f219b2e5a404c9f.gif#pic_center" alt="单元格格式设置为数值"><br>
+<strong>这种方式适用于数据库导出Excel后，某些字段自动转为了科学计数法的情况。</strong><br>
+<strong>保存时会提示格式不兼容，本质是文件的实际是TXT格式，需要另存为xlsx，设置的格式才有效果</strong></p>
+<p><strong>方法二： 自定义单元格格式，类型设置为0</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/c12b9aa00c8a471c8e234f0e83132bd8.gif#pic_center" alt="自定义单元格格式"><br>
+这种方法适用输入的数字长度超过11位但是不超过15位，超过15位后的数字会自动变为0。</p>
+<p><strong>方法三：单元格格式设置为文本</strong><br>
+这种方式数字超过15位也可以正常显示，但是做数值运算会有问题。</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1736780614540849122&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Excel快速对当前列下面的空单元格填充"><a class="header-anchor" href="#Excel快速对当前列下面的空单元格填充"></a>Excel快速对当前列下面的空单元格填充</h2>
+<p><strong>方法一：双击单元格右下角也可以实现快速填充，填充的范围为遇到非空值。</strong><br>
+效果如下：<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/289a5b6f3dbb49c78ecb4db02ff4ee7a.gif#pic_center" alt="在这里插入图片描述"></p>
+<p>该方式适合整列都为空的情况。</p>
+<p><strong>方法二：ctrl+g快捷键实现快速填充</strong><br>
+步骤：选中当前列 -&gt; ctrl+g快捷键,定位 -&gt; 点击空值 -&gt; 输入要填充的值 -&gt; ctrl+回车<br>
+效果如下：<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/7f3221087bfe499fa799ddaf5f04f240.gif#pic_center" alt="在这里插入图片描述"></p>
+<p>该方式功能更强大，支持筛选后的部分空值填充。<br>
+<a href="https://zhidao.baidu.com/question/570207391877637844.html" target="_blank" rel="noopener">参考链接</a></p>
+<p><strong>方法三：复制单个单元格，然后拖动进度条到最后填充</strong><br>
+<strong>步骤：</strong><br>
+筛选出空白单元格 -&gt; 输入要填充的值 -&gt; ctrl+c,复制 -&gt; 拖动进度条到最后 -&gt; ctrl+v粘贴<br>
+<strong>效果如下：</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/53e4df9e63a246aaa4d8c0eff009acf4.gif#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="MySQL统计每分钟的记录数"><a class="header-anchor" href="#MySQL统计每分钟的记录数"></a>MySQL统计每分钟的记录数</h2>
+<p><strong>原理：</strong><br>
+利用unix_timestamp和floor函数，把秒转换成整数(取整)，然后对这个整数进行分组取数量。<br>
+<strong>核心代码:</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">floor(unix_timestamp(record.create_time) / 60)</span><br></pre></td></tr></table></figure>
+<p><strong>参考代码：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 按分钟统计投票次数</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    t.create_time <span class="string">'投票时间'</span>,<span class="keyword">count</span>(t.id) <span class="string">'投票次数'</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">SELECT</span></span><br><span class="line">            record.id,</span><br><span class="line">            record.create_time,</span><br><span class="line">            <span class="keyword">floor</span>(</span><br><span class="line">                        <span class="keyword">UNIX_TIMESTAMP</span>(record.create_time) / <span class="number">60</span></span><br><span class="line">                ) create_timestamp</span><br><span class="line">        <span class="keyword">FROM</span></span><br><span class="line">            <span class="string">`t_vote_user`</span> <span class="built_in">record</span></span><br><span class="line">    ) <span class="keyword">AS</span> t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">BY</span> t.create_timestamp</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> t.create_time;</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot项目中某些Maven依赖可以不加版本号的原因"><a class="header-anchor" href="#SpringBoot项目中某些Maven依赖可以不加版本号的原因"></a>SpringBoot项目中某些Maven依赖可以不加版本号的原因</h2>
+<p>因为spring-boot-dependencies是spring-boot-starter-parent的父依赖，spring-boot-dependencies-XXX.pom中的dependencyManagement有常用依赖包的默认版本号，有助于统一版本号。<br>
+所以当在Springboot项目中引入了spring-boot-starter-parent或spring-boot-dependencies，则可以不用引入依赖包版本号。<br>
+如果非要想自己填写版本号也是可以的，这样会覆盖官方版本号（不建议随便修改依赖包版本号，免得版本号不兼容）。<br>
+<a href="https://www.likecs.com/show-113068.html" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="在线SQL转Java实体工具"><a class="header-anchor" href="#在线SQL转Java实体工具"></a>在线SQL转Java实体工具</h2>
+<p><a href="http://java.json.cn/generator/" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="EasyExcel模板填充"><a class="header-anchor" href="#EasyExcel模板填充"></a>EasyExcel模板填充</h2>
+<p><strong>通用导出方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportExcelUtil</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 给模板填充数据导出浏览器</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: list</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: path</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: fileName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> liquanhong</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2023/3/9/</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exportWithTemplate</span><span class="params">(List&lt;T&gt; list, String path, String fileName, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 1、加载导入模板</span></span><br><span class="line">        Resource resource = <span class="keyword">new</span> ClassPathResource(path);</span><br><span class="line">        <span class="comment">// 2、设置浏览器响应信息</span></span><br><span class="line">        String newFileName = URLEncoder.encode(fileName, <span class="string">"UTF-8"</span>).replaceAll(<span class="string">"\\+"</span>, <span class="string">"%20"</span>);</span><br><span class="line">        dealResponse(response,newFileName);</span><br><span class="line">        <span class="comment">// 3、开始导出</span></span><br><span class="line">        ExcelWriter excelWriter = EasyExcel</span><br><span class="line">                .write(response.getOutputStream())</span><br><span class="line">                .withTemplate(resource.getInputStream())</span><br><span class="line">                .build();</span><br><span class="line">        WriteSheet writeSheet = EasyExcel.writerSheet(<span class="number">0</span>).build();</span><br><span class="line">        excelWriter.write(list, writeSheet);</span><br><span class="line">        excelWriter.finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/u011447403/article/details/127999451" target="_blank" rel="noopener">参考链接</a>、<a href="https://maimai.cn/article/detail?fid=1744595924&amp;efid=DUhwqBhXkOoPsFN6WsUH1A" target="_blank" rel="noopener">参考链接</a>、<a href="https://easyexcel.opensource.alibaba.com/docs/current/" target="_blank" rel="noopener">官方文档</a></p>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+        <tag>Java</tag>
+        <tag>Centos</tag>
+        <tag>Zuul</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java程序猿搬砖笔记(十一)</title>
+    <url>/2023/05/01/coding_notes_eleven/</url>
+    <content><![CDATA[<h2 id="Hexo博客-Next主题图片防盗链问题"><a class="header-anchor" href="#Hexo博客-Next主题图片防盗链问题"></a>Hexo博客 Next主题图片防盗链问题</h2>
+<p><strong>问题场景</strong>：打开博客，所有引用外部链接的图片均无法正常加载，但是所有图片复制链接在浏览器请求是可以加载的。<br>
+<strong>问题原因</strong>：目标网站图片设置了防盗链。<br>
+<strong>解决方案</strong>：在 <strong>\themes\next\layout_partials\head.swig</strong>文件中加一行代码即可。<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/475adcc3614d45ed89d618018ad7009b.png#pic_center" alt="在这里插入图片描述"><br>
+<a href="https://blog.csdn.net/weixin_48290187/article/details/124400855" target="_blank" rel="noopener">参考链接</a>、<a href="https://www.cnblogs.com/ranxi169/p/16711700.html" target="_blank" rel="noopener">参考链接</a></p>
+<a id="more"></a>
+<h2 id="Springboot-Druid数据库密码加密配置步骤"><a class="header-anchor" href="#Springboot-Druid数据库密码加密配置步骤"></a>Springboot Druid数据库密码加密配置步骤</h2>
+<p><strong>方式一：</strong></p>
+<ul>
+<li>找到druid包的位置，CMD命令行执行下面的命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -cp druid-1.2.6.jar com.alibaba.druid.filter.config.ConfigTools 数据库密码 &gt; pwd.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把项目中的解密公钥和密文改为pwd.txt中的publicKey、password</li>
+</ul>
+<p><strong>方式二：</strong></p>
+<ul>
+<li>在项目中运行下面的代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	String password = <span class="string">"a123456"</span>;</span><br><span class="line">	String[] arr = ConfigTools.genKeyPair(<span class="number">512</span>);</span><br><span class="line">	System.out.println(<span class="string">"password:"</span> + password);</span><br><span class="line">	System.out.println(<span class="string">"privateKey:"</span> + arr[<span class="number">0</span>]);</span><br><span class="line">	System.out.println(<span class="string">"publicKey:"</span> + arr[<span class="number">1</span>]);</span><br><span class="line">	System.out.println(<span class="string">"password:"</span> + ConfigTools.encrypt(arr[<span class="number">0</span>], password));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把项目中的解密公钥、密文分别改为上面代码中输出的publicKey、password</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>Druid的版本一定要一致</strong><br>
+用druid-1.1.9.jar生成的公钥和密文在druid-1.2.6.jar中项目直接解密失败</li>
+<li><strong>公钥和密文一定要同时替换</strong><br>
+同一个Jar包多次生成公钥，前后几个字符串是一样的，但是中间的不一样。</li>
+</ul>
+<p><a href="https://blog.csdn.net/xiha_zhu/article/details/126423798" target="_blank" rel="noopener">参考链接</a>、<a href="https://github.com/alibaba/druid/wiki/%E4%BD%BF%E7%94%A8ConfigFilter" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Java统计字符串出现的次数"><a class="header-anchor" href="#Java统计字符串出现的次数"></a>Java统计字符串出现的次数</h2>
+<ul>
+<li><strong>方法一：使用Java8的流和Lambda表达式</strong><br>
+<strong>代码示例：</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">"你好/454/545/"</span>;</span><br><span class="line"><span class="keyword">long</span> count = str.chars().filter(ch -&gt; ch == <span class="string">'/'</span>).count();</span><br><span class="line">System.out.println(count);</span><br></pre></td></tr></table></figure>
+<p><strong>返回结果：</strong><br>
+3</p>
+<ul>
+<li><strong>方法二：使用Spring框架中的StringUtils</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> count = StringUtils.countOccurrencesOf(<span class="string">"你好/454/545/"</span>, <span class="string">"/"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>方法三：使用commons-lang3工具类中的StringUtils</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> count = StringUtils.countMatches(<span class="string">"你好/454/545/"</span>, <span class="string">"/"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>方法四：使用HashMap</strong></li>
+</ul>
+<p><strong>该方法可以统计字符串中每个字符出现的次数:</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;Character, Integer&gt; <span class="title">countsOfCharacter</span><span class="params">(String str)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>[] chars = str.toCharArray();</span><br><span class="line">	Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> c : chars) &#123;</span><br><span class="line">		<span class="keyword">if</span> (map.containsKey(c)) &#123;</span><br><span class="line">			map.put(c, map.get(c) + <span class="number">1</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			map.put(c,<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> map;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>调用示例：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">"你好/454/545/"</span>;</span><br><span class="line">Map&lt;Character, Integer&gt; map = countsOfCharacter(str);</span><br><span class="line">System.out.println(map.get(<span class="string">"/"</span>.charAt(<span class="number">0</span>)));</span><br></pre></td></tr></table></figure>
+<p><strong>返回结果：</strong><br>
+3</p>
+<p><a href="https://blog.csdn.net/allway2/article/details/126324663" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Java获取某个字符在字符串中出现第N次的位置"><a class="header-anchor" href="#Java获取某个字符在字符串中出现第N次的位置"></a>Java获取某个字符在字符串中出现第N次的位置</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取某个字符在字符串中出现第N次的位置</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>: data 字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>: str 子字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>: num 子字符串出现的第N次</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> int 字符串出现的位置，未匹配到返回-1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2022/11/1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndexOf</span> <span class="params">(String data, String str, <span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">	Pattern pattern = Pattern.compile(str);</span><br><span class="line">	Matcher findMatcher = pattern.matcher(data);</span><br><span class="line">	<span class="comment">// 标记遍历字符串的位置</span></span><br><span class="line">	<span class="keyword">int</span> indexNum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (findMatcher.find()) &#123;</span><br><span class="line">		indexNum++;</span><br><span class="line">		<span class="keyword">if</span>(indexNum == num)&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 未匹配到返回-1</span></span><br><span class="line">	<span class="keyword">if</span>(!data.contains(str) || indexNum &lt; num || num&lt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> findMatcher.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Maven激活指定profile"><a class="header-anchor" href="#Maven激活指定profile"></a>Maven激活指定profile</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn package -P 待激活的profile</span><br><span class="line">示例：mvn package -P dev</span><br></pre></td></tr></table></figure>
+<h2 id="Maven中resources标签的用法详解"><a class="header-anchor" href="#Maven中resources标签的用法详解"></a>Maven中resources标签的用法详解</h2>
+<p>一旦pom当中添加resource，指定某一个文件，就会导致resources其他文件(java文件不会丢)打包的时候丢失。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">include</span>&gt;</span>a.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>打包文件中只有a.properties。</strong></p>
+<p><strong>另外，当filtering为false时，配置文件用@@，取不到值。</strong></p>
+<p><a href="https://www.jb51.net/article/235392.htm" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="MySQL-字符集不一致报错"><a class="header-anchor" href="#MySQL-字符集不一致报错"></a>MySQL 字符集不一致报错</h2>
+<p><strong>Cause: java.sql.SQLException: Incorrect string value: ‘\xE9\x87\x91\xE5\x87\xA1…’ for column ‘username’ at row 1<br>
+; uncategorized SQLException for SQL []; SQL state [HY000]</strong></p>
+<p><strong>检查建表时字符集：</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/4181eefb6de043ed9ba0f03056a03ef0.png" alt="在这里插入图片描述"><br>
+<strong>在MySQL 8.0版本之前,默认字符集为latin1。</strong></p>
+<p><strong>解决方法：</strong><br>
+<strong>建表时添加默认字符集，示例代码如下：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COMMENT</span>=<span class="string">'用户信息历史表'</span></span><br><span class="line"><span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8</span><br></pre></td></tr></table></figure>
+<h2 id="EasyExcel日期格式化"><a class="header-anchor" href="#EasyExcel日期格式化"></a>EasyExcel日期格式化</h2>
+<p><strong>添加@DateTimeFormat注解</strong>，参考代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.excel.annotation.format.DateTimeFormat;</span><br><span class="line"><span class="meta">@ExcelProperty</span>(value=<span class="string">"申请日"</span>,index = <span class="number">8</span>)</span><br><span class="line"><span class="meta">@ColumnWidth</span>(<span class="number">12</span>)</span><br><span class="line"><span class="meta">@DateTimeFormat</span>(<span class="string">"yyyy/MM/dd"</span>)</span><br><span class="line"><span class="keyword">private</span> Date applyDate;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/qq_44749491/article/details/127879946" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Configuration、-Component、-Controller等注解"><a class="header-anchor" href="#Configuration、-Component、-Controller等注解"></a>@Configuration、@Component、@Controller等注解</h2>
+<p><strong>@Configuration注解</strong>:</p>
+<ul>
+<li>本质上还是@Component</li>
+<li>配置类必须以类的形式提供（不能是工厂方法返回的实例），允许通过生成子类在运行时增强（cglib 动态代理）</li>
+<li>配置类不能是 final 类（没法动态代理）</li>
+<li>配置类必须是非本地的（即不能在方法中声明，不能是 private）</li>
+<li>@Bean 方法可能不会反过来创建进一步的配置类（也就是返回的 bean 如果带有 @Configuration，也不会被特殊处理，只会作为普通的 bean）</li>
+</ul>
+<p>@Component、@Controller、@Service、@Repository<strong>这四个注解实际上没有任何本质区别</strong>，只是后三者只是涉及一些命名规范而已，四者的注解效果确实一致。关于这里的命名规范就好比苹果叫苹果，你不会说苹果是菠萝。这样的好处显然易见，听到别人说苹果，你就知道是苹果，不会想到菠萝。<br>
+<strong>实际上这四个注解实际上没有任何本质区别</strong>，如果你喜欢，你完全可以把这四个注解当成一个注解用，当然这样的话老板可能就不喜欢你了。<br>
+<a href="https://juejin.cn/post/6844904034596290568" target="_blank" rel="noopener">参考链接</a>、<a href="https://blog.csdn.net/baidu_41634343/article/details/95176401" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="Java泛型方法"><a class="header-anchor" href="#Java泛型方法"></a>Java泛型方法</h2>
+<p>在方法中出现了泛型的结构，这样的方法叫做泛型方法。<br>
+<strong>泛型参数与类的泛型参数没有任何关系，换句话说，泛型方法所属的类是不是泛型类都没有关系</strong>。<br>
+<strong>泛型方法可以声明为static。 方法使用类的泛型不能声明为static。</strong></p>
+<h2 id="Java泛型-类型通配符："><a class="header-anchor" href="#Java泛型-类型通配符："></a>Java泛型-类型通配符：&lt;?&gt;</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;?&gt;是List&lt;String&gt;、List&lt;Object&gt;等各种泛型List的父类。</span><br><span class="line">&lt;?&gt;不能用在泛型方法、泛型类的声明上</span><br><span class="line">不能在List&lt;?&gt;中添加元素(除了<span class="keyword">null</span>)。</span><br><span class="line">可以读取List&lt;?&gt;中的元素，类型为Object。</span><br></pre></td></tr></table></figure>
+<h2 id="Java泛型-有限制的通配符-上下界"><a class="header-anchor" href="#Java泛型-有限制的通配符-上下界"></a>Java泛型-有限制的通配符(上下界)</h2>
+<ul>
+<li>上界extends<br>
+使用时指定的类型必须是继承某个类(或者实现某个接口)，即**&lt;=**</li>
+<li>下界super<br>
+使用时指定的类型不能小于操作的类(或接口)，即**&gt;=**</li>
+</ul>
+<p><strong>示例代码如下：</strong></p>
+<p><strong>定义类：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubOrder</span> <span class="keyword">extends</span> <span class="title">Order</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试通配符初始化：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;? extends Order&gt; list1 = <span class="keyword">null</span>;</span><br><span class="line">        List&lt;? <span class="keyword">super</span> Order&gt; list2 = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        List&lt;Order&gt; list3 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;SubOrder&gt; list4 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Object&gt; list5 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        list1 = list3;</span><br><span class="line">        list1 = list4;</span><br><span class="line">        <span class="comment">// list1 = list5; // 编译报错</span></span><br><span class="line"></span><br><span class="line">        list2 = list3;</span><br><span class="line">        <span class="comment">// list2 = list4;// 编译报错</span></span><br><span class="line">        list2 = list5;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试通配符取值：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;? extends Order&gt; list1 = <span class="keyword">null</span>;</span><br><span class="line">        List&lt;? <span class="keyword">super</span> Order&gt; list2 = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        List&lt;Order&gt; list3 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;SubOrder&gt; list4 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Object&gt; list5 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        list1 = list4;</span><br><span class="line">        Order order = list1.get(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// SubOrder subOrder = list1.get(0); 编译报错</span></span><br><span class="line">        </span><br><span class="line">        list2 = list3;</span><br><span class="line">        Object object = list2.get(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// Order order = list2.get(0); 编译错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试通配符添加值：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;? extends Order&gt; list1 = <span class="keyword">null</span>;</span><br><span class="line">        List&lt;? <span class="keyword">super</span> Order&gt; list2 = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        List&lt;Order&gt; list3 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;SubOrder&gt; list4 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Object&gt; list5 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        list1 = list4;</span><br><span class="line">        <span class="comment">// list1.add(new SubOrder()); 编译错误</span></span><br><span class="line">        <span class="comment">// list1.add(new Order()); 编译错误：因为?可能小于Order甚至比SubOrder都小。这儿不可以，根据多态上面也就不可以</span></span><br><span class="line"></span><br><span class="line">        list2 = list3;</span><br><span class="line">        list2.add(<span class="keyword">new</span> Order());</span><br><span class="line">        list2.add(<span class="keyword">new</span> SubOrder());<span class="comment">// 多态</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot下mybatis-plus如何打印sql日志和参数到日志文件"><a class="header-anchor" href="#SpringBoot下mybatis-plus如何打印sql日志和参数到日志文件"></a>SpringBoot下mybatis-plus如何打印sql日志和参数到日志文件</h2>
+<p><a href="https://www.jb51.net/article/239936.htm" target="_blank" rel="noopener">参考链接(很详细)</a></p>
+<h2 id="Maven的mirror镜像和仓库"><a class="header-anchor" href="#Maven的mirror镜像和仓库"></a>Maven的mirror镜像和仓库</h2>
+<h3 id="mirror简介"><a class="header-anchor" href="#mirror简介"></a>mirror简介</h3>
+<p>说明：</p>
+<ul>
+<li>Maven优先从镜像中下载，找不到再从中央仓库(默认配置)下载<br>
+默认中央仓库地址：https://repo.maven.apache.org/maven2</li>
+<li>可以配置多个</li>
+<li>id可以随便写，不重复就行</li>
+<li>name对仓库进行一些描述</li>
+</ul>
+<p><strong>如果配置多个mirror，首先按照搜索顺序优先级搜索，相同优先级的repository根据配置顺序搜索。</strong></p>
+<h3 id="mirrorOf的不同类型"><a class="header-anchor" href="#mirrorOf的不同类型"></a>mirrorOf的不同类型</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对所有仓库id镜像，你配置的所有仓库都不起作用了</span></span><br><span class="line">mirrorOf=*? </span><br><span class="line"><span class="comment">// 镜像my-repo-id，你配置的my-repo-id仓库不起作用了</span></span><br><span class="line">mirrorOf=my-repo-id </span><br><span class="line"><span class="comment">// !表示非运算，排除你配置的my-repo-id仓库，其他仓库都被镜像了。就是请求下载my-repo-id的仓库的jar不使用mirror的url下载，其他都是用mirror配置的url下载</span></span><br><span class="line">mirrorOf=*,!my-repo-id? </span><br><span class="line"><span class="comment">// 如果本地库存在就用本地库的，如果本地没有所有下载就用mirror配置的url下载</span></span><br><span class="line">mirrorOf=external:*?</span><br></pre></td></tr></table></figure>
+<h3 id="仓库jar包下载顺序"><a class="header-anchor" href="#仓库jar包下载顺序"></a>仓库jar包下载顺序</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">本地仓库 -&gt; settings_profile_repo -&gt; pom_profile_repo -&gt; pom_repositories -&gt; settings_mirror -&gt; central</span><br></pre></td></tr></table></figure>
+<h3 id="仓库分类"><a class="header-anchor" href="#仓库分类"></a>仓库分类</h3>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/7ff48ba280e24e6d9d19bc1c6d4f81b6.png#pic_center" alt="在这里插入图片描述"><br>
+<a href="https://www.jianshu.com/p/c4f02c5bdfc7" target="_blank" rel="noopener">(简书)Maven中配置mirrorOf和仓库</a><br>
+<a href="https://blog.csdn.net/Alexshi5/article/details/86709769/?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1--blog-81564562.pc_relevant_3mothn_strategy_recovery&amp;spm=1001.2101.3001.4242.2&amp;utm_relevant_index=4" target="_blank" rel="noopener">(CSDN)深入理解Maven的私服(Nexus)和仓库(Repository)以及settings中的mirror和mirrorOf</a></p>
+<h2 id="在windows环境下，后台运行jar包并打印后台日志"><a class="header-anchor" href="#在windows环境下，后台运行jar包并打印后台日志"></a>在windows环境下，后台运行jar包并打印后台日志</h2>
+<p><strong>run.bat脚本如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@echo</span> off</span><br><span class="line">%<span class="number">1</span> mshta vbscript:CreateObject(<span class="string">"WScript.Shell"</span>).Run(<span class="string">"%~s0 ::"</span>,<span class="number">0</span>,FALSE)(window.close)&amp;&amp;exit</span><br><span class="line">java -jar reward-portal-<span class="number">2023</span>-<span class="number">02</span>-<span class="number">02</span>.jar &gt;StartupLog.log  <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p><strong>注意：run.bat放在和jar包同一个目录</strong></p>
+<p><a href="https://blog.csdn.net/weixin_47148475/article/details/126747188?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-126747188-blog-126401338.pc_relevant_landingrelevant&amp;spm=1001.2101.3001.4242.2&amp;utm_relevant_index=4" target="_blank" rel="noopener">参考链接</a>、<a href="https://blog.csdn.net/qq_19072921/article/details/126401338" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="停止Windows环境下的Java服务"><a class="header-anchor" href="#停止Windows环境下的Java服务"></a>停止Windows环境下的Java服务</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看进程号</span><br><span class="line">// 下面两种方法都可以,端口号为SpringBoot项目的server.port</span><br><span class="line">jps -l</span><br><span class="line">netstat -aon|findstr <span class="string">"端口号"</span> </span><br><span class="line">// 停止服务</span><br><span class="line">taskkill -f -pid 进程号</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Springboot</tag>
+        <tag>Maven</tag>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java BigDecimal学习</title>
     <url>/2023/04/08/java_bigdecimal_study/</url>
     <content><![CDATA[<h2 id="Java-BigDecimal不损失精度的方法"><a class="header-anchor" href="#Java-BigDecimal不损失精度的方法"></a>Java BigDecimal不损失精度的方法</h2>
@@ -1229,12 +1516,12 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Maven</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
-        <tag>Maven</tag>
       </tags>
   </entry>
   <entry>
@@ -1365,8 +1652,8 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Linux</tag>
-        <tag>VirtualBox</tag>
         <tag>Centos</tag>
+        <tag>VirtualBox</tag>
       </tags>
   </entry>
   <entry>
@@ -1625,8 +1912,8 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Linux</tag>
+        <tag>Nginx</tag>
         <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>MyBatis</tag>
@@ -1870,8 +2157,8 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Linux</tag>
+        <tag>Nginx</tag>
         <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
@@ -3424,8 +3711,8 @@ Template text的代码如下：</p>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Git</tag>
+        <tag>Java</tag>
         <tag>PostgreSQL</tag>
       </tags>
   </entry>
@@ -8134,8 +8421,8 @@ SUBSCRIBE 、PUBLISH</li>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Git</tag>
+        <tag>Java</tag>
         <tag>MySQL</tag>
       </tags>
   </entry>
@@ -9294,8 +9581,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Git</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -9334,8 +9621,8 @@ sys.path列表在程序启动时，自动进行初始化。例如：<br>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Nginx</tag>
         <tag>Linux</tag>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -9706,8 +9993,8 @@ would not be able to go to school</p>
         <category>Git</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Git</tag>
+        <tag>Java</tag>
         <tag>Gitblit</tag>
         <tag>Copssh</tag>
       </tags>
@@ -10232,8 +10519,8 @@ suffixOverrides	去除sql语句后面的关键字或者字符，该关键字或�
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>JavaScript</tag>
         <tag>MyBatis</tag>
+        <tag>JavaScript</tag>
         <tag>jQuery</tag>
         <tag>Tomcat</tag>
         <tag>JSP</tag>
