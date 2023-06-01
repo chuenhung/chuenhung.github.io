@@ -395,7 +395,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-count">122</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -959,7 +959,22 @@
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/click-love.js"></script>
 
-slicesOfContent.forEach(function (slice) {
+lass="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
                     resultItem += "<a href='" + articleUrl + "'>" +
                       "<p class=\"search-result\">" + highlightKeyword(content, slice) +
                       "...</p>" + "</a>";
