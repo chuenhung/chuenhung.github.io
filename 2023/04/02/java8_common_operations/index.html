@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="我可能在扯淡">
 <meta property="og:description" content="对对象的字符串类型的日期排序（推荐） 方法一 123456789101112131415Collections.sort(deptInfoVoList, new Comparator&lt;DeptInfoVo&gt;()&amp;#123;	public int compare(DeptInfoVo deptInfoVo1, DeptInfoVo deptInfoVo2) &amp;#123;		SimpleD">
 <meta property="article:published_time" content="2023-04-02T14:46:00.000Z">
-<meta property="article:modified_time" content="2023-06-08T12:36:00.000Z">
+<meta property="article:modified_time" content="2023-08-11T14:50:00.000Z">
 <meta property="article:author" content="Li Quanhong">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -351,8 +351,8 @@
 			
 			  <span class="post-updated">
 				&nbsp; | &nbsp; 更新于
-				<time itemprop="dateUpdated" datetime="2023-06-08T20:36:00+08:00" content="2023-06-08 20:36">
-				  2023-06-08 20:36
+				<time itemprop="dateUpdated" datetime="2023-08-11T22:50:00+08:00" content="2023-08-11 22:50">
+				  2023-08-11 22:50
 				</time>
 			  </span>
 			
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  827字
+                  930字
                 </span>
               
 
@@ -469,18 +469,24 @@
 <p>注意：<strong>日期格式化中的年份yyyy不能写为大写</strong></p>
 <h2 id="对对象的普通字符串-或日期类型-排序"><a class="header-anchor" href="#对对象的普通字符串-或日期类型-排序"></a>对对象的普通字符串(或日期类型)排序</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 升序</span></span><br><span class="line">deptInfoVoList.sort(Comparator.comparing(DeptInfoVo::getDeptName));</span><br><span class="line"><span class="comment">// 降序</span></span><br><span class="line"><span class="comment">// Lambda表达式写法</span></span><br><span class="line">Collections.sort(deptInfoVoList, (deptInfoVo1,deptInfoVo2)-&gt;deptInfoVo2.getAge().compareTo(deptInfoVo1.getAge()));</span><br><span class="line"><span class="comment">// Comparator.comparing写法(底层也是Lambda)</span></span><br><span class="line">Collections.sort(deptInfoVoList, Comparator.comparing(DeptInfoVo::getAge).reversed());</span><br><span class="line"><span class="comment">// 匿名内部类写法</span></span><br><span class="line">Collections.sort(deptInfoVoList, <span class="keyword">new</span> Comparator&lt;DeptInfoVo&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(DeptInfoVo deptInfoVo1, DeptInfoVo deptInfoVo2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> deptInfoVo2.getDeptName().compareTo(deptInfoVo1.getDeptName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="把List中对象的某个字段拆成List"><a class="header-anchor" href="#把List中对象的某个字段拆成List"></a>把List中对象的某个字段拆成List</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; idList = deptInfoVoList.stream().map(DeptInfoVo::getId).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<h2 id="List过滤、去重"><a class="header-anchor" href="#List过滤、去重"></a>List过滤、去重</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; specialSecondaryList = uniteNameList.stream().filter(item-&gt; item.contains(DeptInfoConstant.SEPARATOR)).distinct().collect(toList());</span><br></pre></td></tr></table></figure>
 <h2 id="List分组后得到HashMap"><a class="header-anchor" href="#List分组后得到HashMap"></a>List分组后得到HashMap</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据某个字段分组</span></span><br><span class="line">Map&lt;String,List&lt;AchievementVo&gt;&gt; tocheckMap = list.stream().collect(Collectors.groupingBy(AchievementVo::getCompanyId));</span><br><span class="line"><span class="comment">// 根据某个逻辑分组</span></span><br><span class="line">Map&lt;Integer,List&lt;DeptInfoVo&gt;&gt; deptInfoVoMap = deptInfoVoList.stream().collect(Collectors.groupingBy(deptInfoVo -&gt; deptInfoVo.getDeptCodeLevelList().size()));</span><br></pre></td></tr></table></figure>
 <h2 id="List转为HashMap"><a class="header-anchor" href="#List转为HashMap"></a>List转为HashMap</h2>
 <p><strong>利用Collectors.toMap方法实现，若重复Key则覆盖</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 值为对象</span></span><br><span class="line">Map&lt;String, Account&gt; map = accountList.stream().collect(Collectors.toMap(Account::getUsername, Function.identity(), (key1, key2) -&gt; key2));</span><br><span class="line"><span class="comment">// 值为字段</span></span><br><span class="line">Map&lt;Long, String&gt; map = accountList.stream().collect(Collectors.toMap(Account::getId, Account::getUsername,(key1, key2) -&gt; key2));</span><br></pre></td></tr></table></figure>
 <p><a href="https://www.codenong.com/25606267/" target="_blank" rel="noopener">参考链接</a></p>
-<h2 id="对list对象：根据某个字段分组、对另一个字段求和"><a class="header-anchor" href="#对list对象：根据某个字段分组、对另一个字段求和"></a>对list对象：根据某个字段分组、对另一个字段求和</h2>
+<h2 id="单字段List：过滤、去重"><a class="header-anchor" href="#单字段List：过滤、去重"></a>单字段List：过滤、去重</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; specialSecondaryList = uniteNameList.stream().filter(item-&gt; item.contains(DeptInfoConstant.SEPARATOR)).distinct().collect(toList());</span><br></pre></td></tr></table></figure>
+<h2 id="对象List：把某个字段拆成List"><a class="header-anchor" href="#对象List：把某个字段拆成List"></a>对象List：把某个字段拆成List</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; idList = deptInfoVoList.stream().map(DeptInfoVo::getId).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<h2 id="对象List：根据某个字段分组、对另一个字段求和"><a class="header-anchor" href="#对象List：根据某个字段分组、对另一个字段求和"></a>对象List：根据某个字段分组、对另一个字段求和</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据id字段分组、求salary字段</span></span><br><span class="line">Map&lt;Integer, Double&gt; salaryMap = workerList.stream().collect(Collectors.toMap(Worker::getId, Worker::getSalary, Double::sum));</span><br></pre></td></tr></table></figure>
+<h2 id="对象List：根据某一个对象属性去重"><a class="header-anchor" href="#对象List：根据某一个对象属性去重"></a>对象List：根据某一个对象属性去重</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insertWbUserList = insertWbUserList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(</span><br><span class="line">() -&gt; <span class="keyword">new</span> TreeSet&lt;&gt;(Comparator.comparing(WbUser::getMobile))), ArrayList::<span class="keyword">new</span>));</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jb51.net/article/207795.htm" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="对象List：根据多个对象属性去重"><a class="header-anchor" href="#对象List：根据多个对象属性去重"></a>对象List：根据多个对象属性去重</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据对象的多个属性去重</span></span><br><span class="line">List&lt;DeleteTaskDto&gt; notRepetitiveList =deleteTaskList.stream()</span><br><span class="line">		.collect(Collectors.collectingAndThen(Collectors.toCollection(() -&gt; <span class="keyword">new</span> TreeSet&lt;&gt;(Comparator.comparing(item -&gt; item.getAchievementId()+String.valueOf(item.getContrastId())))), ArrayList::<span class="keyword">new</span>));</span><br></pre></td></tr></table></figure>
+<p><strong>注意：item -&gt; ‘不重复的字符串’。</strong></p>
 <h2 id="Map转为List"><a class="header-anchor" href="#Map转为List"></a>Map转为List</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按键升序排列，把Map转为List</span></span><br><span class="line">List&lt;ImportErrorVo&gt; list = errorMap.entrySet().stream().sorted(Comparator.comparing(e -&gt; e.getKey()))</span><br><span class="line">		.map(e -&gt; <span class="keyword">new</span> ImportErrorVo(e.getKey(), e.getValue())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
 <p><a href="https://moonce.blog.csdn.net/article/details/111553400?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-111553400-blog-73435627.235%5Ev36%5Epc_relevant_anti_vip&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-111553400-blog-73435627.235%5Ev36%5Epc_relevant_anti_vip&amp;utm_relevant_index=8" target="_blank" rel="noopener">参考链接</a></p>
@@ -652,7 +658,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">博客</span>
                 </a>
               </div>
@@ -674,7 +680,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -707,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对对象的字符串类型的日期排序（推荐）"><span class="nav-number">1.</span> <span class="nav-text">对对象的字符串类型的日期排序（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法三"><span class="nav-number">1.3.</span> <span class="nav-text">方法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对对象的普通字符串-或日期类型-排序"><span class="nav-number">2.</span> <span class="nav-text">对对象的普通字符串(或日期类型)排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把List中对象的某个字段拆成List"><span class="nav-number">3.</span> <span class="nav-text">把List中对象的某个字段拆成List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List过滤、去重"><span class="nav-number">4.</span> <span class="nav-text">List过滤、去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List分组后得到HashMap"><span class="nav-number">5.</span> <span class="nav-text">List分组后得到HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List转为HashMap"><span class="nav-number">6.</span> <span class="nav-text">List转为HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对list对象：根据某个字段分组、对另一个字段求和"><span class="nav-number">7.</span> <span class="nav-text">对list对象：根据某个字段分组、对另一个字段求和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map转为List"><span class="nav-number">8.</span> <span class="nav-text">Map转为List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求对象数字类型的最小值和最大值"><span class="nav-number">9.</span> <span class="nav-text">求对象数字类型的最小值和最大值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求对象数字类型的总和和平均值"><span class="nav-number">10.</span> <span class="nav-text">求对象数字类型的总和和平均值</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对对象的字符串类型的日期排序（推荐）"><span class="nav-number">1.</span> <span class="nav-text">对对象的字符串类型的日期排序（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法三"><span class="nav-number">1.3.</span> <span class="nav-text">方法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对对象的普通字符串-或日期类型-排序"><span class="nav-number">2.</span> <span class="nav-text">对对象的普通字符串(或日期类型)排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List分组后得到HashMap"><span class="nav-number">3.</span> <span class="nav-text">List分组后得到HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List转为HashMap"><span class="nav-number">4.</span> <span class="nav-text">List转为HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单字段List：过滤、去重"><span class="nav-number">5.</span> <span class="nav-text">单字段List：过滤、去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象List：把某个字段拆成List"><span class="nav-number">6.</span> <span class="nav-text">对象List：把某个字段拆成List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象List：根据某个字段分组、对另一个字段求和"><span class="nav-number">7.</span> <span class="nav-text">对象List：根据某个字段分组、对另一个字段求和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象List：根据某一个对象属性去重"><span class="nav-number">8.</span> <span class="nav-text">对象List：根据某一个对象属性去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象List：根据多个对象属性去重"><span class="nav-number">9.</span> <span class="nav-text">对象List：根据多个对象属性去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map转为List"><span class="nav-number">10.</span> <span class="nav-text">Map转为List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求对象数字类型的最小值和最大值"><span class="nav-number">11.</span> <span class="nav-text">求对象数字类型的最小值和最大值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求对象数字类型的总和和平均值"><span class="nav-number">12.</span> <span class="nav-text">求对象数字类型的总和和平均值</span></a></li></ol></div>
             
 
           </div>
