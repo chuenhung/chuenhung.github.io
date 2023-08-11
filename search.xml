@@ -131,10 +131,10 @@ msearch的语法如下：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Springboot</tag>
-        <tag>Windows</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
+        <tag>Springboot</tag>
+        <tag>Windows</tag>
         <tag>Elasticsearch</tag>
         <tag>EasyExcel</tag>
       </tags>
@@ -289,8 +289,8 @@ msearch的语法如下：</p>
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-        <tag>Springboot</tag>
         <tag>Spring</tag>
+        <tag>Springboot</tag>
         <tag>IntelliJ IDEA</tag>
         <tag>SQLite</tag>
         <tag>RunApi</tag>
@@ -453,9 +453,9 @@ MySQL 8用户连接内存限制，设置单个用户连接可以使用的最大�
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
+        <tag>MySQL</tag>
         <tag>Springboot</tag>
         <tag>Maven</tag>
-        <tag>MySQL</tag>
         <tag>Nacos</tag>
         <tag>Validation</tag>
       </tags>
@@ -2233,10 +2233,10 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Maven</tag>
         <tag>MySQL</tag>
         <tag>Spring</tag>
         <tag>SpringBoot</tag>
+        <tag>Maven</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
       </tags>
