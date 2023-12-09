@@ -1,6 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java通过documents4j和libreoffice把word转为pdf</title>
+    <url>/2023/12/15/documents4j_libreoffice_convert_word_pdf/</url>
+    <content><![CDATA[<h2 id="word转pdf的相关第三方jar说明"><a class="header-anchor" href="#word转pdf的相关第三方jar说明"></a>word转pdf的相关第三方jar说明</h2>
+<ul>
+<li>docx4j<br>
+免费开源、稍微复杂点的word，样式完全乱了，且xalan升级为2.7.3后会报错。</li>
+<li>poi<br>
+免费开源、官方文档少、学习成本大、使用复杂、生成的样式也有问题。</li>
+<li>aspire.doc<br>
+样式保留很好、使用方便。<br>
+未付费时，第一行会有红色水印且超过500个段落(大概25页)会被截取。<br>
+网上没有破解版。</li>
+<li>aspose.words<br>
+样式保留很好、使用方便。<br>
+网上有破解版。</li>
+<li>documents4j<br>
+样式保留很好、使用方便。<br>
+底层直接调用微软的office所以，完美保留样式</li>
+</ul>
+<a id="more"></a>
+<h2 id="Linux系统安装libreoffice"><a class="header-anchor" href="#Linux系统安装libreoffice"></a>Linux系统安装libreoffice</h2>
+<h3 id="在线安装"><a class="header-anchor" href="#在线安装"></a>在线安装</h3>
+<p><strong>CentOS：使用以下命令安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install libreoffice</span><br></pre></td></tr></table></figure>
+<p><strong>Ubuntu：使用以下命令安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libreoffice</span><br></pre></td></tr></table></figure>
+<p>执行命令需要root权限：sudo -i、su</p>
+<h3 id="离线安装"><a class="header-anchor" href="#离线安装"></a>离线安装</h3>
+<p><a href="https://blog.csdn.net/nothing_may/article/details/122175775" target="_blank" rel="noopener">在linux下离线安装libreoffice</a></p>
+<h3 id="word转pdf验证"><a class="header-anchor" href="#word转pdf验证"></a>word转pdf验证</h3>
+<p><strong>查看版本：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">libreoffice --version</span><br></pre></td></tr></table></figure>
+<p><strong>启动服务：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nohup libreoffice --headless --accept=<span class="string">"socket,host=127.0.0.1,port=8100;urp;"</span> --nofirststartwizard &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>word转pdf验证：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 安装完后进入/usr/bin 或者 usr/<span class="built_in">local</span>/bin目录下执行。 outdir输出是一个文件夹</span><br><span class="line">libreoffice --headless --invisible --convert-to pdf /file/word/test.docx --outdir /file/word/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h2 id="Java工具类代码"><a class="header-anchor" href="#Java工具类代码"></a>Java工具类代码</h2>
+<p><strong>maven依赖：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--word转pdf--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.documents4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>documents4j-local<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;documents4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.documents4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>documents4j-transformer-msoffice-word<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;documents4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>java代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.chinamobile.cmss.services.main.util;</span><br><span class="line"><span class="keyword">import</span> com.documents4j.api.DocumentType;</span><br><span class="line"><span class="keyword">import</span> com.documents4j.api.IConverter;</span><br><span class="line"><span class="keyword">import</span> com.documents4j.job.LocalConverter;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Documents4j工具类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liquanhong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2023/12/05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Documents4jUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// windows 生成目录</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String winDirUrl = <span class="string">"D:\\temp\\file\\pdf\\"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * word转pdf</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file word源文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convertWordToPdf</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        String os = System.getProperty(<span class="string">"os.name"</span>).toLowerCase();</span><br><span class="line">        log.info(<span class="string">"convertWordToPdf 当前操作系统：&#123;&#125;"</span>, os);</span><br><span class="line">        <span class="keyword">if</span> (os.contains(<span class="string">"win"</span>)) &#123;</span><br><span class="line">            <span class="comment">// Windows操作系统</span></span><br><span class="line">            windowsWordToPdf(file);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (os.contains(<span class="string">"nix"</span>) || os.contains(<span class="string">"nux"</span>) || os.contains(<span class="string">"mac"</span>)) &#123;</span><br><span class="line">            <span class="comment">// Unix/Linux/Mac操作系统</span></span><br><span class="line">            linuxWordToPdf(file);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 未知操作系统</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"不支持当前操作系统转换文档。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过documents4j 实现word转pdf -- Windows 环境 需要有 Microsoft Office 服务</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file 源文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">windowsWordToPdf</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        File outputFile = <span class="keyword">new</span> File(winDirUrl + file.getName().replaceAll(<span class="string">"\\.(docx?|\\w+)$"</span>, <span class="string">""</span>) + <span class="string">".pdf"</span>);</span><br><span class="line">        <span class="keyword">try</span>(InputStream  docxInputStream = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">            OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(outputFile))&#123;</span><br><span class="line">            IConverter converter = LocalConverter.builder().build();</span><br><span class="line">            converter.convert(docxInputStream)</span><br><span class="line">                    .as(DocumentType.DOCX)</span><br><span class="line">                    .to(outputStream)</span><br><span class="line">                    .as(DocumentType.PDF).execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"winWordToPdf windows环境word转换为pdf时出现异常："</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过libreoffice 实现word转pdf -- linux 环境 需要有 libreoffice 服务</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file 源文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">linuxWordToPdf</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取文件的绝对路径和目标路径</span></span><br><span class="line">        String absolutePath = file.getAbsolutePath();</span><br><span class="line">        String parentPath = file.getParent();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构建LibreOffice的命令行工具命令</span></span><br><span class="line">        String command = <span class="string">"libreoffice --convert-to pdf "</span> + absolutePath + <span class="string">" --outdir "</span> + parentPath;</span><br><span class="line">        <span class="comment">// 执行转换命令</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            executeLinuxCmd(command);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"linuxWordToPdf linux环境word转换为pdf时出现异常："</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行命令行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cmd 命令行</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">executeLinuxCmd</span><span class="params">(String cmd)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Process process = Runtime.getRuntime().exec(cmd);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            process.waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            log.error(<span class="string">"executeLinuxCmd 执行Linux命令异常："</span>, e);</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/F15217283411/article/details/133947490?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-133947490-blog-131420553.235%5Ev39%5Epc_relevant_3m_sort_dl_base2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-133947490-blog-131420553.235%5Ev39%5Epc_relevant_3m_sort_dl_base2&amp;utm_relevant_index=6" target="_blank" rel="noopener">参考链接</a>、<a href="https://www.cnblogs.com/1399z3blog/p/17832438.html" target="_blank" rel="noopener">参考链接</a>、<a href="https://blog.csdn.net/qq_35385687/article/details/131420553" target="_blank" rel="noopener">参考链接</a></p>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVN版本回退</title>
+    <url>/2023/12/09/svn_recall/</url>
+    <content><![CDATA[<h2 id="SVN版本回退"><a class="header-anchor" href="#SVN版本回退"></a>SVN版本回退</h2>
+<p><strong>一、revert to this version和revert to this version的区别：</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/direct/d1013cffbee54fcd945d92773b3307fd.png" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+<p><strong>基于4674版本执行&quot;revert to this version&quot;操作效果：</strong><br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/direct/66fc21018b3f4a1286dd334cd001dc85.png" alt="在这里插入图片描述"></p>
+<p><strong>基于4674版本执行&quot;revert changes from this version&quot;操作效果：</strong></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/direct/372db8c1941b406487f9c8bbea481388.png" alt="在这里插入图片描述"></p>
+<p><strong>二、update to revision和revert to revision的区别(来源于网络未验证)：</strong></p>
+<ul>
+<li>revert to revision会把这个rev作为最新版本，而update to revision不会。</li>
+<li>revert to revision 永久恢复到以前的某个版本（含当前版本）。</li>
+<li>update to revision 临时恢复到以前的某个版本。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SVN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot AOP切面实现对自定义注解的属性动态修改</title>
+    <url>/2023/12/09/springboot_aop_update_custom_annotation/</url>
+    <content><![CDATA[<h2 id="需求"><a class="header-anchor" href="#需求"></a>需求</h2>
+<p>项目中共用了一个Redis，而项目中部分代码使用了JetCache的@Cached注解。所以需要给@Cached动态配置area属性值，用来区分dev和test环境。</p>
+<h2 id="问题"><a class="header-anchor" href="#问题"></a>问题</h2>
+<p><strong>自定义注解的属性值需要常量值，即static final修饰，直接通过配置文件不可行。</strong></p>
+<h2 id="解决方案"><a class="header-anchor" href="#解决方案"></a>解决方案</h2>
+<p>1、使用AOP切面拦截使用注解的方法，动态修改注解的属性值。切面1。<br>
+2、注解的底层一般也有一个AOP切面。切面2。<br>
+<strong>需要确保切面1在切面2之前执行 (使用@order(int)注解，值越小越先执行)。</strong></p>
+<a id="more"></a>
+<h2 id="示例代码"><a class="header-anchor" href="#示例代码"></a>示例代码</h2>
+<p><strong>yml配置文件：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">testAop:</span></span><br><span class="line"><span class="attr">    actionValue:</span> <span class="string">测试-10101908-action</span></span><br></pre></td></tr></table></figure>
+<p><strong>切面1：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Order</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;testAop.actionValue&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String actionValue;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(value = <span class="string">"@annotation(webLogAnnotation)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">aopTest</span><span class="params">(WebLogAnnotation webLogAnnotation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        InvocationHandler invocationHandler = Proxy.getInvocationHandler(webLogAnnotation);</span><br><span class="line">        Field value = invocationHandler.getClass().getDeclaredField( <span class="string">"memberValues"</span>);</span><br><span class="line">        value.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        Map&lt;String,Object&gt; memberValues  = (Map&lt;String,Object&gt;) value.get(invocationHandler);</span><br><span class="line">        memberValues.put(<span class="string">"action"</span>, actionValue);</span><br><span class="line">        log.info(<span class="string">"MyAspect.aopTest memberValues：&#123;&#125;"</span>,memberValues);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>切面2：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Order</span>(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebLogAspect</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"@annotation(webLogAnnotation)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">logAround</span><span class="params">(ProceedingJoinPoint joinPoint, WebLogAnnotation webLogAnnotation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// do something......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>controller：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/getList"</span>)</span><br><span class="line"><span class="meta">@WebLogAnnotation</span>(logType = <span class="string">"30010051"</span>,action = <span class="string">"通讯录-分页查询列表action"</span>,description = <span class="string">"'通讯录-分页查询列表desc'"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> PageResponseMsg&lt;AddressBookVo&gt;  <span class="title">getList</span><span class="params">(@RequestBody @Valid PageRequest&lt;QueryAddressBookListReq&gt; pageDto)</span></span>&#123;</span><br><span class="line">   <span class="comment">// do something......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经测试，WebLogAspect中成功获取到MyAspect 中修改的注解参数值。如下所示：<br>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://img-blog.csdnimg.cn/fb5ac35709934a86a60f76ccd48427c3.png" alt="在这里插入图片描述"><br>
+<strong>遗留问题：</strong></p>
+<ul>
+<li>必须传入该参数才可以获取到修改后的值</li>
+<li>通过反射方法method.getAnnotation(WebLogAnnotation.class)获取到的是原始值。若@Cached底层也是通过反射实现，则修改不了。</li>
+</ul>
+<p><a href="https://blog.csdn.net/sgl520lxl/article/details/111326155" target="_blank" rel="noopener">通过反射动态修改自定义注解属性值</a>、<a href="https://juejin.cn/post/7049253464349605924" target="_blank" rel="noopener">SpringBoot实现对自定义注解的切面</a>、<a href="https://blog.csdn.net/l1006841574/article/details/103722949?spm=1001.2101.3001.6650.6&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-103722949-blog-119613680.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-103722949-blog-119613680.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=13" target="_blank" rel="noopener">自定义注解属性动态赋值</a></p>
+]]></content>
+      <categories>
+        <category>搬砖笔记</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot校验List失效解决方法</title>
     <url>/2023/11/26/springBoot_valid_list/</url>
     <content><![CDATA[<h2 id="SpringBoot校验List失效解决方法"><a class="header-anchor" href="#SpringBoot校验List失效解决方法"></a>SpringBoot校验List失效解决方法</h2>
@@ -262,10 +380,10 @@ msearch的语法如下：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
-        <tag>Spring</tag>
         <tag>Springboot</tag>
         <tag>Windows</tag>
+        <tag>Spring</tag>
+        <tag>MySQL</tag>
         <tag>Elasticsearch</tag>
         <tag>EasyExcel</tag>
       </tags>
@@ -420,9 +538,9 @@ msearch的语法如下：</p>
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-        <tag>Spring</tag>
         <tag>Springboot</tag>
         <tag>IntelliJ IDEA</tag>
+        <tag>Spring</tag>
         <tag>SQLite</tag>
         <tag>RunApi</tag>
         <tag>YAPI</tag>
@@ -584,9 +702,9 @@ MySQL 8用户连接内存限制，设置单个用户连接可以使用的最大�
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>Springboot</tag>
         <tag>Maven</tag>
+        <tag>MySQL</tag>
         <tag>Nacos</tag>
         <tag>Validation</tag>
       </tags>
@@ -824,8 +942,8 @@ MyBatis3.5+， 在JDK8下使用新反射特性，若传递多参数时，不使�
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>Spring</tag>
+        <tag>MySQL</tag>
         <tag>SpringBoot</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
@@ -954,8 +1072,8 @@ strip-prefix可用于路由配置和zuul.routes.routeName.path结合使用</p>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Nginx</tag>
+        <tag>Java</tag>
         <tag>Centos</tag>
         <tag>Zuul</tag>
       </tags>
@@ -2364,10 +2482,10 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
-        <tag>Spring</tag>
-        <tag>SpringBoot</tag>
         <tag>Maven</tag>
+        <tag>Spring</tag>
+        <tag>MySQL</tag>
+        <tag>SpringBoot</tag>
         <tag>Redis</tag>
         <tag>RestTemplate</tag>
       </tags>
@@ -2761,8 +2879,8 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
       </categories>
       <tags>
         <tag>Linux</tag>
-        <tag>Java</tag>
         <tag>Nginx</tag>
+        <tag>Java</tag>
         <tag>MySQL</tag>
         <tag>MyBatis</tag>
       </tags>
@@ -3012,10 +3130,10 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
       </categories>
       <tags>
         <tag>Linux</tag>
-        <tag>Java</tag>
         <tag>Nginx</tag>
-        <tag>MySQL</tag>
+        <tag>Java</tag>
         <tag>Spring</tag>
+        <tag>MySQL</tag>
         <tag>SpringBoot</tag>
         <tag>MyBatis</tag>
       </tags>
@@ -3576,8 +3694,8 @@ java.lang.IllegalStateException: Duplicate key 11<br>
       <tags>
         <tag>Linux</tag>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>Spring</tag>
+        <tag>MySQL</tag>
         <tag>SpringBoot</tag>
         <tag>MyBatis</tag>
       </tags>
@@ -4149,10 +4267,10 @@ ctrl+shift+u     大小写转换</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
-        <tag>Spring</tag>
-        <tag>SpringBoot</tag>
         <tag>IntelliJ IDEA</tag>
+        <tag>Spring</tag>
+        <tag>MySQL</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -9761,8 +9879,8 @@ java代码：</p>
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>MySQL</tag>
         <tag>Spring</tag>
+        <tag>MySQL</tag>
         <tag>MyBatis</tag>
         <tag>jQuery</tag>
       </tags>
