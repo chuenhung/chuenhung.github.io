@@ -98,14 +98,14 @@
 
 
 
-<meta name="description" content="对对象的字符串类型的日期排序（推荐） 方法一 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 123456789101112131415Collections.sort(deptInfoVoList, new Comparator&lt;DeptInfoVo&gt;()&amp;#123;	public int compare(Dep">
+<meta name="description" content="对对象的字符串类型的日期排序（推荐） 方法一 123456789101112131415Collections.sort(deptInfoVoList, new Comparator&lt;DeptInfoVo&gt;()&amp;#123;	public int compare(DeptInfoVo deptInfoVo1, DeptInfoVo deptInfoVo2) &amp;#123;		SimpleD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java8常见操作整理">
 <meta property="og:url" content="http://yoursite.com/2023/04/02/java8_common_operations/index.html">
 <meta property="og:site_name" content="我可能在扯淡">
-<meta property="og:description" content="对对象的字符串类型的日期排序（推荐） 方法一 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 【这几行需要删除掉！！！！】 123456789101112131415Collections.sort(deptInfoVoList, new Comparator&lt;DeptInfoVo&gt;()&amp;#123;	public int compare(Dep">
+<meta property="og:description" content="对对象的字符串类型的日期排序（推荐） 方法一 123456789101112131415Collections.sort(deptInfoVoList, new Comparator&lt;DeptInfoVo&gt;()&amp;#123;	public int compare(DeptInfoVo deptInfoVo1, DeptInfoVo deptInfoVo2) &amp;#123;		SimpleD">
 <meta property="article:published_time" content="2023-04-02T14:46:00.000Z">
-<meta property="article:modified_time" content="2024-09-06T14:30:00.000Z">
+<meta property="article:modified_time" content="2024-04-27T02:50:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -351,8 +351,8 @@
 			
 			  <span class="post-updated">
 				&nbsp; | &nbsp; 更新于
-				<time itemprop="dateUpdated" datetime="2024-09-06T22:30:00+08:00" content="2024-09-06 22:30">
-				  2024-09-06 22:30
+				<time itemprop="dateUpdated" datetime="2024-04-27T10:50:00+08:00" content="2024-04-27 10:50">
+				  2024-04-27 10:50
 				</time>
 			  </span>
 			
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  988字
+                  956字
                 </span>
               
 
@@ -455,10 +455,6 @@
       
         <h2 id="对对象的字符串类型的日期排序（推荐）"><a class="header-anchor" href="#对对象的字符串类型的日期排序（推荐）"></a>对对象的字符串类型的日期排序（推荐）</h2>
 <h3 id="方法一"><a class="header-anchor" href="#方法一"></a>方法一</h3>
-<p>【这几行需要删除掉！！！！】<br>
-【这几行需要删除掉！！！！】<br>
-【这几行需要删除掉！！！！】<br>
-【这几行需要删除掉！！！！】</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(deptInfoVoList, <span class="keyword">new</span> Comparator&lt;DeptInfoVo&gt;()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(DeptInfoVo deptInfoVo1, DeptInfoVo deptInfoVo2)</span> </span>&#123;</span><br><span class="line">		SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Date d1 = sdf.parse(deptInfoVo1.getDoneDate());</span><br><span class="line">			Date d2 = sdf.parse(deptInfoVo2.getDoneDate());</span><br><span class="line">			<span class="comment">// 降序：d2.compareTo(d1)</span></span><br><span class="line">			<span class="keyword">return</span> d1.compareTo(d2);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">			log.error(<span class="string">"格式化时间失败,deptInfoVo1：&#123;&#125;,deptInfoVo2：&#123;&#125;"</span>,deptInfoVo1,deptInfoVo2);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="方法二"><a class="header-anchor" href="#方法二"></a>方法二</h3>
