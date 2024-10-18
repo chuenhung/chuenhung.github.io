@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "https://chuenhung.github.io/";
+            }
+        }
+    })();
+</script>
+
+<meta name="referrer" content="no-referrer" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,MySQL,Spring,SpringBoot,Maven,Redis,RestTemplate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。  synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序猿搬砖笔记(十)">
+<meta property="og:url" content="http://yoursite.com/2022/11/10/coding_notes_ten/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。  synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方">
+<meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2a08a880133b45d6b6112920dfe056b3.png#pic_center">
+<meta property="article:published_time" content="2022-11-10T15:30:00.000Z">
+<meta property="article:modified_time" content="2022-11-10T15:30:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Maven">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="RestTemplate">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/11/10/coding_notes_ten/"/>
+
+
+
+
+
+  <title>Java程序猿搬砖笔记(十) | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">chuenhung.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/10/coding_notes_ten/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java程序猿搬砖笔记(十)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T23:30:00+08:00">
+                2022-11-10 23:30
+              </time>
+            
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
+<blockquote>
+<p>好记性不如烂笔头</p>
+</blockquote>
+<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
+<!--- more -->
+<h2 id="synchronized锁定的对象"><a class="header-anchor" href="#synchronized锁定的对象"></a>synchronized锁定的对象</h2>
+<p><strong>synchronized修饰的作用：</strong><br>
+让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。<br>
+<strong>synchronized锁定的元素:</strong></p>
+<ul>
+<li>修饰方法
+<ul>
+<li>静态方法，锁定的是类</li>
+<li>普通方法，锁定的时方法的调用者</li>
+</ul>
+</li>
+<li>修饰代码块，锁定的时传入的对象</li>
+</ul>
+<h2 id="Java线程内存模型-JMM-定义的8中原子操作"><a class="header-anchor" href="#Java线程内存模型-JMM-定义的8中原子操作"></a>Java线程内存模型(JMM)定义的8中原子操作</h2>
+<ul>
+<li>read(读取)：从主内存中读取数据</li>
+<li>load(载入)：将主内存读取到的数据写入工作内存</li>
+<li>use(使用)：从工作内存读取数据来计算</li>
+<li>assgin(赋值)：将计算好的值重新赋值到工作内存中</li>
+<li>store(存储)：将工作内存数据写入主内存，会经过总线，到总线后就开始广播其他线程</li>
+<li>write(写入)：将store过去的变量值赋值给主内存中的变量</li>
+<li>lock(锁定)：将主内存变量加锁，标识为线程独占状态</li>
+<li>unlock(解锁)：将主内存变量解锁，解锁后其他线程可以锁定该变量<br>
+<strong>MESI缓存一致性协议：</strong><br>
+多个cpu从主内存读取同一个数据到各自的高速缓存，当其中某个cpu修改了缓存里的数据，该数据会马上同步回主内存，其他cpu通过<strong>总线嗅探机制</strong>可以感知到数据的变化从而将自己缓存里的数据失效。<br>
+一般lock锁加在线程的赋值之后，存储之前，这样的锁的粒度不大。volatile保证数据可见性、synchronized保证原子性。</li>
+</ul>
+<h2 id="MySQL分区学习"><a class="header-anchor" href="#MySQL分区学习"></a>MySQL分区学习</h2>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yeyuzhuanjia/p/16149744.html">参考链接</a>、<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RI9kRqvboxPI-rfE4jPqrw">参考链接</a>、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yaowen/p/16547595.html">参考链接</a></p>
+<h2 id="根据hash中的键模糊删除"><a class="header-anchor" href="#根据hash中的键模糊删除"></a>根据hash中的键模糊删除</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据hash中的键模糊删除</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key redis的key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> item item hash的键</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title function_">removeHashItem</span><span class="params">(String key, String item)</span>&#123;</span><br><span class="line"></span><br><span class="line">	ArrayList&lt;String&gt; items = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="comment">// 模糊查询出准确的item</span></span><br><span class="line">	redisTemplate.execute(<span class="keyword">new</span> <span class="title class_">RedisCallback</span>() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">public</span> Object <span class="title function_">doInRedis</span><span class="params">(RedisConnection connection)</span> <span class="keyword">throws</span> DataAccessException &#123;</span><br><span class="line">			Cursor&lt;Map.Entry&lt;<span class="type">byte</span>[], <span class="type">byte</span>[]&gt;&gt; entryCursor = connection.hScan(key.getBytes(), ScanOptions.scanOptions().match(<span class="string">&quot;*&quot;</span> + item + <span class="string">&quot;*&quot;</span>).count(<span class="number">1800</span>).build());</span><br><span class="line">			<span class="keyword">while</span>(entryCursor.hasNext())&#123;</span><br><span class="line">				Map.Entry&lt;<span class="type">byte</span>[], <span class="type">byte</span>[]&gt; next = entryCursor.next();</span><br><span class="line">				<span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(next.getKey());</span><br><span class="line">				<span class="comment">// 将查询出的item放入list</span></span><br><span class="line">				items.add(key);</span><br><span class="line">			&#125;</span><br><span class="line">			connection.close();</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="comment">// 批量删除对应key中的item</span></span><br><span class="line">	<span class="keyword">for</span> (String str: items)&#123;</span><br><span class="line">		redisTemplate.opsForHash().delete(key, str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="union和ordery-by一起使用报-Incorrect-usage-of-UNION-and-ORDER-BY-错误的解决方法"><a class="header-anchor" href="#union和ordery-by一起使用报-Incorrect-usage-of-UNION-and-ORDER-BY-错误的解决方法"></a>union和ordery by一起使用报&quot;Incorrect usage of UNION and ORDER BY&quot;错误的解决方法</h2>
+<h3 id="原因"><a class="header-anchor" href="#原因"></a>原因</h3>
+<p><strong>每条字句都使用order by会报错。</strong></p>
+<h3 id="解决方法"><a class="header-anchor" href="#解决方法"></a>解决方法</h3>
+<p><strong>方法一：只在最后一条字句使用order by，意思是对整个结果集进行order by</strong><br>
+参考代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;l%&#x27;</span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;%m%&#x27;</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法二：union后整体改为临时表</strong><br>
+参考代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;l%&#x27;</span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;%m%&#x27;</span>)tmp</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> tmp.score <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法三：每一层都改为临时表再union</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;l%&#x27;</span>) t1</span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;%m%&#x27;</span>) t2</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinpz/article/details/106714234?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-106714234-blog-84915938.pc_relevant_multi_platform_whitelistv6&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-106714234-blog-84915938.pc_relevant_multi_platform_whitelistv6&amp;utm_relevant_index=3">参考链接</a></p>
+<h2 id="Spring-Cloud-Config多服务共享公共配置"><a class="header-anchor" href="#Spring-Cloud-Config多服务共享公共配置"></a>Spring Cloud Config多服务共享公共配置</h2>
+<p>参考代码：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">innovation</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">reward-innovation-v1,common</span></span><br><span class="line">      <span class="attr">profile:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">uri:</span> <span class="string">http://10.12.7.124:8888</span></span><br><span class="line">      <span class="attr">failFast:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">main.allow-bean-definition-overriding:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><strong>该代码读取配置中心的common-test.yml和reward-innovation-v1-test.yml文件</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/werewolfBoy/p/13973036.html">参考链接</a></p>
+<h2 id="解决SpringBoot启动报错：NoClassDefFoundError-org-springframework-data-redis-connection-RedisStreamCommands"><a class="header-anchor" href="#解决SpringBoot启动报错：NoClassDefFoundError-org-springframework-data-redis-connection-RedisStreamCommands"></a>解决SpringBoot启动报错：NoClassDefFoundError: org/springframework/data/redis/connection/RedisStreamCommands</h2>
+<p>查重管理的时候，在测试环境碰到一模一样的问题。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dengchao1013/article/details/104302874">参考链接</a></p>
+<h2 id="查看Java进程当前使用的JVM参数"><a class="header-anchor" href="#查看Java进程当前使用的JVM参数"></a>查看Java进程当前使用的JVM参数</h2>
+<p><strong>1、jps命令查看当前进程id</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[award_dev@localhost reward_taskjob]$ jps -l</span><br><span class="line">32496 reward-taskjob-202209151113-SNAPSHOT.jar</span><br><span class="line">4931 award-webbas-config-2022-08-29-122959.jar</span><br><span class="line">3187 reward-innovation-202209172040-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
+<p><strong>2、jinfo -flags 进程id 命令查看当前进程使用的JVM参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[award_dev@localhost reward_taskjob]$ jinfo -flags 32496</span><br><span class="line">Attaching to process ID 32496, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.121-b13</span><br><span class="line">Non-default VM flags: -XX:CICompilerCount=12 -XX:ConcGCThreads=3 -XX:G1HeapRegionSize=1048576 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=null -XX:InitialHeapSize=1289748480 -XX:MarkStackSize=4194304 -XX:MaxHeapSize=2147483648 -XX:MaxNewSize=1287651328 -XX:MinHeapDeltaBytes=1048576 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseFastUnorderedTimeStamps -XX:+UseG1GC</span><br><span class="line">Command line:  -Dlog4j2.formatMsgNoLookups=<span class="literal">true</span> -DENV_CONFIG_IP=10.12.7.181 -DENV_CONFIG_PORT=9888 -DENV_TYPE=dev -Dname=reward-taskjob-202209151113-SNAPSHOT.jar -Djava.awt.headless=<span class="literal">true</span> -Djava.net.preferIPv4Stack=<span class="literal">true</span> -Duser.timezone=Asia/Shanghai -Djava.io.tmpdir=/opt/aspire/product/award_dev/reward_taskjob/data/tmp -Xms1230m -Xmx2g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./logs/java_heapdump.hprof -XX:+PrintGCDateStamps -Xloggc:/opt/aspire/product/award_dev/reward_taskjob/logs/gclog/gc-reward-taskjob-202209151113-SNAPSHOT.jar-20220919102315.log -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+UseG1GC</span><br></pre></td></tr></table></figure>
+<h2 id="RestTemplate使用Ribbon实现负载均衡的调用"><a class="header-anchor" href="#RestTemplate使用Ribbon实现负载均衡的调用"></a>RestTemplate使用Ribbon实现负载均衡的调用</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line">RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接通过服务名调用，Eureka会去找。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restTemplate.postForObject(<span class="string">&quot;http://webbas32-manage-v1/web/login/findemployeebyphone&quot;</span>, formEntity, String.class);</span><br></pre></td></tr></table></figure>
+<p><strong>其中webbas32-manage-v1为接口提供方的服务名</strong><br>
+<strong>调用方的Eureka配置需要添加，fetchRegistry: true //表示可以从Eureka Server获取注册的服务信息</strong></p>
+<h2 id="RestTemplate-postForObject泛型丢失-返回LinkedHashMap-的问题解决方法"><a class="header-anchor" href="#RestTemplate-postForObject泛型丢失-返回LinkedHashMap-的问题解决方法"></a>RestTemplate.postForObject泛型丢失(返回LinkedHashMap)的问题解决方法</h2>
+<p><strong>问题：</strong><br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center" alt="在这里插入图片描述"><br>
+如上图所示，data类型本应该为MemberInfoVo，但是泛型丢失变为LinkedHashMap。</p>
+<p><strong>解决方法：</strong><br>
+参考代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ParameterizedTypeReference&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; typeRef = <span class="keyword">new</span> <span class="title class_">ParameterizedTypeReference</span>&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt;() &#123;&#125;;</span><br><span class="line">ResponseEntity&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; result = restTemplate.exchange(findEmployeeUrl, HttpMethod.POST, formEntity, typeRef);</span><br><span class="line">ResponseMsg&lt;MemberInfoVo&gt; responseMsg = result.getBody(); </span><br></pre></td></tr></table></figure>
+<p><strong>成功效果：</strong><br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/2a08a880133b45d6b6112920dfe056b3.png#pic_center" alt="在这里插入图片描述"><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40162735/article/details/100063040">参考链接</a></p>
+<h2 id="MyBatis批量更新"><a class="header-anchor" href="#MyBatis批量更新"></a>MyBatis批量更新</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/suya2011/article/details/121280725">参考链接</a></p>
+<h2 id="Spring-Cloud-Eureka自我保护机制"><a class="header-anchor" href="#Spring-Cloud-Eureka自我保护机制"></a>Spring Cloud Eureka自我保护机制</h2>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linjiqin/p/10087462.html">参考链接</a></p>
+<h2 id="Spring-Cloud-Eureka控制台相关配置参数学习"><a class="header-anchor" href="#Spring-Cloud-Eureka控制台相关配置参数学习"></a>Spring Cloud Eureka控制台相关配置参数学习</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yucaifu1989/article/details/105792901?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-105792901-blog-124334087.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-105792901-blog-124334087.pc_relevant_default&amp;utm_relevant_index=2">参考链接</a></p>
+<h2 id="SpringBoot配置默认sql级别info、sql打印级别为debug"><a class="header-anchor" href="#SpringBoot配置默认sql级别info、sql打印级别为debug"></a>SpringBoot配置默认sql级别info、sql打印级别为debug</h2>
+<p><strong>SpringBoot的默认使用的日志框架为logback，且默认的日志级别均为INFO。<br>
+为了打印sql日志信息，我们只需把对应dao层包下的日志级别改为DEBUG。</strong></p>
+<p>示例代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log  </span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">config:</span> <span class="string">classpath:log4j2-dev.xml</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">root:</span> <span class="string">info</span></span><br><span class="line">	<span class="comment"># dao层包下的日志级别修改</span></span><br><span class="line">    <span class="attr">com:</span></span><br><span class="line">      <span class="attr">aspirecn:</span></span><br><span class="line">        <span class="attr">rewardmanagement:</span></span><br><span class="line">          <span class="attr">mapper:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38001814/article/details/89378665">参考链接</a></p>
+<h2 id="IDEA解决完所有冲突但是分支还是在Merging状态的解决方法"><a class="header-anchor" href="#IDEA解决完所有冲突但是分支还是在Merging状态的解决方法"></a>IDEA解决完所有冲突但是分支还是在Merging状态的解决方法</h2>
+<p><strong>1、通过git status命令查看信息(关键)：</strong><br>
+All conflicts fixed but you are still merging(use “git commit” to conclude merge)<br>
+<strong>2、根据第一步的信息提示做操作</strong><br>
+示例操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&#x27;合并master&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24735877/article/details/80847372">参考链接</a></p>
+<h2 id="SpringBoot中使用-Value读取配置文件中的list、map"><a class="header-anchor" href="#SpringBoot中使用-Value读取配置文件中的list、map"></a>SpringBoot中使用@Value读取配置文件中的list、map</h2>
+<p><strong>配置文件代码：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myList:</span> <span class="string">item1,item2,item3</span></span><br><span class="line"><span class="attr">myMap:</span> <span class="string">&quot;&#123;key1: &#x27;value1&#x27;, key2: &#x27;value2&#x27;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Java代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;#&#123;&#x27;$&#123;myList&#125;&#x27;.split(&#x27;,&#x27;)&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> List&lt;String&gt; myList;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Value(&quot;#&#123;$&#123;myMap&#125;&#125;&quot;)</span>  </span><br><span class="line"><span class="keyword">private</span> Map&lt;String,String&gt; myMap;</span><br></pre></td></tr></table></figure>
+<p>注意：<br>
+上面的list配置中，<strong>一定不要</strong>用&quot;&quot;把list所有的成员value包起来，要不然解析报错。<br>
+上面的map配置中，<strong>一定要用&quot;&quot;</strong> 把map所对应的value包起来，要不然解析解析报错。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/duanxz/p/4520627.html">参考链接</a></p>
+<h2 id="SpringBoot中多个-ControllerAdvice全局异常处理"><a class="header-anchor" href="#SpringBoot中多个-ControllerAdvice全局异常处理"></a>SpringBoot中多个@ControllerAdvice全局异常处理</h2>
+<p><strong>多个ControllerAdvice，优先级由@Order决定，order的数值越小 则优先级越高。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.annotation.Order;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MsControllerAdvice</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：@ControllerAdvice只能对controller抛出的异常处理</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014320421/article/details/121409365?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-121409365-blog-106361438.pc_relevant_aa_2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-121409365-blog-106361438.pc_relevant_aa_2&amp;utm_relevant_index=5">多个@ControllerAdvice全局异常处理(含多个实用场景)</a>、<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/gaoshan12345678910/article/details/106361438">@ControllerAdvice优先级设定</a></p>
+<h2 id="SpringCloud-zuul路由手动配置"><a class="header-anchor" href="#SpringCloud-zuul路由手动配置"></a>SpringCloud zuul路由手动配置</h2>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">zuul:</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">    <span class="attr">api-a:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/api-a/**</span></span><br><span class="line">      <span class="attr">serviceId:</span> <span class="string">service-ribbon</span></span><br><span class="line">    <span class="attr">api-b:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/api-b/**</span></span><br><span class="line">      <span class="attr">serviceId:</span> <span class="string">service-feign</span></span><br></pre></td></tr></table></figure>
+<p><strong>zuul路由配置说明：api-a、api-b是路由名称可以随便取，serviceId是服务的id(对应spring.application.name)。<br>
+上面配置表示，以/api-a/ 开头的请求都转发给service-ribbon服务；以/api-b/开头的请求都转发给service-feign服务。</strong></p>
+<h2 id="SpringCloud-zuul的路由默认自动配置"><a class="header-anchor" href="#SpringCloud-zuul的路由默认自动配置"></a>SpringCloud zuul的路由默认自动配置</h2>
+<p>zuul可以自动根据Eureka服务器中所注册的服务自动完成路由映射、负载均衡。<br>
+在Eureka上注册了两个服务：<br>
+1、服务名management，端口18081<br>
+2、服务名gateway，端口7001<br>
+请求路径，127.0.0.1:7001/management/addressBook/getList，网关zuul会把请求转发给management服务，<br>
+实际请求路径127.0.0.1:18081/addressBook/getList</p>
+<p><a target="_blank" rel="noopener" href="https://www.csdn.net/tags/MtjaggwsNjMyMTgtYmxvZwO0O0OO0O0O.html">参考链接</a></p>
+<h2 id="dependencyManagement标签的作用"><a class="header-anchor" href="#dependencyManagement标签的作用"></a>dependencyManagement标签的作用</h2>
+<p><strong>在Maven中dependencyManagement的作用其实相当于一个对所依赖jar包进行版本管理的管理器。</strong><br>
+<strong>jar的版本判断的两种途径：</strong></p>
+<ul>
+<li>如果dependencies里的dependency自己没有声明version元素，那么maven就会到dependencyManagement里面去找有没有对该artifactId和groupId进行过版本声明。如果有，就继承它，如果没有就会报错，告诉你必须为dependency声明一个version。</li>
+<li>如果dependencies中的dependency声明了version，那么无论dependencyManagement中有无对该jar的version声明，都以dependency里的version为准。</li>
+</ul>
+<p><strong>示例代码如下：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--只是对版本进行管理，不会实际引入jar  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">&lt;!--会实际下载jar包  --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://t.zoukankan.com/wk-missQ1-p-14049836.html">参考链接</a></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/wechatPay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/aliPay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          
+            <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+          
+            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          
+            <a href="/tags/RestTemplate/" rel="tag"><i class="fa fa-tag"></i> RestTemplate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/06/network_connection_mode_of_VirtualBox/" rel="next" title="VirtualBox网络连接方式学习笔记">
+                <i class="fa fa-chevron-left"></i> VirtualBox网络连接方式学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/12/19/regular_expression/" rel="prev" title="正则表达式学习">
+                正则表达式学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E9%94%81%E5%AE%9A%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">synchronized锁定的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B-JMM-%E5%AE%9A%E4%B9%89%E7%9A%848%E4%B8%AD%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Java线程内存模型(JMM)定义的8中原子操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E5%88%86%E5%8C%BA%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">MySQL分区学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AEhash%E4%B8%AD%E7%9A%84%E9%94%AE%E6%A8%A1%E7%B3%8A%E5%88%A0%E9%99%A4"><span class="nav-number">4.</span> <span class="nav-text">根据hash中的键模糊删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#union%E5%92%8Cordery-by%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8%E6%8A%A5-Incorrect-usage-of-UNION-and-ORDER-BY-%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">union和ordery by一起使用报&quot;Incorrect usage of UNION and ORDER BY&quot;错误的解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">5.1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Config%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E5%85%AC%E5%85%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">Spring Cloud Config多服务共享公共配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3SpringBoot%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99%EF%BC%9ANoClassDefFoundError-org-springframework-data-redis-connection-RedisStreamCommands"><span class="nav-number">7.</span> <span class="nav-text">解决SpringBoot启动报错：NoClassDefFoundError: org&#x2F;springframework&#x2F;data&#x2F;redis&#x2F;connection&#x2F;RedisStreamCommands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8BJava%E8%BF%9B%E7%A8%8B%E5%BD%93%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84JVM%E5%8F%82%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">查看Java进程当前使用的JVM参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RestTemplate%E4%BD%BF%E7%94%A8Ribbon%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E8%B0%83%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">RestTemplate使用Ribbon实现负载均衡的调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RestTemplate-postForObject%E6%B3%9B%E5%9E%8B%E4%B8%A2%E5%A4%B1-%E8%BF%94%E5%9B%9ELinkedHashMap-%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">RestTemplate.postForObject泛型丢失(返回LinkedHashMap)的问题解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0"><span class="nav-number">11.</span> <span class="nav-text">MyBatis批量更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Eureka%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-number">12.</span> <span class="nav-text">Spring Cloud Eureka自我保护机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Eureka%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0"><span class="nav-number">13.</span> <span class="nav-text">Spring Cloud Eureka控制台相关配置参数学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E9%85%8D%E7%BD%AE%E9%BB%98%E8%AE%A4sql%E7%BA%A7%E5%88%ABinfo%E3%80%81sql%E6%89%93%E5%8D%B0%E7%BA%A7%E5%88%AB%E4%B8%BAdebug"><span class="nav-number">14.</span> <span class="nav-text">SpringBoot配置默认sql级别info、sql打印级别为debug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA%E8%A7%A3%E5%86%B3%E5%AE%8C%E6%89%80%E6%9C%89%E5%86%B2%E7%AA%81%E4%BD%86%E6%98%AF%E5%88%86%E6%94%AF%E8%BF%98%E6%98%AF%E5%9C%A8Merging%E7%8A%B6%E6%80%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">15.</span> <span class="nav-text">IDEA解决完所有冲突但是分支还是在Merging状态的解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E4%B8%AD%E4%BD%BF%E7%94%A8-Value%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84list%E3%80%81map"><span class="nav-number">16.</span> <span class="nav-text">SpringBoot中使用@Value读取配置文件中的list、map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E4%B8%AD%E5%A4%9A%E4%B8%AA-ControllerAdvice%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">17.</span> <span class="nav-text">SpringBoot中多个@ControllerAdvice全局异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringCloud-zuul%E8%B7%AF%E7%94%B1%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">18.</span> <span class="nav-text">SpringCloud zuul路由手动配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringCloud-zuul%E7%9A%84%E8%B7%AF%E7%94%B1%E9%BB%98%E8%AE%A4%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">19.</span> <span class="nav-text">SpringCloud zuul的路由默认自动配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dependencyManagement%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">20.</span> <span class="nav-text">dependencyManagement标签的作用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+

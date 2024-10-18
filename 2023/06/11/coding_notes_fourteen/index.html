@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "https://chuenhung.github.io/";
+            }
+        }
+    })();
+</script>
+
+<meta name="referrer" content="no-referrer" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,Java,MySQL,Springboot,Maven,Nacos,Validation," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL自定义排序 用locate本质是数字排序 用locate本质是数字排序，可以先把数字打印出来 123SELECT id, second_class, LOCATE(second_class, &#x27;【现场发布】世界互联网大会领先科技成果,世界互联网大会领先科技成果,国际电联WSIS奖-Winner（最高项目奖）,国际电联AI&#x2F;ML in 5G大赛奖,国际电联WSIS奖-Winner">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序猿搬砖笔记(十四)">
+<meta property="og:url" content="http://yoursite.com/2023/06/11/coding_notes_fourteen/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="MySQL自定义排序 用locate本质是数字排序 用locate本质是数字排序，可以先把数字打印出来 123SELECT id, second_class, LOCATE(second_class, &#x27;【现场发布】世界互联网大会领先科技成果,世界互联网大会领先科技成果,国际电联WSIS奖-Winner（最高项目奖）,国际电联AI&#x2F;ML in 5G大赛奖,国际电联WSIS奖-Winner">
+<meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/be09020f0f10446ba3c99fbe732aaac2.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/744f4f013968419e9842b517766f942d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a17f1c48b4984e8380baf15710990f08.png">
+<meta property="article:published_time" content="2023-06-11T05:50:00.000Z">
+<meta property="article:modified_time" content="2023-08-11T14:50:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Springboot">
+<meta property="article:tag" content="Maven">
+<meta property="article:tag" content="Nacos">
+<meta property="article:tag" content="Validation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/06/11/coding_notes_fourteen/"/>
+
+
+
+
+
+  <title>Java程序猿搬砖笔记(十四) | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">chuenhung.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/06/11/coding_notes_fourteen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java程序猿搬砖笔记(十四)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-11T13:50:00+08:00">
+                2023-06-11 13:50
+              </time>
+            
+			
+			  <span class="post-updated">
+				&nbsp; | &nbsp; 更新于
+				<time itemprop="dateUpdated" datetime="2023-08-11T22:50:00+08:00" content="2023-08-11 22:50">
+				  2023-08-11 22:50
+				</time>
+			  </span>
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MySQL自定义排序"><a class="header-anchor" href="#MySQL自定义排序"></a>MySQL自定义排序</h2>
+<h3 id="用locate本质是数字排序"><a class="header-anchor" href="#用locate本质是数字排序"></a>用locate本质是数字排序</h3>
+<p>用locate本质是数字排序，可以先把数字打印出来</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, second_class, LOCATE(second_class, <span class="string">&#x27;【现场发布】世界互联网大会领先科技成果,世界互联网大会领先科技成果,国际电联WSIS奖-Winner（最高项目奖）,国际电联AI/ML in 5G大赛奖,国际电联WSIS奖-Winner（大奖）&#x27;</span>) <span class="keyword">AS</span> sort</span><br><span class="line"><span class="keyword">FROM</span> t_awards</span><br><span class="line"><span class="keyword">WHERE</span> award_type <span class="operator">=</span> <span class="string">&#x27;8&#x27;</span> <span class="keyword">AND</span> top_class <span class="operator">=</span> <span class="string">&#x27;国际奖项&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>不存在与LOCATE中的记录，结果集会放到最前面。<br>
+建议用倒序排。</p>
+<span id="more"></span>
+<h3 id="case-when-then…语法排序"><a class="header-anchor" href="#case-when-then…语法排序"></a>case when then…语法排序</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, second_class,</span><br><span class="line">	   <span class="keyword">case</span></span><br><span class="line">		   <span class="keyword">when</span> second_class <span class="operator">=</span> <span class="string">&#x27;【现场发布】世界互联网大会领先科技成果&#x27;</span> <span class="keyword">then</span> <span class="number">20</span></span><br><span class="line">		   <span class="keyword">when</span> second_class <span class="operator">=</span> <span class="string">&#x27;世界互联网大会领先科技成果&#x27;</span> <span class="keyword">then</span> <span class="number">18</span></span><br><span class="line">		   <span class="keyword">when</span> second_class <span class="operator">=</span> <span class="string">&#x27;国际电联WSIS奖-Winner（最高项目奖）&#x27;</span> <span class="keyword">then</span> <span class="number">16</span></span><br><span class="line">		   <span class="keyword">ELSE</span> <span class="number">-1</span> <span class="keyword">END</span> <span class="keyword">as</span> sort</span><br><span class="line"><span class="keyword">FROM</span> t_awards</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> sort <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<h3 id="field-函数排序"><a class="header-anchor" href="#field-函数排序"></a>field()函数排序</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> FIELD(second_class,<span class="string">&#x27;【现场发布】世界互联网大会领先科技成果&#x27;</span>,<span class="string">&#x27;世界互联网大会领先科技成果&#x27;</span>,<span class="string">&#x27;国际电联WSIS奖-Winner（最高项目奖）&#x27;</span>) <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<p>不存在与field中的记录，结果集会放到最前面。<br>
+建议用倒序排。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/quader/article/details/122761023">参考链接</a></p>
+<h2 id="阿里云Maven镜像仓库无法下载spring-cloud-dependencies依赖问题"><a class="header-anchor" href="#阿里云Maven镜像仓库无法下载spring-cloud-dependencies依赖问题"></a>阿里云Maven镜像仓库无法下载spring-cloud-dependencies依赖问题</h2>
+<p><url>http://maven.aliyun.com/nexus/content/groups/public/</url><br>
+上面这个url下载不了，更换url链接即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xxly1994/article/details/107058474/">参考链接</a></p>
+<h2 id="MySQL更新同一个表的同个字段"><a class="header-anchor" href="#MySQL更新同一个表的同个字段"></a>MySQL更新同一个表的同个字段</h2>
+<p>MySQL在同一SQL语句中,如果不能先查询出表中的某些值，再update这个表。<br>
+例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> 这样做会报错：You can<span class="string">&#x27;t specify target table &#x27;</span><span class="keyword">table</span> name<span class="string">&#x27; for update in FROM clause。</span></span><br><span class="line"><span class="string">UPDATE 表A</span></span><br><span class="line"><span class="string">SET 字段A = (SELECT 字段B FROM 表A)</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决方法一-推荐"><a class="header-anchor" href="#解决方法一-推荐"></a>解决方法一(推荐)</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表<span class="number">1</span> a1 </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> (<span class="keyword">select</span> 字段<span class="number">1</span>,字段<span class="number">2</span> <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">where</span> 条件) a2 <span class="keyword">on</span> 条件</span><br><span class="line"><span class="keyword">set</span> a1.字段<span class="number">1</span> <span class="operator">=</span> a2.字段<span class="number">2</span> </span><br></pre></td></tr></table></figure>
+<h3 id="解决方法二"><a class="header-anchor" href="#解决方法二"></a>解决方法二</h3>
+<p><strong>创建一张临时表</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wslzjr/article/details/106014855">参考链接</a></p>
+<h2 id="SpringBoot返回的JSON中的null转换为空字符串"><a class="header-anchor" href="#SpringBoot返回的JSON中的null转换为空字符串"></a>SpringBoot返回的JSON中的null转换为空字符串</h2>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/long88-club/p/11361174.html">Jackson自定义序列化null值处理(处理数组、list、array、set类型的null值)</a><br>
+<a target="_blank" rel="noopener" href="https://www.cnblogs.com/long88-club/p/11361174.html">springboot中返回值json中null转换空字符串</a></p>
+<h2 id="Spring的相关注解"><a class="header-anchor" href="#Spring的相关注解"></a>Spring的相关注解</h2>
+<p>@ConditionalOnMissingBean<br>
+@ConditionalOnProperty<br>
+@ConditionalOnBean<br>
+@Primary<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/wtl1992/article/details/122210599">参考链接</a></p>
+<h2 id="MySQL-JSON对象、数组查询"><a class="header-anchor" href="#MySQL-JSON对象、数组查询"></a>MySQL JSON对象、数组查询</h2>
+<h3 id="JSON对象查询"><a class="header-anchor" href="#JSON对象查询"></a>JSON对象查询</h3>
+<ul>
+<li>使用对象操作的方法进行查询：字段-&gt;’$.json属性’</li>
+<li>使用函数进行查询：json_extract(字段, ‘$.json属性’)</li>
+<li>获取JSON数组/对象长度：JSON_LENGTH()</li>
+</ul>
+<h3 id="JSON数组查询"><a class="header-anchor" href="#JSON数组查询"></a>JSON数组查询</h3>
+<ul>
+<li>对象操作方式查询：字段-&gt;’$[0].属性’</li>
+<li>使用函数查询：JSON_CONTAINS(字段,JSON_OBJECT(‘json属性’, ‘内容’))</li>
+<li>获取JSON数组/对象长度：JSON_LENGTH()</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> detail_list为JSON数组字段 flowKey、opened为数组中的对象属性</span><br><span class="line"><span class="keyword">select</span> json_contains(detail_list, <span class="built_in">json_object</span>(<span class="string">&#x27;opened&#x27;</span>, <span class="string">&#x27;1&#x27;</span>)) <span class="keyword">as</span> opened </span><br><span class="line"><span class="keyword">from</span> t_flow_path </span><br><span class="line"><span class="keyword">where</span> json_contains(detail_list, <span class="built_in">json_object</span>(<span class="string">&#x27;flowKey&#x27;</span>, <span class="string">&#x27;threeLeaderAudit&#x27;</span>));</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pine007/p/16982429.html">参考链接</a></p>
+<h2 id="Nacos的配置自动刷新"><a class="header-anchor" href="#Nacos的配置自动刷新"></a>Nacos的配置自动刷新</h2>
+<h3 id="Value注解读取配置"><a class="header-anchor" href="#Value注解读取配置"></a>@Value注解读取配置</h3>
+<p>在该类上添加@RefreshScope注解</p>
+<h3 id="ConfigurationProperties-prefix-“user”-注解注入实体类-读取配置"><a class="header-anchor" href="#ConfigurationProperties-prefix-“user”-注解注入实体类-读取配置"></a>@ConfigurationProperties(prefix = “user”)注解注入实体类 读取配置</h3>
+<p>默认支持自动刷新配置</p>
+<h2 id="Nacos基于profile粒度的多环境配置"><a class="header-anchor" href="#Nacos基于profile粒度的多环境配置"></a>Nacos基于profile粒度的多环境配置</h2>
+<p>读取(Data Id)文件格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;spring.application.name&#125;-$&#123;spring.profiles.active&#125;.$&#123;nacos.config.file-extension&#125;</span><br></pre></td></tr></table></figure>
+<p>比如在Nacos上新增一个Data Id为：nacos-config-dev.yaml的基础配置<br>
+需要在项目的配置文件中增加</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.profiles.active=dev</span> </span><br></pre></td></tr></table></figure>
+<p>激活配置</p>
+<h2 id="Nacos服务配置数据模型"><a class="header-anchor" href="#Nacos服务配置数据模型"></a>Nacos服务配置数据模型</h2>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png" alt="在这里插入图片描述"><br>
+<strong>一共有三种配置方案：</strong><br>
+1、<br>
+默认命名空间(public) + 默认Group分组(DEFAULT_GROUP) + 自定义Data Id（没有默认值）<br>
+2、<br>
+默认命名空间 + 自定义Group分组 + 自定义的Data Id（没有默认值）<br>
+3、<br>
+自定义命名空间 + 自定义Group分组 + 自定义的Data Id（没有默认值）</p>
+<p>详情可以参考20200804课件.docx</p>
+<h2 id="Nacos数据持久化"><a class="header-anchor" href="#Nacos数据持久化"></a>Nacos数据持久化</h2>
+<h3 id="解决Nacos-1-3-1连接MySQL-8数据库报错"><a class="header-anchor" href="#解决Nacos-1-3-1连接MySQL-8数据库报错"></a>解决Nacos 1.3.1连接MySQL 8数据库报错</h3>
+<p>解决方法如下：<br>
+<strong>第一步：在nacos安装目录下新建plugins/mysql文件夹，并放入mysql-connector-java-8.0.18.jar</strong><br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/be09020f0f10446ba3c99fbe732aaac2.png" alt="在这里插入图片描述"></p>
+<p>我的数据库是8.0.27，用这个包可以连接上。<br>
+windows和linux都需要做这一步。</p>
+<p><strong>第二步：修改conf/application.properties文件中的数据库信息。注意需要修改url链接。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#*************** Config Module Related Configurations ***************#</span><br><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform=mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url<span class="number">.0</span>=jdbc:mysql:<span class="comment">//10.1.128.188:3306/nacos_config?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2b8</span></span><br><span class="line">db.user=root</span><br><span class="line">db.password=</span><br></pre></td></tr></table></figure>
+<p><strong>注意url ?号后的内容需要修改，nacos默认的连接Mysql 8会报错</strong></p>
+<p><a target="_blank" rel="noopener" href="http://www.taodudu.cc/news/show-1252851.html">解决Nacos无法连接Mysql8.0+的问题(坑爹的阿里官方文档，已无力吐槽)</a></p>
+<h2 id="Spring事务机制"><a class="header-anchor" href="#Spring事务机制"></a>Spring事务机制</h2>
+<ul>
+<li>Spring事务底层是基于数据库事务和AOP的，Spring事务隔离级别对应的是数据库的隔离级别。</li>
+<li>Spring事务的传播行为是自己实现的，也是Spring事务中最复杂的。</li>
+<li>Sprino事务的传播机制是基于数据库连接来做的，一个数据库连接一个事务，如果传播机制配置为需要新开一个事务，那人实际上就是先建立一个<br>
+数据库连接，在此新数据库连接上执行sql。</li>
+</ul>
+<h2 id="Spring事务嵌套和传播行为"><a class="header-anchor" href="#Spring事务嵌套和传播行为"></a>Spring事务嵌套和传播行为</h2>
+<ul>
+<li>在同一个类中事务嵌套，最终的结果应该是取决于最外层的方法事务的传播特性。</li>
+<li>在不同的类的事务嵌套，外层的方法按照外层的事务传播属性执行，内层的传播属性按照内层的传播属性的特点去运行。注意：内层方法如果没有加事务注解会以外层方法事务为准，内层方法如果加了事务注解会以内层方法事务为准。<br>
+<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/EoH1gXhppEGaI5wY_b7iwA">事务嵌套和传播行为</a></li>
+</ul>
+<h2 id="Spring事务失效场景"><a class="header-anchor" href="#Spring事务失效场景"></a>Spring事务失效场景</h2>
+<ul>
+<li>事务方法访问修饰符不是public。</li>
+<li>事务方法是static、final的。</li>
+<li>事务方法中的异常被catch后，没有再次抛出新的异常。</li>
+<li>操作的数据库表如果本身不支持事务。</li>
+<li>多线程的调用导致事务失效。<br>
+有两种解决方法：1、可以使用thread.setUncaughtExceptionHandler方法来处理线程内部的异常。 2、外层方法使用FutureTask，并且抛出ExecutionException, InterruptedException。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/EoH1gXhppEGaI5wY_b7iwA">事务失效场景</a></p>
+<h2 id="MySQL-8修改用户密码"><a class="header-anchor" href="#MySQL-8修改用户密码"></a>MySQL 8修改用户密码</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改密码</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">user</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;新密码&#x27;</span>;</span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jierxiaoyao/article/details/127750637">参考链接</a></p>
+<h2 id="Validation支持同时加两个-Pattern注解"><a class="header-anchor" href="#Validation支持同时加两个-Pattern注解"></a>Validation支持同时加两个@Pattern注解</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pattern(regexp = &quot;111|3&quot;, message = &quot;奖项等级类型有误1&quot;)</span></span><br><span class="line"><span class="meta">@Pattern(regexp = &quot;111|4&quot;, message = &quot;奖项等级类型有误2&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String topClass;</span><br></pre></td></tr></table></figure>
+<h2 id="Validation自定义注解实现：不为空才进行正则表达式校验"><a class="header-anchor" href="#Validation自定义注解实现：不为空才进行正则表达式校验"></a>Validation自定义注解实现：不为空才进行正则表达式校验</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义注解整合 javax.validation：不为空才进行正则表达式校验</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liquanhong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2023/05/26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target(&#123;METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Constraint(validatedBy = NotBlankThenPattern.NotBlankThenPatternValidation.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotBlankThenPattern &#123;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">regexp</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;格式错误&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the groups the constraint belongs to</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the payload associated to the constraint</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">NotBlankThenPatternValidation</span> <span class="keyword">implements</span> <span class="title class_">ConstraintValidator</span>&lt;NotBlankThenPattern, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Pattern pattern;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(NotBlankThenPattern constraintAnnotation)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.pattern = Pattern.compile(constraintAnnotation.regexp());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String value, ConstraintValidatorContext context)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (StringUtil.isEmpty(value)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pattern.matcher(value).matches();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>其中StringUtil.isEmpty可以用其他框架的。</strong></p>
+<h2 id="Linux防火墙给某个端口添加指定ip"><a class="header-anchor" href="#Linux防火墙给某个端口添加指定ip"></a>Linux防火墙给某个端口添加指定ip</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudoroot:&lt;42&amp;x24&lt;3T&#123;/&#125;5#6</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --list-all</span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --permanent --add-rich-rule=<span class="string">&quot;rule family=&quot;</span>ipv4<span class="string">&quot; source address=&quot;</span>10.1.121.76<span class="string">&quot; port protocol=&quot;</span>tcp<span class="string">&quot; port=&quot;</span>9002<span class="string">&quot; accept&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h2 id="Mysql-order-by中使用case-when"><a class="header-anchor" href="#Mysql-order-by中使用case-when"></a>Mysql order by中使用case when</h2>
+<p><strong>需求：</strong><br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/744f4f013968419e9842b517766f942d.png" alt="在这里插入图片描述"></p>
+<p>**实现逻辑：**只管未分配专家的数据，分配了专家的数据按后面的字段排序。<br>
+<strong>代码如下：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">order</span> <span class="keyword">by</span></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">when</span> awardExpert.id <span class="keyword">is</span> <span class="keyword">null</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">2</span> <span class="keyword">end</span>,</span><br><span class="line">apply.submit_time <span class="keyword">desc</span>,apply.id,expert.update_time <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="批量导入MySQL报错"><a class="header-anchor" href="#批量导入MySQL报错"></a>批量导入MySQL报错</h2>
+<p><strong>Connection memory limit 50331648 bytes exceeded. Consumed 81426016 bytes.<br>
+; uncategorized SQLException; SQL state [HY000]; error code [4082]; Connection closed. Connection memory limit 50331648 bytes exceeded. Consumed 81426016 bytes</strong></p>
+<p><strong>问题原因：</strong><br>
+MySQL 8用户连接内存限制，设置单个用户连接可以使用的最大内存量(默认16MB)。如果任何用户连接使用超过这个数量，任何来自该连接的新查询都会被ER_CONN_LIMIT拒绝。</p>
+<ul>
+<li>此限制不适用于系统用户或root帐户；</li>
+<li>InnoDB缓冲池使用的内存也不包括在内。<br>
+就是说限制<strong>临时内存，排序，链接等内存</strong>。</li>
+</ul>
+<p><strong>解决方法一：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询单个用户连接可以使用的最大内存量SQL语句</span></span><br><span class="line">MySQL<span class="operator">&gt;</span> <span class="keyword">select</span> @<span class="variable">@connection_memory_limit</span>;</span><br><span class="line">MySQL<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> connection_memory_limit<span class="operator">=</span>可以使用的最大内存(字节);</span><br></pre></td></tr></table></figure>
+<p><strong>解决方法二：</strong></p>
+<p><strong>主要取决于数据量，数据量少分批插入可以解决(可以通过调整分批数)。</strong><br>
+<strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;DeleteTaskDto&gt;&gt; insertList = ListUtil.splitTo(notRepetitiveList, <span class="number">300</span>);</span><br><span class="line"><span class="keyword">for</span> (List&lt;DeleteTaskDto&gt; list : insertList) &#123;</span><br><span class="line">	repetitionTaskMapper.batchDelete(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dreamyuzhou/article/details/126262551">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/ActionTech/article/details/123329126">参考链接</a></p>
+<h2 id="鼠标右键没有360压缩菜单的解决"><a class="header-anchor" href="#鼠标右键没有360压缩菜单的解决"></a>鼠标右键没有360压缩菜单的解决</h2>
+<p>确保电脑管家没有禁止自启动：<br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/a17f1c48b4984e8380baf15710990f08.png" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/wechatPay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/aliPay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+            <a href="/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i> Springboot</a>
+          
+            <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+          
+            <a href="/tags/Nacos/" rel="tag"><i class="fa fa-tag"></i> Nacos</a>
+          
+            <a href="/tags/Validation/" rel="tag"><i class="fa fa-tag"></i> Validation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/06/11/mybatis_generator_source_update/" rel="next" title="Mybatis Generator源码修改">
+                <i class="fa fa-chevron-left"></i> Mybatis Generator源码修改
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/08/11/coding_notes_fifteen/" rel="prev" title="Java程序猿搬砖笔记(十五)">
+                Java程序猿搬砖笔记(十五) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">MySQL自定义排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8locate%E6%9C%AC%E8%B4%A8%E6%98%AF%E6%95%B0%E5%AD%97%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">用locate本质是数字排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-when-then%E2%80%A6%E8%AF%AD%E6%B3%95%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">case when then…语法排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#field-%E5%87%BD%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">field()函数排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91Maven%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BDspring-cloud-dependencies%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">阿里云Maven镜像仓库无法下载spring-cloud-dependencies依赖问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%9B%B4%E6%96%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E8%A1%A8%E7%9A%84%E5%90%8C%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">MySQL更新同一个表的同个字段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E4%B8%80-%E6%8E%A8%E8%8D%90"><span class="nav-number">3.1.</span> <span class="nav-text">解决方法一(推荐)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">3.2.</span> <span class="nav-text">解决方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E8%BF%94%E5%9B%9E%E7%9A%84JSON%E4%B8%AD%E7%9A%84null%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%A9%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.</span> <span class="nav-text">SpringBoot返回的JSON中的null转换为空字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E7%9A%84%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="nav-number">5.</span> <span class="nav-text">Spring的相关注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-JSON%E5%AF%B9%E8%B1%A1%E3%80%81%E6%95%B0%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.</span> <span class="nav-text">MySQL JSON对象、数组查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON%E5%AF%B9%E8%B1%A1%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.1.</span> <span class="nav-text">JSON对象查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON%E6%95%B0%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.2.</span> <span class="nav-text">JSON数组查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos%E7%9A%84%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0"><span class="nav-number">7.</span> <span class="nav-text">Nacos的配置自动刷新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Value%E6%B3%A8%E8%A7%A3%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE"><span class="nav-number">7.1.</span> <span class="nav-text">@Value注解读取配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigurationProperties-prefix-%E2%80%9Cuser%E2%80%9D-%E6%B3%A8%E8%A7%A3%E6%B3%A8%E5%85%A5%E5%AE%9E%E4%BD%93%E7%B1%BB-%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.</span> <span class="nav-text">@ConfigurationProperties(prefix &#x3D; “user”)注解注入实体类 读取配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos%E5%9F%BA%E4%BA%8Eprofile%E7%B2%92%E5%BA%A6%E7%9A%84%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">8.</span> <span class="nav-text">Nacos基于profile粒度的多环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.</span> <span class="nav-text">Nacos服务配置数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">Nacos数据持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Nacos-1-3-1%E8%BF%9E%E6%8E%A5MySQL-8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%A5%E9%94%99"><span class="nav-number">10.1.</span> <span class="nav-text">解决Nacos 1.3.1连接MySQL 8数据库报错</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6"><span class="nav-number">11.</span> <span class="nav-text">Spring事务机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E5%B5%8C%E5%A5%97%E5%92%8C%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA"><span class="nav-number">12.</span> <span class="nav-text">Spring事务嵌套和传播行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF"><span class="nav-number">13.</span> <span class="nav-text">Spring事务失效场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-8%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-number">14.</span> <span class="nav-text">MySQL 8修改用户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Validation%E6%94%AF%E6%8C%81%E5%90%8C%E6%97%B6%E5%8A%A0%E4%B8%A4%E4%B8%AA-Pattern%E6%B3%A8%E8%A7%A3"><span class="nav-number">15.</span> <span class="nav-text">Validation支持同时加两个@Pattern注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Validation%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%EF%BC%9A%E4%B8%8D%E4%B8%BA%E7%A9%BA%E6%89%8D%E8%BF%9B%E8%A1%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%A1%E9%AA%8C"><span class="nav-number">16.</span> <span class="nav-text">Validation自定义注解实现：不为空才进行正则表达式校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E9%98%B2%E7%81%AB%E5%A2%99%E7%BB%99%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%B7%BB%E5%8A%A0%E6%8C%87%E5%AE%9Aip"><span class="nav-number">17.</span> <span class="nav-text">Linux防火墙给某个端口添加指定ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql-order-by%E4%B8%AD%E4%BD%BF%E7%94%A8case-when"><span class="nav-number">18.</span> <span class="nav-text">Mysql order by中使用case when</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5MySQL%E6%8A%A5%E9%94%99"><span class="nav-number">19.</span> <span class="nav-text">批量导入MySQL报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AE%E6%B2%A1%E6%9C%89360%E5%8E%8B%E7%BC%A9%E8%8F%9C%E5%8D%95%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="nav-number">20.</span> <span class="nav-text">鼠标右键没有360压缩菜单的解决</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+

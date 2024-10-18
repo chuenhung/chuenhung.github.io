@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "https://chuenhung.github.io/";
+            }
+        }
+    })();
+</script>
+
+<meta name="referrer" content="no-referrer" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,Java,MySQL,Spring,SpringBoot,Redis,RestTemplate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL数据库生成自动增长序号 变量需要每次初始化为0，否则会自增 参考代码： 12SELECT (@i:&#x3D;@i+1) AS orderNo , p.proposition_code AS propositionCode , p.proposition_name AS propositionNameFROM  t_proposition_collect p,(SELECT @i :&#x3D; 0) AS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序猿搬砖笔记(十三)">
+<meta property="og:url" content="http://yoursite.com/2023/06/01/coding_notes_thirteen/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="MySQL数据库生成自动增长序号 变量需要每次初始化为0，否则会自增 参考代码： 12SELECT (@i:&#x3D;@i+1) AS orderNo , p.proposition_code AS propositionCode , p.proposition_name AS propositionNameFROM  t_proposition_collect p,(SELECT @i :&#x3D; 0) AS">
+<meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e17195d648ee43ecbbf830e3df72b965.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5212020e0a414f55aec446621a76a4f8.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/730654f36f04467fac27a02ca7864d30.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/62e78d06fe3f402c921340545446143d.png">
+<meta property="article:published_time" content="2023-06-01T04:30:00.000Z">
+<meta property="article:modified_time" content="2023-06-01T04:30:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="RestTemplate">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/e17195d648ee43ecbbf830e3df72b965.png#pic_center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/06/01/coding_notes_thirteen/"/>
+
+
+
+
+
+  <title>Java程序猿搬砖笔记(十三) | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">chuenhung.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/06/01/coding_notes_thirteen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java程序猿搬砖笔记(十三)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-01T12:30:00+08:00">
+                2023-06-01 12:30
+              </time>
+            
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MySQL数据库生成自动增长序号"><a class="header-anchor" href="#MySQL数据库生成自动增长序号"></a>MySQL数据库生成自动增长序号</h2>
+<p><strong>变量需要每次初始化为0，否则会自增</strong><br>
+<strong>参考代码：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (<span class="variable">@i</span>:<span class="operator">=</span><span class="variable">@i</span><span class="operator">+</span><span class="number">1</span>) <span class="keyword">AS</span> orderNo , p.proposition_code <span class="keyword">AS</span> propositionCode , p.proposition_name <span class="keyword">AS</span> propositionName</span><br><span class="line"><span class="keyword">FROM</span>  t_proposition_collect p,(<span class="keyword">SELECT</span> <span class="variable">@i</span> :<span class="operator">=</span> <span class="number">0</span>) <span class="keyword">AS</span> i</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tzhuwb/article/details/77285609?spm=1001.2101.3001.6650.5&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-5-77285609-blog-125642944.pc_relevant_3mothn_strategy_recovery&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-5-77285609-blog-125642944.pc_relevant_3mothn_strategy_recovery&amp;utm_relevant_index=10">参考链接</a></p>
+<span id="more"></span>
+<h2 id="MySQL修改密码"><a class="header-anchor" href="#MySQL修改密码"></a>MySQL修改密码</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">user</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 这种方式可能报语法错误</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> root<span class="variable">@localhost</span> <span class="operator">=</span> password(<span class="string">&#x27;密码&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot定时任务"><a class="header-anchor" href="#SpringBoot定时任务"></a>SpringBoot定时任务</h2>
+<p><strong>在类上使用@EnableScheduling和@Component注解，在方法中使用@Scheduled注解。</strong><br>
+@Scheduled注解支持cron表达式。<br>
+<strong>参考代码如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AchievementRepetitionJob</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RepetitionStorageService repetitionStorageService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;$&#123;com.aspire.achievement.repetition.job.insert-into-task.cron:0/20 * * * * ? &#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertIntoTaskJob</span><span class="params">()</span> &#123;</span><br><span class="line">        repetitionStorageService.insertIntoTaskJob();</span><br><span class="line">        log.info(<span class="string">&quot;查重任务表插入数据 (定时任务)执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangxj_2017/article/details/120450737">参考链接</a></p>
+<h2 id="解决Mybatis出现的各种Parameter-’-’-not-found-Available-parameters-are"><a class="header-anchor" href="#解决Mybatis出现的各种Parameter-’-’-not-found-Available-parameters-are"></a>解决Mybatis出现的各种Parameter ’ ’ not found. Available parameters are [ , ]</h2>
+<p>Mybatis中如果有多个参数，在xml中使用参数名会包错。<br>
+<strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">updateStatus</span><span class="params">(Long id, String status)</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>方法一：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 增加@Param注解</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">updateStatus</span><span class="params">(<span class="meta">@Param(&quot;id&quot;)</span> Long id, <span class="meta">@Param(&quot;status&quot;)</span> String status)</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>方法二(推荐)：</strong><br>
+MyBatis3.5+， 在JDK8下使用新反射特性，若传递多参数时，不使用@Param标注每个参数名，则需<strong>开启javac的-parameters编译参</strong>数。<br>
+<strong>在Maven的pom.xml中增加下面的配置：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven.compiler.plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">compilerArgument</span>&gt;</span>-parameters<span class="tag">&lt;/<span class="name">compilerArgument</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Mybatis 3.5.5正常不会报错 但是某些同事打包还会报错，加上@Param注解双重保险。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/456978222">参考链接</a></p>
+<h2 id="Mybatis的foreach标签遍历map"><a class="header-anchor" href="#Mybatis的foreach标签遍历map"></a>Mybatis的foreach标签遍历map</h2>
+<p><strong>遍历map时，index是元素的key，item为元素的value。</strong><br>
+示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;tagsMap.entrySet()&quot;</span> <span class="attr">index</span>=<span class="string">&quot;key&quot;</span> <span class="attr">item</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">  and  tags-&gt; #&#123;key&#125; = #&#123;value&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot项目打包"><a class="header-anchor" href="#SpringBoot项目打包"></a>SpringBoot项目打包</h2>
+<p>1、打包方式注意为jar、父项目为pom</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、需要引入spring-boot-maven-plugin</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springboot.plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果打包方式为pom，会少很多文件。</p>
+<h2 id="SpringBoot-Async使用注意事项"><a class="header-anchor" href="#SpringBoot-Async使用注意事项"></a>SpringBoot @Async使用注意事项</h2>
+<p><strong>必须不同类间调用</strong><br>
+例如：A类 --&gt; B类的@Async方法，可以异步调用<br>
+<strong>如果在同一个类中调用，会变同步执行</strong><br>
+例如：A类.B()–&gt;A类.@Async C()</p>
+<p><strong>原因：</strong><br>
+底层实现是代理对注解扫描实现的，B方法上没有注解，没有生成相应的代理类。<br>
+当然把@Async加到类上也能解决但所有方法都异步了，一般不这么用。</p>
+<h2 id="Spring-Cloud-Config-bootstrap文件（重要）"><a class="header-anchor" href="#Spring-Cloud-Config-bootstrap文件（重要）"></a>Spring Cloud Config bootstrap文件（重要）</h2>
+<p><strong>bootstrap.yml读多个文件时，后面的配置覆盖前面的配置</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: webbas32-manage-v1</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      name: common,webbas32-application-manage-v1</span><br><span class="line">      profile: $&#123;ENV_TYPE:test&#125;</span><br><span class="line">      uri: http:<span class="comment">//$&#123;ENV_CONFIG_IP:10.12.7.124&#125;:$&#123;ENV_CONFIG_PORT:8888&#125;</span></span><br><span class="line">      failFast: <span class="literal">true</span></span><br><span class="line">      enabled: <span class="literal">true</span></span><br><span class="line">  main.allow-bean-definition-overriding: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><strong>webbas32-application-manage-v1-test.yml文件的配置会覆盖common-test.yml文件的配置,所以一般公用配置放在前面。</strong></p>
+<h2 id="Fastjson的JSONObject学习"><a class="header-anchor" href="#Fastjson的JSONObject学习"></a>Fastjson的JSONObject学习</h2>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/e17195d648ee43ecbbf830e3df72b965.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/5212020e0a414f55aec446621a76a4f8.png#pic_center" alt="在这里插入图片描述"><br>
+<strong>Fastjson 的JSONObject实际类型是Map，可以获取、遍历它的key和value。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JSONObject</span> <span class="keyword">extends</span> <span class="title class_">JSON</span> <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;String, Object&gt;, Cloneable, Serializable, InvocationHandler &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> JSONObject.parseObject(contrastResultVo.getDetail());</span><br><span class="line"><span class="keyword">for</span>(Map.Entry&lt;String, Object&gt; entry: jsonObject.entrySet())&#123;</span><br><span class="line">	<span class="type">JSONObject</span> <span class="variable">jsonObjectValue</span> <span class="operator">=</span> (JSONObject)entry.getValue();</span><br><span class="line">	<span class="type">BigDecimal</span> <span class="variable">prob</span> <span class="operator">=</span> jsonObjectValue.getObject(<span class="string">&quot;prob&quot;</span>, <span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;BigDecimal&gt;()&#123;&#125;);</span><br><span class="line">	<span class="keyword">if</span>(prob != <span class="literal">null</span> &amp;&amp; prob.compareTo(configRate) &gt; -<span class="number">1</span> )&#123;</span><br><span class="line">	   <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> jsonObjectValue.getObject(<span class="string">&quot;s1&quot;</span>, <span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;String&gt;()&#123;&#125;);</span><br><span class="line">	   <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> jsonObjectValue.getObject(<span class="string">&quot;s2&quot;</span>, <span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;String&gt;()&#123;&#125;);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/4845411825/">参考链接</a></p>
+<h2 id="Fastjson的parseObject不支持泛型"><a class="header-anchor" href="#Fastjson的parseObject不支持泛型"></a>Fastjson的parseObject不支持泛型</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListResult</span>&lt;T&gt;&#123;</span><br><span class="line">	<span class="keyword">protected</span> String status;</span><br><span class="line">	<span class="keyword">protected</span> String message;</span><br><span class="line">	<span class="keyword">private</span> List&lt;T&gt; data;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决方法一：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多转换一次</span></span><br><span class="line"><span class="type">ListResult</span> <span class="variable">rateResult</span> <span class="operator">=</span> JSONObject.parseObject(result,ListResult.class);</span><br><span class="line">List&lt;RepetitionRateVo&gt; list =  JSONObject.parseArray(rateResult.getData().toString() ,RepetitionRateVo.class);</span><br></pre></td></tr></table></figure>
+<p><strong>解决方法二(推荐)：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用泛型化类 TypeReference</span></span><br><span class="line">ListResult&lt;RepetitionRateVo&gt; list = JSONObject.parseObject(result,<span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;ListResult&lt;RepetitionRateVo&gt;&gt;()&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/TZ845195485/article/details/127591488?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-127591488-blog-121508097.235%5Ev27%5Epc_relevant_3mothn_strategy_and_data_recovery&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">参考链接</a></p>
+<h2 id="RestTemplate-接收泛型化参数"><a class="header-anchor" href="#RestTemplate-接收泛型化参数"></a>RestTemplate 接收泛型化参数</h2>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ParameterizedTypeReference&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; typeRef = <span class="keyword">new</span> <span class="title class_">ParameterizedTypeReference</span>&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt;() &#123;&#125;;</span><br><span class="line">ResponseEntity&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; result = restTemplate.exchange(findEmployeeUrl, HttpMethod.POST, formEntity, typeRef);</span><br><span class="line">log.info(<span class="string">&quot;commonCallUniuser69 接口调用返回数据：&#123;&#125;&quot;</span>,result);</span><br><span class="line"><span class="keyword">if</span>(result != <span class="literal">null</span> &amp;&amp; result.getBody() != <span class="literal">null</span>)&#123;</span><br><span class="line">	responseMsg = result.getBody();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot-Maven项目打包报-Error-assembling-JAR错误解决"><a class="header-anchor" href="#SpringBoot-Maven项目打包报-Error-assembling-JAR错误解决"></a>SpringBoot Maven项目打包报 Error assembling JAR错误解决</h2>
+<p><strong>需要指定启动类：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.aspire.achievement.repetition.AchievementRepetitionApplication<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">goal</span>&gt;</span>repackage<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Linux-给文件加可执行权限"><a class="header-anchor" href="#Linux-给文件加可执行权限"></a>Linux 给文件加可执行权限</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 最高权限</span><br><span class="line"><span class="built_in">chmod</span> 775 文件名</span><br><span class="line">// 可执行权限</span><br><span class="line"><span class="built_in">chmod</span> +x 文件名</span><br></pre></td></tr></table></figure>
+<h2 id="Spring事务报错：-org-springframework-transaction-UnexpectedRollbackException"><a class="header-anchor" href="#Spring事务报错：-org-springframework-transaction-UnexpectedRollbackException"></a>Spring事务报错： org.springframework.transaction.UnexpectedRollbackException</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012045045/article/details/107124841/">参考链接</a>、<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/736614">参考链接</a></p>
+<h2 id="Mybatis这种方式批量插入list，只返回list第一条数据的主键"><a class="header-anchor" href="#Mybatis这种方式批量插入list，只返回list第一条数据的主键"></a>Mybatis这种方式批量插入list，只返回list第一条数据的主键</h2>
+<p><strong>示例代码如下：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insertList&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;propositionCollectAddList&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;;&quot;</span>&gt;</span></span><br><span class="line">		insert into t_proposition_collect</span><br><span class="line">		<span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;(&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;)&quot;</span> <span class="attr">suffixOverrides</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.propositionCode != null&quot;</span>&gt;</span></span><br><span class="line">				proposition_code,</span><br><span class="line">			<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.propositionName != null&quot;</span>&gt;</span></span><br><span class="line">				proposition_name,</span><br><span class="line">			<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;values (&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;)&quot;</span> <span class="attr">suffixOverrides</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.propositionCode != null&quot;</span>&gt;</span></span><br><span class="line">				#&#123;item.propositionCode,jdbcType=VARCHAR&#125;,</span><br><span class="line">			<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.propositionName != null&quot;</span>&gt;</span></span><br><span class="line">				#&#123;item.propositionName,jdbcType=VARCHAR&#125;,</span><br><span class="line">			<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Spring-jasypt加密"><a class="header-anchor" href="#Spring-jasypt加密"></a>Spring jasypt加密</h2>
+<p><strong>添加依赖：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.ulisesbocchio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jasypt-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>配置文件修改：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 公钥</span></span><br><span class="line">jasypt:</span><br><span class="line">  encryptor:</span><br><span class="line">    password: 15d670c2d2be4dba8f8e1596c5bc457e</span><br><span class="line"><span class="comment">// 加密示例	</span></span><br><span class="line">ENC(v7hGT7XN3unK9TFOr4/oNaxGnPCpIbr6)</span><br></pre></td></tr></table></figure>
+<h2 id="MySQL-insert语句使用case-when"><a class="header-anchor" href="#MySQL-insert语句使用case-when"></a>MySQL insert语句使用case when</h2>
+<p><strong>示例sql:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name(id, code, name)</span><br><span class="line"><span class="keyword">SELECT</span> id, </span><br><span class="line">       code,</span><br><span class="line">    <span class="keyword">CASE</span> introduce</span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">&#x27;2020&#x27;</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">&#x27;Black&#x27;</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">&#x27;Manuel&#x27;</span> </span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> table_name_two</span><br></pre></td></tr></table></figure>
+<h2 id="MySQL-now-和sysdate-的区别"><a class="header-anchor" href="#MySQL-now-和sysdate-的区别"></a>MySQL now()和sysdate()的区别</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_29051811/article/details/113952112">参考链接</a></p>
+<h2 id="Linux-nohup打印日志"><a class="header-anchor" href="#Linux-nohup打印日志"></a>Linux nohup打印日志</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> java -jar  app_name.jar &gt;  /home/log/app_name.log &amp;</span><br><span class="line"><span class="built_in">nohup</span> java -jar  app_name.jar &gt;&gt; /home/log/app_name-$(<span class="built_in">date</span> +%Y-%m-%d).<span class="built_in">log</span> 2&gt;&amp;1 &amp; 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lovetl/p/12780553.html">参考链接</a></p>
+<h2 id="validation的校验顺序"><a class="header-anchor" href="#validation的校验顺序"></a>validation的校验顺序</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40803257/article/details/89400055?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-89400055-blog-126075344.235%5Ev27%5Epc_relevant_3mothn_strategy_and_data_recovery&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-89400055-blog-126075344.235%5Ev27%5Epc_relevant_3mothn_strategy_and_data_recovery&amp;utm_relevant_index=5">参考链接</a></p>
+<h2 id="Red-Hat、Centos、Ubuntu之间的关系图解"><a class="header-anchor" href="#Red-Hat、Centos、Ubuntu之间的关系图解"></a>Red Hat、Centos、Ubuntu之间的关系图解</h2>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/730654f36f04467fac27a02ca7864d30.png" alt="在这里插入图片描述"><br>
+<a target="_blank" rel="noopener" href="https://www.likecs.com/show-203619030.html">参考链接</a></p>
+<h2 id="CentOS-7-忘记密码解决方法"><a class="header-anchor" href="#CentOS-7-忘记密码解决方法"></a>CentOS 7 忘记密码解决方法</h2>
+<p>注意最后面是执行：<strong>exec /sbin/init</strong> 命令。<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34383510/article/details/119619897">参考链接</a></p>
+<h2 id="CentOS-7-修改密码的方法"><a class="header-anchor" href="#CentOS-7-修改密码的方法"></a>CentOS 7 修改密码的方法</h2>
+<p>修改root密码只需要输入<strong>passwd</strong>命令，然后输入两遍密码即可。<br>
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://img-blog.csdnimg.cn/62e78d06fe3f402c921340545446143d.png" alt="在这里插入图片描述"><br>
+非root用户密码修改，参考下面链接：<br>
+<a target="_blank" rel="noopener" href="https://yuntue.com/post/43957.html">参考链接</a></p>
+<h2 id="CentOS-7关闭防火墙命令"><a class="header-anchor" href="#CentOS-7关闭防火墙命令"></a>CentOS 7关闭防火墙命令</h2>
+<p>1、命令行界面输入命令<strong>systemctl status firewalld.service</strong>并按下回车键。</p>
+<p>2、然后在下方可以查看得到<strong>active（running）</strong>，此时说明防火墙已经被打开了。</p>
+<p>3、在命令行中输入<strong>systemctl stop firewalld.service</strong>命令，进行关闭防火墙。</p>
+<p>4、然后再使用命令<strong>systemctl status firewalld.service</strong>，在下方出现<strong>disavtive（dead）</strong>，这权样就说明防火墙已经关闭。</p>
+<p>5、再在命令行中输入命令<strong>systemctl disable firewalld.service</strong>命令，即可永久关闭防火墙。</p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/wechatPay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/aliPay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          
+            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          
+            <a href="/tags/RestTemplate/" rel="tag"><i class="fa fa-tag"></i> RestTemplate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/05/02/coding_notes_twelve/" rel="next" title="Java程序猿搬砖笔记(十二)">
+                <i class="fa fa-chevron-left"></i> Java程序猿搬砖笔记(十二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/11/mybatis_generator_source_update/" rel="prev" title="Mybatis Generator源码修改">
+                Mybatis Generator源码修改 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%9F%E6%88%90%E8%87%AA%E5%8A%A8%E5%A2%9E%E9%95%BF%E5%BA%8F%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">MySQL数据库生成自动增长序号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">MySQL修改密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">SpringBoot定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Mybatis%E5%87%BA%E7%8E%B0%E7%9A%84%E5%90%84%E7%A7%8DParameter-%E2%80%99-%E2%80%99-not-found-Available-parameters-are"><span class="nav-number">4.</span> <span class="nav-text">解决Mybatis出现的各种Parameter ’ ’ not found. Available parameters are [ , ]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E7%9A%84foreach%E6%A0%87%E7%AD%BE%E9%81%8D%E5%8E%86map"><span class="nav-number">5.</span> <span class="nav-text">Mybatis的foreach标签遍历map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85"><span class="nav-number">6.</span> <span class="nav-text">SpringBoot项目打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-Async%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">SpringBoot @Async使用注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Config-bootstrap%E6%96%87%E4%BB%B6%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">Spring Cloud Config bootstrap文件（重要）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fastjson%E7%9A%84JSONObject%E5%AD%A6%E4%B9%A0"><span class="nav-number">9.</span> <span class="nav-text">Fastjson的JSONObject学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fastjson%E7%9A%84parseObject%E4%B8%8D%E6%94%AF%E6%8C%81%E6%B3%9B%E5%9E%8B"><span class="nav-number">10.</span> <span class="nav-text">Fastjson的parseObject不支持泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RestTemplate-%E6%8E%A5%E6%94%B6%E6%B3%9B%E5%9E%8B%E5%8C%96%E5%8F%82%E6%95%B0"><span class="nav-number">11.</span> <span class="nav-text">RestTemplate 接收泛型化参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-Maven%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E6%8A%A5-Error-assembling-JAR%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3"><span class="nav-number">12.</span> <span class="nav-text">SpringBoot Maven项目打包报 Error assembling JAR错误解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E7%BB%99%E6%96%87%E4%BB%B6%E5%8A%A0%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%9D%83%E9%99%90"><span class="nav-number">13.</span> <span class="nav-text">Linux 给文件加可执行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E6%8A%A5%E9%94%99%EF%BC%9A-org-springframework-transaction-UnexpectedRollbackException"><span class="nav-number">14.</span> <span class="nav-text">Spring事务报错： org.springframework.transaction.UnexpectedRollbackException</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E8%BF%99%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5list%EF%BC%8C%E5%8F%AA%E8%BF%94%E5%9B%9Elist%E7%AC%AC%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%BB%E9%94%AE"><span class="nav-number">15.</span> <span class="nav-text">Mybatis这种方式批量插入list，只返回list第一条数据的主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-jasypt%E5%8A%A0%E5%AF%86"><span class="nav-number">16.</span> <span class="nav-text">Spring jasypt加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-insert%E8%AF%AD%E5%8F%A5%E4%BD%BF%E7%94%A8case-when"><span class="nav-number">17.</span> <span class="nav-text">MySQL insert语句使用case when</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-now-%E5%92%8Csysdate-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">18.</span> <span class="nav-text">MySQL now()和sysdate()的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-nohup%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97"><span class="nav-number">19.</span> <span class="nav-text">Linux nohup打印日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#validation%E7%9A%84%E6%A0%A1%E9%AA%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">20.</span> <span class="nav-text">validation的校验顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Red-Hat%E3%80%81Centos%E3%80%81Ubuntu%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%9B%BE%E8%A7%A3"><span class="nav-number">21.</span> <span class="nav-text">Red Hat、Centos、Ubuntu之间的关系图解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7-%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">22.</span> <span class="nav-text">CentOS 7 忘记密码解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7-%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">23.</span> <span class="nav-text">CentOS 7 修改密码的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E5%91%BD%E4%BB%A4"><span class="nav-number">24.</span> <span class="nav-text">CentOS 7关闭防火墙命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+
