@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "https://chuenhung.github.io/";
+            }
+        }
+    })();
+</script>
+
+<meta name="referrer" content="no-referrer" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述 AOP是aspect-oriented programming的缩写，译为面向切面编程。利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得 业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。简单来说，AOP就是不修改源代码在主干功能里面添加新功能。 底层原理 AOP底层使用了动态代理：在有接口的时候使用JDK 动态代理、在没有接口的时候使用CGLIB字节码动态代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习(四)：AOP详解">
+<meta property="og:url" content="http://yoursite.com/2021/05/07/spring_four/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="概述 AOP是aspect-oriented programming的缩写，译为面向切面编程。利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得 业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。简单来说，AOP就是不修改源代码在主干功能里面添加新功能。 底层原理 AOP底层使用了动态代理：在有接口的时候使用JDK 动态代理、在没有接口的时候使用CGLIB字节码动态代">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-05-07T12:33:00.000Z">
+<meta property="article:modified_time" content="2023-06-11T05:40:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/05/07/spring_four/"/>
+
+
+
+
+
+  <title>Spring学习(四)：AOP详解 | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">chuenhung.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/07/spring_four/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring学习(四)：AOP详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-07T20:33:00+08:00">
+                2021-05-07 20:33
+              </time>
+            
+			
+			  <span class="post-updated">
+				&nbsp; | &nbsp; 更新于
+				<time itemprop="dateUpdated" datetime="2023-06-11T13:40:00+08:00" content="2023-06-11 13:40">
+				  2023-06-11 13:40
+				</time>
+			  </span>
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a class="header-anchor" href="#概述"></a>概述</h2>
+<p>AOP是aspect-oriented programming的缩写，译为面向切面编程。利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得 业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。简单来说，<strong>AOP就是不修改源代码在主干功能里面添加新功能。</strong></p>
+<h2 id="底层原理"><a class="header-anchor" href="#底层原理"></a>底层原理</h2>
+<p>AOP底层使用了动态代理：<strong>在有接口的时候使用JDK 动态代理、在没有接口的时候使用CGLIB字节码动态代理</strong>。</p>
+<span id="more"></span>
+<h3 id="JDK动态代理"><a class="header-anchor" href="#JDK动态代理"></a>JDK动态代理</h3>
+<h4 id="简介"><a class="header-anchor" href="#简介"></a>简介</h4>
+<p>使用JDK 动态代理需要用到JDK中的Proxy类里面的newProxyInstance方法创建代理对象。方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Object <span class="title function_">newProxyInstance</span><span class="params">(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h)</span>;</span><br></pre></td></tr></table></figure>
+<p>newProxyInstance方法的三个参数说明：</p>
+<ul>
+<li>loader 定义代理类的类加载器</li>
+<li>interfaces 代理类要实现的接口列表（可以多个）</li>
+<li>h 指派方法调用的处理程序（要增强的功能在这里面实现）</li>
+</ul>
+<p>newProxyInstance方法返回一个指定接口的代理类实例。</p>
+<p>InvocationHandler接口中有个invoke方法,用于实现增强的功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span><br><span class="line">        <span class="keyword">throws</span> Throwable;</span><br></pre></td></tr></table></figure>
+<p>invoke方法的三个参数说明：</p>
+<ul>
+<li>proxy表示代理对象</li>
+<li>method表示被增强的方法</li>
+<li>args是方法的参数 若没有则为null</li>
+</ul>
+<h4 id="示例代码"><a class="header-anchor" href="#示例代码"></a>示例代码</h4>
+<p>代码结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">└─src</span><br><span class="line">    └─com</span><br><span class="line">        └─spring5</span><br><span class="line">                JDKProxy.java</span><br><span class="line">                UserDao.java</span><br><span class="line">                UserDaoImpl.java</span><br></pre></td></tr></table></figure>
+<p>UserDao接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserDao</span> &#123;</span><br><span class="line">     <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>;</span><br><span class="line">     String <span class="title function_">update</span><span class="params">(String id)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserDaoImpl类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title class_">UserDao</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am add...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">update</span><span class="params">(String id)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JDKProxy类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDKProxy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Class[] interfaces = &#123;UserDao.class&#125;;</span><br><span class="line">        <span class="type">UserDaoImpl</span> <span class="variable">userDao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">        <span class="type">UserDao</span> <span class="variable">dao</span> <span class="operator">=</span>(UserDao)Proxy.newProxyInstance(JDKProxy.class.getClassLoader(), interfaces,</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">UserDaoProxy</span>(userDao));</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> dao.add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;result:&quot;</span>+result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成代理对象</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserDaoProxy</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用有参构造方法来接收传递过来的待代理对象*，比如UserDaoImpl</span></span><br><span class="line">    <span class="keyword">private</span> Object obj;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UserDaoProxy</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.obj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;方法之前执行....&quot;</span> + method.getName() + <span class="string">&quot; :传递的参数...&quot;</span> + Arrays.toString(args));</span><br><span class="line">        <span class="type">Object</span> <span class="variable">res</span> <span class="operator">=</span> method.invoke(obj, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;方法之后执行....&quot;</span> + obj);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>
+方法之前执行…add :传递的参数…[1, 2]<br>
+I am add…<br>
+方法之后执行…com.spring5.UserDaoImpl@355da254<br>
+result:3</p>
+<h3 id="CGLIB字节码动态代理"><a class="header-anchor" href="#CGLIB字节码动态代理"></a>CGLIB字节码动态代理</h3>
+<h4 id="简介-v2"><a class="header-anchor" href="#简介-v2"></a>简介</h4>
+<p>使用CGLIB字节码动态代理不受代理类必须实现接口的限制，其底层采用ASM字节码生成框架。CGLIB动态代理的优缺点：</p>
+<ul>
+<li>使用字节码技术生产代理类比JAVA反射效率高</li>
+<li>不能对声明为final的类和方法进行代理，因为其原理是动态生成被代理类的子类</li>
+</ul>
+<p>需要实现接口MethodInterceptor，然后重写intercept方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object <span class="title function_">intercept</span><span class="params">(Object proxy, Method method, Object[] args, MethodProxy arg3)</span> <span class="keyword">throws</span> Throwable;</span><br></pre></td></tr></table></figure>
+<p>intercept方法的参数说明：</p>
+<ul>
+<li>proxy CGLIB生成的<strong>代理类实例</strong>,<strong>也是目标对象的子类</strong><br>
+相当于重写父类方法</li>
+<li>method 被代理方法</li>
+<li>args 方法参数</li>
+<li>为生成的代理类对方法的代理引用<br>
+intercept方法返回<br>
+<a target="_blank" rel="noopener" href="http://www.360doc.com/content/14/0618/11/454045_387708106.shtml">参考链接</a></li>
+</ul>
+<p>另外用到了<strong>Enhancer类</strong>，它是Cglib中的一个字节码增强器，先调它的setSuperclass()将被代理类设置成父类、再调setCallback函数执行intercept方法，最后调create()生成代理类。</p>
+<h4 id="示例代码-v2"><a class="header-anchor" href="#示例代码-v2"></a>示例代码</h4>
+<p>代码结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">└─src</span><br><span class="line">    └─com</span><br><span class="line">        └─spring5</span><br><span class="line">                CglibProxy.java</span><br><span class="line">                User.java</span><br></pre></td></tr></table></figure>
+<p>User类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我想睡觉...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CglibProxy类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CglibProxy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">UserProxy</span> <span class="variable">userProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserProxy</span>();</span><br><span class="line">        User base=(User) userProxy.getProxy(<span class="keyword">new</span> <span class="title class_">User</span>());</span><br><span class="line">        base.sleep();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成代理对象</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserProxy</span> <span class="keyword">implements</span> <span class="title class_">MethodInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> Object <span class="title function_">getProxy</span><span class="params">(Object object)</span>&#123;</span><br><span class="line">        Enhancer e=<span class="keyword">new</span> <span class="title class_">Enhancer</span>();</span><br><span class="line">        e.setSuperclass(object.getClass());</span><br><span class="line">        e.setCallback(<span class="built_in">this</span>);<span class="comment">//设置回调函数，即调用intercept()</span></span><br><span class="line">        <span class="keyword">return</span> e.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">intercept</span><span class="params">(Object proxy, Method method, Object[] args,</span></span><br><span class="line"><span class="params">                            MethodProxy arg3)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;睡觉前脱衣服&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">object</span> <span class="operator">=</span> arg3.invokeSuper(proxy, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;起床穿衣服&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>
+睡觉前脱衣服<br>
+我想睡觉…<br>
+起床穿衣服</p>
+<h2 id="AOP操作"><a class="header-anchor" href="#AOP操作"></a>AOP操作</h2>
+<h3 id="概述-v2"><a class="header-anchor" href="#概述-v2"></a>概述</h3>
+<p>AOP相关的几个术语：</p>
+<ul>
+<li>连接点<br>
+类里面哪些方法可以被增强，这些方法称为连接点</li>
+<li>切入点<br>
+实际被真正增强的方法称为切入点</li>
+<li>通知<br>
+实际增强的逻辑部分称为通知，分为前置通知、后置通知、环绕通知、异常通知和最终通知五种类型，其中<strong>最终通知相当于JAVA的finally</strong>。</li>
+<li>切面<br>
+把通知应用到切入点<strong>过程</strong></li>
+</ul>
+<h3 id="AspectJ"><a class="header-anchor" href="#AspectJ"></a>AspectJ</h3>
+<p>AspectJ不是 Spring 组成部分，是一个独立的AOP 框架，一般把 AspectJ 和 Spirng 框架一起使 用，进行 AOP操作。<strong>增强就是代理的意思</strong>。</p>
+<h4 id="准备工作"><a class="header-anchor" href="#准备工作"></a>准备工作</h4>
+<p>在进行AOP操作的时候需要先引入下面四个Jar包</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">com.springsource.net.sf.cglib-<span class="number">2.2</span><span class="number">.0</span>.jar</span><br><span class="line">com.springsource.org.aopalliance-<span class="number">1.0</span><span class="number">.0</span>.jar</span><br><span class="line">com.springsource.org.aspectj.weaver-<span class="number">1.6</span><span class="number">.8</span>.RELEASE.jar</span><br><span class="line">spring-aspects-<span class="number">5.2</span><span class="number">.6</span>.RELEASE.jar</span><br></pre></td></tr></table></figure>
+<p>引入包后的所有包如下：</p>
+<ul>
+<li>com.springsource.net.sf.cglib-2.2.0.jar</li>
+<li>com.springsource.org.aopalliance-1.0.0.jar</li>
+<li>com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar</li>
+<li>spring-aspects-5.2.6.RELEASE.jar</li>
+<li>commons-logging-1.1.1.jar</li>
+<li>spring-aop-5.2.6.RELEASE.jar</li>
+<li>spring-beans-5.2.6.RELEASE.jar</li>
+<li>spring-context-5.2.6.RELEASE.jar</li>
+<li>spring-core-5.2.6.RELEASE.jar</li>
+<li>spring-expression-5.2.6.RELEASE.jar</li>
+</ul>
+<h4 id="AspectJ的切入点表达式语法说明"><a class="header-anchor" href="#AspectJ的切入点表达式语法说明"></a>AspectJ的切入点表达式语法说明</h4>
+<ul>
+<li>语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution([权限修饰符] [返回类型] [类全路径] [方法名称]([参数列表]) )</span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例语法详细说明</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution (* com.sample.service.impl..*. *(..))</span><br></pre></td></tr></table></figure>
+<p>1、execution(): 表达式主体。<br>
+2、第一个*号：表示返回类型， <em>号表示所有的类型。<br>
+3、包名：表示需要拦截的包名，后面的两个句点表示当前包和当前包的所有子包，com.sample.service.impl包、子孙包下所有类的方法。<br>
+4、第二个</em>号：表示类名，<em>号表示所有的类。<br>
+5、</em>(…):最后这个星号表示方法名，*号表示所有的方法，后面括弧里面表示方法的参数，两个句点表示任何参数</p>
+<ul>
+<li>其他示例</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例1 对com.dao.BookDao 类里面的 add 进行增强</span></span><br><span class="line">execution(* com.dao.BookDao.add(..))</span><br><span class="line"><span class="comment">// 例2 对多个方法进行增强 用||和or都可以</span></span><br><span class="line">execution(* com.dao.BookDao.add(..))  || excution(* com.dao.BookDao.delete(..))</span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.dao.BookDao.add(..)) || execution(* com.dao.BookDao.delete(..))&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例3 对com.dao.BookDao 类里面的所有的方法进行增强</span></span><br><span class="line">execution(* com.dao.BookDao.* (..))</span><br><span class="line"><span class="comment">//例4 对com.dao 包里面所有类里面的所有方法进行增强</span></span><br><span class="line">execution(* com.dao.*.* (..))</span><br></pre></td></tr></table></figure>
+<h4 id="基于注解实现"><a class="header-anchor" href="#基于注解实现"></a>基于注解实现</h4>
+<h5 id="主要步骤"><a class="header-anchor" href="#主要步骤"></a>主要步骤</h5>
+<p>主要步骤如下：</p>
+<ul>
+<li>
+<p>在Spring配置文件中，开启注解扫描<br>
+需要在XML中引入context和aop的上下文空间。</p>
+</li>
+<li>
+<p>使用注解创建 User 和 UserProxy 对象</p>
+</li>
+<li>
+<p>在增强类上面添加注解 @Aspect</p>
+</li>
+<li>
+<p>在Spring配置文件中开启生成代理对象</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span>&gt;</span><span class="tag">&lt;/<span class="name">aop:aspectj-autoproxy</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>开启Aspectj生成对象后，会去代码中扫描@aspect注解</p>
+</li>
+<li>
+<p>配置不同类型的通知<br>
+在<strong>通知方法</strong>上面使用@Before、@AfterReturning、@Around、@AfterThrowing和@After注解，结合切入点表达式配置。<br>
+@after是在方法执行之后执行(有异常也执行)，@afterReturning是在返回值之后执行(有异常不执行)。</p>
+</li>
+</ul>
+<h5 id="示例代码-v3"><a class="header-anchor" href="#示例代码-v3"></a>示例代码</h5>
+<p>代码结构：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">└─src</span><br><span class="line">    │  bean.xml</span><br><span class="line">    │</span><br><span class="line">    └─com</span><br><span class="line">        └─spring5</span><br><span class="line">            └─aopanno</span><br><span class="line">                    Test.java</span><br><span class="line">                    User.java</span><br><span class="line">                    UserProxy.java</span><br></pre></td></tr></table></figure>
+<p>User类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>/<span class="number">0</span>;<span class="comment">// 测试异常通知</span></span><br><span class="line">        System.out.println(<span class="string">&quot;I am add&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserProxy类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserProxy</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(value =  &quot;execution(* com.spring5.aopanno.User.add(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span> &#123;</span><br><span class="line">        System. out .println( <span class="string">&quot;前置通知 before&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(value = &quot;execution(* com.spring5.aopanno.User.add(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterReturning</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;后置通知（返回通知）afterReturning&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(value = &quot;execution(* com.spring5.aopanno.User.add(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">after</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;最终通知 after&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing(value = &quot;execution(* com.spring5.aopanno.User.add(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterThrowing</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;异常通知 afterThrowing&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(value = &quot;execution(* com.spring5.aopanno.User.add(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">around</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Around 环绕之前&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//被增强的方法执行</span></span><br><span class="line">        proceedingJoinPoint.proceed();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;Around 环绕之后&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Test类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@org</span>.junit.Test</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAopAnno</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;bean.xml&quot;</span>);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;user&quot;</span>,User.class);</span><br><span class="line">        user.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>无异常返回结果：</strong><br>
+Around 环绕之前<br>
+前置通知 before<br>
+I am add<br>
+Around 环绕之后<br>
+最终通知 after<br>
+后置通知（返回通知）afterReturning<br>
+<strong>有异常时返回结果：</strong><br>
+Around 环绕之前<br>
+前置通知 before<br>
+最终通知 after<br>
+异常通知 afterThrowing<br>
+java.lang.ArithmeticException: / by zero</p>
+<h5 id="相同切入点提取"><a class="header-anchor" href="#相同切入点提取"></a>相同切入点提取</h5>
+<p>用@Pointcut标签</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//相同切入点抽取</span></span><br><span class="line"><span class="meta">@Pointcut(value =  &quot;execution(* com.spring5.aopanno.User.*(..))&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pointTest</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Before(value =  &quot;pointTest()&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span> &#123;</span><br><span class="line">    System. out .println( <span class="string">&quot;前置通知 before&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;pointTest()&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterReturning</span><span class="params">()</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;后置通知（返回通知）afterReturning&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="多个增强类对同一个方法进行增强"><a class="header-anchor" href="#多个增强类对同一个方法进行增强"></a>多个增强类对同一个方法进行增强</h5>
+<p>用@Order注解设置增强类优先级，数字类型值越小表示优先级越高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Order(1)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonProxy</span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="完全注解开发"><a class="header-anchor" href="#完全注解开发"></a>完全注解开发</h5>
+<p>在启动配置类中添加@EnableAspectJAutoProxy注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(basePackages = &#123; &quot;com.spring5&quot;&#125;)</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy(proxyTargetClass =  true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigAop</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="基于配置文件实现"><a class="header-anchor" href="#基于配置文件实现"></a>基于配置文件实现</h4>
+<h5 id="具体步骤"><a class="header-anchor" href="#具体步骤"></a>具体步骤</h5>
+<ul>
+<li>创建增强类和被增强类，创建相关方法</li>
+<li>在Spring配置文件中配置两个类对象</li>
+<li>在Spring配置文件中配置AOP</li>
+</ul>
+<h5 id="示例代码-v4"><a class="header-anchor" href="#示例代码-v4"></a>示例代码</h5>
+<p>代码结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">└─src</span><br><span class="line">    │  bean.xml</span><br><span class="line">    │</span><br><span class="line">    └─com</span><br><span class="line">        └─spring5</span><br><span class="line">            └─aopxml</span><br><span class="line">                    Student.java</span><br><span class="line">                    StudentProxy.java</span><br><span class="line">                    Test.java</span><br></pre></td></tr></table></figure>
+<p>Student类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buy</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I want to buy a book...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>StudentProxy类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentProxy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am before...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterReturn</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am afterReturn...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Test类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@org</span>.junit.Test</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAopXml</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;bean.xml&quot;</span>);</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;student&quot;</span>,Student.class);</span><br><span class="line">        student.buy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>bean.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;student&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.spring5.aopxml.Student&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;studentProxy&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.spring5.aopxml.StudentProxy&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--切入点--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span>  <span class="attr">id</span>= <span class="string">&quot;p&quot;</span>  <span class="attr">expression</span>= <span class="string">&quot;execution(* com.spring5.aopxml.Student.buy(..))&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置切面--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span>  <span class="attr">ref</span>= <span class="string">&quot;studentProxy&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--表示把before方法作用到buy方法上，并且做的是前置通知,p是上面的切入点--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span>  <span class="attr">method</span>= <span class="string">&quot;before&quot;</span>  <span class="attr">pointcut-ref</span>= <span class="string">&quot;p&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span>  <span class="attr">ref</span>= <span class="string">&quot;studentProxy&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--表示把afterReturn方法作用到buy方法上，并且做的是后置通知,p是上面的切入点--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span>  <span class="attr">method</span>= <span class="string">&quot;afterReturn&quot;</span>  <span class="attr">pointcut-ref</span>= <span class="string">&quot;p&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>
+I am before…<br>
+I want to buy a book…<br>
+I am afterReturn…</p>
+<h3 id="AspectJ获取方法参数和返回值"><a class="header-anchor" href="#AspectJ获取方法参数和返回值"></a>AspectJ获取方法参数和返回值</h3>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取方法参数</span></span><br><span class="line"><span class="comment">// joinPoint.getArgs() 返回方法参数数组，0、1、2对应第1、2、3个参数</span></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.xxxImpl.doBusiness(..))&quot;)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">secondProposition</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">	<span class="type">PropositionApprovalBo</span> <span class="variable">bo</span> <span class="operator">=</span> (PropositionApprovalBo) joinPoint.getArgs()[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取方法返回值</span></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.xxxImpl.addPropositionList(..))&quot;,</span></span><br><span class="line"><span class="meta">				returning=&quot;returnValue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addPropositionList</span><span class="params">(JoinPoint joinPoint, Object returnValue)</span>&#123;</span><br><span class="line">	List&lt;PropositionCollect&gt; propositionCollectList = (List&lt;PropositionCollect&gt;) returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>只使用返回值时，joinPoint可以省略。</strong></p>
+<h3 id="AOP失效场景"><a class="header-anchor" href="#AOP失效场景"></a>AOP失效场景</h3>
+<p><strong>1、类内部调用被代理方法，此时被代理方法并不会被增强。<br>
+2、被代理方法非public修饰 (未验证，最好改为public)。</strong></p>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PropositionManageServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">PropositionManageService</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BatchImport</span><span class="params">(MultipartFile file, ISessionUser sessionUser)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.addPropositionList();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> List&lt;PropositionCollect&gt; <span class="title function_">addPropositionList</span><span class="params">()</span> &#123;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>由于addPropositionList方法是在PropositionManageServiceImpl类内部调用的，所以AOP代理会失效。不会执行这个切面方法。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.xxxImpl.addPropositionList(..))&quot;,</span></span><br><span class="line"><span class="meta">				returning=&quot;returnValue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addPropositionList</span><span class="params">(JoinPoint joinPoint, Object returnValue)</span>&#123;</span><br><span class="line">	List&lt;PropositionCollect&gt; propositionCollectList = (List&lt;PropositionCollect&gt;) returnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决方法：使用service调用需要代理的方法。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PropositionManageServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">PropositionManageService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PropositionManageService propositionManageService;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BatchImport</span><span class="params">(MultipartFile file, ISessionUser sessionUser)</span> &#123;</span><br><span class="line">		propositionManageService.addPropositionList();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> List&lt;PropositionCollect&gt; <span class="title function_">addPropositionList</span><span class="params">()</span> &#123;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Spring-AOP切面方法出现异常，会影响主程序运行的解决方法"><a class="header-anchor" href="#Spring-AOP切面方法出现异常，会影响主程序运行的解决方法"></a>Spring AOP切面方法出现异常，会影响主程序运行的解决方法</h3>
+<ul>
+<li>采用@AfterReturning,在主程序走完后执行</li>
+<li>try catch住异常代码,并且不要抛出新异常</li>
+</ul>
+<p>第二步是必须的。</p>
+<h3 id="Spring-AOP切面中启用新事务-可以用-After注解代替"><a class="header-anchor" href="#Spring-AOP切面中启用新事务-可以用-After注解代替"></a>Spring AOP切面中启用新事务 (可以用@After注解代替)</h3>
+<p>Spring AOP切面中启用新事务，<strong>解决不管主程序是否回滚，都会执行切面方法(比如记录日志)</strong>。<br>
+因为@Transactional也是声明式事务，本身就是AOP实现的，在AOP的代码中使用不起作用。<br>
+所以就只能使用spring的编程式事务了，需要引入TransactionTemplate。<br>
+<strong>示例代码如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> TransactionTemplate transactionTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(* com.rewardinnovation..addAchievementApplication(..))&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addAchievement</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">	log.info(<span class="string">&quot;AchievementAspect.addAchievement 开始执行新增成果切面逻辑,joinPoint：&#123;&#125;&quot;</span>,joinPoint);</span><br><span class="line">	<span class="comment">//声明式事务在切面中不起作用，需使用编程式事务</span></span><br><span class="line">	<span class="comment">//设置传播行为：总是新启一个事务，如果存在原事务，就挂起原事务</span></span><br><span class="line">	transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);</span><br><span class="line">	transactionTemplate.execute(<span class="keyword">new</span> <span class="title class_">TransactionCallback</span>&lt;T&gt;() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="keyword">public</span> T <span class="title function_">doInTransaction</span><span class="params">(TransactionStatus transactionStatus)</span> &#123;</span><br><span class="line">				<span class="comment">// 具体的切面逻辑都写在这儿</span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这种方式只适合于&quot;主程序异常但需要切面正常执行&quot;的场景。完全可以使用@After注解代替</strong><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/aabbyyz/article/details/83188069">参考链接</a></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/wechatPay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/aliPay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/29/spring_three/" rel="next" title="Spring学习(三)：IOC容器详解">
+                <i class="fa fa-chevron-left"></i> Spring学习(三)：IOC容器详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/08/spring_five/" rel="prev" title="Spring学习(五)：事务管理">
+                Spring学习(五)：事务管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">JDK动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGLIB%E5%AD%97%E8%8A%82%E7%A0%81%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">CGLIB字节码动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-v2"><span class="nav-number">2.2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-v2"><span class="nav-number">2.2.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">AOP操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0-v2"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectJ"><span class="nav-number">3.2.</span> <span class="nav-text">AspectJ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AspectJ%E7%9A%84%E5%88%87%E5%85%A5%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="nav-number">3.2.2.</span> <span class="nav-text">AspectJ的切入点表达式语法说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.3.</span> <span class="nav-text">基于注解实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">主要步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-v3"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%90%8C%E5%88%87%E5%85%A5%E7%82%B9%E6%8F%90%E5%8F%96"><span class="nav-number">3.2.3.3.</span> <span class="nav-text">相同切入点提取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%A2%9E%E5%BC%BA%E7%B1%BB%E5%AF%B9%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A2%9E%E5%BC%BA"><span class="nav-number">3.2.3.4.</span> <span class="nav-text">多个增强类对同一个方法进行增强</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91"><span class="nav-number">3.2.3.5.</span> <span class="nav-text">完全注解开发</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.4.</span> <span class="nav-text">基于配置文件实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-v4"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectJ%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0%E5%92%8C%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">AspectJ获取方法参数和返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF"><span class="nav-number">3.4.</span> <span class="nav-text">AOP失效场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-AOP%E5%88%87%E9%9D%A2%E6%96%B9%E6%B3%95%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E4%BC%9A%E5%BD%B1%E5%93%8D%E4%B8%BB%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.5.</span> <span class="nav-text">Spring AOP切面方法出现异常，会影响主程序运行的解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-AOP%E5%88%87%E9%9D%A2%E4%B8%AD%E5%90%AF%E7%94%A8%E6%96%B0%E4%BA%8B%E5%8A%A1-%E5%8F%AF%E4%BB%A5%E7%94%A8-After%E6%B3%A8%E8%A7%A3%E4%BB%A3%E6%9B%BF"><span class="nav-number">3.6.</span> <span class="nav-text">Spring AOP切面中启用新事务 (可以用@After注解代替)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+

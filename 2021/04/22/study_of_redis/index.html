@@ -1,0 +1,2723 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please enter the article password') !== ''){
+                alert('password error！');
+                window.location.href = "https://chuenhung.github.io/";
+            }
+        }
+    })();
+</script>
+
+<meta name="referrer" content="no-referrer" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis,缓存," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="典型应用场景  缓存系统 可以用string实现 计数器 有incr命令，可在单线程下进行非常高效的计数，且不会出现计数错误的问题，比如微博转发、评论的计数。 可以用string实现 购物车 可以用hash实现 排行榜 可以用有序集合实现 消息队列 可以用列表实现 活动秒杀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习笔记：含数据类型常用操作命令、事务、持久化等">
+<meta property="og:url" content="http://yoursite.com/2021/04/22/study_of_redis/index.html">
+<meta property="og:site_name" content="我可能在扯淡">
+<meta property="og:description" content="典型应用场景  缓存系统 可以用string实现 计数器 有incr命令，可在单线程下进行非常高效的计数，且不会出现计数错误的问题，比如微博转发、评论的计数。 可以用string实现 购物车 可以用hash实现 排行榜 可以用有序集合实现 消息队列 可以用列表实现 活动秒杀">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-04-21T16:57:00.000Z">
+<meta property="article:modified_time" content="2021-04-21T16:57:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="缓存">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/22/study_of_redis/"/>
+
+
+
+
+
+  <title>Redis学习笔记：含数据类型常用操作命令、事务、持久化等 | 我可能在扯淡</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我可能在扯淡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">chuenhung.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/22/study_of_redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headportrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我可能在扯淡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis学习笔记：含数据类型常用操作命令、事务、持久化等</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-22T00:57:00+08:00">
+                2021-04-22 00:57
+              </time>
+            
+			
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">搬砖笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  > 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  13.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  57分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="典型应用场景"><a class="header-anchor" href="#典型应用场景"></a>典型应用场景</h2>
+<ul>
+<li>缓存系统<br>
+可以用string实现</li>
+<li>计数器<br>
+有incr命令，可在单线程下进行非常高效的计数，且不会出现计数错误的问题，比如微博转发、评论的计数。<br>
+可以用string实现</li>
+<li>购物车<br>
+可以用hash实现</li>
+<li>排行榜<br>
+可以用有序集合实现</li>
+<li>消息队列<br>
+可以用列表实现</li>
+<li>活动秒杀</li>
+</ul>
+<span id="more"></span>
+<h2 id="一些基础知识"><a class="header-anchor" href="#一些基础知识"></a>一些基础知识</h2>
+<h3 id="单线程"><a class="header-anchor" href="#单线程"></a>单线程</h3>
+<p>Redis一次只运行一条命令。但在做一些文件操作时不是单线程的，比如fysnc file descriptor。<br>
+单线程速度还快的原因如下：</p>
+<ul>
+<li>纯内存 （本质）</li>
+<li>非阻塞IO(IO多路复用) ，不在IO上浪费过多的时间（辅）</li>
+<li>避免线程切换和竞态消耗（要知道对多线成使用不合理时，甚至会比单线程慢）（辅）</li>
+</ul>
+<h3 id="数据类型内部编码"><a class="header-anchor" href="#数据类型内部编码"></a>数据类型内部编码</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">内部编码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">raw、int、embstr</td>
+</tr>
+<tr>
+<td style="text-align:center">hash</td>
+<td style="text-align:center">hashtable、ziplist</td>
+</tr>
+<tr>
+<td style="text-align:center">list</td>
+<td style="text-align:center">linkedlist、ziplist</td>
+</tr>
+<tr>
+<td style="text-align:center">set</td>
+<td style="text-align:center">hashtable、intset</td>
+</tr>
+<tr>
+<td style="text-align:center">zset</td>
+<td style="text-align:center">skiplist、ziplist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据库操作常用命令"><a class="header-anchor" href="#数据库操作常用命令"></a>数据库操作常用命令</h3>
+<p>默认16个数据库，类似数组下表从零开始，初始默认使用0号库。<br>
+数据库操作相关命令如下所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">语法</th>
+<th style="text-align:center">作用</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">EXISTS</td>
+<td style="text-align:center">EXISTS key</td>
+<td style="text-align:center">检查给定 key 是否存在</td>
+<td style="text-align:center">key 存在，返回 1 ，否则返回 0</td>
+</tr>
+<tr>
+<td style="text-align:center">TYPE</td>
+<td style="text-align:center">TYPE key</td>
+<td style="text-align:center">返回 key 所储存的值的类型</td>
+<td style="text-align:center">none (key不存在)、string、list、hash、set、zset、stream</td>
+</tr>
+<tr>
+<td style="text-align:center">MOVE</td>
+<td style="text-align:center">MOVE key</td>
+<td style="text-align:center">将当前数据库的 key 移动到给定的数据库 db 当中</td>
+<td style="text-align:center">移动成功返回 1 ，失败则返回 0</td>
+</tr>
+<tr>
+<td style="text-align:center">DEL</td>
+<td style="text-align:center">DEL key</td>
+<td style="text-align:center">删除给定的一个或多个 key 。不存在的 key 会被忽略</td>
+<td style="text-align:center">被删除 key 的数量</td>
+</tr>
+<tr>
+<td style="text-align:center">DBSIZE</td>
+<td style="text-align:center">DBSIZE key</td>
+<td style="text-align:center">返回当前数据库的 key 的数量</td>
+<td style="text-align:center">当前数据库的 key 的数量</td>
+</tr>
+<tr>
+<td style="text-align:center">KEYS</td>
+<td style="text-align:center">KEYS pattern</td>
+<td style="text-align:center">查找所有符合给定模式 pattern 的 key，例如keys *(匹配数据库中所有key)、KEYS t*est (匹配 test和 taaaest)等.特殊符号用 \ 隔开</td>
+<td style="text-align:center">符合给定模式的 key 列表</td>
+</tr>
+<tr>
+<td style="text-align:center">FLUSHDB</td>
+<td style="text-align:center">FLUSHDB</td>
+<td style="text-align:center">清空当前数据库中的所有 key</td>
+<td style="text-align:center">总是返回 OK</td>
+</tr>
+<tr>
+<td style="text-align:center">FLUSHALL</td>
+<td style="text-align:center">FLUSHALL</td>
+<td style="text-align:center">清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</td>
+<td style="text-align:center">总是返回 OK</td>
+</tr>
+<tr>
+<td style="text-align:center">SELECT</td>
+<td style="text-align:center">SELECT index</td>
+<td style="text-align:center">切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</td>
+<td style="text-align:center">总是返回 OK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="数据类型"><a class="header-anchor" href="#数据类型"></a>数据类型</h2>
+<h3 id="字符串-string"><a class="header-anchor" href="#字符串-string"></a>字符串(string)</h3>
+<h4 id="特点"><a class="header-anchor" href="#特点"></a>特点</h4>
+<ul>
+<li>string是 Redis 最基本的类型，一个 key 对应一个 value</li>
+<li>string是二进制安全的,也就是可以包含任何数据，比如jpg图片或者序列化的对象</li>
+<li>string最大能存储 512MB</li>
+</ul>
+<h4 id="常用命令"><a class="header-anchor" href="#常用命令"></a>常用命令</h4>
+<h5 id="SET"><a class="header-anchor" href="#SET"></a>SET</h5>
+<ul>
+<li>
+<p>语法<br>
+SET key value</p>
+</li>
+<li>
+<p>说明<br>
+将字符串值 value 关联到 key 。如果 key 已经持有其他值， SET 就覆写旧值， 无视类型。当 SET 命令对一个带有生存时间（TTL）的键进行设置之后， 该键原有的 TTL 将被清除。</p>
+</li>
+<li>
+<p>相关案例<br>
+正常设置值：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; SET key <span class="string">&quot;test&quot;</span></span><br><span class="line">OK</span><br><span class="line">redis <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; GET key</span><br><span class="line"><span class="string">&quot;test&quot;</span></span><br></pre></td></tr></table></figure>
+<p>使用 EX 选项：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; SET key-with-expire-time <span class="string">&quot;hello&quot;</span> EX <span class="number">10086</span></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; GET key-with-expire-time</span><br><span class="line"><span class="string">&quot;hello&quot;</span></span><br><span class="line"></span><br><span class="line">redis <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; TTL key-with-expire-time</span><br><span class="line">(integer) <span class="number">10069</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="GET"><a class="header-anchor" href="#GET"></a>GET</h5>
+<ul>
+<li>
+<p>语法<br>
+GET key</p>
+</li>
+<li>
+<p>说明<br>
+返回与键 key 相关联的字符串值。</p>
+</li>
+<li>
+<p>返回值<br>
+如果键 key 不存在， 那么返回特殊值 nil ； 否则， 返回键 key 的值。如果键    key 的值并非字符串类型， 那么返回一个错误， 因为 GET 命令只能用于字符串   值。</p>
+</li>
+<li>
+<p>相关案例<br>
+对不存在的键 key 或是字符串类型的键 key 执行 GET 命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; GET <span class="title function_">db</span></span><br><span class="line"><span class="params">(nil)</span></span><br><span class="line">redis&gt; SET db redis</span><br><span class="line">OK</span><br><span class="line">redis&gt; GET db</span><br><span class="line"><span class="string">&quot;redis&quot;</span></span><br></pre></td></tr></table></figure>
+<p>对不是字符串类型的键 key 执行 GET 命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; LPUSH db redis mongodb <span class="title function_">mysql</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; GET <span class="title function_">db</span></span><br><span class="line"><span class="params">(error)</span> ERR Operation against a key holding the wrong kind of value</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="INCR"><a class="header-anchor" href="#INCR"></a>INCR</h5>
+<ul>
+<li>
+<p>语法<br>
+INCR key</p>
+</li>
+<li>
+<p>说明<br>
+为键 key 储存的数字值加上1。如果键 key 不存在， 那么它的值会先被初始化为 0 ， 然后再执行 INCR 命令。如果键 key 储存的值不能被解释为数字， 那么 INCR 命令将返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+INCR 命令会返回键 key 在执行加一操作之后的值。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET page_view <span class="number">20</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; INCR <span class="title function_">page_view</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">21</span></span><br><span class="line">redis&gt; GET page_view    # 数字值在 Redis 中以字符串的形式保存</span><br><span class="line"><span class="string">&quot;21&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="INCRBY"><a class="header-anchor" href="#INCRBY"></a>INCRBY</h5>
+<ul>
+<li>
+<p>语法<br>
+INCRBY key increment</p>
+</li>
+<li>
+<p>说明<br>
+为键 key 储存的数字值加上增量 increment 。如果键 key 不存在， 那么键 key 的值会先被初始化为 0 ， 然后再执行 INCRBY 命令。如果键 key 储存的值不能被解释为数字， 那么 INCRBY 命令将返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+在加上增量 increment 之后， 键 key 当前的值。</p>
+</li>
+<li>
+<p>相关案例<br>
+键存在，并且值为数字：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET rank <span class="number">50</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; INCRBY rank <span class="number">20</span></span><br><span class="line">(integer) <span class="number">70</span></span><br><span class="line">redis&gt; GET rank</span><br><span class="line"><span class="string">&quot;70&quot;</span></span><br></pre></td></tr></table></figure>
+<p>键不存在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; EXISTS <span class="title function_">counter</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; INCRBY counter <span class="number">30</span></span><br><span class="line">(integer) <span class="number">30</span></span><br><span class="line"></span><br><span class="line">redis&gt; GET counter</span><br><span class="line"><span class="string">&quot;30&quot;</span></span><br></pre></td></tr></table></figure>
+<p>键存在，但值无法被解释为数字：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET book <span class="string">&quot;long long ago...&quot;</span></span><br><span class="line">	OK</span><br><span class="line">redis&gt; INCRBY book <span class="number">200</span></span><br><span class="line">(error) ERR value is not an integer or out of range</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="DECR"><a class="header-anchor" href="#DECR"></a>DECR</h5>
+<ul>
+<li>
+<p>语法<br>
+DECR key</p>
+</li>
+<li>
+<p>说明<br>
+为键 key 储存的数字值减去一。如果键 key 不存在， 那么键 key 的值会先被初始化为 0 ， 然后再执行 DECR 操作。如果键 key 储存的值不能被解释为数字， 那么 DECR 命令将返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+DECR 命令会返回键 key 在执行减一操作之后的值。</p>
+</li>
+<li>
+<p>相关案例<br>
+对储存数字值的键 key 执行 DECR 命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET test <span class="number">10</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; DECR <span class="title function_">test</span> </span><br><span class="line"><span class="params">(integer)</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>对不存在的键执行 DECR 命令：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; EXISTS <span class="title function_">count</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line">redis&gt; DECR <span class="title function_">count</span></span><br><span class="line"><span class="params">(integer)</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="DECRBY"><a class="header-anchor" href="#DECRBY"></a>DECRBY</h5>
+<ul>
+<li>
+<p>语法<br>
+DECRBY key decrement</p>
+</li>
+<li>
+<p>说明<br>
+将键 key 储存的整数值减去减量 decrement 。如果键 key 不存在， 那么键 key 的值会先被初始化为 0 ， 然后再执行 DECRBY 命令。如果键 key 储存的值不能被解释为数字， 那么 DECRBY 命令将返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+DECRBY 命令会返回键在执行减法操作之后的值。</p>
+</li>
+<li>
+<p>相关案例<br>
+对已经存在的键执行 DECRBY 命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET count <span class="number">100</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; DECRBY count <span class="number">20</span></span><br><span class="line">(integer) <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>对不存在的键执行 DECRBY 命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; EXISTS <span class="title function_">pages</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line">redis&gt; DECRBY pages <span class="number">10</span></span><br><span class="line">(integer) -<span class="number">10</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="MSET"><a class="header-anchor" href="#MSET"></a>MSET</h5>
+<ul>
+<li>
+<p>语法<br>
+MSET key value [key value …]</p>
+</li>
+<li>
+<p>说明<br>
+同时为多个键设置值。如果某个给定键已经存在， 那么 MSET 将使用新值去覆盖旧值， 如果这不是你所希望的效果， 请考虑使用 MSETNX 命令， 这个命令只会在所有给定键都不存在的情况下进行设置。</p>
+</li>
+<li>
+<p>返回值<br>
+总是返回 OK 。</p>
+</li>
+<li>
+<p>相关案例<br>
+同时对多个键进行设置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; MSET date <span class="string">&quot;2012.3.30&quot;</span> time <span class="string">&quot;11:00 a.m.&quot;</span> weather <span class="string">&quot;sunny&quot;</span></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; MGET date time weather</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;2012.3.30&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;11:00 a.m.&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;sunny&quot;</span></span><br></pre></td></tr></table></figure>
+<p>覆盖已有的值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; MGET k1 k2</span><br><span class="line">	<span class="number">1</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="number">2</span>) <span class="string">&quot;world&quot;</span></span><br><span class="line">	</span><br><span class="line">	redis&gt; MSET k1 <span class="string">&quot;good&quot;</span> k2 <span class="string">&quot;bye&quot;</span></span><br><span class="line">	OK</span><br><span class="line">	</span><br><span class="line">	redis&gt; MGET k1 k2</span><br><span class="line">	<span class="number">1</span>) <span class="string">&quot;good&quot;</span></span><br><span class="line">	<span class="number">2</span>) <span class="string">&quot;bye&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="MGET"><a class="header-anchor" href="#MGET"></a>MGET</h5>
+<ul>
+<li>
+<p>语法<br>
+MGET key [key …]</p>
+</li>
+<li>
+<p>说明<br>
+返回给定的一个或多个字符串键的值。如果给定的字符串键里面， 有某个键不存在， 那么这个键的值将以特殊值 nil 表示。</p>
+</li>
+<li>
+<p>返回值<br>
+MGET 命令将返回一个列表， 列表中包含了所有给定键的值。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET baidu  baidu.com</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; SET google google.com</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; MGET baidu  google</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; MGET baidu  google mysql     # 不存在的 mysql 返回 nil</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"><span class="number">3</span>) (nil)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="哈希表-hash"><a class="header-anchor" href="#哈希表-hash"></a>哈希表(hash)</h3>
+<h4 id="特点-v2"><a class="header-anchor" href="#特点-v2"></a>特点</h4>
+<ul>
+<li>hash是一个键值(key=&gt;value)对集合</li>
+<li>hash特别适合用于存储对象</li>
+</ul>
+<h4 id="常用命令-v2"><a class="header-anchor" href="#常用命令-v2"></a>常用命令</h4>
+<h5 id="HSET"><a class="header-anchor" href="#HSET"></a>HSET</h5>
+<ul>
+<li>
+<p>语法<br>
+HSET hash field value</p>
+</li>
+<li>
+<p>说明<br>
+将哈希表 hash 中域 field 的值设置为 value 。如果给定的哈希表并不存在， 那么一个新的哈希表将被创建并执行 HSET 操作。如果域 field 已经存在于哈希表中， 那么它的旧值将被新值 value 覆盖。</p>
+</li>
+<li>
+<p>返回值<br>
+当 HSET 命令在哈希表中新创建 field 域并成功为它设置值时， 命令返回 1 ； 如果域 field 已经存在于哈希表， 并且 HSET 命令成功使用新值覆盖了它的旧值， 那么命令返回 0 。</p>
+</li>
+<li>
+<p>相关案例<br>
+设置一个新域：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET website baidu <span class="string">&quot;www.baidu.org&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET website baidu </span><br><span class="line"><span class="string">&quot;www.baidu.org&quot;</span></span><br></pre></td></tr></table></figure>
+<p>对一个已存在的域进行更新：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET website baidu <span class="string">&quot;www.baidu.com&quot;</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET website baidu </span><br><span class="line"><span class="string">&quot;www.baidu.com&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HGET"><a class="header-anchor" href="#HGET"></a>HGET</h5>
+<ul>
+<li>
+<p>语法<br>
+HGET hash field</p>
+</li>
+<li>
+<p>说明<br>
+返回哈希表中给定域的值。如果给定域不存在于哈希表中， 又或者给定的哈希表并不存在， 那么命令返回 nil 。</p>
+</li>
+<li>
+<p>返回值<br>
+返回哈希表中给定域的值。</p>
+</li>
+<li>
+<p>相关案例<br>
+域存在的情况：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET website baidu <span class="string">&quot;www.baidu.org&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET website baidu </span><br><span class="line"><span class="string">&quot;www.baidu.org&quot;</span></span><br></pre></td></tr></table></figure>
+<p>域不存在情况：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HGET website <span class="title function_">mysql</span> </span><br><span class="line"><span class="params">(nil)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HSETNX"><a class="header-anchor" href="#HSETNX"></a>HSETNX</h5>
+<ul>
+<li>
+<p>语法<br>
+HSETNX hash field value</p>
+</li>
+<li>
+<p>说明<br>
+当且仅当域 field 尚未存在于哈希表的情况下， 将它的值设置为 value 。如果给定域已经存在于哈希表当中， 那么命令将放弃执行设置操作。如果哈希表 hash 不存在， 那么一个新的哈希表将被创建并执行 HSETNX 命令。</p>
+</li>
+<li>
+<p>返回值<br>
+HSETNX 命令在设置成功时返回 1 ， 在给定域已经存在而放弃执行设置操作时返回 0 。</p>
+</li>
+<li>
+<p>相关案例<br>
+域尚未存在， 设置成功：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSETNX database key-value-store <span class="title function_">Redis</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET database key-value-store</span><br><span class="line"><span class="string">&quot;Redis</span></span><br></pre></td></tr></table></figure>
+<p>域已经存在， 设置未成功， 域原有的值未被改变：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSETNX database key-value-store <span class="title function_">Riak</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET database key-value-store</span><br><span class="line"><span class="string">&quot;Redis&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HEXISTS"><a class="header-anchor" href="#HEXISTS"></a>HEXISTS</h5>
+<ul>
+<li>
+<p>语法<br>
+HEXISTS hash field</p>
+</li>
+<li>
+<p>说明<br>
+检查给定域 field 是否存在于哈希表 hash 当中。</p>
+</li>
+<li>
+<p>返回值<br>
+HEXISTS 命令在给定域存在时返回 1 ， 在给定域不存在时返回 0 。</p>
+</li>
+<li>
+<p>相关案例<br>
+给定域不存在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HEXISTS phone <span class="title function_">myphone</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>给定域存在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET phone myphone nokia-<span class="number">1110</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HEXISTS phone <span class="title function_">myphone</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HLEN"><a class="header-anchor" href="#HLEN"></a>HLEN</h5>
+<ul>
+<li>
+<p>语法<br>
+HLEN key</p>
+</li>
+<li>
+<p>说明<br>
+返回哈希表 key 中域的数量。</p>
+</li>
+<li>
+<p>返回值<br>
+哈希表中域的数量。当 key 不存在时，返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET db redis redis.com</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HSET db baidu baidu.com</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HLEN <span class="title function_">db</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; HSET db google google.com</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HLEN <span class="title function_">db</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HDEL"><a class="header-anchor" href="#HDEL"></a>HDEL</h5>
+<ul>
+<li>
+<p>语法<br>
+HDEL key field [field …]</p>
+</li>
+<li>
+<p>说明<br>
+删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
+</li>
+<li>
+<p>返回值<br>
+被成功移除的域的数量，不包括被忽略的域。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#测试数据</span><br><span class="line">redis&gt; HGETALL abbr</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;cat&quot;</span></span><br><span class="line"><span class="number">7</span>) <span class="string">&quot;d&quot;</span></span><br><span class="line"><span class="number">8</span>) <span class="string">&quot;dog&quot;</span></span><br><span class="line">	</span><br><span class="line"># 删除单个域</span><br><span class="line">redis&gt; HDEL abbr <span class="title function_">a</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line">	</span><br><span class="line"># 删除不存在的域</span><br><span class="line">redis&gt; HDEL abbr not-exists-field</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line">	</span><br><span class="line"># 删除多个域	</span><br><span class="line">redis&gt; HDEL abbr b <span class="title function_">c</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span>	</span><br><span class="line">redis&gt; HGETALL abbr</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;d&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;dog&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HKEYS"><a class="header-anchor" href="#HKEYS"></a>HKEYS</h5>
+<ul>
+<li>
+<p>语法<br>
+HKEYS key</p>
+</li>
+<li>
+<p>说明<br>
+返回哈希表 key 中的所有域。</p>
+</li>
+<li>
+<p>返回值<br>
+一个包含哈希表中所有域的表。当 key 不存在时，返回一个空表。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 哈希表非空</span><br><span class="line">redis&gt; HMSET website google www.google.com yahoo www.yahoo.com</span><br><span class="line">OK	</span><br><span class="line">redis&gt; HKEYS website</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;google&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;yahoo&quot;</span></span><br><span class="line"></span><br><span class="line"># 空哈希表/key不存在</span><br><span class="line">redis&gt; EXISTS <span class="title function_">fake_key</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; HKEYS <span class="title function_">fake_key</span></span><br><span class="line"><span class="params">(empty list or set)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HVALS"><a class="header-anchor" href="#HVALS"></a>HVALS</h5>
+<ul>
+<li>
+<p>语法<br>
+HVALS key</p>
+</li>
+<li>
+<p>说明<br>
+返回哈希表 key 中所有域的值。</p>
+</li>
+<li>
+<p>返回值<br>
+一个包含哈希表中所有值的表。当 key 不存在时，返回一个空表。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 非空哈希表</span><br><span class="line">redis&gt; HMSET website google www.google.com yahoo www.yahoo.com</span><br><span class="line">OK</span><br><span class="line">redis&gt; HVALS website</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;www.google.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;www.yahoo.com&quot;</span></span><br><span class="line"></span><br><span class="line"># 空哈希表/不存在的key</span><br><span class="line">redis&gt; EXISTS <span class="title function_">not_exists</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; HVALS <span class="title function_">not_exists</span></span><br><span class="line"><span class="params">(empty list or set)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HINCRBY"><a class="header-anchor" href="#HINCRBY"></a>HINCRBY</h5>
+<ul>
+<li>
+<p>语法<br>
+HINCRBY key field increment</p>
+</li>
+<li>
+<p>说明<br>
+为哈希表 key 中的域 field 的值加上增量 increment 。增量也可以为负数，相当于对给定域进行减法操作。如果 key 不存在，一个新的哈希表被创建并执行 HINCRBY 命令。如果域 field 不存在，那么在执行命令前，域的值被初始化为 0 。对一个储存字符串值的域 field 执行 HINCRBY 命令将造成一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+执行 HINCRBY 命令之后，哈希表 key 中域 field 的值。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># increment 为正数</span><br><span class="line"></span><br><span class="line">redis&gt; HEXISTS counter page_view    # 对空域进行设置</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; HINCRBY counter page_view <span class="number">200</span></span><br><span class="line">(integer) <span class="number">200</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET counter page_view</span><br><span class="line"><span class="string">&quot;200&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># increment 为负数</span><br><span class="line"></span><br><span class="line">redis&gt; HGET counter page_view</span><br><span class="line"><span class="string">&quot;200&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; HINCRBY counter page_view -<span class="number">50</span></span><br><span class="line">(integer) <span class="number">150</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET counter page_view</span><br><span class="line"><span class="string">&quot;150&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 尝试对字符串值的域执行HINCRBY命令</span><br><span class="line"></span><br><span class="line">redis&gt; HSET myhash string hello,world       # 设定一个字符串值</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGET myhash string</span><br><span class="line"><span class="string">&quot;hello,world&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; HINCRBY myhash string <span class="number">1</span>              # 命令执行失败，错误。</span><br><span class="line">(error) ERR hash value is not an integer</span><br><span class="line"></span><br><span class="line">redis&gt; HGET myhash string                   # 原值不变</span><br><span class="line"><span class="string">&quot;hello,world&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HINCRBYFLOAT"><a class="header-anchor" href="#HINCRBYFLOAT"></a>HINCRBYFLOAT</h5>
+<ul>
+<li>
+<p>语法<br>
+HINCRBYFLOAT key field increment</p>
+</li>
+<li>
+<p>说明<br>
+为哈希表 key 中的域 field 加上浮点数增量 increment 。如果哈希表中没有域 field ，那么 HINCRBYFLOAT 会先将域 field 的值设为 0 ，然后再执行加法操作。如果键 key 不存在，那么 HINCRBYFLOAT 会先创建一个哈希表，再创建域 field ，最后再执行加法操作。<br>
+当以下任意一个条件发生时，返回一个错误：</p>
+<ul>
+<li>域 field 的值不是字符串类型(因为 Redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）</li>
+<li>域 field 当前的值或给定的增量 increment 不能解释(parse)为双精度浮点数(double precision floating point number)</li>
+</ul>
+</li>
+<li>
+<p>返回值<br>
+执行加法操作之后 field 域的值。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 值和增量都是普通小数</span><br><span class="line">redis&gt; HSET mykey field <span class="number">10.50</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; HINCRBYFLOAT mykey field <span class="number">0.1</span></span><br><span class="line"><span class="string">&quot;10.6&quot;</span></span><br><span class="line">		</span><br><span class="line"># 值和增量都是指数符号	</span><br><span class="line">redis&gt; HSET mykey field <span class="number">5.0e3</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line">redis&gt; HINCRBYFLOAT mykey field <span class="number">2.0e2</span></span><br><span class="line"><span class="string">&quot;5200&quot;</span></span><br><span class="line">	</span><br><span class="line"># 对不存在的键执行 HINCRBYFLOAT	</span><br><span class="line">redis&gt; EXISTS <span class="title function_">price</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line">redis&gt; HINCRBYFLOAT price milk <span class="number">3.5</span></span><br><span class="line"><span class="string">&quot;3.5&quot;</span></span><br><span class="line">redis&gt; HGETALL price</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;milk&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3.5&quot;</span></span><br><span class="line">	</span><br><span class="line"># 对不存在的域进行 HINCRBYFLOAT	</span><br><span class="line">redis&gt; HGETALL price</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;milk&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3.5&quot;</span></span><br><span class="line">redis&gt; HINCRBYFLOAT price coffee <span class="number">4.5</span>   # 新增 coffee 域</span><br><span class="line"><span class="string">&quot;4.5&quot;</span></span><br><span class="line">redis&gt; HGETALL price</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;milk&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3.5&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;coffee&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;4.5&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="HGETALL"><a class="header-anchor" href="#HGETALL"></a>HGETALL</h5>
+<ul>
+<li>
+<p>语法<br>
+HGETALL key</p>
+</li>
+<li>
+<p>说明<br>
+返回哈希表 key 中，所有的域和值。在返回值里，紧跟每个域名(field name)之后是域的值(value)，所以返回值的长度是哈希表大小的两倍。</p>
+</li>
+<li>
+<p>返回值<br>
+以列表形式返回哈希表的域和域的值。<br>
+若 key 不存在，返回空列表。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HSET people jack <span class="string">&quot;Jack Sparrow&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; HSET people gump <span class="string">&quot;Forrest Gump&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; HGETALL people</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;jack&quot;</span>          # 域</span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;Jack Sparrow&quot;</span>  # 值</span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;gump&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;Forrest Gump&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="列表-list"><a class="header-anchor" href="#列表-list"></a>列表(list)</h3>
+<h4 id="特点-v3"><a class="header-anchor" href="#特点-v3"></a>特点</h4>
+<ul>
+<li>list是简单的字符串列表，一个key对应多个value</li>
+<li>可以添加一个元素到列表的头部（左边）或者尾部（右边）</li>
+<li>一个list最多可以包含2^32-1 个元素 (超过42亿)。</li>
+</ul>
+<h4 id="常用命令-v3"><a class="header-anchor" href="#常用命令-v3"></a>常用命令</h4>
+<h5 id="LPUSH"><a class="header-anchor" href="#LPUSH"></a>LPUSH</h5>
+<ul>
+<li>
+<p>语法<br>
+LPUSH key value [value …]</p>
+</li>
+<li>
+<p>说明<br>
+将一个或多个值 value 插入到列表 key 的表头。如果有多个 value 值，那么各个 value 值按从左到右的顺序依次插入到表头： 比如说，对空列表 mylist 执行命令 LPUSH mylist a b c ，列表的值将是 c b a ，这等同于原子性地执行 LPUSH mylist a 、 LPUSH mylist b 和 LPUSH mylist c 三个命令。<br>
+如果 key 不存在，一个空列表会被创建并执行 LPUSH 操作。当 key 存在但不是列表类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+执行 LPUSH 命令后，列表的长度。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 加入单个元素</span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH languages <span class="title function_">english</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 加入重复元素</span><br><span class="line">redis&gt; LPUSH languages <span class="title function_">english</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE languages <span class="number">0</span> -<span class="number">1</span>     # 列表允许重复元素</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;english&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;english&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 加入多个元素	</span><br><span class="line">redis&gt; LPUSH mylist a b <span class="title function_">c</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE mylist <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;a&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="RPUSH"><a class="header-anchor" href="#RPUSH"></a>RPUSH</h5>
+<ul>
+<li>
+<p>语法<br>
+RPUSH key value [value …]</p>
+</li>
+<li>
+<p>说明<br>
+将一个或多个值 value 插入到列表 key 的表尾(最右边)。如果有多个 value 值，那么各个 value 值按从左到右的顺序依次插入到表尾：比如对一个空列表 mylist 执行 RPUSH mylist a b c ，得出的结果列表为 a b c ，等同于执行命令 RPUSH mylist a 、 RPUSH mylist b 、 RPUSH mylist c 。<br>
+如果 key 不存在，一个空列表会被创建并执行 RPUSH 操作。当 key 存在但不是列表类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+执行 RPUSH 操作后，表的长度。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 添加单个元素</span><br><span class="line">redis&gt; RPUSH languages <span class="title function_">english</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 添加重复元素</span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH languages <span class="title function_">english</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE languages <span class="number">0</span> -<span class="number">1</span> # 列表允许重复元素</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;english&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;english&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 添加多个元素</span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH mylist a b <span class="title function_">c</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE mylist <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;c&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LRANGE"><a class="header-anchor" href="#LRANGE"></a>LRANGE</h5>
+<ul>
+<li>
+<p>语法<br>
+LRANGE key start stop</p>
+</li>
+<li>
+<p>说明<br>
+返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定。下标(index)参数 start 和 stop 都以 0 为底，也就是说，以 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。<br>
+如果 start 下标比列表的最大下标 end ( LLEN list 减去 1 )还要大，那么 LRANGE 返回一个空列表。如果 stop 下标比 end 下标还要大，Redis将 stop 的值设置为 end 。</p>
+</li>
+<li>
+<p>返回值<br>
+一个列表，包含指定区间内的元素。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; RPUSH fp-language <span class="title function_">lisp</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE fp-language <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;lisp&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH fp-language <span class="title function_">scheme</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE fp-language <span class="number">0</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;lisp&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;scheme&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LPOP"><a class="header-anchor" href="#LPOP"></a>LPOP</h5>
+<ul>
+<li>
+<p>语法<br>
+LPOP key</p>
+</li>
+<li>
+<p>说明<br>
+移除并返回列表 key 的头元素。</p>
+</li>
+<li>
+<p>返回值<br>
+列表的头元素。 当 key 不存在时，返回 nil 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; LLEN <span class="title function_">course</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH course <span class="title function_">English</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH course <span class="title function_">Mathematics</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LPOP course  # 移除头元素</span><br><span class="line"><span class="string">&quot;English&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="RPOP"><a class="header-anchor" href="#RPOP"></a>RPOP</h5>
+<ul>
+<li>
+<p>语法<br>
+RPOP key</p>
+</li>
+<li>
+<p>说明<br>
+移除并返回列表 key 的尾元素。</p>
+</li>
+<li>
+<p>返回值<br>
+列表的尾元素。 当 key 不存在时，返回 nil 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; LLEN <span class="title function_">course</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH course <span class="title function_">English</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; RPUSH course <span class="title function_">Mathematics</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LPOP course  # 移除尾元素</span><br><span class="line"><span class="string">&quot;Mathematics&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LINDEX"><a class="header-anchor" href="#LINDEX"></a>LINDEX</h5>
+<ul>
+<li>
+<p>语法<br>
+LINDEX key index</p>
+</li>
+<li>
+<p>说明<br>
+返回列表 key 中，下标为 index 的元素。下标(index)参数 start 和 stop 都以 0 为底，也就是说，以 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。<br>
+如果 key 不是列表类型，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+列表中下标为 index 的元素。 如果 index 参数的值不在列表的区间范围内(out of range)，返回 nil 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; LPUSH mylist <span class="string">&quot;World&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH mylist <span class="string">&quot;Hello&quot;</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LINDEX mylist <span class="number">0</span></span><br><span class="line"><span class="string">&quot;Hello&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; LINDEX mylist -<span class="number">1</span></span><br><span class="line"><span class="string">&quot;World&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; LINDEX mylist <span class="number">3</span>        # index不在 mylist 的区间范围内</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LLEN"><a class="header-anchor" href="#LLEN"></a>LLEN</h5>
+<ul>
+<li>
+<p>语法<br>
+LLEN key</p>
+</li>
+<li>
+<p>说明<br>
+返回列表 key 的长度。</p>
+</li>
+<li>
+<p>返回值<br>
+列表的尾元素。 当 key 不存在时，返回 nil 。如果 key 不存在，则 key 被解释为一个空列表，返回 0 。如果 key 不是列表类型，返回一个错误。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 空列表</span><br><span class="line">redis&gt; LLEN <span class="title function_">job</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 非空列表</span><br><span class="line">redis&gt; LPUSH job <span class="string">&quot;cook food&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; LPUSH job <span class="string">&quot;have lunch&quot;</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis&gt; LLEN <span class="title function_">job</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LREM"><a class="header-anchor" href="#LREM"></a>LREM</h5>
+<ul>
+<li>
+<p>语法<br>
+LREM key count value</p>
+</li>
+<li>
+<p>说明<br>
+根据参数 count 的值，移除列表中与参数 value 相等的元素。<br>
+count 的值可以是以下几种：</p>
+<ul>
+<li>count &gt; 0 : 从表头开始向表尾搜索，移除与 value 相等的元素，数量为 count 。</li>
+<li>count &lt; 0 : 从表尾开始向表头搜索，移除与 value 相等的元素，数量为 count 的绝对值。</li>
+<li>count = 0 : 移除表中所有与 value 相等的值。</li>
+</ul>
+</li>
+<li>
+<p>返回值<br>
+被移除元素的数量。 因为不存在的 key 被视作空表(empty list)，所以当 key 不存在时， LREM 命令总是返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># 先创建一个表，内容排列是</span><br><span class="line"># morning hello morning helllo morning</span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH greet <span class="string">&quot;morning&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; LPUSH greet <span class="string">&quot;hello&quot;</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis&gt; LPUSH greet <span class="string">&quot;morning&quot;</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line">redis&gt; LPUSH greet <span class="string">&quot;hello&quot;</span></span><br><span class="line">(integer) <span class="number">4</span></span><br><span class="line">redis&gt; LPUSH greet <span class="string">&quot;morning&quot;</span></span><br><span class="line">(integer) <span class="number">5</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE greet <span class="number">0</span> <span class="number">4</span>         # 查看所有元素</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;morning&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;morning&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;morning&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; LREM greet <span class="number">2</span> morning     # 移除从表头到表尾，最先发现的两个 morning</span><br><span class="line">(integer) <span class="number">2</span>                     # 两个元素被移除</span><br><span class="line"></span><br><span class="line">redis&gt; LLEN greet               # 还剩 <span class="number">3</span> 个元素</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE greet <span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;morning&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; LREM greet -<span class="number">1</span> morning    # 移除从表尾到表头，第一个 morning</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; LLEN greet               # 剩下两个元素</span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis&gt; LRANGE greet <span class="number">0</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;hello&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; LREM greet <span class="number">0</span> hello      # 移除表中所有 hello</span><br><span class="line">(integer) <span class="number">2</span>                    # 两个 hello 被移除</span><br><span class="line"></span><br><span class="line">redis&gt; LLEN <span class="title function_">greet</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LTRIM"><a class="header-anchor" href="#LTRIM"></a>LTRIM</h5>
+<ul>
+<li>
+<p>语法<br>
+LTRIM key start stop</p>
+</li>
+<li>
+<p>说明<br>
+对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。举个例子，执行命令 LTRIM list 0 2 ，表示只保留列表 list 的前三个元素，其余元素全部删除。<br>
+下标(index)参数 start 和 stop 都以 0 为底，也就是说，以 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。<br>
+当 key 不是列表类型时，返回一个错误。<br>
+如果 start 下标比列表的最大下标 end ( LLEN list 减去 1 )还要大，或者 start &gt; stop ， LTRIM 返回一个空列表(因为 LTRIM 已经将整个列表清空)。如果 stop 下标比 end 下标还要大，Redis将 stop 的值设置为 end 。</p>
+</li>
+<li>
+<p>返回值<br>
+命令执行成功时，返回 ok 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 情况 <span class="number">1</span>： 常见情况， start 和 stop 都在列表的索引范围之内</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span>       # alpha 是一个包含 <span class="number">5</span> 个字符串的列表</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;h&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;e&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;o&quot;</span></span><br><span class="line">redis&gt; LTRIM alpha <span class="number">1</span> -<span class="number">1</span>        # 删除 alpha 列表索引为 <span class="number">0</span> 的元素</span><br><span class="line">OK</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span>       # <span class="string">&quot;h&quot;</span> 被删除了</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;e&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;o&quot;</span></span><br><span class="line"></span><br><span class="line"># 情况 <span class="number">2</span>： stop 比列表的最大下标还要大</span><br><span class="line">redis&gt; LTRIM alpha <span class="number">1</span> <span class="number">10086</span> # 保留 alpha 列表索引 <span class="number">1</span> 至索引 <span class="number">10086</span> 上的元素</span><br><span class="line">OK</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span>  # 只有索引 <span class="number">0</span> 上的元素 <span class="string">&quot;e&quot;</span> 被删除了，其他元素还在</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;o&quot;</span></span><br><span class="line"></span><br><span class="line"># 情况 <span class="number">3</span>： start 和 stop 都比列表的最大下标要大，并且 start &lt; stop</span><br><span class="line">redis&gt; LTRIM alpha <span class="number">10086</span> <span class="number">123321</span></span><br><span class="line">OK</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span>        # 列表被清空</span><br><span class="line">(empty list or set)</span><br><span class="line"></span><br><span class="line"># 情况 <span class="number">4</span>： start 和 stop 都比列表的最大下标要大，并且 start &gt; stop</span><br><span class="line">redis&gt; RPUSH <span class="keyword">new</span>-alpha <span class="string">&quot;h&quot;</span> <span class="string">&quot;e&quot;</span> <span class="string">&quot;l&quot;</span> <span class="string">&quot;l&quot;</span> <span class="string">&quot;o&quot;</span>  # 重新建立一个新列表</span><br><span class="line">(integer) <span class="number">5</span></span><br><span class="line">redis&gt; LRANGE <span class="keyword">new</span>-alpha <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;h&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;e&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;l&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;o&quot;</span></span><br><span class="line">redis&gt; LTRIM <span class="keyword">new</span>-alpha <span class="number">123321</span> <span class="number">10086</span>    # 执行 LTRIM</span><br><span class="line">OK</span><br><span class="line">redis&gt; LRANGE <span class="keyword">new</span>-alpha <span class="number">0</span> -<span class="number">1</span>           # 同样被清空</span><br><span class="line">(empty list or set)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="RPOPLPUSH"><a class="header-anchor" href="#RPOPLPUSH"></a>RPOPLPUSH</h5>
+<ul>
+<li>语法<br>
+RPOPLPUSH source destination</li>
+<li>说明<br>
+命令 RPOPLPUSH 在一个原子时间内，执行以下两个动作：
+<ul>
+<li>将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。</li>
+<li>将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</li>
+</ul>
+</li>
+</ul>
+<p>如果 source 不存在，值 nil 被返回，并且不执行其他动作。如果 source 和 destination 相同，则列表中的表尾元素被移动到表头，并返回该元素，可以把这种特殊情况视作列表的旋转(rotation)操作。</p>
+<ul>
+<li>
+<p>返回值<br>
+被弹出的元素。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">	# source 和 destination 不同</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span>         # 查看所有元素</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;d&quot;</span></span><br><span class="line">redis&gt; RPOPLPUSH alpha reciver   # 执行一次 RPOPLPUSH 看看</span><br><span class="line"><span class="string">&quot;d&quot;</span></span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line">redis&gt; LRANGE reciver <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;d&quot;</span></span><br><span class="line">redis&gt; RPOPLPUSH alpha reciver # 再执行一次，证实 RPOP 和 LPUSH 的位置正确</span><br><span class="line"><span class="string">&quot;c&quot;</span>	</span><br><span class="line">redis&gt; LRANGE alpha <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;b&quot;</span></span><br><span class="line">redis&gt; LRANGE reciver <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;d&quot;</span></span><br><span class="line"></span><br><span class="line"># source 和 destination 相同</span><br><span class="line">redis&gt; LRANGE number <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;2&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;4&quot;</span></span><br><span class="line">redis&gt; RPOPLPUSH number number</span><br><span class="line"><span class="string">&quot;4&quot;</span></span><br><span class="line">redis&gt; LRANGE number <span class="number">0</span> -<span class="number">1</span>           # <span class="number">4</span> 被旋转到了表头</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;4&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;2&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;3&quot;</span>	</span><br><span class="line">redis&gt; RPOPLPUSH number number</span><br><span class="line"><span class="string">&quot;3&quot;</span>	</span><br><span class="line">redis&gt; LRANGE number <span class="number">0</span> -<span class="number">1</span>           # 这次是 <span class="number">3</span> 被旋转到了表头</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;4&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;2&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="BRPOPLPUSH"><a class="header-anchor" href="#BRPOPLPUSH"></a>BRPOPLPUSH</h5>
+<ul>
+<li>
+<p>语法<br>
+BRPOPLPUSH source destination timeout</p>
+</li>
+<li>
+<p>说明<br>
+BRPOPLPUSH 是 RPOPLPUSH source destination 的阻塞版本，当给定列表 source 不为空时， BRPOPLPUSH 的表现和 RPOPLPUSH source destination 一样。<br>
+当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时，或有另一个客户端对 source 执行 LPUSH key value [value …] 或 RPUSH key value [value …] 命令为止。<br>
+超时参数 timeout 接受一个以秒为单位的数字作为值。超时参数设为 0 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
+</li>
+<li>
+<p>返回值<br>
+假如在指定时间内没有任何元素被弹出，则返回一个 nil 和等待时长。 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素的值，第二个元素是等待时长。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 非空列表</span><br><span class="line">redis&gt; BRPOPLPUSH msg reciver <span class="number">500</span></span><br><span class="line"><span class="string">&quot;hello moto&quot;</span>                        # 弹出元素的值</span><br><span class="line">(<span class="number">3.</span>38s)                             # 等待时长</span><br><span class="line">redis&gt; LLEN <span class="title function_">reciver</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line">redis&gt; LRANGE reciver <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;hello moto&quot;</span></span><br><span class="line"></span><br><span class="line"># 空列表</span><br><span class="line">redis&gt; BRPOPLPUSH msg reciver <span class="number">1</span></span><br><span class="line">(nil)</span><br><span class="line">(<span class="number">1.</span>34s)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="LSET"><a class="header-anchor" href="#LSET"></a>LSET</h5>
+<ul>
+<li>
+<p>语法<br>
+LSET key index value</p>
+</li>
+<li>
+<p>说明<br>
+将列表 key 下标为 index 的元素的值设置为 value 。<br>
+当 index 参数超出范围，或对一个空列表( key 不存在)进行 LSET 时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+操作成功返回 ok ，否则返回错误信息。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 对空列表(key 不存在)进行 LSET</span><br><span class="line">redis&gt; EXISTS <span class="title function_">list</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span>	</span><br><span class="line">redis&gt; LSET list <span class="number">0</span> item</span><br><span class="line">(error) ERR no such key</span><br><span class="line"></span><br><span class="line"># 对非空列表进行 LSET</span><br><span class="line">redis&gt; LPUSH job <span class="string">&quot;cook food&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; LRANGE job <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;cook food&quot;</span></span><br><span class="line">redis&gt; LSET job <span class="number">0</span> <span class="string">&quot;play game&quot;</span></span><br><span class="line">OK	</span><br><span class="line">redis&gt; LRANGE job  <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;play game&quot;</span></span><br><span class="line">	</span><br><span class="line"># index 超出范围</span><br><span class="line">redis&gt; LLEN list                    # 列表长度为 <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; LSET list <span class="number">3</span> <span class="string">&#x27;out of range&#x27;</span></span><br><span class="line">(error) ERR index out of range</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="集合-set"><a class="header-anchor" href="#集合-set"></a>集合(set)</h3>
+<h4 id="特点-v4"><a class="header-anchor" href="#特点-v4"></a>特点</h4>
+<ul>
+<li>set是无序不能重复的集合,单值多value</li>
+<li>set是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)</li>
+<li>集合中最大的成员数为 2^32 - 1 (超过42亿个成员)</li>
+</ul>
+<h4 id="常用命令-v4"><a class="header-anchor" href="#常用命令-v4"></a>常用命令</h4>
+<h5 id="SADD"><a class="header-anchor" href="#SADD"></a>SADD</h5>
+<ul>
+<li>
+<p>语法<br>
+SADD key member [member …]</p>
+</li>
+<li>
+<p>说明<br>
+将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略。<br>
+假如 key 不存在，则创建一个只包含 member 元素作成员的集合。<br>
+当 key 不是集合类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+被添加到集合中的新元素的数量，不包括被忽略的元素。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 添加单个元素</span><br><span class="line">redis&gt; SADD bbs <span class="string">&quot;discuz.net&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 添加重复元素</span><br><span class="line">redis&gt; SADD bbs <span class="string">&quot;discuz.net&quot;</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 添加多个元素</span><br><span class="line">redis&gt; SADD bbs <span class="string">&quot;tianya.cn&quot;</span> <span class="string">&quot;groups.google.com&quot;</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis&gt; SMEMBERS bbs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;discuz.net&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;groups.google.com&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;tianya.cn&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SMEMBERS"><a class="header-anchor" href="#SMEMBERS"></a>SMEMBERS</h5>
+<ul>
+<li>
+<p>语法<br>
+SMEMBERS key</p>
+</li>
+<li>
+<p>说明<br>
+返回集合 key 中的所有成员。不存在的 key 被视为空集合。</p>
+</li>
+<li>
+<p>返回值<br>
+集合中的所有成员。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># key 不存在或集合为空</span><br><span class="line">redis&gt; EXISTS <span class="title function_">not_exists_key</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br><span class="line">redis&gt; SMEMBERS <span class="title function_">not_exists_key</span></span><br><span class="line"><span class="params">(empty list or set)</span></span><br><span class="line"></span><br><span class="line"># 非空集合</span><br><span class="line">redis&gt; SADD language Ruby Python <span class="title function_">Clojure</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line">redis&gt; SMEMBERS language</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Python&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;Ruby&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;Clojure&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SISMEMBER"><a class="header-anchor" href="#SISMEMBER"></a>SISMEMBER</h5>
+<ul>
+<li>
+<p>语法<br>
+SISMEMBER key member</p>
+</li>
+<li>
+<p>说明<br>
+判断 member 元素是否集合 key 的成员。</p>
+</li>
+<li>
+<p>返回值<br>
+如果 member 元素是集合的成员，返回 1 。 如果 member 元素不是集合的成员，或 key 不存在，返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SMEMBERS website</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;google.cn&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;souhu.com&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SISMEMBER website <span class="string">&quot;tencent.com&quot;</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis&gt; SISMEMBER website <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SCARD"><a class="header-anchor" href="#SCARD"></a>SCARD</h5>
+<ul>
+<li>
+<p>语法<br>
+SCARD key</p>
+</li>
+<li>
+<p>说明<br>
+返回集合 key 的基数(集合中元素的数量)。</p>
+</li>
+<li>
+<p>返回值<br>
+集合的基数。 当 key 不存在时，返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SADD tool pc printer <span class="title function_">phone</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; SCARD tool   # 非空集合</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; DEL <span class="title function_">tool</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; SCARD tool   # 空集合</span><br><span class="line">(integer) <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SREM"><a class="header-anchor" href="#SREM"></a>SREM</h5>
+<ul>
+<li>
+<p>语法<br>
+SREM key member [member …]</p>
+</li>
+<li>
+<p>说明<br>
+移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略。当 key 不是集合类型，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+被成功移除的元素的数量，不包括被忽略的元素。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 测试数据</span><br><span class="line">redis&gt; SMEMBERS languages</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;lisp&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;python&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;ruby&quot;</span></span><br><span class="line"></span><br><span class="line"># 移除单个元素</span><br><span class="line">redis&gt; SREM languages <span class="title function_">ruby</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 移除不存在元素</span><br><span class="line">redis&gt; SREM languages non-exists-language</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 移除多个元素</span><br><span class="line">redis&gt; SREM languages lisp python <span class="title function_">c</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line">redis&gt; SMEMBERS <span class="title function_">languages</span></span><br><span class="line"><span class="params">(empty list or set)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SRANDMEMBER"><a class="header-anchor" href="#SRANDMEMBER"></a>SRANDMEMBER</h5>
+<ul>
+<li>
+<p>语法<br>
+SRANDMEMBER key [count]</p>
+</li>
+<li>
+<p>说明<br>
+如果命令执行时，只提供了 key 参数，那么返回集合中的一个随机元素。<br>
+从 Redis 2.6 版本开始， SRANDMEMBER 命令接受可选的 count 参数：</p>
+<ul>
+<li>如果 count 为正数，且小于集合基数，那么命令返回一个包含 count 个元素的数组，数组中的元素各不相同。如果 count 大于等于集合基数，那么返回整个集合。</li>
+<li>如果 count 为负数，那么命令返回一个数组，数组中的元素<strong>可能会重复出现多次</strong>，而数组的长度为 count 的绝对值。</li>
+</ul>
+<p>该操作和 SPOP key 相似，但 SPOP key 将随机元素从集合中移除并返回，而 SRANDMEMBER 则仅仅返回随机元素，而不对集合进行任何改动。</p>
+</li>
+<li>
+<p>返回值<br>
+只提供 key 参数时，返回一个元素；如果集合为空，返回 nil 。 如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"># 添加元素</span><br><span class="line">redis&gt; SADD fruit apple banana <span class="title function_">cherry</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"># 只给定 key 参数，返回一个随机元素</span><br><span class="line">redis&gt; SRANDMEMBER fruit</span><br><span class="line"><span class="string">&quot;cherry&quot;</span></span><br><span class="line">redis&gt; SRANDMEMBER fruit</span><br><span class="line"><span class="string">&quot;apple&quot;</span></span><br><span class="line"></span><br><span class="line"># 给定 <span class="number">3</span> 为 count 参数，返回 <span class="number">3</span> 个随机元素</span><br><span class="line"># 每个随机元素都不相同</span><br><span class="line">redis&gt; SRANDMEMBER fruit <span class="number">3</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"></span><br><span class="line"># 给定 -<span class="number">3</span> 为 count 参数，返回 <span class="number">3</span> 个随机元素</span><br><span class="line"># 元素可能会重复出现多次</span><br><span class="line">redis&gt; SRANDMEMBER fruit -<span class="number">3</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line">redis&gt; SRANDMEMBER fruit -<span class="number">3</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"></span><br><span class="line"># 如果 count 是整数，且大于等于集合基数，那么返回整个集合</span><br><span class="line">redis&gt; SRANDMEMBER fruit <span class="number">10</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"></span><br><span class="line"># 如果 count 是负数，且 count 的绝对值大于集合的基数</span><br><span class="line"># 那么返回的数组的长度为 count 的绝对值</span><br><span class="line">redis&gt; SRANDMEMBER fruit -<span class="number">10</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">7</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"><span class="number">8</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">9</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">10</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"></span><br><span class="line"># SRANDMEMBER 并不会修改集合内容</span><br><span class="line">redis&gt; SMEMBERS fruit</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;apple&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;cherry&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;banana&quot;</span></span><br><span class="line"></span><br><span class="line"># 集合为空时返回 nil 或者空数组</span><br><span class="line">redis&gt; SRANDMEMBER not-exists</span><br><span class="line">(nil)</span><br><span class="line">redis&gt; SRANDMEMBER not-eixsts <span class="number">10</span></span><br><span class="line">(empty list or set)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SPOP"><a class="header-anchor" href="#SPOP"></a>SPOP</h5>
+<ul>
+<li>
+<p>语法<br>
+SPOP key</p>
+</li>
+<li>
+<p>说明<br>
+移除并返回集合中的一个随机元素。如果只想获取一个随机元素，但不想该元素从集合中被移除的话，可以使用 SRANDMEMBER key [count] 命令。</p>
+</li>
+<li>
+<p>返回值<br>
+被移除的随机元素。 当 key 不存在或 key 是空集时，返回 nil 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SMEMBERS db</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;MySQL&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;MongoDB&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;Redis&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SPOP db</span><br><span class="line"><span class="string">&quot;Redis&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS db</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;MySQL&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;MongoDB&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SPOP db</span><br><span class="line"><span class="string">&quot;MySQL&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS db</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;MongoDB&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SMOVE"><a class="header-anchor" href="#SMOVE"></a>SMOVE</h5>
+<ul>
+<li>
+<p>语法<br>
+SMOVE source destination member</p>
+</li>
+<li>
+<p>说明<br>
+将 member 元素从 source 集合移动到 destination 集合。SMOVE 是原子性操作。<br>
+如果 source 集合不存在或不包含指定的 member 元素，则 SMOVE 命令不执行任何操作，仅返回 0 。否则， member 元素从 source 集合中被移除，并添加到 destination 集合中去。<br>
+当 destination 集合已经包含 member 元素时， SMOVE 命令只是简单地将 source 集合中的 member 元素删除。<br>
+当 source 或 destination 不是集合类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+如果 member 元素被成功移除，返回 1 。 如果 member 元素不是 source 集合的成员，并且没有任何操作对 destination 集合执行，那么返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SMEMBERS songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Billie Jean&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;Believe Me&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS <span class="title function_">my_songs</span></span><br><span class="line"><span class="params">(empty list or set)</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMOVE songs my_songs <span class="string">&quot;Believe Me&quot;</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Billie Jean&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS my_songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Believe Me&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SDIFF"><a class="header-anchor" href="#SDIFF"></a>SDIFF</h5>
+<ul>
+<li>
+<p>语法<br>
+SDIFF key [key …]</p>
+</li>
+<li>
+<p>说明<br>
+返回一个集合的全部成员，该集合是所有给定集合之间的差集。不存在的 key 被视为空集。</p>
+</li>
+<li>
+<p>返回值<br>
+一个包含差集成员的列表。。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SMEMBERS peter<span class="string">&#x27;s_movies</span></span><br><span class="line"><span class="string">1) &quot;bet man&quot;</span></span><br><span class="line"><span class="string">2) &quot;start war&quot;</span></span><br><span class="line"><span class="string">3) &quot;2012&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">redis&gt; SMEMBERS joe&#x27;</span>s_movies</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;hi, lady&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;Fast Five&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;2012&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SDIFF peter<span class="string">&#x27;s_movies joe&#x27;</span>s_movies</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bet man&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;start war&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SUNION"><a class="header-anchor" href="#SUNION"></a>SUNION</h5>
+<ul>
+<li>
+<p>语法<br>
+SUNION key [key …]</p>
+</li>
+<li>
+<p>说明<br>
+返回一个集合的全部成员，该集合是所有给定集合的并集。不存在的 key 被视为空集。</p>
+</li>
+<li>
+<p>返回值<br>
+并集成员的列表。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SMEMBERS songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Billie Jean&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SMEMBERS my_songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Believe Me&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; SUNION songs my_songs</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;Billie Jean&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;Believe Me&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="有序集合-zset"><a class="header-anchor" href="#有序集合-zset"></a>有序集合(zset)</h3>
+<h4 id="特点-v5"><a class="header-anchor" href="#特点-v5"></a>特点</h4>
+<ul>
+<li>zset是有序不可重复的集合</li>
+<li>zset每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序</li>
+<li>zset的成员是唯一的,但分数(score)却可以重复</li>
+<li>zset通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)</li>
+<li>zset中最大的成员数为 2^32 - 1 (超过42亿个成员)</li>
+</ul>
+<h4 id="常用命令-v5"><a class="header-anchor" href="#常用命令-v5"></a>常用命令</h4>
+<h5 id="ZADD"><a class="header-anchor" href="#ZADD"></a>ZADD</h5>
+<ul>
+<li>
+<p>语法<br>
+ZADD key score member [[score member] [score member] …]</p>
+</li>
+<li>
+<p>说明<br>
+将一个或多个 member 元素及其 score 值加入到有序集 key 当中。<br>
+如果某个 member 已经是有序集的成员，那么更新这个 member 的 score 值，并通过重新插入这个 member 元素，来保证该 member 在正确的位置上。<br>
+score 值可以是整数值或双精度浮点数。<br>
+如果 key 不存在，则创建一个空的有序集并执行 ZADD 操作。<br>
+当 key 存在但不是有序集类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 添加单个元素</span><br><span class="line">redis&gt; ZADD page_rank <span class="number">10</span> google.com</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 添加多个元素</span><br><span class="line">redis&gt; ZADD page_rank <span class="number">9</span> baidu.com <span class="number">8</span> bing.com</span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bing.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;8&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;9&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10&quot;</span></span><br><span class="line"></span><br><span class="line"># 添加已存在元素，且 score 值不变</span><br><span class="line">redis&gt; ZADD page_rank <span class="number">10</span> google.com</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES  # 没有改变</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bing.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;8&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;9&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10&quot;</span></span><br><span class="line"></span><br><span class="line"># 添加已存在元素，但是改变 score 值</span><br><span class="line">redis&gt; ZADD page_rank <span class="number">6</span> bing.com</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES # bing.com 元素的 score 值被改变</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bing.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;6&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;9&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZRANGE"><a class="header-anchor" href="#ZRANGE"></a>ZRANGE</h5>
+<ul>
+<li>
+<p>语法<br>
+ZRANGE key start stop [WITHSCORES]</p>
+</li>
+<li>
+<p>说明<br>
+返回有序集 key 中，指定区间内的成员。<br>
+其中成员的位置按 score 值递增(从小到大)来排序。<br>
+具有相同 score 值的成员按字典序(lexicographical order )来排列。<br>
+如果你需要成员按 score 值递减(从大到小)来排列，请使用 ZREVRANGE key start stop [WITHSCORES] 命令。<br>
+下标参数 start 和 stop 都以 0 为底，也就是说，以 0 表示有序集第一个成员，以 1 表示有序集第二个成员，以此类推。 你也可以使用负数下标，以 -1 表示最后一个成员， -2 表示倒数第二个成员，以此类推。<br>
+超出范围的下标并不会引起错误。 比如说，当 start 的值比有序集的最大下标还要大，或是 start &gt; stop 时， ZRANGE 命令只是简单地返回一个空列表。 另一方面，假如 stop 参数的值比有序集的最大下标还要大，那么 Redis 将 stop 当作最大下标来处理。<br>
+可以通过使用 WITHSCORES 选项，来让成员和它的 score 值一并返回，返回列表以 value1,score1, …, valueN,scoreN 的格式表示。 客户端库可能会返回一些更复杂的数据类型，比如数组、元组等。</p>
+</li>
+<li>
+<p>返回值<br>
+指定区间内，带有 score 值(可选)的有序集成员的列表。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; ZRANGE salary <span class="number">0</span> -<span class="number">1</span> WITHSCORES    # 显示整个有序集成员</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3500&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;boss&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10086&quot;</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZRANGE salary <span class="number">1</span> <span class="number">2</span> WITHSCORES  # 显示有序集下标区间 <span class="number">1</span> 至 <span class="number">2</span> 的成员</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;boss&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;10086&quot;</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZRANGE salary <span class="number">0</span> <span class="number">200000</span> WITHSCORES  # 测试 end 下标超出最大下标时的情况</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3500&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;boss&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10086&quot;</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZRANGE salary <span class="number">200000</span> <span class="number">3000000</span> WITHSCORES # 测试当给定区间不存在于有序集时的情况</span><br><span class="line">(empty list or set)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZSCORE"><a class="header-anchor" href="#ZSCORE"></a>ZSCORE</h5>
+<ul>
+<li>
+<p>语法<br>
+ZSCORE key member</p>
+</li>
+<li>
+<p>说明<br>
+返回有序集 key 中，成员 member 的 score 值。如果 member 元素不是有序集 key 的成员，或 key 不存在，返回 nil 。</p>
+</li>
+<li>
+<p>返回值<br>
+member 成员的 score 值，以字符串形式表示。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; ZRANGE salary <span class="number">0</span> -<span class="number">1</span> WITHSCORES    # 测试数据</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;2000&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;peter&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;3500&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; ZSCORE salary peter              # 注意返回值是字符串</span><br><span class="line"><span class="string">&quot;3500&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZCARD"><a class="header-anchor" href="#ZCARD"></a>ZCARD</h5>
+<ul>
+<li>
+<p>语法<br>
+ZCARD key</p>
+</li>
+<li>
+<p>说明<br>
+返回有序集 key 的数量。</p>
+</li>
+<li>
+<p>返回值<br>
+当 key 存在且是有序集类型时，返回有序集的数量。 当 key 不存在时，返回 0 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; ZADD salary <span class="number">2000</span> tom    # 添加一个成员</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZCARD <span class="title function_">salary</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZADD salary <span class="number">5000</span> jack   # 再添加一个成员</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZCARD <span class="title function_">salary</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">redis &gt; EXISTS non_exists_key   # 对不存在的 key 进行 ZCARD 操作</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line">redis &gt; ZCARD <span class="title function_">non_exists_key</span></span><br><span class="line"><span class="params">(integer)</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZCOUNT"><a class="header-anchor" href="#ZCOUNT"></a>ZCOUNT</h5>
+<ul>
+<li>
+<p>语法<br>
+ZCOUNT key min max</p>
+</li>
+<li>
+<p>说明<br>
+返回有序集 key 中， score 值在 min 和 max 之间(默认包括 score 值等于 min 或 max )的成员的数量。</p>
+</li>
+<li>
+<p>返回值<br>
+score 值在 min 和 max 之间的成员的数量。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; ZRANGE salary <span class="number">0</span> -<span class="number">1</span> WITHSCORES  # 测试数据</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;2000&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;peter&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;3500&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; ZCOUNT salary <span class="number">2000</span> <span class="number">5000</span>  # 计算薪水在 <span class="number">2000</span>-<span class="number">5000</span> 之间的人数</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"></span><br><span class="line">redis&gt; ZCOUNT salary <span class="number">3000</span> <span class="number">5000</span>  # 计算薪水在 <span class="number">3000</span>-<span class="number">5000</span> 之间的人数</span><br><span class="line">(integer) <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZRANK"><a class="header-anchor" href="#ZRANK"></a>ZRANK</h5>
+<ul>
+<li>
+<p>语法<br>
+ZRANK key member</p>
+</li>
+<li>
+<p>说明<br>
+返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列。<br>
+排名以 0 为底，也就是说， score 值最小的成员排名为 0 。<br>
+使用 ZREVRANK key member 命令可以获得成员按 score 值递减(从大到小)排列的排名。</p>
+</li>
+<li>
+<p>返回值<br>
+如果 member 是有序集 key 的成员，返回 member 的排名。 如果 member 不是有序集 key 的成员，返回 nil 。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; ZRANGE salary <span class="number">0</span> -<span class="number">1</span> WITHSCORES  # 显示所有成员及其score值</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;peter&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;3500&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;tom&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;4000&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;5000&quot;</span></span><br><span class="line"></span><br><span class="line">redis&gt; ZRANK salary tom        # 显示 tom 的薪水排名，第二</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="ZREM"><a class="header-anchor" href="#ZREM"></a>ZREM</h5>
+<ul>
+<li>
+<p>语法<br>
+ZREM key member [member …]</p>
+</li>
+<li>
+<p>说明<br>
+移除有序集 key 中的一个或多个成员，不存在的成员将被忽略。当 key 存在但不是有序集类型时，返回一个错误。</p>
+</li>
+<li>
+<p>返回值<br>
+被成功移除的成员的数量，不包括被忽略的成员。</p>
+</li>
+<li>
+<p>相关案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 测试数据</span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bing.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;8&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;9&quot;</span></span><br><span class="line"><span class="number">5</span>) <span class="string">&quot;google.com&quot;</span></span><br><span class="line"><span class="number">6</span>) <span class="string">&quot;10&quot;</span></span><br><span class="line"></span><br><span class="line"># 移除单个元素</span><br><span class="line">redis&gt; ZREM page_rank google.com</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES</span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;bing.com&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;8&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line"><span class="number">4</span>) <span class="string">&quot;9&quot;</span></span><br><span class="line"></span><br><span class="line"># 移除多个元素</span><br><span class="line">redis&gt; ZREM page_rank baidu.com bing.com</span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis&gt; ZRANGE page_rank <span class="number">0</span> -<span class="number">1</span> WITHSCORES</span><br><span class="line">(empty list or set)</span><br><span class="line"></span><br><span class="line"># 移除不存在元素</span><br><span class="line">redis&gt; ZREM page_rank non-exists-element</span><br><span class="line">(integer) <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="持久化"><a class="header-anchor" href="#持久化"></a>持久化</h2>
+<h3 id="RDB（Redis-DataBase）"><a class="header-anchor" href="#RDB（Redis-DataBase）"></a>RDB（Redis DataBase）</h3>
+<h4 id="是什么"><a class="header-anchor" href="#是什么"></a>是什么</h4>
+<ul>
+<li>在指定的时间间隔内将内存中的数据集快照写入磁盘，也就是行话讲的Snapshot快照，它恢复时是将快照文件直接读到内存里。</li>
+<li>rdb 保存的是dump.rdb文件</li>
+<li>相关配置在配置文件中搜索### SNAPSHOTTING ###</li>
+</ul>
+<h4 id="如何触发RDB快照"><a class="header-anchor" href="#如何触发RDB快照"></a>如何触发RDB快照</h4>
+<ul>
+<li>配置文件中默认的快照配置dbfilename dump.rdb
+<ul>
+<li>冷拷贝后重新使用</li>
+<li>可以cp dump.rdb dump_new.rdb</li>
+</ul>
+</li>
+<li>命令save或者是bgsave
+<ul>
+<li>Save：save时只管保存其它不管，命令执行完前，其它命令处于等待状态，数据量大时会出现阻塞</li>
+<li>BGSAVE：Redis会在后台异步进行快照操作， 快照同时还可以响应客户端请求。可以通过lastsave 命令获取最后一次成功执行快照的时间。基本不会阻塞进程</li>
+</ul>
+</li>
+<li>执行flushall命令，也会产生dump.rdb文件，但里面是空的，无意义</li>
+</ul>
+<h4 id="如何恢复"><a class="header-anchor" href="#如何恢复"></a>如何恢复</h4>
+<ul>
+<li>将备份文件 (dump.rdb) 移动到 Redis 安装目录并启动服务即可</li>
+<li>CONFIG GET dir获取目录</li>
+</ul>
+<h4 id="自动生成RDB的策略"><a class="header-anchor" href="#自动生成RDB的策略"></a>自动生成RDB的策略</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">配置</th>
+<th style="text-align:center">seconds</th>
+<th style="text-align:center">changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">save</td>
+<td style="text-align:center">900</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">save</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">save</td>
+<td style="text-align:center">60</td>
+<td style="text-align:center">1000</td>
+</tr>
+</tbody>
+</table>
+<p>数据写入量不受控制，所以生成的规则也不好控制。频繁的操作会对硬盘造成一定压力。</p>
+<h4 id="优势与劣势"><a class="header-anchor" href="#优势与劣势"></a>优势与劣势</h4>
+<ul>
+<li>优势
+<ul>
+<li>体积更小<br>
+相同的数据量rdb数据比aof的小，因为rdb是紧凑型文件</li>
+<li>恢复更快<br>
+因为rdb是数据的快照，基本上就是数据的复制，不用重新读取再写入内存</li>
+<li>性能更高<br>
+父进程在保存rdb时候只需要fork一个子进程，无需父进程的进行其他io操作，也保证了服务器的性能</li>
+</ul>
+</li>
+<li>劣势
+<ul>
+<li>在一定间隔时间做一次备份，所以如果redis意外down掉的话，就会丢失最后一次快照后的所有修改，根据自己的配置，最少五分钟，甚至几小时的数据。</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52033688/article/details/113890849">参考链接</a></p>
+<h3 id="AOF（Append-Only-File）"><a class="header-anchor" href="#AOF（Append-Only-File）"></a>AOF（Append Only File）</h3>
+<h4 id="是什么-v2"><a class="header-anchor" href="#是什么-v2"></a>是什么</h4>
+<p>以日志的形式来记录每个写操作，将Redis执行过的所有写指令记录下来(读操作不记录)，只许追加文件但不可以改写文件，Redis启动之初会读取该文件重新构建数据，换言之，Redis重启的话就根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作。</p>
+<h4 id="AOF配置"><a class="header-anchor" href="#AOF配置"></a>AOF配置</h4>
+<ul>
+<li>相关配置在配置文件的位置 - 在redis.conf搜寻### APPEND ONLY MODE ###</li>
+<li>AOF保存的是appendonly.aof文件（在配置文件可修改文件名）</li>
+</ul>
+<h4 id="AOF启动-修复-恢复"><a class="header-anchor" href="#AOF启动-修复-恢复"></a>AOF启动/修复/恢复</h4>
+<ul>
+<li>正常恢复
+<ul>
+<li>启动：设置Yes
+<ul>
+<li>修改默认的appendonly no，改为yes</li>
+</ul>
+</li>
+<li>将有数据的aof文件复制一份保存到对应目录(config get dir)</li>
+<li>恢复：重启redis然后重新加载</li>
+</ul>
+</li>
+<li>异常恢复
+<ul>
+<li>启动：设置Yes
+<ul>
+<li>修改默认的appendonly no，改为yes</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>备份被写坏的AOF文件</li>
+<li>修复：
+<ul>
+<li>Redis-check-aof --fix进行修复</li>
+</ul>
+</li>
+<li>恢复：重启redis然后重新加载</li>
+</ul>
+<h4 id="rewrite"><a class="header-anchor" href="#rewrite"></a>rewrite</h4>
+<ul>
+<li>是什么<br>
+AOF采用文件追加方式，文件会越来越大。为避免出现此种情况，新增了重写机制， 当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩， 只保留可以恢复数据的最小指令集。可以使用命令bgrewriteaof</li>
+<li>重写原理<br>
+AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename)， 遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件， 而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似</li>
+<li>触发机制<br>
+Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发</li>
+</ul>
+<h4 id="三种策略对比"><a class="header-anchor" href="#三种策略对比"></a>三种策略对比</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">always (每修改同步)</td>
+<td style="text-align:center">每次发生数据变更会被立即记录到磁盘,数据完整性比较好</td>
+<td style="text-align:center">IO开销大,性能差</td>
+</tr>
+<tr>
+<td style="text-align:center">everysec (没秒同步）</td>
+<td style="text-align:center">每秒记录 如果一秒内宕机，有数据丢失</td>
+<td style="text-align:center">可能会丢一秒数据</td>
+</tr>
+<tr>
+<td style="text-align:center">no</td>
+<td style="text-align:center">从不同步</td>
+<td style="text-align:center">不可控</td>
+</tr>
+</tbody>
+</table>
+<p>一般使用默认配置everysec</p>
+<h4 id="优势与劣势-v2"><a class="header-anchor" href="#优势与劣势-v2"></a>优势与劣势</h4>
+<ul>
+<li>优势
+<ul>
+<li>数据完整性好<br>
+可以设置fsync策略，一般默认是everysec，也可以设置每次写入追加，所以即使服务死掉了，最多丢失一秒数据</li>
+</ul>
+</li>
+<li>劣势
+<ul>
+<li>体积大<br>
+相同数据集的数据而言aof文件要远大于rdb文件</li>
+<li>恢复速度慢<br>
+要重新执行一遍大体积日志文件</li>
+<li>性能相对较差</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52033688/article/details/113890849">参考链接</a></p>
+<h2 id="事务"><a class="header-anchor" href="#事务"></a>事务</h2>
+<h3 id="是什么-v3"><a class="header-anchor" href="#是什么-v3"></a>是什么</h3>
+<p>可以一次执行多个命令，本质是一组命令的集合。一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其它命令插入，不许加塞。Redis对事物是部分支持(参考冤头债主)且不支持回滚。</p>
+<h3 id="能干嘛"><a class="header-anchor" href="#能干嘛"></a>能干嘛</h3>
+<p>一个队列中，一次性、顺序性、排他性的执行一系列命令。</p>
+<h3 id="常用命令-v6"><a class="header-anchor" href="#常用命令-v6"></a>常用命令</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DISCARD</td>
+<td style="text-align:center">取消事务，放弃执行事务块内的所有命令。</td>
+</tr>
+<tr>
+<td style="text-align:center">EXEC</td>
+<td style="text-align:center">执行所有事务块内的命令。</td>
+</tr>
+<tr>
+<td style="text-align:center">MULTI</td>
+<td style="text-align:center">标记一个事务块的开始。</td>
+</tr>
+<tr>
+<td style="text-align:center">UNWATCH</td>
+<td style="text-align:center">取消 WATCH 命令对所有 key 的监视。</td>
+</tr>
+<tr>
+<td style="text-align:center">WATCH key [key …]</td>
+<td style="text-align:center">监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="case场景"><a class="header-anchor" href="#case场景"></a>case场景</h3>
+<ul>
+<li>放弃事务<br>
+使用DISCARD	命令</li>
+<li>全体连坐<br>
+输入语句命令过程中有报错，之后执行事务所有语句都不会执行。相当于java的编译异常。</li>
+<li>冤头债主<br>
+输入语句命令过程中会入队,执行事务的时候只有有问题的语句报错其他语句正常执行。比如incr k1(k1不是数字类型)。相当于Java运行异常。</li>
+</ul>
+<h3 id="watch与unwatch"><a class="header-anchor" href="#watch与unwatch"></a>watch与unwatch</h3>
+<p><a target="_blank" rel="noopener" href="http://www.redis.cn/topics/transactions.html">Redis事务处理</a></p>
+<h4 id="watch"><a class="header-anchor" href="#watch"></a>watch</h4>
+<ul>
+<li>watch命令监控了key，如果key被修改了，后面一个事务的执行失效</li>
+<li>watch指令，类似<strong>乐观锁(行加版本号)</strong>，事务提交时，如果Key的值已被别的客户端改变， 比如某个list已被别的客户端push/pop过了，整个事务队列都不会被执行</li>
+</ul>
+<h4 id="unwatch"><a class="header-anchor" href="#unwatch"></a>unwatch</h4>
+<ul>
+<li>取消 WATCH 命令对所有 key 的监视。<br>
+如果在执行 WATCH 命令之后， EXEC 命令或 DISCARD 命令先被执行了的话，那么就不需要再执行 UNWATCH 了。因为 EXEC 命令会执行事务，因此 WATCH 命令的效果已经产生了；而 DISCARD 命令在取消事务的同时也会取消所有对 key 的监视，因此这两个命令执行之后，就没有必要执行 UNWATCH 了。</li>
+</ul>
+<h3 id="3阶段"><a class="header-anchor" href="#3阶段"></a>3阶段</h3>
+<ul>
+<li>开启<br>
+以MULTI开始一个事务</li>
+<li>入队<br>
+将多个命令入队到事务中，接到这些命令并不会立即执行，而是放到等待执行的事务队列里面</li>
+<li>执行<br>
+由EXEC命令触发事务</li>
+</ul>
+<h3 id="3特性"><a class="header-anchor" href="#3特性"></a>3特性</h3>
+<ul>
+<li>单独的隔离操作<br>
+事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。</li>
+<li>没有隔离级别的概念<br>
+队列中的命令没有提交之前都不会实际的被执行，因为事务提交前任何指令都不会被实际执行， 也就不存在”事务内的查询要看到事务里的更新，在事务外查询不能看到”这个让人万分头痛的问题</li>
+<li>不保证原子性<br>
+Redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚。所以Redis对事物是部分支持(参考冤头债主)的。</li>
+</ul>
+<h2 id="发布订阅"><a class="header-anchor" href="#发布订阅"></a>发布订阅</h2>
+<ul>
+<li>企业一般不会用这个做消息中间件，会选择ActiveMQ之类的</li>
+<li>Redis本身不提供消息队列，而是通过列表实现。</li>
+<li>消息队列与发布订阅的区别<br>
+消息队列中的资源只用一个客户端获得。而发布订阅消息是所有订阅者均能获得</li>
+<li>相关命令<br>
+SUBSCRIBE 、PUBLISH</li>
+</ul>
+<h2 id="主从复制"><a class="header-anchor" href="#主从复制"></a>主从复制</h2>
+<h3 id="是什么-v4"><a class="header-anchor" href="#是什么-v4"></a>是什么</h3>
+<p>主机数据更新后根据配置和策略， 自动同步到备机的master/slaver机制，Master以写为主，Slave以读为主。</p>
+<h3 id="能干嘛-v2"><a class="header-anchor" href="#能干嘛-v2"></a>能干嘛</h3>
+<ul>
+<li>读写分离</li>
+<li>容灾恢复</li>
+</ul>
+<h3 id="准备工作"><a class="header-anchor" href="#准备工作"></a>准备工作</h3>
+<ul>
+<li>配从(库)不配主(库)</li>
+<li>从库配置命令：slaveof 主库IP 主库端口
+<ul>
+<li><strong>每次与master断开之后，都需要重新连接，除非你配置进redis.conf文件</strong>（具体位置：redis.conf搜寻#### REPLICATION ####）</li>
+<li>info replication</li>
+</ul>
+</li>
+<li>修改配置文件细节操作
+<ul>
+<li>拷贝多个redis.conf文件，按’redis[port].conf’重命名</li>
+<li>开启daemonize yes</li>
+<li>pid文件名字</li>
+<li>指定端口</li>
+<li>log文件名字</li>
+<li>dump.rdb名字</li>
+</ul>
+</li>
+</ul>
+<h3 id="案例演示"><a class="header-anchor" href="#案例演示"></a>案例演示</h3>
+<h4 id="一主二仆"><a class="header-anchor" href="#一主二仆"></a>一主二仆</h4>
+<p>一个Master两个Slave，即79主机是80和81主机的master 。</p>
+<h5 id="相关问题"><a class="header-anchor" href="#相关问题"></a>相关问题</h5>
+<ul>
+<li>slave1、slave2是从头开始复制还是从切入点开始复制?比如从k4进来，那之前的123是否也可以复制？<br>
+答：从头开始复制；123也可以复制</li>
+<li>从机是否可以写？set可否？<br>
+答：从机不可写，不可set，主机可写</li>
+<li>主机shutdown后情况如何？从机是上位还是原地待命<br>
+答：从机还是原地待命（咸鱼翻身，还是咸鱼）</li>
+<li>主机又回来了后，主机新增记录，从机还能否顺利复制？<br>
+答：能</li>
+<li>其中一台从机down后情况如何？依照原有它能跟上大部队吗？<br>
+答：不能跟上，每次与master断开之后，都需要重新连接，除非你配置进redis.conf文件（具体位置：redis.conf搜寻#### REPLICATION ####）</li>
+</ul>
+<h4 id="薪火相传"><a class="header-anchor" href="#薪火相传"></a>薪火相传</h4>
+<p>目的是去中心化，79主机是80主机的master且 80主机是81主机的master,最终80主机在Redis中还是slave。本质也是<strong>一主二仆</strong>。</p>
+<h4 id="反客为主"><a class="header-anchor" href="#反客为主"></a>反客为主</h4>
+<p>从机执行<strong>SLAVEOF no one</strong>命令成为master，需要成为该从机的从机执行<strong>slaveof ip 端口</strong>命令。目的是使当前数据库停止与其他数据库的同步，转成主数据库，形成新的中心点。</p>
+<p>事实上以上三种案例在实际生产环境中不使用(不可能半夜出问题了还人工去执行Redis命令)，实际中应该是自动反客为主模式，即下面讲的哨兵模式。</p>
+<h3 id="哨兵模式-sentinel"><a class="header-anchor" href="#哨兵模式-sentinel"></a>哨兵模式(sentinel)</h3>
+<h4 id="是什么-v5"><a class="header-anchor" href="#是什么-v5"></a>是什么</h4>
+<p>一组sentinel能同时监控多个master。反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数自动将从库转换为主库。</p>
+<h4 id="配置步骤"><a class="header-anchor" href="#配置步骤"></a>配置步骤</h4>
+<ul>
+<li>调整结构，6379带着6380、6381</li>
+<li>新建sentinel.conf文件，名字绝不能错</li>
+<li>配置哨兵,填写内容
+<ul>
+<li>sentinel monitor 被监控数据库名字(自己起名字) 127.0.0.1 6379 1</li>
+<li>上面最后一个数字1，表示主机挂掉后salve投票看让谁接替成为主机，得票数多少后成为主机（PS. 跟官网的描述有出入，下面有官方文档说明）</li>
+</ul>
+</li>
+<li>启动哨兵
+<ul>
+<li>redis-sentinel /sentinel.conf（上述目录依照各自的实际情况配置，可能目录不同）</li>
+</ul>
+</li>
+<li>正常主从演示</li>
+<li>原有的master挂了</li>
+<li>投票新选</li>
+<li>重新主从继续开工，info replication查查看</li>
+</ul>
+<h4 id="问题"><a class="header-anchor" href="#问题"></a>问题</h4>
+<p>如果之前挂了的master重启回来，会不会双master冲突？<br>
+答： 不会，原master会变成slave。</p>
+<h3 id="复制的原理"><a class="header-anchor" href="#复制的原理"></a>复制的原理</h3>
+<ul>
+<li>slave启动成功连接到master后会发送一个sync命令</li>
+<li>master接到命令启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令， 在后台进程执行完毕之后，master将传送整个数据文件到slave,以完成一次完全同步</li>
+<li>全量复制：而slave服务在接收到数据库文件数据后，将其存盘并加载到内存中。</li>
+<li>增量复制：Master继续将新的所有收集到的修改命令依次传给slave,完成同步</li>
+<li>但是只要是重新连接master，一次完全同步（全量复制)将被自动执行</li>
+</ul>
+<h3 id="复制的缺点"><a class="header-anchor" href="#复制的缺点"></a>复制的缺点</h3>
+<p>由于所有的写操作都是先在Master上操作，然后同步更新到slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。</p>
+<h2 id="集群"><a class="header-anchor" href="#集群"></a>集群</h2>
+<h3 id="为什么要用集群"><a class="header-anchor" href="#为什么要用集群"></a>为什么要用集群</h3>
+<ul>
+<li>并发量</li>
+<li>数据量</li>
+</ul>
+<h3 id="数据分布"><a class="header-anchor" href="#数据分布"></a>数据分布</h3>
+<ul>
+<li>顺序分区<br>
+顺序分布其实不支持批量操作</li>
+<li>哈希分区<br>
+节点取余：  建议多倍扩容比较好，数据迁移量少<br>
+一致性哈希：token环，只影响邻近节点，对其他节点影响小（节点多时候建议）</li>
+<li>虚拟槽分区</li>
+</ul>
+<p>温馨提示：本文是观看尚硅谷周阳老师的Redis教学视频后写的学习笔记，如有错误请联系修改。</p>
+<p>自愿打赏成功后发送截图到邮箱1271826574@qq.com可获取本文的MarkDown源文件，邮件标题为：需要一份study_of_redis。</p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>失败是成功之母,打赏是成功支付</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/wechatPay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/aliPay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          
+            <a href="/tags/%E7%BC%93%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 缓存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/19/design_of_cache/" rel="next" title="缓存的设计以及相关问题">
+                <i class="fa fa-chevron-left"></i> 缓存的设计以及相关问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/28/spring_one/" rel="prev" title="Spring学习(一)：框架概述">
+                Spring学习(一)：框架概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headportrait.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">博客</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">典型应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">一些基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">单线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%86%85%E9%83%A8%E7%BC%96%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型内部编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">数据库操作常用命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-string"><span class="nav-number">3.1.</span> <span class="nav-text">字符串(string)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">3.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SET"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">SET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GET"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#INCR"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">INCR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#INCRBY"><span class="nav-number">3.1.2.4.</span> <span class="nav-text">INCRBY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DECR"><span class="nav-number">3.1.2.5.</span> <span class="nav-text">DECR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DECRBY"><span class="nav-number">3.1.2.6.</span> <span class="nav-text">DECRBY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MSET"><span class="nav-number">3.1.2.7.</span> <span class="nav-text">MSET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MGET"><span class="nav-number">3.1.2.8.</span> <span class="nav-text">MGET</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8-hash"><span class="nav-number">3.2.</span> <span class="nav-text">哈希表(hash)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-v2"><span class="nav-number">3.2.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-v2"><span class="nav-number">3.2.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HSET"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">HSET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HGET"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">HGET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HSETNX"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">HSETNX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HEXISTS"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">HEXISTS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HLEN"><span class="nav-number">3.2.2.5.</span> <span class="nav-text">HLEN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDEL"><span class="nav-number">3.2.2.6.</span> <span class="nav-text">HDEL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HKEYS"><span class="nav-number">3.2.2.7.</span> <span class="nav-text">HKEYS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HVALS"><span class="nav-number">3.2.2.8.</span> <span class="nav-text">HVALS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HINCRBY"><span class="nav-number">3.2.2.9.</span> <span class="nav-text">HINCRBY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HINCRBYFLOAT"><span class="nav-number">3.2.2.10.</span> <span class="nav-text">HINCRBYFLOAT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HGETALL"><span class="nav-number">3.2.2.11.</span> <span class="nav-text">HGETALL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8-list"><span class="nav-number">3.3.</span> <span class="nav-text">列表(list)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-v3"><span class="nav-number">3.3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-v3"><span class="nav-number">3.3.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LPUSH"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">LPUSH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPUSH"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">RPUSH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LRANGE"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">LRANGE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LPOP"><span class="nav-number">3.3.2.4.</span> <span class="nav-text">LPOP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPOP"><span class="nav-number">3.3.2.5.</span> <span class="nav-text">RPOP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LINDEX"><span class="nav-number">3.3.2.6.</span> <span class="nav-text">LINDEX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LLEN"><span class="nav-number">3.3.2.7.</span> <span class="nav-text">LLEN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LREM"><span class="nav-number">3.3.2.8.</span> <span class="nav-text">LREM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LTRIM"><span class="nav-number">3.3.2.9.</span> <span class="nav-text">LTRIM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPOPLPUSH"><span class="nav-number">3.3.2.10.</span> <span class="nav-text">RPOPLPUSH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BRPOPLPUSH"><span class="nav-number">3.3.2.11.</span> <span class="nav-text">BRPOPLPUSH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LSET"><span class="nav-number">3.3.2.12.</span> <span class="nav-text">LSET</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88-set"><span class="nav-number">3.4.</span> <span class="nav-text">集合(set)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-v4"><span class="nav-number">3.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-v4"><span class="nav-number">3.4.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SADD"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">SADD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SMEMBERS"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">SMEMBERS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SISMEMBER"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">SISMEMBER</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SCARD"><span class="nav-number">3.4.2.4.</span> <span class="nav-text">SCARD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SREM"><span class="nav-number">3.4.2.5.</span> <span class="nav-text">SREM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SRANDMEMBER"><span class="nav-number">3.4.2.6.</span> <span class="nav-text">SRANDMEMBER</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPOP"><span class="nav-number">3.4.2.7.</span> <span class="nav-text">SPOP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SMOVE"><span class="nav-number">3.4.2.8.</span> <span class="nav-text">SMOVE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SDIFF"><span class="nav-number">3.4.2.9.</span> <span class="nav-text">SDIFF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SUNION"><span class="nav-number">3.4.2.10.</span> <span class="nav-text">SUNION</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-zset"><span class="nav-number">3.5.</span> <span class="nav-text">有序集合(zset)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-v5"><span class="nav-number">3.5.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-v5"><span class="nav-number">3.5.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ZADD"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">ZADD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZRANGE"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">ZRANGE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZSCORE"><span class="nav-number">3.5.2.3.</span> <span class="nav-text">ZSCORE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZCARD"><span class="nav-number">3.5.2.4.</span> <span class="nav-text">ZCARD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZCOUNT"><span class="nav-number">3.5.2.5.</span> <span class="nav-text">ZCOUNT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZRANK"><span class="nav-number">3.5.2.6.</span> <span class="nav-text">ZRANK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZREM"><span class="nav-number">3.5.2.7.</span> <span class="nav-text">ZREM</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB%EF%BC%88Redis-DataBase%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">RDB（Redis DataBase）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">4.1.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A6%E5%8F%91RDB%E5%BF%AB%E7%85%A7"><span class="nav-number">4.1.2.</span> <span class="nav-text">如何触发RDB快照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="nav-number">4.1.3.</span> <span class="nav-text">如何恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90RDB%E7%9A%84%E7%AD%96%E7%95%A5"><span class="nav-number">4.1.4.</span> <span class="nav-text">自动生成RDB的策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF"><span class="nav-number">4.1.5.</span> <span class="nav-text">优势与劣势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF%EF%BC%88Append-Only-File%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">AOF（Append Only File）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-v2"><span class="nav-number">4.2.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.2.</span> <span class="nav-text">AOF配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%E5%90%AF%E5%8A%A8-%E4%BF%AE%E5%A4%8D-%E6%81%A2%E5%A4%8D"><span class="nav-number">4.2.3.</span> <span class="nav-text">AOF启动&#x2F;修复&#x2F;恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rewrite"><span class="nav-number">4.2.4.</span> <span class="nav-text">rewrite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.5.</span> <span class="nav-text">三种策略对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF-v2"><span class="nav-number">4.2.6.</span> <span class="nav-text">优势与劣势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-v3"><span class="nav-number">5.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-number">5.2.</span> <span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-v6"><span class="nav-number">5.3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case%E5%9C%BA%E6%99%AF"><span class="nav-number">5.4.</span> <span class="nav-text">case场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watch%E4%B8%8Eunwatch"><span class="nav-number">5.5.</span> <span class="nav-text">watch与unwatch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#watch"><span class="nav-number">5.5.1.</span> <span class="nav-text">watch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unwatch"><span class="nav-number">5.5.2.</span> <span class="nav-text">unwatch</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E9%98%B6%E6%AE%B5"><span class="nav-number">5.6.</span> <span class="nav-text">3阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E7%89%B9%E6%80%A7"><span class="nav-number">5.7.</span> <span class="nav-text">3特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85"><span class="nav-number">6.</span> <span class="nav-text">发布订阅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-v4"><span class="nav-number">7.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-v2"><span class="nav-number">7.2.</span> <span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">7.3.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">7.4.</span> <span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%86"><span class="nav-number">7.4.1.</span> <span class="nav-text">一主二仆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">7.4.1.1.</span> <span class="nav-text">相关问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0"><span class="nav-number">7.4.2.</span> <span class="nav-text">薪火相传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%AE%A2%E4%B8%BA%E4%B8%BB"><span class="nav-number">7.4.3.</span> <span class="nav-text">反客为主</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F-sentinel"><span class="nav-number">7.5.</span> <span class="nav-text">哨兵模式(sentinel)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-v5"><span class="nav-number">7.5.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">7.5.2.</span> <span class="nav-text">配置步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">7.5.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">7.6.</span> <span class="nav-text">复制的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">7.7.</span> <span class="nav-text">复制的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4"><span class="nav-number">8.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E9%9B%86%E7%BE%A4"><span class="nav-number">8.1.</span> <span class="nav-text">为什么要用集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83"><span class="nav-number">8.2.</span> <span class="nav-text">数据分布</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <center>
+<div class="copyright">
+<!-- <span><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备19025810号</a>&nbsp;&copy;</span> -->
+ 2019 &mdash; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart" style="color:red;"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+
+</div>
+</center>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body>
+</html>
+<!-- 页面点击弹出文字 -->
+
+<script type="text/javascript" src="/js/src/click-text.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/click-love.js"></script>
+
