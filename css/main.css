@@ -1227,7 +1227,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #305461;
+  background: #6b88bd;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2721,4 +2721,21 @@ ul li {
 .post-content li a:hover {
   color: #0056b3; /* 深一点的蓝色 */
   text-decoration: underline; /* 添加下划线 */
+}
+.reward-container button {
+  background-color: #f00; /* 红色背景 */
+  color: #fff; /* 白色文字 */
+  border: none; /* 去掉边框 */
+  padding: 1em 1em; /* 内边距 */
+  cursor: pointer; /* 改变鼠标指针样式 */
+  font-size: 1em; /* 文字大小 */
+  border-radius: 5px; /* 圆角 */
+  transition: background-color 0.3s ease; /* 平滑过渡效果 */
+  width: 100px; /* 设置按钮的宽度 */
+  height: 50px; /* 设置按钮的高度 */
+  line-height: 25px; /* 使文字垂直居中对齐 */
+  text-align: center; /* 文字水平居中对齐 */
+}
+.reward-container button:hover {
+  background-color: #8b0000; /* 鼠标悬停时颜色加深 */
 }
