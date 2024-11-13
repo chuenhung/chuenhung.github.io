@@ -1227,7 +1227,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ff3d9e;
+  background: #8b1aee;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2733,7 +2733,7 @@ ul li {
   transition: background-color 0.3s ease; /* 平滑过渡效果 */
   width: 100px; /* 设置按钮的宽度 */
   height: 50px; /* 设置按钮的高度 */
-  line-height: 25px; /* 使文字垂直居中对齐 */
+  line-height: 15px; /* 使文字垂直居中对齐 */
   text-align: center; /* 文字水平居中对齐 */
 }
 .reward-container button:hover {
