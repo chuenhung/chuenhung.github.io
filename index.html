@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,6 +199,120 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/12/07/coding_notes_seventeen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/07/coding_notes_seventeen/" class="post-title-link" itemprop="url">Java程序猿搬砖笔记(十七)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-07 21:20 21:20:00" itemprop="dateCreated datePublished" datetime="2024-12-07T21:20:00+08:00">2024-12-07 21:20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="MySQL触发器"><a class="header-anchor" href="#MySQL触发器"></a>MySQL触发器</h2>
+<p><strong>语法：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> 触发器名 </span><br><span class="line">触发器时间 触发事件</span><br><span class="line"><span class="keyword">ON</span> 表名 <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="type">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    执行语句</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong></p>
+<p>1、触发器名 - 触发器的名称<br>
+2、触发器时间 - 触发器触发的时机，值为 BEFORE或AFTER<br>
+3、触发器事件 - 引起触发器触发的事件，值为INSERT或UPDATE或DELETE<br>
+4、表名 - 触发触发器的表名，即该触发器是建立在那张表上面的<br>
+5、执行语句 - 即为触发器出发后执行的操作。可以使用old和new关键字。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line"><span class="keyword">CREATE</span></span><br><span class="line"><span class="keyword">TRIGGER</span> `update_department_id` </span><br><span class="line">AFTER  <span class="keyword">UPDATE</span> </span><br><span class="line"><span class="keyword">ON</span> `wb_user`</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="type">ROW</span> <span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">UPDATE</span> wb_user_20230817 <span class="keyword">set</span> department_id <span class="operator">=</span> <span class="string">&#x27;123456&#x27;</span> <span class="keyword">where</span> mobile <span class="operator">=</span> <span class="string">&#x27;187****785&#x27;</span>;</span><br><span class="line"><span class="keyword">END</span>$$</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+<p><strong>因为会造成死循环，在同一个表中不能使用insert/update/delter，否则会报错。</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/12/07/coding_notes_seventeen/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -649,129 +763,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/09/springboot_aop_update_custom_annotation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/09/springboot_aop_update_custom_annotation/" class="post-title-link" itemprop="url">SpringBoot AOP切面实现对自定义注解的属性动态修改</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-12-09 10:30 10:30:00" itemprop="dateCreated datePublished" datetime="2023-12-09T10:30:00+08:00">2023-12-09 10:30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="需求"><a class="header-anchor" href="#需求"></a>需求</h2>
-<p>项目中共用了一个Redis，而项目中部分代码使用了JetCache的@Cached注解。所以需要给@Cached动态配置area属性值，用来区分dev和test环境。</p>
-<h2 id="问题"><a class="header-anchor" href="#问题"></a>问题</h2>
-<p><strong>自定义注解的属性值需要常量值，即static final修饰，直接通过配置文件不可行。</strong></p>
-<h2 id="解决方案"><a class="header-anchor" href="#解决方案"></a>解决方案</h2>
-<p>1、使用AOP切面拦截使用注解的方法，动态修改注解的属性值。切面1。<br>
-2、注解的底层一般也有一个AOP切面。切面2。<br>
-<strong>需要确保切面1在切面2之前执行 (使用@order(int)注解，值越小越先执行)。</strong></p>
-<!--- more -->
-<h2 id="示例代码"><a class="header-anchor" href="#示例代码"></a>示例代码</h2>
-<p><strong>yml配置文件：</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">testAop:</span></span><br><span class="line">    <span class="attr">actionValue:</span> <span class="string">测试-10101908-action</span></span><br></pre></td></tr></table></figure>
-<p><strong>切面1：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Order(1)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;testAop.actionValue&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String actionValue;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(value = &quot;@annotation(webLogAnnotation)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">aopTest</span><span class="params">(WebLogAnnotation webLogAnnotation)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">InvocationHandler</span> <span class="variable">invocationHandler</span> <span class="operator">=</span> Proxy.getInvocationHandler(webLogAnnotation);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">value</span> <span class="operator">=</span> invocationHandler.getClass().getDeclaredField( <span class="string">&quot;memberValues&quot;</span>);</span><br><span class="line">        value.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        Map&lt;String,Object&gt; memberValues  = (Map&lt;String,Object&gt;) value.get(invocationHandler);</span><br><span class="line">        memberValues.put(<span class="string">&quot;action&quot;</span>, actionValue);</span><br><span class="line">        log.info(<span class="string">&quot;MyAspect.aopTest memberValues：&#123;&#125;&quot;</span>,memberValues);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>切面2：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Order(2)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebLogAspect</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(&quot;@annotation(webLogAnnotation)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">logAround</span><span class="params">(ProceedingJoinPoint joinPoint, WebLogAnnotation webLogAnnotation)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="comment">// do something......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>controller：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/getList&quot;)</span></span><br><span class="line"><span class="meta">@WebLogAnnotation(logType = &quot;30010051&quot;,action = &quot;通讯录-分页查询列表action&quot;,description = &quot;&#x27;通讯录-分页查询列表desc&#x27;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> PageResponseMsg&lt;AddressBookVo&gt;  <span class="title function_">getList</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> PageRequest&lt;QueryAddressBookListReq&gt; pageDto)</span>&#123;</span><br><span class="line">   <span class="comment">// do something......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经测试，WebLogAspect中成功获取到MyAspect 中修改的注解参数值。如下所示：<br>
-<img src="https://img-blog.csdnimg.cn/fb5ac35709934a86a60f76ccd48427c3.png" alt="在这里插入图片描述"><br>
-<strong>遗留问题：</strong></p>
-<ul>
-<li>必须传入该参数才可以获取到修改后的值</li>
-<li>通过反射方法method.getAnnotation(WebLogAnnotation.class)获取到的是原始值。若@Cached底层也是通过反射实现，则修改不了。</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sgl520lxl/article/details/111326155">通过反射动态修改自定义注解属性值</a>、<a target="_blank" rel="noopener" href="https://juejin.cn/post/7049253464349605924">SpringBoot实现对自定义注解的切面</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/l1006841574/article/details/103722949?spm=1001.2101.3001.6650.6&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-103722949-blog-119613680.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-103722949-blog-119613680.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=13">自定义注解属性动态赋值</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
