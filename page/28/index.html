@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -199,6 +199,293 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/coding_notes_one/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/03/coding_notes_one/" class="post-title-link" itemprop="url">Java程序猿搬砖笔记(一)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-03 10:11 10:11:00" itemprop="dateCreated datePublished" datetime="2019-11-03T10:11:00+08:00">2019-11-03 10:11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-18 21:35 21:35:32" itemprop="dateModified" datetime="2024-10-18T21:35:32+08:00">2024-10-18 21:35</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Java程序猿搬砖笔记-一"><a class="header-anchor" href="#Java程序猿搬砖笔记-一"></a>Java程序猿搬砖笔记(一)</h2>
+<p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
+<blockquote>
+<p>好记性不如烂笔头</p>
+</blockquote>
+<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
+<!--- more -->
+<p>这篇笔记截至时间2019年11月3日。</p>
+<p>1、Tomcat设置jvm</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms128m -Xmx1024m -XX:MaxPermSize=512m</span><br></pre></td></tr></table></figure>
+<p>2、el表达式判断字符串是否为空<br>
+${值 eq  null  or 值 eq ’ '} 返回true 的话，表示为空。例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">&quot;$&#123;company.custName eq  null or company.custName eq &#x27; &#x27;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>${empty 值}  返回true ,表示为空字符串。例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">&quot;$&#123;empty  company.custNam&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>用empty方法更好,el表达式封装了</p>
+<p>3、el表达式判断<br>
+==、eq、//相等<br>
+!=、ne、// 不相等(inequality)<br>
+&lt;、lt、//小于(less than)<br>
+&gt;、gt、//大于(greter than)<br>
+&lt;=、le、//小于等于(less equal)<br>
+&gt;=、ge。//大于等于(greter equal)<br>
+例子：判断传过来的值是否大等于2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test=<span class="string">&quot;$&#123;product.validity ge 2&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>4、MyBatis遍历集合</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span> =<span class="string">&quot;array&quot;</span> <span class="attr">item</span>=<span class="string">&quot;classIds&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span>&gt;</span></span><br><span class="line">	#&#123;classIds&#125;</span><br><span class="line">&lt;/foreach &gt;</span><br></pre></td></tr></table></figure>
+<p>MyBatis foreach的collection参数可以是java的Array或者List<br>
+5、 jQuery的data()方法，相比attr()更安全<br>
+访问id为test的元素 的data-name属性例子：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#test&#x27;</span>).<span class="title function_">data</span>(<span class="string">&quot;name&quot;</span>); </span><br></pre></td></tr></table></figure>
+<p>6、数据库权限问题</p>
+<ul>
+<li>cmd进入mysql/bin目录下后,mysql -u root -p并输入密码登陆</li>
+<li>grant all privileges on <em>.</em> to root@&quot;%&quot; identified by “.”; 注意root替换为报的错</li>
+<li>flush privileges;</li>
+</ul>
+<p>7、MySQL的date_format函数用法<br>
+语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date_format(now(),<span class="string">&#x27;%Y-%m-%d %H:%i:%s&#x27;</span>)<span class="operator">&lt;</span>结束时间</span><br></pre></td></tr></table></figure>
+<p>  <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/sql/func_date_format.asp">参考链接</a></p>
+<p>8、MyBatis中小于号都要写成&amp;lt;大于号可以不用转</p>
+<p>9、MyBatis传入参数为0被误认为是空字符串,解决方法是去掉等于0的判断</p>
+<p>10、JavaScript保留两位小数方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">toDecimal</span>(<span class="params">x</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> f = <span class="built_in">parseFloat</span>(x);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">isNaN</span>(f)) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	f = <span class="title class_">Math</span>.<span class="title function_">round</span>(x*<span class="number">100</span>)/<span class="number">100</span>;</span><br><span class="line">	<span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>11、jQuery判断checkbox是否选中的一些方法<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($(<span class="string">&quot;#checkbox-id&quot;</span>).<span class="title function_">get</span>(<span class="number">0</span>).<span class="property">checked</span>) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($(<span class="string">&quot;#checkbox-id&quot;</span>)[<span class="number">0</span>].<span class="property">checked</span>) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法三（建议）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>($(<span class="string">&#x27;#checkbox-id&#x27;</span>).<span class="title function_">is</span>(<span class="string">&#x27;:checked&#x27;</span>)) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>12、checkbox赋值方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#checkbox-id&quot;</span>).<span class="title function_">prop</span>(<span class="string">&quot;checked&quot;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>13、JavaScript页面加载前调用的一些方法<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"><span class="comment">//do something</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line"> <span class="comment">//do something</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">readyState</span>==<span class="string">&quot;complete&quot;</span>)&#123;</span><br><span class="line"> <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>14、判断页面元素是否显示<br>
+  <a target="_blank" rel="noopener" href="https://www.jb51.net/article/49760.htm">参考链接</a></p>
+<p>15、加红色样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span>测试<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:red&quot;</span>&gt;</span>测试<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>16、连续数字或字母换行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style=<span class="string">&quot;word-break:break-all; width:200px; overflow:auto;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>17、表格内容过长时截取显示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;鼠标放上去显示的内容&quot;</span>&gt;</span>实际显示的内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>18、科学计数法格式化<br>
+Java  返回字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DecimalFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DecimalFormat</span>();</span><br><span class="line">df.setMaximumFractionDigits(<span class="number">2</span>);</span><br><span class="line">df.setMinimumFractionDigits(<span class="number">2</span>);<span class="comment">//强制保留两位小数</span></span><br><span class="line">String productPrice= df.format(productViewVo.getProductPrice());</span><br></pre></td></tr></table></figure>
+<p>注意这种方法还需要替换&quot;,&quot;</p>
+<p>JavaScript简单粗暴的方法 返回字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> formatScientificNumber = <span class="keyword">function</span>(<span class="params">value</span>)&#123;</span><br><span class="line">		<span class="keyword">let</span> result = <span class="title class_">String</span>(value);<span class="comment">//可以用0.0000001测试</span></span><br><span class="line">		<span class="keyword">if</span> (result.<span class="title function_">indexOf</span>(<span class="string">&#x27;-&#x27;</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">			result = <span class="string">&#x27;0&#x27;</span> + <span class="title class_">String</span>(<span class="title class_">Number</span>(result) + <span class="number">1</span>).<span class="title function_">substr</span>(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br></pre></td></tr></table></figure>
+<p>19、输入框限制只能输入数字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onkeyup=<span class="string">&quot;this.value=this.value.replace(/[^\d]/g,&#x27;&#x27;)&quot;</span> </span><br></pre></td></tr></table></figure>
+<p>20、jQuery需要用text()取span的值</p>
+<p>21、jQuery获取table的所有tr以及td</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#tabbleId tr&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params">i</span>)&#123;          <span class="comment">// 遍历 tr</span></span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">children</span>(<span class="string">&#x27;td&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params">j</span>)&#123;  <span class="comment">// 遍历tr的各个td</span></span><br><span class="line">	 <span class="title function_">alert</span>(<span class="string">&quot;第&quot;</span>+(i+<span class="number">1</span>)+<span class="string">&quot;行，第&quot;</span>+(j+<span class="number">1</span>)+<span class="string">&quot;个td的值：&quot;</span>+$(<span class="variable language_">this</span>).<span class="title function_">text</span>()+<span class="string">&quot;。&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>22、MySQL的concat_ws(sperator,str1,str2,str…)、concat()、repeat()方法</p>
+<ul>
+<li>concat_ws()方法可以将两个字段的值拼接起来，它的本意是有分隔符的字符串连接。但要注意为null的情况(不然整个都会为null)<br>
+例子：   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat_ws(c.city_code,<span class="string">&#x27;&#x27;</span>,ifnull(c.company_address,<span class="string">&#x27;&#x27;</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li>concat()函数可以连接一个或者多个字符串,只要一个为null就会返回Null</li>
+<li>repeat()函数用来复制字符串,比如select repeat(‘ab’,2);//abab</li>
+</ul>
+<p>23、MySQL删除所有表数据(不是删除数据库)<br>
+返回所有drop table语句语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> concat(<span class="string">&#x27;DROP TABLE IF EXISTS &#x27;</span>, table_name, <span class="string">&#x27;;&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> information_schema.tables</span><br><span class="line"><span class="keyword">WHERE</span> table_schema <span class="operator">=</span> <span class="string">&#x27;saas_mcjd&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>24、将Double类型的数据保留2位小数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">2.34566</span>; </span><br><span class="line"><span class="type">BigDecimal</span> <span class="variable">bd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigDecimal</span>(a); </span><br><span class="line"><span class="type">Double</span> <span class="variable">d</span> <span class="operator">=</span> bd.setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP).doubleValue(); </span><br></pre></td></tr></table></figure>
+<p>d输出就是2.35,  注意会四舍五入</p>
+<p>25、将String转Double,并保留2位小数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> “<span class="number">6.145</span>”; </span><br><span class="line">Double d= Double.parseDouble(a); </span><br><span class="line"><span class="type">DecimalFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DecimalFormat</span>(“<span class="number">0.00</span>”); </span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> df.format(d); </span><br></pre></td></tr></table></figure>
+<p>s输出就是6.15,注意会四舍五入</p>
+<p>26、JavaScript修改网页标题<br>
+可以在页面加载完时执行下面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">title</span> =<span class="string">&quot;产品详情&quot;</span></span><br></pre></td></tr></table></figure>
+<p>27、JavaScript比较时间大小</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">CompareDate</span>(<span class="params">d1,d2</span>)</span><br><span class="line">&#123;	</span><br><span class="line">	<span class="keyword">return</span> ((<span class="keyword">new</span> <span class="title class_">Date</span>(d1.<span class="title function_">toString</span>().<span class="title function_">replace</span>(<span class="regexp">/-/g</span>,<span class="string">&quot;\/&quot;</span>))) &lt; (<span class="keyword">new</span> <span class="title class_">Date</span>(d2.<span class="title function_">toString</span>().<span class="title function_">replace</span>(<span class="regexp">/-/g</span>,<span class="string">&quot;\/&quot;</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>28、页面定期刷新</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setInterval</span>(func,time);</span><br></pre></td></tr></table></figure>
+<p>29、JSP根据参数默认选中radio</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">&quot;va-m text-right text-dark6&quot;</span> <span class="attr">width</span>=<span class="string">&quot;20%&quot;</span>&gt;</span>是否集团审批：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;checkbox checkbox-circle mn&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;isApproval&quot;</span> <span class="attr">id</span>=<span class="string">&quot;isApproval&quot;</span>  <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> &lt;<span class="attr">c:if</span> <span class="attr">test</span>=<span class="string">&quot;$&#123;businessModeViewVo.isApproval eq 1&#125;&quot;</span>&gt;</span>checked<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span>/&gt;</span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;font-bolder&quot;</span> <span class="attr">for</span>=<span class="string">&quot;isApproval&quot;</span>&gt;</span>需要<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;checkbox checkbox-circle mn ml10&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;isApproval&quot;</span> <span class="attr">id</span>=<span class="string">&quot;noIsApproval&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span> &lt;<span class="attr">c:if</span> <span class="attr">test</span>=<span class="string">&quot;$&#123;businessModeViewVo.isApproval eq 2&#125;&quot;</span>&gt;</span>checked<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span>/&gt;</span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;font-bolder&quot;</span> <span class="attr">for</span>=<span class="string">&quot;noIsApproval&quot;</span> &gt;</span>不需要<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关键代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">&quot;$&#123;businessModeViewVo.isApproval eq 2&#125;&quot;</span>&gt;</span>checked<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>30、页面元素的禁用与启用<br>
+禁用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#id&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;disabled&quot;</span>,<span class="string">&quot;true&quot;</span>);  </span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;disabled&quot;</span>,<span class="literal">true</span>);  </span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;disabled&quot;</span>,<span class="string">&quot;disabled&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>启用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#id&quot;</span>).<span class="title function_">removeAttr</span>(<span class="string">&quot;disabled&quot;</span>);  </span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;disabled&quot;</span>,<span class="literal">false</span>);  </span><br></pre></td></tr></table></figure>
+<p>注意：$(&quot;#id&quot;).attr(“disabled”,“false”);不起作用,disabled只能禁用button，对超链接不起作用</p>
+<p>31、handlebars 时间格式化</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;dateFormat addTime &#x27;YYYY-MM-DD HH:mm:ss&#x27;&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>32、handlerbars判空,if 和unless</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#if logisticsId&#125;&#125;</span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-button text-blue3 pr10&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;tooltip&quot;</span> <span class="attr">data-placement</span>=<span class="string">&quot;left&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;seeDetail(&#x27;&#123;&#123;logisticsId&#125;&#125;&#x27;)&quot;</span> &gt;</span>查看<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;&#123;/if&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>它是尝试去读取logisticsId属性，如果返回的为undefined、null、&quot;&quot;、[]、false任意一个，都会导致最终结果为假。unless和if正好相反,当返回false的时候执行。</p>
+<p>33、正则校验所有输入框</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> $(<span class="string">&quot;input[name=&#x27;unitPrice&#x27;]&quot;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> unitPrice = $(<span class="variable language_">this</span>).<span class="title function_">val</span>();</span><br><span class="line">	<span class="keyword">var</span> reg = <span class="regexp">/^([1-9][\d]&#123;0,7&#125;|0)(\.[\d]&#123;1,2&#125;)?$/</span>;</span><br><span class="line">	<span class="keyword">var</span> reslut = unitPrice.<span class="title function_">match</span>(reg);</span><br><span class="line">	<span class="keyword">if</span>(reslut==<span class="literal">null</span>)&#123;</span><br><span class="line">		<span class="title function_">toastrWarning</span>(<span class="string">&#x27;无效金额，整数8位，小数2位，示例：247.23&#x27;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>34、</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> htm = $($(<span class="string">&#x27;#checkMethodDiv&#x27;</span>).<span class="title function_">html</span>()); htm[<span class="number">0</span>].<span class="property">outerHTML</span>;<span class="comment">//1     </span></span><br><span class="line"><span class="keyword">var</span> htm = $(<span class="string">&#x27;#checkMethodDiv&#x27;</span>);htm.<span class="title function_">html</span>();<span class="comment">//2  </span></span><br></pre></td></tr></table></figure>
+<p>1返回的是文本 整个返回的貌似是一个对话框对象<br>
+2返回的是document对象</p>
+<p>35、禁止textarea拉伸</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style=<span class="string">&quot;resize:none&quot;</span></span><br></pre></td></tr></table></figure>
+<p>36、做申请开票的时候,订单列表从表格中删除了,但下次点申请开票时还在。使用空串替换某一个订单号，则是可以实现去除指定字符串功能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orderIds = orderIds.<span class="title function_">replace</span>(orderId+<span class="string">&quot;,&quot;</span>,<span class="string">&quot; &quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>37、登陆后跳回原来的页面的问题<br>
+思路：点击登录的时候用一个SpringMVC获取到当前url，并把其放到session中，登陆后从session中取出url 清空后跳转</p>
+<p>38、jQuery在不知道数组元素下标的时删除数组元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>($.<span class="title function_">inArray</span>(templateId.<span class="title function_">toString</span>(),templateIdSelected)&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">	templateIdSelected.<span class="title function_">splice</span>($.<span class="title function_">inArray</span>(templateId.<span class="title function_">toString</span>(), templateIdSelected), <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>$.inArray(),函数用于在数组中查找指定值，并返回它的索引值（如果没有找到，则返回-1），源数组不受影响</li>
+<li>arrayObject.splice(index,howmany,item1,…,itemX)<br>
+index:		必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。<br>
+howmany：   必需。要删除的项目数量。如果设置为 0，则不会删除项目。<br>
+item1, …, itemX: 可选。向数组添加的新项目。<br>
+splice() 方法可删除从 index 处开始的零个或多个元素，并且用参数列表中声明的一个或多个值来替换那些被删除的元素。</li>
+</ul>
+<p>39、JSP千分位</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;fmt:formatNumber value=<span class="string">&quot;$&#123;subscriptionMoney &#125;&quot;</span> pattern=<span class="string">&quot;#,###.####&quot;</span>/&gt;	</span><br><span class="line">subscriptionMoney.replace(/(?&lt;=\d)(?&lt; !.\d*)(?=(\d&#123;<span class="number">3</span>&#125;)+(.|$))/g,<span class="string">&#x27;,&#x27;</span>);	</span><br><span class="line">paymentFee.toFixed(<span class="number">2</span>).replace(/(\d)(?=(\d&#123;<span class="number">3</span>&#125;)+\.)/g, <span class="string">&#x27;$1,&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>40、数组需要JSON格式化传到后台，不能直接用隐藏域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = $(<span class="string">&#x27;#settlementForm&#x27;</span>).<span class="title function_">serializeJson</span>();<span class="comment">//不是serialize();</span></span><br><span class="line">data.<span class="property">fileAttachIds</span> = $(<span class="string">&quot;#uploader2&quot;</span>).<span class="title function_">catUpload</span>(<span class="string">&quot;getUniqueId&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url : <span class="string">&#x27;/member/purchaseentrustmgr/ajaxpaybond&#x27;</span>,</span><br><span class="line"><span class="attr">contentType</span>:<span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">data :  <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data),</span><br></pre></td></tr></table></figure>
+<p>41、Java千分位</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DecimalFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DecimalFormat</span>(<span class="string">&quot;#,###.00&quot;</span>);	<span class="comment">//0用于小数部分,不足补0.</span></span><br><span class="line">System.out.println(df.format(vo.getStockPrice()));</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42884584/article/details/83538523">参考链接</a></p>
+<p>42、在使用removeAttr()移除了radio的checked属性后，使用attr()重新增加不起作用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#invoiceStatus2&quot;</span>).<span class="title function_">prop</span>(<span class="string">&quot;checked&quot;</span>,<span class="string">&quot;checked&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;#invoiceStatus1&quot;</span>).<span class="title function_">removeAttr</span>(<span class="string">&quot;checked&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>即使用prop()可重新配置上该属性, 具有 true 和 false 两个属性的属性，如 checked, selected 或者 disabled 使用prop()，其他的使用 attr()</p>
+<p>43、MySQL查询一张表的详细信息(注释)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">full</span> columns <span class="keyword">from</span> 表名;</span><br><span class="line"></span><br><span class="line">use information_schema;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema <span class="operator">=</span><span class="string">&#x27;数据库名&#x27;</span> <span class="keyword">and</span> table_name <span class="operator">=</span> <span class="string">&#x27;表名&#x27;</span>  (<span class="keyword">and</span> column_name<span class="operator">=</span><span class="string">&#x27;CONTRACT_status&#x27;</span> limit <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>44、查询MySQL创建表的sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+<p>45、textarea开始标签和结束标签中间不要有“回车”。 否则内容不是从头开始的</p>
+<p>46、JavaScript科学计数法还原<br>
+方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">0.00000001</span>;</span><br><span class="line"><span class="keyword">let</span> result = <span class="title class_">String</span>(a);</span><br><span class="line"><span class="keyword">if</span> (result.<span class="title function_">indexOf</span>(<span class="string">&#x27;-&#x27;</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">   result = <span class="string">&#x27;0&#x27;</span> + <span class="title class_">String</span>(<span class="title class_">Number</span>(result) + <span class="number">1</span>).<span class="title function_">substr</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">toNonExponential</span>(<span class="params">num</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> m = num.<span class="title function_">toExponential</span>().<span class="title function_">match</span>(<span class="regexp">/\d(?:\.(\d*))?e([+-]\d+)/</span>);</span><br><span class="line">    <span class="keyword">return</span> num.<span class="title function_">toFixed</span>(<span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">0</span>, (m[<span class="number">1</span>] || <span class="string">&#x27;&#x27;</span>).<span class="property">length</span> - m[<span class="number">2</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>47、textarea没有value属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">&quot;summary&quot;</span> <span class="attr">name</span>=<span class="string">&quot;summary&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;8&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;50&quot;</span> &quot;&gt;</span>&lt;%= summary %&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>48、MySQL不等于null语法is not null，MySQL等于null语法is null</p>
+<p>49、JavaScript正则匹配</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="title class_">RegExp</span>(<span class="regexp">/^[0-9a-zA-Z_]+$/</span>);</span><br><span class="line"><span class="keyword">if</span>(!material.<span class="title function_">match</span>(reg))&#123;</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&quot;内部料号为数字、字母、下划线或三者组合&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>50、jQuery获取选中值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取radio checkbox选中值</span></span><br><span class="line"><span class="keyword">var</span> item = $(<span class="string">&#x27;input[name=items][checked]&#x27;</span>).<span class="title function_">val</span>(); </span><br><span class="line"><span class="comment">//获取option选中值</span></span><br><span class="line"><span class="keyword">var</span> item = $(<span class="string">&quot;select[name=items] option[selected]&quot;</span>).<span class="title function_">text</span>(); </span><br></pre></td></tr></table></figure>
+<p>51、MyBatis 的&lt;trim/&gt;标签<br>
+prefix 给sql语句拼接的前缀  suffix 给sql语句拼接的后缀<br>
+prefixOverrides 去除sql语句前面的关键字或者字符，该关键字或者字符由prefixOverrides属性指定，假设该属性指定为&quot;AND&quot;，当sql语句的开头为&quot;AND&quot;，trim标签将会去除该&quot;AND&quot;<br>
+suffixOverrides	去除sql语句后面的关键字或者字符，该关键字或者字符由suffixOverrides属性指定</p>
+<p>52、MySQL的group_concat()函数默认拼接字符串长度是1024,可以手动设置。 做双贸项目分组查了分类下的所有扩展属性,后面分类多了肯定出问题😂</p>
+<p>53、jQuery的on()方法不起作用的解决方法。双贸前台商品列表扩展属性监听用到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>,<span class="string">&#x27;.attrList li&#x27;</span>,<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法每次执行点击事件 的时候，它会先找到document对象，然后去检测有没有子对象，如果有的话，他就将事件给到子对象，子对象得到该事件之后就开始触发事件后面的方法</p>
+<p>54、MyBatis返回List<String>只需要resultType=&quot;java.lang.String&quot;就可以了</p>
+<p>55、jQuery下拉框默认选中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#businessModeAll option[businessId=&#x27;104&#x27;]&quot;</span>).<span class="title function_">prop</span>(<span class="string">&quot;selected&quot;</span>,<span class="literal">true</span>); </span><br></pre></td></tr></table></figure>
+<p>其中businessId是自定义属性,正常用value就可以了。attr方法正常取属性值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#businessModeAll option:selected&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;businessId&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>56、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>这个月份和分钟一个是大写M一个是小写m,不能混用不能混用不能混用,不然会出现离奇解析错误；H表示小时按24小时制，h不按24小时制</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 

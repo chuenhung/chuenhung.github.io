@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -199,6 +199,138 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/05/study_of_jenkins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/05/study_of_jenkins/" class="post-title-link" itemprop="url">Jenkins学习笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-05 15:26 15:26:00" itemprop="dateCreated datePublished" datetime="2022-11-05T15:26:00+08:00">2022-11-05 15:26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Jenkins构建项目的几种方式"><a class="header-anchor" href="#Jenkins构建项目的几种方式"></a>Jenkins构建项目的几种方式</h2>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/693857e8b43b?u_atoken=c9b8e448-e5a0-4550-a040-5274ba3e9725&amp;u_asession=01lCSqeojNFLNgiaimTaTyd11QdAw7afGqmrQvdG0kjnJuXJkqcR3ymixEibifC_JkX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K_b8XInk0h7XgprZYVXoc3v61cRpK6RrRpbRcNX0dn1LmBkFo3NEHBv0PZUm6pbxQU&amp;u_asig=05ReNMps794XZLa2116BvqUeufNIjyBecV-FhOTQGha9uOnJGfTgcExc5QNnRkxZ9uzf9G0FWYDgLVtJgqCC3yQtaLeeKSP3UvXhEhndvhlNKZba-OFbguTSfJTEUQZhch_G8Sf2ZtbWJWJabf-YRktFZjYIDW0pkopRKrKqm8aK_9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzZUCddwWBIp6xMictOI8feDNLCyhYfy__qzb_JxMUlopFkLEP8FFBW9mXuUlqJJ5YO3h9VXwMyh6PgyDIVSG1W_eNMwJKOSMEj1agbxDCIdUIRox2heX479OC2z3E-OFfoAuJfH8V9sOgdzEo4BfmpiUPNYjdMWb1TJ-lvKzyC4JmWspDxyAEEo4kbsryBKb9Q&amp;u_aref=/CUKTk9Q6GuE91us7H7ejr5%2b11M=">参考简书很有用的一篇文章</a></p>
+<!--- more -->
+<h2 id="Jenkins简单的PipeLine流水线脚本"><a class="header-anchor" href="#Jenkins简单的PipeLine流水线脚本"></a>Jenkins简单的PipeLine流水线脚本</h2>
+<p><strong>Windows</strong>：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line">	stages &#123;</span><br><span class="line">		stage(<span class="string">&#x27;Pull code&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				checkout([<span class="attr">$class:</span> <span class="string">&#x27;GitSCM&#x27;</span>, <span class="attr">branches:</span> [[<span class="attr">name:</span> <span class="string">&#x27;*/master&#x27;</span>]], <span class="attr">extensions:</span> [], <span class="attr">userRemoteConfigs:</span> [[<span class="attr">credentialsId:</span> <span class="string">&#x27;4f77bfb0-49cc-4359-9b4a-99b190e5c92b&#x27;</span>, <span class="attr">url:</span> <span class="string">&#x27;https://gitee.com/chuenhung/export-java-bean.git&#x27;</span>]]])</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		stage(<span class="string">&#x27;Build project&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				bat <span class="string">&quot;mvn clean package&quot;</span></span><br><span class="line">				archiveArtifacts <span class="string">&#x27;**/target/*.jar&#x27;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Linux</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把bat改为sh</span><br></pre></td></tr></table></figure>
+<p><strong>注意：pipeline、stages、stage、steps、checkout…这些词不能改</strong></p>
+<p>构建遇到问题：java.lang.NoSuchMethodError: No such DSL method ‘pipeline’ found among steps [bat, build, checkout, container, containerLog, input, junit, library, libraryResource, load, milestone, node, parallel, podTemplate, powershell, properties<br>
+解决方法：成功安装PipeLine插件。</p>
+<h2 id="Jenkins项目构建细节-定时构建、参数化构建等"><a class="header-anchor" href="#Jenkins项目构建细节-定时构建、参数化构建等"></a>Jenkins项目构建细节(定时构建、参数化构建等)</h2>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/17385df9cff2">参考链接</a></p>
+<h2 id="Jenkins远程部署Jar包-非流水线方式"><a class="header-anchor" href="#Jenkins远程部署Jar包-非流水线方式"></a>Jenkins远程部署Jar包(非流水线方式)</h2>
+<h3 id="安装Publish-Over-SSH-插件"><a class="header-anchor" href="#安装Publish-Over-SSH-插件"></a>安装Publish Over SSH 插件</h3>
+<p><img src="https://img-blog.csdnimg.cn/78207ce3ad6542af8bab2a2fa54cf57f.png" alt="在这里插入图片描述"></p>
+<h3 id="配置Publish-Over-SSH"><a class="header-anchor" href="#配置Publish-Over-SSH"></a>配置Publish Over SSH</h3>
+<p>点击<strong>Manage Jenkins-&gt;Configure System</strong><br>
+<img src="https://img-blog.csdnimg.cn/67b689f03021479ab1718e6da10edeea.png" alt="在这里插入图片描述"><br>
+<strong>找到Publish over SSH-&gt;修改用户密码</strong><br>
+<img src="https://img-blog.csdnimg.cn/42fd03d5a1294b6b983276be2f9d77f3.png" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/4a59a94a03b6424298126ff07a771367.png" alt="在这里插入图片描述"></p>
+<p><strong>填写服务名、服务器ip、用户名、服务器文件夹等信息</strong><br>
+<img src="https://img-blog.csdnimg.cn/886b3ea0a40045798c44f9c275db3ea5.png" alt="!"><br>
+<strong>填写完成后，点击Test Configuration 返回Success说明配置没问题。</strong></p>
+<h3 id="项目构建配置"><a class="header-anchor" href="#项目构建配置"></a>项目构建配置</h3>
+<p><strong>在对应构建的项目配置中(非PipeLine)，Post Steps选择Send files or execute commands over SSH</strong><br>
+<img src="https://img-blog.csdnimg.cn/104dafd8020a487086809bb333de8a1a.png" alt="在这里插入图片描述"><br>
+<strong>填写下面的配置：</strong><br>
+其中，<strong>Remote directory是在之前的 Publish over SSH配置追加</strong>。比如之前配置了/usr/local/testJenkins/，这里填写/test/upload，最终上传的路径就会变成/usr/local/testJenkins/test/upload<br>
+<img src="https://img-blog.csdnimg.cn/6fac6878f7534cf8bd57fb1684d0317e.png" alt="在这里插入图片描述"><br>
+最后，重新构建，看日志等着构建成功就好。这里传输如果文件过大速度会比较慢。<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51527921/article/details/124906363">参考链接1</a>、<a target="_blank" rel="noopener" href="https://www.likecs.com/show-204353443.html#sc=1300">参考链接2</a></p>
+<h2 id="Jenkins远程部署Jar包-流水线方式"><a class="header-anchor" href="#Jenkins远程部署Jar包-流水线方式"></a>Jenkins远程部署Jar包(流水线方式)</h2>
+<p>测试通过的脚本如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> CONFIG_NAME = <span class="string">&quot;LocalCentos&quot;</span> <span class="comment">// SSH Server配置的名字</span></span><br><span class="line"><span class="keyword">def</span> SOURCE_FILES = <span class="string">&quot;**/target/*.jar&quot;</span></span><br><span class="line"><span class="keyword">def</span> REMOTE_DIRECTORY = <span class="string">&quot;&quot;</span> <span class="comment">//追加SSH Server配置的目录</span></span><br><span class="line"><span class="keyword">def</span> REMOVE_PREFIX = <span class="string">&quot;/target&quot;</span></span><br><span class="line"></span><br><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line">	stages &#123;</span><br><span class="line">		stage(<span class="string">&#x27;Pull code&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				checkout([<span class="attr">$class:</span> <span class="string">&#x27;GitSCM&#x27;</span>, <span class="attr">branches:</span> [[<span class="attr">name:</span> <span class="string">&#x27;*/master&#x27;</span>]], <span class="attr">extensions:</span> [], <span class="attr">userRemoteConfigs:</span> [[<span class="attr">credentialsId:</span> <span class="string">&#x27;4f77bfb0-49cc-4359-9b4a-99b190e5c92b&#x27;</span>, <span class="attr">url:</span> <span class="string">&#x27;https://gitee.com/chuenhung/export-java-bean.git&#x27;</span>]]])</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		stage(<span class="string">&#x27;Build project&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				bat <span class="string">&quot;mvn clean package&quot;</span></span><br><span class="line">				archiveArtifacts <span class="string">&#x27;**/target/*.jar&#x27;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		stage(<span class="string">&#x27;Deploy project&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				sshPublisher(</span><br><span class="line">					<span class="symbol">failOnError:</span> <span class="literal">false</span>,</span><br><span class="line">					<span class="symbol">publishers:</span> [</span><br><span class="line">						sshPublisherDesc(</span><br><span class="line">							<span class="symbol">configName:</span> <span class="string">&quot;$&#123;CONFIG_NAME&#125;&quot;</span>,</span><br><span class="line">							<span class="symbol">transfers:</span> [</span><br><span class="line">								sshTransfer(</span><br><span class="line">									<span class="symbol">sourceFiles:</span> <span class="string">&quot;$&#123;SOURCE_FILES&#125;&quot;</span>,</span><br><span class="line">									<span class="symbol">remoteDirectory:</span> <span class="string">&quot;$&#123;REMOTE_DIRECTORY&#125;&quot;</span>,</span><br><span class="line">									<span class="symbol">removePrefix:</span> <span class="string">&quot;&quot;</span>,</span><br><span class="line">									<span class="symbol">flatten:</span> <span class="literal">true</span>,</span><br><span class="line">									<span class="symbol">execCommand:</span> <span class="string">&quot;&quot;</span>,<span class="comment">//上传后执行的脚本</span></span><br><span class="line">									<span class="symbol">execTimeout:</span> <span class="number">1800000</span><span class="comment">//执行脚本超时时间</span></span><br><span class="line">								)</span><br><span class="line">							],</span><br><span class="line">							<span class="symbol">sshRetry:</span> [</span><br><span class="line">								<span class="symbol">retries:</span> <span class="number">0</span>  <span class="comment">//重试次数</span></span><br><span class="line">							]</span><br><span class="line">						   )</span><br><span class="line">						]</span><br><span class="line">					)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cfzy/p/16562925.html#_label1">参考链接</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -816,229 +948,6 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
 <h2 id="业务代码"><a class="header-anchor" href="#业务代码"></a>业务代码</h2>
 <p>核心逻辑就是要把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：“年份”+“成果名称”，然后对每个成果申请文件夹压缩，最后删除临时文件夹。我在代码中也有详细地写注释，业务代码如下所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchDownload</span><span class="params">(HttpServletResponse response, HttpServletRequest request, List&lt;Long&gt; idList)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// 1、参数校验</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(idList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.PARAM_NULL);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 2、设置response相关内容(包括文件名)</span></span><br><span class="line">	<span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">	builder.append(<span class="string">&quot;成果附件&quot;</span>);</span><br><span class="line">	builder.append(DateUtil.getNowDate(<span class="string">&quot;yyyyMMddHHmmss&quot;</span>));</span><br><span class="line">	builder.append(<span class="string">&quot;.zip&quot;</span>);</span><br><span class="line">	<span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span>  HttpHelper.createDownloadFileName(builder.toString());</span><br><span class="line">	response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">	response.setContentType(<span class="string">&quot;application/force-download&quot;</span>);</span><br><span class="line">	response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment; filename=&quot;</span>+fileName);</span><br><span class="line">	<span class="comment">// 3、根据成果主键批量查询成果信息</span></span><br><span class="line">	Map&lt;String,Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">	map.put(<span class="string">&quot;idList&quot;</span>,idList);</span><br><span class="line">	List&lt;AchievementApplication&gt; applicationList = achievementApplicationMapper.queryAchievementApplicationList(map);</span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(applicationList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.DATA_NOT_FOUND);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">	<span class="comment">// 每一个压缩的成果附件路径</span></span><br><span class="line">	List&lt;String&gt; outDirList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span>(AchievementApplication application: applicationList)&#123;</span><br><span class="line">		<span class="keyword">if</span>(StringUtil.isNotEmpty(application.getAttachment()))&#123;</span><br><span class="line">			List&lt;AttachmentFileBo&gt; attachmentFileBoList = attachmentService.listFormalAttachmentFile(application.getAttachment());</span><br><span class="line">			<span class="keyword">if</span>(CollectionUtil.isNotEmpty(attachmentFileBoList))&#123;</span><br><span class="line">				<span class="comment">// 成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">				builder.delete(<span class="number">0</span>,builder.length());</span><br><span class="line">				builder.append(application.getYear());</span><br><span class="line">				builder.append(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">				builder.append(application.getName());</span><br><span class="line">				<span class="comment">// 循环对每个成果申请的所有文件压缩</span></span><br><span class="line">				List&lt;String&gt; fileNameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">				<span class="comment">// 每个成果的临时复制后存放的文件夹，之后对这个文件夹压缩</span></span><br><span class="line">				<span class="type">String</span> <span class="variable">outDir</span> <span class="operator">=</span> attachementUploadUrl+builder.toString();</span><br><span class="line">				<span class="type">File</span> <span class="variable">outDirFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">				outDirFile.mkdirs();</span><br><span class="line">				<span class="keyword">for</span>(AttachmentFileBo fileBo: attachmentFileBoList)&#123;</span><br><span class="line">					<span class="comment">// 每个成果如有重复附件名则不处理</span></span><br><span class="line">					<span class="keyword">if</span>(!fileNameList.contains(fileBo.getFileName()))&#123;</span><br><span class="line">						<span class="type">File</span> <span class="variable">sourceFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(attachementUploadUrl+fileBo.getFileSaveName());</span><br><span class="line">						<span class="keyword">if</span> (!sourceFile.exists()) &#123;</span><br><span class="line">							log.error(<span class="string">&quot;AchievementApplicationServiceImpl.batchDownload附件&#123;&#125;丢失&quot;</span>,fileBo.getFileName());</span><br><span class="line">							<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.ATTACHMENT_LOST, <span class="string">&quot;附件：&quot;</span> + fileBo.getFileName() + <span class="string">&quot;丢失&quot;</span>);</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="comment">// 复制到临时文件夹</span></span><br><span class="line">						<span class="type">File</span> <span class="variable">destinctFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir+<span class="string">&quot;/&quot;</span>+fileBo.getFileName());</span><br><span class="line">						Files.copy(sourceFile.toPath(), destinctFile.toPath());</span><br><span class="line">					&#125;</span><br><span class="line">					fileNameList.add(fileBo.getFileName());</span><br><span class="line">				&#125;</span><br><span class="line">				outDirList.add(outDir);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、对成果申请文件夹压缩</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isNotEmpty(outDirList))&#123;</span><br><span class="line">		ZipUtil.toZip(outDirList, response.getOutputStream(),<span class="literal">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 5、删除临时文件夹</span></span><br><span class="line">	<span class="keyword">for</span>(String outDir: outDirList)&#123;</span><br><span class="line">		<span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">		FileUtils.deleteFile(file);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/coding_notes_eight/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/07/coding_notes_eight/" class="post-title-link" itemprop="url">Java程序猿搬砖笔记(八)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-07 22:25 22:25:00" itemprop="dateCreated datePublished" datetime="2022-06-07T22:25:00+08:00">2022-06-07 22:25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-02 17:55 17:55:00" itemprop="dateModified" datetime="2023-09-02T17:55:00+08:00">2023-09-02 17:55</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>5.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
-<blockquote>
-<p>好记性不如烂笔头</p>
-</blockquote>
-<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
-<!--- more -->
-<h2 id="mybatis的配置打印的是info级别日志-线上环境建议去除"><a class="header-anchor" href="#mybatis的配置打印的是info级别日志-线上环境建议去除"></a>mybatis的配置打印的是info级别日志  线上环境建议去除</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath:mapper/*Mapper.xml</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="comment">#打印sql</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span></span><br><span class="line">    <span class="attr">call-setters-on-nulls:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="MySQL的GROUP-CONCAT给值加上单引号后再拼接"><a class="header-anchor" href="#MySQL的GROUP-CONCAT给值加上单引号后再拼接"></a>MySQL的GROUP_CONCAT给值加上单引号后再拼接</h2>
-<p>语法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> GROUP_CONCAT(<span class="keyword">DISTINCT</span> <span class="string">&#x27;&#x27;&#x27;&#x27;</span>,待拼接字段,<span class="string">&#x27;&#x27;&#x27;&#x27;</span>) <span class="keyword">FROM</span> 表名</span><br></pre></td></tr></table></figure>
-<p>示例代码：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> GROUP_CONCAT(<span class="keyword">DISTINCT</span> <span class="string">&#x27;&#x27;&#x27;&#x27;</span>,company,<span class="string">&#x27;&#x27;&#x27;&#x27;</span>)  <span class="keyword">from</span> t_awards_detail <span class="keyword">WHERE</span> company_type<span class="operator">=</span><span class="string">&#x27;1&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> t_awards_detail <span class="keyword">SET</span> company_type<span class="operator">=</span><span class="string">&#x27;3&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>返回数据：<br>
-‘上海产业研究院’,‘上海公司’,‘上海曦智科技有限公司’</p>
-<h2 id="Linux查询某个进程JVM占用情况"><a class="header-anchor" href="#Linux查询某个进程JVM占用情况"></a>Linux查询某个进程JVM占用情况</h2>
-<p>语法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -gc 进程号  刷新时间</span><br></pre></td></tr></table></figure>
-<p>示例代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 查询进程6126的JVM占用情况 每隔3秒刷新一次</span><br><span class="line">jstat -gc 6126 3000</span><br></pre></td></tr></table></figure>
-<h2 id="Linux查询某个进程CPU、内存占用情况"><a class="header-anchor" href="#Linux查询某个进程CPU、内存占用情况"></a>Linux查询某个进程CPU、内存占用情况</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -H -p 进程<span class="built_in">id</span></span><br></pre></td></tr></table></figure>
-<h2 id="MySQL的concat-、concat-ws-和group-concat-的用法"><a class="header-anchor" href="#MySQL的concat-、concat-ws-和group-concat-的用法"></a>MySQL的concat()、concat_ws()和group_concat()的用法</h2>
-<p>group_concat()对多字段拼接操作示例代码：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">group_concat(column1,<span class="string">&#x27;拼接字符串&#x27;</span>column2 SEPARATOR <span class="string">&#x27;分割字符串&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>例如，筛选不同状态的数量、部门和用户拼接数据sql如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STATUS,<span class="built_in">COUNT</span>(id),GROUP_CONCAT(reply_department,<span class="string">&#x27;-&#x27;</span>,reply_user SEPARATOR <span class="string">&#x27;、&#x27;</span>) </span><br><span class="line"><span class="keyword">FROM</span> t_sub_order <span class="keyword">WHERE</span> main_order_id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> status</span><br></pre></td></tr></table></figure>
-<p>查询结果如下所示：<br>
-<img src="https://img-blog.csdnimg.cn/fcf05241ea0a4b77a0d4f2322b2f17a0.png#pic_center" alt="在这里插入图片描述"><br>
-<a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1595349117525189591&amp;wfr=spider&amp;for=pc">参考链接</a></p>
-<h2 id="Java导出大批量数据的优化过程"><a class="header-anchor" href="#Java导出大批量数据的优化过程"></a>Java导出大批量数据的优化过程</h2>
-<ul>
-<li>使用EasyExcel生成导出文件流</li>
-<li>异步把文件流上传到服务器，成功后更新文件上传状态</li>
-<li>用户去页面下载<br>
-10W+ 的数据从生成Excel文件流到上传只要8秒，原来约要8分钟。<br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wzh2010/p/13528320.html">参考链接</a></li>
-</ul>
-<h2 id="request-getParameter-“ticket”-方法"><a class="header-anchor" href="#request-getParameter-“ticket”-方法"></a>request.getParameter(“ticket”)方法</h2>
-<ul>
-<li>接口传参为form表单格式提交，即Content-Type为application/x-www-form-urlencoded类型</li>
-<li>/web/auth/v1/login/getUserRight?ticket=1234567。<br>
-只有这两种格式可以取到参数,取不到JSON格式的参数。</li>
-</ul>
-<h2 id="MySQL按中文拼音字母排序"><a class="header-anchor" href="#MySQL按中文拼音字母排序"></a>MySQL按中文拼音字母排序</h2>
-<p>如果表字段使用的GBK编码的话，我们可以直接order by value ，因为GBK本身就是按照拼音字母排序ABCDEFGHIGK…，当第一位相同的时候会比较第二位，以此类推。 如果表字段使用的UTF-8编码的话，通常我们都会的编码，这样我们可以使用MySQL的convert方法开转换gbk进行排序。<br>
-举例:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TEST <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">CONVERT</span>(<span class="keyword">value</span> <span class="keyword">USING</span> GBK) <span class="keyword">ASC</span><span class="operator">/</span><span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-<h2 id="自定义排序"><a class="header-anchor" href="#自定义排序"></a>自定义排序</h2>
-<p>自定义排序是根据自己想要的特定字符串（数字）顺序进行排序。<br>
-主要是使用函数 FIELD(str,str1,str2,str3,…)<br>
-MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str1,str2,str3…的顺序输出，如果遇到str为null或者不存在str1,str2,str3…中的情况的则序列为0，<br>
-例1:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TEST <span class="keyword">ORDER</span> <span class="keyword">BY</span> FIELD(<span class="keyword">value</span>,<span class="string">&#x27;test1&#x27;</span>,<span class="string">&#x27;test2&#x27;</span>,<span class="string">&#x27;test3&#x27;</span>,<span class="string">&#x27;test4&#x27;</span>) <span class="keyword">ASC</span><span class="operator">/</span><span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-<p>例2:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TEST <span class="keyword">WHERE</span> <span class="keyword">VALUE</span> <span class="keyword">IN</span>(<span class="string">&#x27;test1&#x27;</span>,<span class="string">&#x27;test2&#x27;</span>,<span class="string">&#x27;test3&#x27;</span>,<span class="string">&#x27;test4&#x27;</span>) <span class="keyword">ORDER</span> <span class="keyword">BY</span> FIELD(<span class="keyword">value</span>,<span class="string">&#x27;test1&#x27;</span>,<span class="string">&#x27;test2&#x27;</span>,<span class="string">&#x27;test3&#x27;</span>,<span class="string">&#x27;test4&#x27;</span>) <span class="keyword">ASC</span><span class="operator">/</span><span class="keyword">DESC</span> </span><br></pre></td></tr></table></figure>
-<h2 id="自定义排序-详细"><a class="header-anchor" href="#自定义排序-详细"></a>自定义排序(详细)</h2>
-<ul>
-<li>case when 转换实现自定义排序</li>
-<li>mysql排序函数filed 实现自定义排序（推荐）</li>
-<li>函数locate 实现自定义排序</li>
-<li>函数lnstr 实现自定义排序</li>
-<li>利用数据字典实现自定义排序</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/quader/article/details/122761023?spm=1001.2101.3001.6650.8&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8.pc_relevant_antiscanv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8.pc_relevant_antiscanv2&amp;utm_relevant_index=12">参考链接</a></p>
-<h2 id="Linux将一个服务器上的文件或者文件夹复制到另一个服务器上"><a class="header-anchor" href="#Linux将一个服务器上的文件或者文件夹复制到另一个服务器上"></a>Linux将一个服务器上的文件或者文件夹复制到另一个服务器上</h2>
-<h3 id="scp命令"><a class="header-anchor" href="#scp命令"></a>scp命令</h3>
-<p><strong>命令语法：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 从本地主机传输文件到远程主机</span><br><span class="line">scp [本地文件路径] [用户名]@[远程主机IP地址]:[目标路径]</span><br><span class="line"></span><br><span class="line">// 从远程主机传输文件到本地主机</span><br><span class="line">scp [用户名]@[远程主机IP地址]:[远程文件路径] [本地目标路径]</span><br><span class="line"></span><br><span class="line">// 传输整个目录</span><br><span class="line">scp -r [本地目录路径] [用户名]@[远程主机IP地址]:[目标路径]</span><br><span class="line"></span><br><span class="line">// 指定端口</span><br><span class="line">scp -P [端口号] [本地文件路径] [用户名]@[远程主机IP地址]:[目标路径]</span><br></pre></td></tr></table></figure>
-<p><strong>示例：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[award_dev@localhost ~]$ scp -r /opt/aspire/product/award_dev/testMove award_dev@10.12.7.182:/home/award_dev/</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host <span class="string">&#x27;10.12.7.182 (10.12.7.182)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">ED25519 key fingerprint is SHA256:2wVRM0wwyLswkz2qgc/osZnRRvMlLRYrOSrHqTUVqVA.</span></span><br><span class="line"><span class="string">This host key is known by the following other names/addresses:</span></span><br><span class="line"><span class="string">    ~/.ssh/known_hosts:1: 10.12.7.124</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added &#x27;</span>10.12.7.182<span class="string">&#x27; (ED25519) to the list of known hosts.</span></span><br><span class="line"><span class="string">award_dev@10.12.7.182&#x27;</span>s password:</span><br></pre></td></tr></table></figure>
-<p>密码输入成功就可以迁移过去，不过存在中文文件名的会有问题(文件名改为了数字且内容为空)。</p>
-<p>解决中文文件名迁移问题：<br>
-1、现在本地机器给待迁移文件夹打压缩包<br>
-命令： tar -zcvf filename.tar.gz dir/file<br>
-2、scp命令迁移到新服务器<br>
-3、在新服务器中解压<br>
-命令： tar -zxvf tarname.tar.gz -C 指定解压后文件存放地址<br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/AnChenliang_1002/article/details/131466784">参考链接1</a>、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shierlou-123/p/11211948.html">参考链接2</a></p>
-<p><strong>如果远程服务器是sftp服务器，用scp命令可能会不成功，这时候需要使用sftp命令传输。</strong></p>
-<h3 id="sftp命令"><a class="header-anchor" href="#sftp命令"></a>sftp命令</h3>
-<p><strong>命令语法:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp -oPort=[端口号] [用户名]@[ip地址]</span><br></pre></td></tr></table></figure>
-<p><strong>使用示例:</strong><br>
-<strong>先进入本机待传文件的目录  -&gt;  用命令连接上远程sftp服务器  -&gt;  进入远程待接收文件的目录 -&gt; put 文件名</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[award_server@localhost jlwz-innovation]$ sftp -oPort=55521 package@10.217.247.13</span><br><span class="line">Authorized only. All activity will be monitored and reported</span><br><span class="line">package@10.217.247.13<span class="string">&#x27;s password:</span></span><br><span class="line"><span class="string">Connected to 10.217.247.13.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">sftp&gt; cd /upload/jlwz/testsftp/</span></span><br><span class="line"><span class="string">sftp&gt; put reward-innovation-1.0.0.1-SNAPSHOT.jar</span></span><br><span class="line"><span class="string">Uploading reward-innovation-1.0.0.1-SNAPSHOT.jar to /upload/jlwz/testsftp/reward-innovation-1.0.0.1                       -SNAPSHOT.jar</span></span><br><span class="line"><span class="string">reward-innovation-1.0.0.1-SNAPSHOT.jar                                                  100%  221MB   1.8MB/s   02:02    s</span></span><br><span class="line"><span class="string">sftp&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="spring占位符打印日志"><a class="header-anchor" href="#spring占位符打印日志"></a>spring占位符打印日志</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="type">int</span> <span class="variable">zero</span> <span class="operator">=</span> <span class="number">2</span>/<span class="number">0</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">	log.error(<span class="string">&quot;测试占位符打印日志,&#123;&#125;,&#123;&#125;&quot;</span>,<span class="literal">null</span>,b,e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>1、前面的参数必须和占位符一一对应。<br>
-2、最后面参数是异常信息可以打印，非异常信息不会打印。<br>
-3、占位符的值可以为null。</p>
-<h2 id="Linux复制文件夹下面的所有文件到另一个文件夹"><a class="header-anchor" href="#Linux复制文件夹下面的所有文件到另一个文件夹"></a>Linux复制文件夹下面的所有文件到另一个文件夹</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r 当前路径/* 目标路径</span><br></pre></td></tr></table></figure>
-<p>注意：目标路径必须先存在。<br>
-例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /home/award_dev/nginx-1.20.2/conf/* /usr/local/nginx/conf</span><br></pre></td></tr></table></figure>
-<h2 id="Nginx指定安装位置"><a class="header-anchor" href="#Nginx指定安装位置"></a>Nginx指定安装位置</h2>
-<p>默认位置是/usr/local/nginx，需要进入nginx-1.20.2目录后执行下面的命令<br>
-./configure --prefix=/home/award_dev/nginx<br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_38783046/article/details/120790092">参考链接</a></p>
-<h2 id="Nginx安装步骤"><a class="header-anchor" href="#Nginx安装步骤"></a>Nginx安装步骤</h2>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cainiaoyige1/p/15785911.html">参考链接</a></p>
-<h2 id="Linux查看端口"><a class="header-anchor" href="#Linux查看端口"></a>Linux查看端口</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp | grep 8888</span><br></pre></td></tr></table></figure>
-<h2 id="SpringBoot-Vue-js前后端分离实现大文件分块上传"><a class="header-anchor" href="#SpringBoot-Vue-js前后端分离实现大文件分块上传"></a>SpringBoot+Vue.js前后端分离实现大文件分块上传</h2>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiahj/p/15950975.html#%E8%83%BD%E4%B8%8D%E8%83%BD%E7%BB%99%E4%B8%8B%E5%90%8E%E7%AB%AF%E4%BB%A3%E7%A0%81">参考链接</a></p>
-<h2 id="Java-8-Predicate"><a class="header-anchor" href="#Java-8-Predicate"></a>Java 8 Predicate</h2>
-<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/211959.htm">参考链接</a></p>
-<h2 id="SpringCloud读取配置中心配置"><a class="header-anchor" href="#SpringCloud读取配置中心配置"></a>SpringCloud读取配置中心配置</h2>
-<p>需要引入下面的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- bootstrap依赖，加载bootstrap.yml--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bootstrap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>客户端添加spring-cloud-starter-config依赖后 会默认最高优先级读取(即使bootstrap.yml不配置)localhost:8888链接下的application.yml配置。<br>
-具体可以通过http://10.12.7.182:8888/应用名(对应bootstrap引导文件中的config.name配置)/profile 访问查看读取的配置  例如：http://10.12.7.182:8888/webbas32-gateway-v1/dev<br>
-或者直接访问文件 http://10.12.7.182:8888/webbas32-application-gateway-v1-dev.yml<br>
-<strong>spring-cloud-starter-bootstrap依赖非必须</strong><br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fengzheng/p/11242128.html">参考链接</a></p>
-<h2 id="SpringBoot的jasypt加解密"><a class="header-anchor" href="#SpringBoot的jasypt加解密"></a>SpringBoot的jasypt加解密</h2>
-<p>StringEncryptor类中有加解密方法<br>
-配置文件配置ENC(“密文”)后，@Value注解可以自动解密<br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/mihutao/p/16174167.html">参考链接1</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42320804/article/details/122940896">参考链接2</a></p>
 
       
     </div>
