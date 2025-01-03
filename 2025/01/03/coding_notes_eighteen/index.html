@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/custom/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+    <meta name="description" content="MySQL索引命名规范、索引使用规范 索引命名规范：  索引名必须全部使用小写。 非唯一索引按照“idx_字段名称[_字段名称]”进用行命名。例如idx_age_name。 唯一索引按照“uniq_字段名称[_字段名称]”进用行命名。例如uniq_age_name。 组合索引建议包含所有字段名,过长的字段名可以采用缩写形式。例如idx_age_name_add。  索引使用规范：  单张表中索引数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序猿搬砖笔记(十八)">
+<meta property="og:url" content="http://yoursite.com/2025/01/03/coding_notes_eighteen/index.html">
+<meta property="og:site_name" content="Chuenhung的个人网站">
+<meta property="og:description" content="MySQL索引命名规范、索引使用规范 索引命名规范：  索引名必须全部使用小写。 非唯一索引按照“idx_字段名称[_字段名称]”进用行命名。例如idx_age_name。 唯一索引按照“uniq_字段名称[_字段名称]”进用行命名。例如uniq_age_name。 组合索引建议包含所有字段名,过长的字段名可以采用缩写形式。例如idx_age_name_add。  索引使用规范：  单张表中索引数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d117c7098a3e92f36f66f9125250c7a8.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4655914826aa72ba6ac744994329d66f.png">
+<meta property="article:published_time" content="2025-01-03T09:50:00.000Z">
+<meta property="article:modified_time" content="2025-01-03T09:50:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/d117c7098a3e92f36f66f9125250c7a8.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2025/01/03/coding_notes_eighteen/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2025/01/03/coding_notes_eighteen/","path":"2025/01/03/coding_notes_eighteen/","title":"Java程序猿搬砖笔记(十八)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java程序猿搬砖笔记(十八) | Chuenhung的个人网站</title>
+  
+
+
+
+
+
+
+
+<!--图片防盗链-->
+<meta name="referrer" content="no-referrer">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<!-- 引入jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 页面点击文字 -->
+<script type="text/javascript" src="/js/click-text.js"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chuenhung的个人网站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">chuenhung.github.io</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E7%B4%A2%E5%BC%95%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E3%80%81%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">MySQL索引命名规范、索引使用规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E4%BD%BF%E7%94%A8-Lazy%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">SpringBoot使用@Lazy解决循环依赖问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E7%9A%846%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">SpringBoot循环依赖的6种解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">Nginx超时时间设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E7%BB%9F%E8%AE%A1%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%AA%E6%95%B0%E3%80%81%E7%9B%AE%E5%BD%95%E4%B8%AA%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">Linux统计当前文件夹下的文件个数、目录个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">Linux查看内存使用情况命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E6%9B%B4%E6%8D%A2%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="nav-number">7.</span> <span class="nav-text">Git更换远程仓库地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TPS%E3%80%81QPS%E3%80%81RT%E3%80%81%E5%90%9E%E5%90%90%E9%87%8F%E3%80%81%E6%9C%80%E4%BD%B3%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">8.</span> <span class="nav-text">TPS、QPS、RT、吞吐量、最佳线程数量的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%E6%9B%B4%E6%96%B0"><span class="nav-number">9.</span> <span class="nav-text">MySQL多表联合更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E5%92%8Cmybatis%E4%B8%AD-Param%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">10.</span> <span class="nav-text">Spring和mybatis中@Param注解的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-jedis%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="nav-number">11.</span> <span class="nav-text">Spring jedis集群配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">12.</span> <span class="nav-text">MySQL存储过程学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%A0%87"><span class="nav-number">12.1.</span> <span class="nav-text">游标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">12.2.</span> <span class="nav-text">条件处理程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.</span> <span class="nav-text">MySQL存储函数和存储过程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E6%89%80%E6%9C%89%E5%AD%97%E6%AE%B5%E5%B9%B6%E7%94%A8%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94"><span class="nav-number">14.</span> <span class="nav-text">MySQL查询数据库表的所有字段并用逗号分隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E4%B8%BAnull%E6%97%B6%EF%BC%8C%E8%BF%94%E5%9B%9E%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93"><span class="nav-number">15.</span> <span class="nav-text">Mybatis查询数据为null时，返回情况总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chuenhung"
+      src="/images/custom/headportrait.jpeg">
+  <p class="site-author-name" itemprop="name">Chuenhung</p>
+  <div class="site-description" itemprop="description">技术实践笔记，助力编程成长。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/01/03/coding_notes_eighteen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java程序猿搬砖笔记(十八) | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java程序猿搬砖笔记(十八)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-03 17:50 17:50:00" itemprop="dateCreated datePublished" datetime="2025-01-03T17:50:00+08:00">2025-01-03 17:50</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="MySQL索引命名规范、索引使用规范"><a class="header-anchor" href="#MySQL索引命名规范、索引使用规范"></a>MySQL索引命名规范、索引使用规范</h2>
+<p><strong>索引命名规范：</strong></p>
+<ul>
+<li>索引名必须全部使用小写。</li>
+<li>非唯一索引按照“idx_字段名称[_字段名称]”进用行命名。例如idx_age_name。</li>
+<li>唯一索引按照“uniq_字段名称[_字段名称]”进用行命名。例如uniq_age_name。</li>
+<li>组合索引建议包含所有字段名,过长的字段名可以采用缩写形式。例如idx_age_name_add。</li>
+</ul>
+<p><strong>索引使用规范：</strong></p>
+<ul>
+<li>单张表中索引数量不超过5个。</li>
+<li>单个索引中的字段数不超过5个。</li>
+<li>表必须有主键,推荐使用UNSIGNED自增列作为主键。</li>
+<li>唯一键由3个以下字段组成,并且字段都是(整)(形)(时),可使用唯一键作为主键。其他情况下,建议使用自增列或发号器作主键。</li>
+<li>联表查询时,JOIN列的数据类型必须相同,关联字段要建立索引。</li>
+<li>不在低基数列上建立索引,例如“性别”。</li>
+<li>选择区分度大的列建立索引。组合索引中,区分度大的字段放在最前。</li>
+<li>对字符串使用前缀索引,前缀索引长度不超过8个字符。</li>
+<li>不对过长的VARCHAR字段建立索引。建议优先考虑前缀索引,或添加CRC32或MD5伪列并建立索引。</li>
+<li>合理创建联合索引,(a,b,c) 相当于 (a) 、(a,b) 、(a,b,c)。</li>
+<li>合理使用覆盖索引减少磁盘IO,避免文件系统排序。</li>
+<li>禁止冗余索引。</li>
+<li>禁止重复索引。</li>
+<li>禁止使用外键。</li>
+</ul>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://huaweicloud.csdn.net/63355e83d3efff3090b5463a.html?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-113207864-blog-109110252.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-113207864-blog-109110252.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=13">参考链接</a></p>
+<h2 id="SpringBoot使用-Lazy解决循环依赖问题"><a class="header-anchor" href="#SpringBoot使用-Lazy解决循环依赖问题"></a>SpringBoot使用@Lazy解决循环依赖问题</h2>
+<p>@Lazy注解可以用于延迟初始化Bean，从而避免循环依赖。当一个Bean被标记为@Lazy时，它将在第一次使用时才被初始化。</p>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Lazy</span></span><br><span class="line">    <span class="keyword">private</span> B b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot循环依赖的6种解决方案"><a class="header-anchor" href="#SpringBoot循环依赖的6种解决方案"></a>SpringBoot循环依赖的6种解决方案</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lisheng19870305/article/details/134001752?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=SpringBoot%20allowCircularRefere&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~sobaiduweb~default-0-134001752.142%5Ev96%5Epc_search_result_base6&amp;spm=1018.2226.3001.4450">参考链接</a></p>
+<h2 id="Nginx超时时间设置"><a class="header-anchor" href="#Nginx超时时间设置"></a>Nginx超时时间设置</h2>
+<p>1、send_timeout?<br>
+发送数据至客户端超时, 默认60s, 如果连续的60s内客户端没有收到1个字节, 连接关闭<br>
+2、proxy_connect_timeout<br>
+Nginx与upstream server的连接超时时间<br>
+3、proxy_read_timeout<br>
+Nginx接收upstream server数据超时, 默认60s, 如果连续的60s内没有收到1个字节, 连接关闭<br>
+4、proxy_send_timeout<br>
+Nginx发送数据至upstream server超时, 默认60s, 如果连续的60s内没有发送1个字节, 连接关闭</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d117c7098a3e92f36f66f9125250c7a8.png" alt="在这里插入图片描述"></p>
+<p><strong>这几个配置放在location、server、http都可以，Nginx会取最小值。</strong><br>
+<strong>windows环境超时时间配置无效，原因未知</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lemon-flm/p/8352194.html">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44188105/article/details/129612184?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-129612184-blog-82863698.235%5Ev38%5Epc_relevant_anti_t3&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">参考链接</a></p>
+<h2 id="Linux统计当前文件夹下的文件个数、目录个数"><a class="header-anchor" href="#Linux统计当前文件夹下的文件个数、目录个数"></a>Linux统计当前文件夹下的文件个数、目录个数</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 统计当前文件夹下文件的个数，不包括子文件夹里的</span><br><span class="line"><span class="built_in">ls</span> -l |grep <span class="string">&quot;^-&quot;</span>|<span class="built_in">wc</span> -l</span><br><span class="line">// 统计当前文件夹下文件的个数，包括子文件夹里的</span><br><span class="line"><span class="built_in">ls</span> -lR|grep <span class="string">&quot;^-&quot;</span>|<span class="built_in">wc</span> -l</span><br><span class="line">// 统计当前文件夹下目录(子文件夹)的个数，不包括子文件夹里的</span><br><span class="line"><span class="built_in">ls</span> -l |grep <span class="string">&quot;^d&quot;</span>|<span class="built_in">wc</span> -l</span><br><span class="line">// 统计文件夹下目录(子文件夹)的个数，包括子文件夹里的</span><br><span class="line"><span class="built_in">ls</span> -lR|grep <span class="string">&quot;^d&quot;</span>|<span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>
+<strong>ls -l :</strong><br>
+长列表输出当前文件夹下文件信息(注意这里的文件，不同于一般的文件，可能是目录、链接、设备文件等);<br>
+<strong>grep “^-”  :</strong><br>
+这里将长列表输出信息过滤一部分，只保留一般文件，如果只保留目录就是 ^d<br>
+<strong>wc -l  :</strong><br>
+统计输出信息的行数，因为已经过滤得只剩一般文件了，所以统计结果就是一般文件信息的行数，又由于一行信息对应一个文件，所以也就是文件的个数。</p>
+<h2 id="Linux查看内存使用情况命令"><a class="header-anchor" href="#Linux查看内存使用情况命令"></a>Linux查看内存使用情况命令</h2>
+<p>1、free -h<br>
+2、cat /proc/meminfo<br>
+3、top</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/renfufei/article/details/105851728">参考链接</a></p>
+<h2 id="Git更换远程仓库地址"><a class="header-anchor" href="#Git更换远程仓库地址"></a>Git更换远程仓库地址</h2>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d79f59da6ec6">参考链接</a></p>
+<h2 id="TPS、QPS、RT、吞吐量、最佳线程数量的理解"><a class="header-anchor" href="#TPS、QPS、RT、吞吐量、最佳线程数量的理解"></a>TPS、QPS、RT、吞吐量、最佳线程数量的理解</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shipfei_csdn/article/details/103225517?spm=1001.2101.3001.6650.5&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-5-103225517-blog-117917333.235%5Ev39%5Epc_relevant_3m_sort_dl_base2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-5-103225517-blog-117917333.235%5Ev39%5Epc_relevant_3m_sort_dl_base2&amp;utm_relevant_index=10">性能指标：QPS、TPS、系统吞吐量理解</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/a745233700/article/details/117917333">两分钟读懂什么是TPS和QPS</a></p>
+<h2 id="MySQL多表联合更新"><a class="header-anchor" href="#MySQL多表联合更新"></a>MySQL多表联合更新</h2>
+<p><strong>示例：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> jx_org_sequence_grade g, sys_org_tbl o</span><br><span class="line"><span class="keyword">set</span>  g.org_id <span class="operator">=</span> o.id </span><br><span class="line"><span class="keyword">where</span> g.org_name <span class="operator">=</span> o.name;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012604745/article/details/80642015?spm=1001.2014.3001.5506">参考链接</a></p>
+<h2 id="Spring和mybatis中-Param注解的区别"><a class="header-anchor" href="#Spring和mybatis中-Param注解的区别"></a>Spring和mybatis中@Param注解的区别</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangooo/article/details/109878948">参考链接</a></p>
+<h2 id="Spring-jedis集群配置"><a class="header-anchor" href="#Spring-jedis集群配置"></a>Spring jedis集群配置</h2>
+<p><strong>配置文件：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># reids配置</span></span><br><span class="line"><span class="attr">spring.redis:</span></span><br><span class="line">  <span class="attr">prefix:</span> <span class="string">cxhl-dev</span></span><br><span class="line">  <span class="attr">cluster:</span></span><br><span class="line">    <span class="attr">nodes:</span> <span class="number">10.12</span><span class="number">.12</span><span class="number">.222</span><span class="string">:6379,10.12.12.222:6380,10.12.12.222:6381</span> <span class="comment">#集群节点</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">ENC(BTYyu7j+9vA+v+0lEL388NGzQvU1J8I/)</span>     <span class="comment">#密码</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">jedis:</span></span><br><span class="line">    <span class="attr">pool:</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">10</span>  <span class="comment">#连接池最大连接数</span></span><br><span class="line">      <span class="attr">max-idle:</span> <span class="number">8</span>     <span class="comment">#连接池中最大空闲连接数</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">0</span>    <span class="comment">#连接池中最小空闲数</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">5000</span>      <span class="comment">#访问超时时间</span></span><br></pre></td></tr></table></figure>
+<p><strong>配置类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Redis缓存配置类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> <span class="keyword">extends</span> <span class="title class_">CachingConfigurerSupport</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.cluster.nodes&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; nodeSet;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.password&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.timeout&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> timeout;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.jedis.pool.max-active&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxActive;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.jedis.pool.max-idle&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxIdle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.redis.jedis.pool.min-idle&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> minIdle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JedisCluster <span class="title function_">redisCluster</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置redis集群的节点信息</span></span><br><span class="line">        Set&lt;HostAndPort&gt; nodes =nodeSet.stream().map(node -&gt; &#123;</span><br><span class="line">            String[] nodeInfo = node.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (nodeInfo.length == <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">HostAndPort</span>(nodeInfo[<span class="number">0</span>], Integer.parseInt(nodeInfo[<span class="number">1</span>]));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">HostAndPort</span>(nodeInfo[<span class="number">0</span>], <span class="number">6379</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).collect(Collectors.toSet());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 配置连接池</span></span><br><span class="line">        <span class="type">JedisPoolConfig</span> <span class="variable">jedisPoolConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPoolConfig</span>();</span><br><span class="line">        jedisPoolConfig.setMaxTotal(maxActive);</span><br><span class="line">        jedisPoolConfig.setMaxIdle(maxIdle);</span><br><span class="line">        jedisPoolConfig.setMinIdle(minIdle);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建jediscluster，传入节点列表和连接池配置</span></span><br><span class="line">        <span class="type">JedisCluster</span> <span class="variable">cluster</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisCluster</span>(nodes,timeout,timeout,<span class="number">3</span>, password,jedisPoolConfig);</span><br><span class="line">        log.info(<span class="string">&quot;RedisConfig 集群信息：&#123;&#125;&quot;</span>,cluster);</span><br><span class="line">        <span class="keyword">return</span> cluster;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MySQL存储过程学习"><a class="header-anchor" href="#MySQL存储过程学习"></a>MySQL存储过程学习</h2>
+<h3 id="游标"><a class="header-anchor" href="#游标"></a>游标</h3>
+<ul>
+<li><strong>局部变量定义要在游标之前</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> uname <span class="type">varchar</span>(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">declare</span> upro <span class="type">varchar</span>(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">declare</span> u_cursor <span class="keyword">cursor</span> <span class="keyword">for</span> <span class="keyword">select</span> name,profession <span class="keyword">from</span> tb_user <span class="keyword">where</span> age <span class="operator">&lt;=</span> uage;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>把游标中获取到的值赋值给变量</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fetch</span> u_cursor <span class="keyword">into</span> uname,upro;</span><br></pre></td></tr></table></figure>
+<h3 id="条件处理程序"><a class="header-anchor" href="#条件处理程序"></a>条件处理程序</h3>
+<p><strong>语法：</strong><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/4655914826aa72ba6ac744994329d66f.png" alt="在这里插入图片描述"></p>
+<p><strong>示例：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 声明条件处理程序 ： 当SQL语句执行抛出的状态码为02000时，将关闭游标u_cursor，并退出</span></span><br><span class="line"><span class="keyword">declare</span> exit handler <span class="keyword">for</span> <span class="keyword">SQLSTATE</span> <span class="string">&#x27;02000&#x27;</span> <span class="keyword">close</span> u_cursor;</span><br></pre></td></tr></table></figure>
+<h2 id="MySQL存储函数和存储过程的区别"><a class="header-anchor" href="#MySQL存储函数和存储过程的区别"></a>MySQL存储函数和存储过程的区别</h2>
+<ul>
+<li>存储函数的输入参数只能是in</li>
+<li>存储函数必须有返回值，所以使用很少</li>
+<li>存储函数能做的，存储过程都可以做</li>
+</ul>
+<p><font color="blue">参考：黑马程序的MySQL-进阶篇.pdf</font></p>
+<h2 id="MySQL查询数据库表的所有字段并用逗号分隔"><a class="header-anchor" href="#MySQL查询数据库表的所有字段并用逗号分隔"></a>MySQL查询数据库表的所有字段并用逗号分隔</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 按ordinal_position 字段排序</span></span><br><span class="line"><span class="keyword">select</span> group_concat(column_name <span class="keyword">order</span> <span class="keyword">by</span> ordinal_position <span class="keyword">asc</span>)</span><br><span class="line"><span class="keyword">from</span> information_schema.columns</span><br><span class="line"><span class="keyword">where</span> table_schema <span class="operator">=</span><span class="string">&#x27;数据库&#x27;</span> <span class="keyword">and</span>  table_name <span class="operator">=</span> <span class="string">&#x27;表名&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>group_concat函数语法：</strong><br>
+group_concat( [distinct] 要连接的字段 [order by 排序字段 asc/desc ] [separator ‘分隔符’] )<br>
+默认就是’,'号分割。</p>
+<h2 id="Mybatis查询数据为null时，返回情况总结"><a class="header-anchor" href="#Mybatis查询数据为null时，返回情况总结"></a>Mybatis查询数据为null时，返回情况总结</h2>
+<ul>
+<li>返回类型为<strong>集合类型</strong>，返回一个空集合(大小为0，非null)，避免空指针异常</li>
+<li>返回类型为<strong>基本类型(int、long)</strong>，会抛空指针异常。</li>
+<li>-返回类型为<strong>基本类型的包装类型(Integer、Long)</strong>，返回null</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/custom/wechat.jpg" alt="Chuenhung 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/custom/aliPay.jpg" alt="Chuenhung 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+              <a href="/tags/Nginx/" rel="tag"><i class="fa fa-tag"></i> Nginx</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/28/springdoc_openapi_ui_default_page/" rel="prev" title="解决springdoc-openapi-ui(Swagger3)跳转默认界面问题">
+                  <i class="fa fa-angle-left"></i> 解决springdoc-openapi-ui(Swagger3)跳转默认界面问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <!--增加居中样式-->
+  <div class="copyright" style="text-align: center;">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <!--<i class="heart"></i>-->
+	  <i class="fa fa-heart" style="color:red;"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+	
+</body>
+</html>
+
+

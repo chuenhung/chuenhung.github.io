@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,6 +199,219 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/network_connection_mode_of_VirtualBox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/06/network_connection_mode_of_VirtualBox/" class="post-title-link" itemprop="url">VirtualBox网络连接方式学习笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-06 22:30 22:30:00" itemprop="dateCreated datePublished" datetime="2022-11-06T22:30:00+08:00">2022-11-06 22:30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="VirtualBox的7种网络接入模式详解"><a class="header-anchor" href="#VirtualBox的7种网络接入模式详解"></a>VirtualBox的7种网络接入模式详解</h2>
+<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/243423.htm">参考链接</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/403513377">参考链接</a></p>
+<h2 id="各网络模式的默认情况下，网络连接情况"><a class="header-anchor" href="#各网络模式的默认情况下，网络连接情况"></a>各网络模式的默认情况下，网络连接情况</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">NAT模式</th>
+<th style="text-align:center">桥接模式</th>
+<th style="text-align:center">Host-Only模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">虚拟机 -&gt; 宿主机</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">默认不能，需要设置</td>
+</tr>
+<tr>
+<td style="text-align:center">宿主机 ——&gt; 虚拟机</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">默认不能，需要设置</td>
+</tr>
+<tr>
+<td style="text-align:center">虚拟机 ——&gt; 虚拟机</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">虚拟机 ——&gt; 同局域网下其他主机</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">默认不能，需要设置</td>
+</tr>
+<tr>
+<td style="text-align:center">同局域网下其他主机 ——&gt; 虚拟机</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">默认不能，需要设置</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mysticbinary/p/16595169.html">参考链接</a></p>
+<!--- more -->
+<h2 id="配置网络地址转换-NAT-模式"><a class="header-anchor" href="#配置网络地址转换-NAT-模式"></a>配置网络地址转换(NAT)模式</h2>
+<p>NAT模式下，宿主机访问虚拟机，虚拟机可以访问宿主机，虚拟机可以访问互联网。</p>
+<h3 id="访问外网"><a class="header-anchor" href="#访问外网"></a>访问外网</h3>
+<p><strong>选择对应虚拟机 -&gt; 设置 -&gt; 网络 -&gt; 选择连接方式为NAT -&gt; 选择控制芯片</strong><br>
+<img src="https://img-blog.csdnimg.cn/f6464bfa79a0413ba37fcdb2e7eca3cc.png#pic_center" alt="在这里插入图片描述"><br>
+这样配置以后，启动虚拟机，执行<strong>ping www.baidu.com</strong>有响应说明配置成功。如果没有响应换一个控制芯片试试，上图框红的两个控制芯片是可以的。</p>
+<h3 id="宿主机访问虚拟机"><a class="header-anchor" href="#宿主机访问虚拟机"></a>宿主机访问虚拟机</h3>
+<p>配置步骤如下：<br>
+<strong>选择对应虚拟机 -&gt; 设置 -&gt; 网络 -&gt; 端口转发(主机为222,子系统为22,其他不用填)</strong><br>
+<img src="https://img-blog.csdnimg.cn/fed6d3b1eafe42d7b500bcb985b0b2fc.png#pic_center" alt="在这里插入图片描述"><br>
+<strong>配置完重启虚拟机后</strong>，宿主机访问虚拟机连接如下：<br>
+<img src="https://img-blog.csdnimg.cn/18cde0da7c254065b60d61af3f6a3ee3.png#pic_center" alt="在这里插入图片描述"><br>
+<strong>注意，这种模式文件传输非常慢，本地上传一个10多KB的文件到虚拟机花费差不多2分钟。</strong></p>
+<h2 id="配置桥接模式"><a class="header-anchor" href="#配置桥接模式"></a>配置桥接模式</h2>
+<p>桥接模式下，虚拟机和宿主机在同一网段，虚拟机可以访问外网，宿主机可以访问虚拟机，虚拟机可以访问宿主机同一局域网的其他机器。具体配置步骤如下所示：</p>
+<h3 id="网络连接方式设置"><a class="header-anchor" href="#网络连接方式设置"></a>网络连接方式设置</h3>
+<p><img src="https://img-blog.csdnimg.cn/09e6b6f3e3df4465843f39dbde66865e.png" alt="在这里插入图片描述"><br>
+<strong>这里的MAC地址和网卡配置文件的HWADDR一致</strong>，否则会重启网络服务失败。<br>
+确定界面名称是网络的适配器，一般默认的没问题。<br>
+<img src="https://img-blog.csdnimg.cn/486d1c198ebb41c8922fb7c1b93a811e.png" alt="在这里插入图片描述"><br>
+<strong>配置完桥接模式，启动虚拟机，网络就是通的，只是IP不固定。</strong></p>
+<h3 id="修改网卡配置文件"><a class="header-anchor" href="#修改网卡配置文件"></a>修改网卡配置文件</h3>
+<p>这一步的目的是固定虚拟机的IP地址。<br>
+<strong>先查看宿主机的网络信息：</strong><br>
+<img src="https://img-blog.csdnimg.cn/d6f41cc89bb3475ca119b14da37d09dd.png" alt="在这里插入图片描述"><br>
+<strong>修改虚拟机的网卡配置文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line"><span class="comment"># 改为静态</span></span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=<span class="built_in">yes</span></span><br><span class="line">IPV6_AUTOCONF=<span class="built_in">yes</span></span><br><span class="line">IPV6_DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line"><span class="comment"># 和ifcfg-enpXXX名一致</span></span><br><span class="line">NAME=enp0s3</span><br><span class="line"><span class="comment"># 可以不写，但是写了就不能和其他网卡相同。可以用uuidgen命令生成。</span></span><br><span class="line">UUID=40263cbd-6ed4-497c-9321-7326e27d4a29</span><br><span class="line"><span class="comment"># 和ifcfg-enpXXX名一致</span></span><br><span class="line">DEVICE=enp0s3</span><br><span class="line"><span class="comment"># 改为yes，即开机</span></span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line"><span class="comment"># 和宿主机在同一网段不同ip</span></span><br><span class="line">IPADDR=10.1.18.156</span><br><span class="line"><span class="comment"># 和宿主机保持一致，否则会重启失败</span></span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line"><span class="comment"># 和宿主机保持一致，否则会重启失败</span></span><br><span class="line">GATEWAY=10.1.18.1</span><br><span class="line"><span class="comment"># 可以注销，不然得写正确，否则会重启失败</span></span><br><span class="line">HWADDR=08:00:27:CB:CB:8E</span><br><span class="line"><span class="comment"># 不要写宿主机的字符串！可以网上查一个服务器，下面用的Google的DNS服务器</span></span><br><span class="line">DNS1=8.8.8.8</span><br></pre></td></tr></table></figure>
+<h3 id="测试网络"><a class="header-anchor" href="#测试网络"></a>测试网络</h3>
+<p>配置正常后，直接ping www.baidu.com就可以联通了。宿主机访问虚拟机，连接方式如下：<br>
+<img src="https://img-blog.csdnimg.cn/68e01f621947457cbff55ca3a9f900e2.png" alt="在这里插入图片描述"></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45536587/article/details/124279045">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42383970/article/details/119001039">参考链接</a></p>
+<h2 id="NAT-HostOnly模式组合"><a class="header-anchor" href="#NAT-HostOnly模式组合"></a>NAT+HostOnly模式组合</h2>
+<h3 id="设置主机网络管理器"><a class="header-anchor" href="#设置主机网络管理器"></a>设置主机网络管理器</h3>
+<p><img src="https://img-blog.csdnimg.cn/bbe88d6d2895494aad40a8f811cff06d.png" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/ff9639ed1a1d4cf296d3b8be442d834c.png" alt="在这里插入图片描述"><br>
+这个是VirtualBox的默认设置，不是这个可以改为这个，后续配置文件就不需要改了。</p>
+<h3 id="网络连接方式设置-v2"><a class="header-anchor" href="#网络连接方式设置-v2"></a>网络连接方式设置</h3>
+<p><img src="https://img-blog.csdnimg.cn/0f2bbac4c0d74df693e614b46052bee0.png" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/4802c34db2bb4ddaa818d732767070a9.png" alt="在这里插入图片描述"><br>
+设置好后，启动虚拟机。</p>
+<h3 id="虚拟机网卡配置文件修改"><a class="header-anchor" href="#虚拟机网卡配置文件修改"></a>虚拟机网卡配置文件修改</h3>
+<p><strong>Nat模式启动虚拟机就可以访问外网，直接ping www.baidu.com是可以连通的。</strong></p>
+<h4 id="修改默认网卡配置文件-NAT"><a class="header-anchor" href="#修改默认网卡配置文件-NAT"></a>修改默认网卡配置文件(NAT)</h4>
+<p>先用<strong>ip route</strong>命令查看网卡配置文件，如下可以看到默认配置文件是/etc/sysconfig/network-scripts/<strong>ifcfg-enp0s17</strong>,如果该配置文件命名不一致需要修改，并修改里面内容的名称。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip route</span><br><span class="line">default via 10.0.2.2 dev enp0s17 proto dhcp metric 101</span><br><span class="line">10.0.2.0/24 dev enp0s17 proto kernel scope <span class="built_in">link</span> src 10.0.2.15 metric 101</span><br><span class="line">192.168.56.0/24 dev enp0s8 proto kernel scope <span class="built_in">link</span> src 192.168.56.102 metric 100</span><br></pre></td></tr></table></figure>
+<p>然后<strong>修改&quot;ONBOOT=yes&quot;</strong>,修改后配置文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=<span class="built_in">yes</span></span><br><span class="line">IPV6_AUTOCONF=<span class="built_in">yes</span></span><br><span class="line">IPV6_DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s17</span><br><span class="line">UUID=2f3b7238-96e2-4aa2-9a78-17270e4b8f5d</span><br><span class="line">DEVICE=enp0s17</span><br><span class="line"><span class="comment"># 设置为yes</span></span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改网卡2配置文件-HostOnly"><a class="header-anchor" href="#修改网卡2配置文件-HostOnly"></a>修改网卡2配置文件(HostOnly)</h4>
+<p>网卡2为HostOnly网络连接模式的配置文件，需要设置为静态ip，修改后的配置文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">TYPE=<span class="string">&quot;Ethernet&quot;</span></span><br><span class="line">PROXY_METHOD=<span class="string">&quot;none&quot;</span></span><br><span class="line">BROWSER_ONLY=<span class="string">&quot;no&quot;</span></span><br><span class="line"><span class="comment"># BOOTPROTO改为static，意为静态模式</span></span><br><span class="line">BOOTPROTO=<span class="string">&quot;static&quot;</span></span><br><span class="line">DEFROUTE=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV4_FAILURE_FATAL=<span class="string">&quot;no&quot;</span></span><br><span class="line">IPV6INIT=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_AUTOCONF=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_DEFROUTE=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_FAILURE_FATAL=<span class="string">&quot;no&quot;</span></span><br><span class="line">IPV6_ADDR_GEN_MODE=<span class="string">&quot;stable-privacy&quot;</span></span><br><span class="line"><span class="comment"># NAME改为enp0s8，和文件名称后缀ifcfg-xxx保持一致。和ip route中的网卡2后缀一致。</span></span><br><span class="line">NAME=<span class="string">&quot;enp0s8&quot;</span></span><br><span class="line"><span class="comment"># 可以不写，但是写了就不能和其他网卡相同。可以用uuidgen命令生成。</span></span><br><span class="line">UUID=<span class="string">&quot;87a8c150-3d1a-4111-97aa-816692dcf504&quot;</span></span><br><span class="line"><span class="comment"># DEVICE改为enp0s8，和文件名称后缀ifcfg-xxx保持一致。和ip route中的网卡2后缀一致。</span></span><br><span class="line">DEVICE=<span class="string">&quot;enp0s8&quot;</span></span><br><span class="line">ONBOOT=<span class="string">&quot;yes&quot;</span></span><br><span class="line"><span class="comment"># IPADDR需要在指定的IP范围内（可以在VirtualBox主机网络配置管理器DHCP服务器中查看）</span></span><br><span class="line">IPADDR=192.168.56.102</span><br><span class="line"><span class="comment"># NETMASK也和指定的服务器子网掩码一致（可以在VirtualBox主机网络配置管理器DHCP服务器中查看）</span></span><br><span class="line">NETMASK=255.255.255.0</span><br></pre></td></tr></table></figure>
+<h3 id="宿主机通过静态ip-HostOnly方式-访问虚拟机"><a class="header-anchor" href="#宿主机通过静态ip-HostOnly方式-访问虚拟机"></a>宿主机通过静态ip(HostOnly方式)访问虚拟机</h3>
+<p><img src="https://img-blog.csdnimg.cn/1615e2a9be62477998cdb2a194134797.png" alt="在这里插入图片描述"><br>
+经测试，这种模式文件传输非常快。</p>
+<p><strong>NAT+HostOnly模式与桥接模式不同的是，IPADDR、网关的配置。</strong></p>
+<ul>
+<li>NAT+HostOnly模式不用配置网关，IPADDR参考的是VirtualBox主机网络配置</li>
+<li>桥接模式要配置网关，IPADDR参考的是config/all命令返回的配置</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/y1534414425/article/details/122347295">参考链接</a></p>
+<h2 id="碰到问题"><a class="header-anchor" href="#碰到问题"></a>碰到问题</h2>
+<h3 id="使用service-network-restart命令失败，要么配置文件问题-确定配置文件名和路由一致-，要么网卡没选对。"><a class="header-anchor" href="#使用service-network-restart命令失败，要么配置文件问题-确定配置文件名和路由一致-，要么网卡没选对。"></a>使用service network restart命令失败，要么配置文件问题(确定配置文件名和路由一致)，要么网卡没选对。</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip route</span><br><span class="line">default via 10.0.2.2 dev enp0s17 proto dhcp metric 101</span><br><span class="line">10.0.2.0/24 dev enp0s17 proto kernel scope <span class="built_in">link</span> src 10.0.2.15 metric 101</span><br><span class="line">192.168.56.0/24 dev enp0s8 proto kernel scope <span class="built_in">link</span> src 192.168.56.101 metric 100</span><br></pre></td></tr></table></figure>
+<p><strong>ip route</strong>命令输出<strong>enp0s17</strong> ，即网卡配置文件为/etc/sysconfig/network-scripts/ifcfg-enp0s17。如果该配置文件命名不一致需要修改，并修改里面内容的名称。</p>
+<p><strong>注意enp0s9不等于enp0s09,配置文件名多个0也会启动失败！</strong></p>
+<h3 id="Job-for-network-service-failed-See-‘systemctl-status-network-service’-and-journalctl-xn’问题的解决方法-含重启网络管理相关命令"><a class="header-anchor" href="#Job-for-network-service-failed-See-‘systemctl-status-network-service’-and-journalctl-xn’问题的解决方法-含重启网络管理相关命令"></a>Job for network.service failed. See ‘systemctl status network.service’ and 'journalctl -xn’问题的解决方法(含重启网络管理相关命令)</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39663255/article/details/80892774?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-80892774-blog-103117357.pc_relevant_aa_2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-80892774-blog-103117357.pc_relevant_aa_2&amp;utm_relevant_index=2">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_49513457/article/details/123027989">参考链接</a></p>
+<h3 id="ip-route没有显示路由信息，检查下网络管理有没有开启"><a class="header-anchor" href="#ip-route没有显示路由信息，检查下网络管理有没有开启"></a>ip route没有显示路由信息，检查下网络管理有没有开启</h3>
+<p><strong>执行下面两个命令如下：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig NetworkManager on</span><br><span class="line">service NetworkManager start</span><br></pre></td></tr></table></figure>
+<h3 id="桥接模式下，无法访问外网"><a class="header-anchor" href="#桥接模式下，无法访问外网"></a>桥接模式下，无法访问外网</h3>
+<p>防火墙开启是不影响的，<strong>检查下DNS服务器。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -856,115 +1069,6 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/09/zipoutputstream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/09/zipoutputstream/" class="post-title-link" itemprop="url">Java ZipOutputStream实现将文件列表或者文件夹压缩成zip</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-09 22:58 22:58:00" itemprop="dateCreated datePublished" datetime="2022-06-09T22:58:00+08:00">2022-06-09 22:58</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>8.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="需求概述"><a class="header-anchor" href="#需求概述"></a>需求概述</h2>
-<p>支持按勾选的成果申请记录批量下载附件。按&quot;年份&quot;+“成果名称&quot;将对应的成果附件放入文件夹，最后将所有文件夹打包成一个压缩包，名称未&quot;成果附件”+“下载时间(精确到秒)”。例如：<br>
-<img src="https://img-blog.csdnimg.cn/50525706ad4d4ece8b5ef78e916cf249.png#pic_center" alt="在这里插入图片描述"><br>
-<img src="https://img-blog.csdnimg.cn/51851aa7ea104e71b18d51bfadf4ac1d.png#pic_center" alt="在这里插入图片描述"></p>
-<!--- more -->
-<h2 id="工具类"><a class="header-anchor" href="#工具类"></a>工具类</h2>
-<p>在网上找了个Zip压缩工具类，基本满足了我的需求，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Zip压缩工具类：支持压缩文件列表(包括压缩包)和文件夹</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2022/06/08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZipUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BUFFER_SIZE</span> <span class="operator">=</span> <span class="number">2</span> * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> srcFiles 需要压缩的文件列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> out 输出流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;File&gt; srcFiles ,OutputStream out)</span> <span class="keyword">throws</span> RuntimeException, FileNotFoundException &#123;</span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            <span class="keyword">for</span> (File srcFile : srcFiles) &#123;</span><br><span class="line">                <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(srcFile.getName()));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>,e);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(zos != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> srcFiles 需要压缩的文件列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outDir 输出文件目录</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;File&gt; srcFiles ,String outDir)</span> <span class="keyword">throws</span> RuntimeException, FileNotFoundException &#123;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="keyword">new</span> <span class="title class_">File</span>(outDir));</span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            <span class="keyword">for</span> (File srcFile : srcFiles) &#123;</span><br><span class="line">                <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(srcFile.getName()));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>,e);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(zos != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outDirList 压缩文件夹路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> KeepDirStructure 是否保留原来的目录结构,</span></span><br><span class="line"><span class="comment">     * 			true:保留目录结构;</span></span><br><span class="line"><span class="comment">     *			false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;String&gt; outDirList, OutputStream out,</span></span><br><span class="line"><span class="params">                             <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> RuntimeException, Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            List&lt;File&gt; sourceFileList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (String dir : outDirList) &#123;</span><br><span class="line">                <span class="type">File</span> <span class="variable">sourceFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(dir);</span><br><span class="line">                sourceFileList.add(sourceFile);</span><br><span class="line">            &#125;</span><br><span class="line">            compress(sourceFileList, zos, KeepDirStructure);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>, e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (zos != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 递归压缩方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sourceFile 源文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> zos zip输出流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name 压缩后的名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> KeepDirStructure 是否保留原来的目录结构,</span></span><br><span class="line"><span class="comment">     * 			true:保留目录结构;</span></span><br><span class="line"><span class="comment">     *			false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">compress</span><span class="params">(File sourceFile, ZipOutputStream zos,</span></span><br><span class="line"><span class="params">                                 String name, <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">if</span> (sourceFile.isFile()) &#123;</span><br><span class="line">            zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name));</span><br><span class="line">            <span class="type">int</span> len;</span><br><span class="line">            <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(sourceFile);</span><br><span class="line">            <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Complete the entry</span></span><br><span class="line">            zos.closeEntry();</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            File[] listFiles = sourceFile.listFiles();</span><br><span class="line">            <span class="keyword">if</span> (listFiles == <span class="literal">null</span> || listFiles.length == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                    zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name + <span class="string">&quot;/&quot;</span>));</span><br><span class="line">                    zos.closeEntry();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (File file : listFiles) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                        compress(file, zos, name + <span class="string">&quot;/&quot;</span> + file.getName(),</span><br><span class="line">                                KeepDirStructure);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        compress(file, zos, file.getName(), KeepDirStructure);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">compress</span><span class="params">(List&lt;File&gt; sourceFileList,</span></span><br><span class="line"><span class="params">                                 ZipOutputStream zos, <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">for</span> (File sourceFile : sourceFileList) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> sourceFile.getName();</span><br><span class="line">            <span class="keyword">if</span> (sourceFile.isFile()) &#123;</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(sourceFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                File[] listFiles = sourceFile.listFiles();</span><br><span class="line">                <span class="keyword">if</span> (listFiles == <span class="literal">null</span> || listFiles.length == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                        zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name + <span class="string">&quot;/&quot;</span>));</span><br><span class="line">                        zos.closeEntry();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">for</span> (File file : listFiles) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                            compress(file, zos, name + <span class="string">&quot;/&quot;</span> + file.getName(),</span><br><span class="line">                                    KeepDirStructure);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            compress(file, zos, file.getName(),</span><br><span class="line">                                    KeepDirStructure);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>业务中需要删除临时文件夹以及下面的所有文件，用到的工具类代码如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文件工具类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2022/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除文件或文件夹</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: file 如果是文件删除该文件，如果是文件夹删除该文件夹以及下面的所有文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2022/6/9/</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">deleteFile</span><span class="params">(File file)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">            file.delete();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            String[] childFilePaths = file.list();</span><br><span class="line">            <span class="keyword">for</span> (String childFilePath : childFilePaths) &#123;</span><br><span class="line">                <span class="type">File</span> <span class="variable">childFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(file.getAbsolutePath() + <span class="string">&quot;/&quot;</span> + childFilePath);</span><br><span class="line">                deleteFile(childFile);</span><br><span class="line">            &#125;</span><br><span class="line">            file.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zeng1994/p/7862288.html">参考链接1</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/wolfies/article/details/79523181">参考链接2</a></p>
-<h2 id="业务代码"><a class="header-anchor" href="#业务代码"></a>业务代码</h2>
-<p>核心逻辑就是要把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：“年份”+“成果名称”，然后对每个成果申请文件夹压缩，最后删除临时文件夹。我在代码中也有详细地写注释，业务代码如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchDownload</span><span class="params">(HttpServletResponse response, HttpServletRequest request, List&lt;Long&gt; idList)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// 1、参数校验</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(idList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.PARAM_NULL);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 2、设置response相关内容(包括文件名)</span></span><br><span class="line">	<span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">	builder.append(<span class="string">&quot;成果附件&quot;</span>);</span><br><span class="line">	builder.append(DateUtil.getNowDate(<span class="string">&quot;yyyyMMddHHmmss&quot;</span>));</span><br><span class="line">	builder.append(<span class="string">&quot;.zip&quot;</span>);</span><br><span class="line">	<span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span>  HttpHelper.createDownloadFileName(builder.toString());</span><br><span class="line">	response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">	response.setContentType(<span class="string">&quot;application/force-download&quot;</span>);</span><br><span class="line">	response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment; filename=&quot;</span>+fileName);</span><br><span class="line">	<span class="comment">// 3、根据成果主键批量查询成果信息</span></span><br><span class="line">	Map&lt;String,Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">	map.put(<span class="string">&quot;idList&quot;</span>,idList);</span><br><span class="line">	List&lt;AchievementApplication&gt; applicationList = achievementApplicationMapper.queryAchievementApplicationList(map);</span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(applicationList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.DATA_NOT_FOUND);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">	<span class="comment">// 每一个压缩的成果附件路径</span></span><br><span class="line">	List&lt;String&gt; outDirList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span>(AchievementApplication application: applicationList)&#123;</span><br><span class="line">		<span class="keyword">if</span>(StringUtil.isNotEmpty(application.getAttachment()))&#123;</span><br><span class="line">			List&lt;AttachmentFileBo&gt; attachmentFileBoList = attachmentService.listFormalAttachmentFile(application.getAttachment());</span><br><span class="line">			<span class="keyword">if</span>(CollectionUtil.isNotEmpty(attachmentFileBoList))&#123;</span><br><span class="line">				<span class="comment">// 成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">				builder.delete(<span class="number">0</span>,builder.length());</span><br><span class="line">				builder.append(application.getYear());</span><br><span class="line">				builder.append(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">				builder.append(application.getName());</span><br><span class="line">				<span class="comment">// 循环对每个成果申请的所有文件压缩</span></span><br><span class="line">				List&lt;String&gt; fileNameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">				<span class="comment">// 每个成果的临时复制后存放的文件夹，之后对这个文件夹压缩</span></span><br><span class="line">				<span class="type">String</span> <span class="variable">outDir</span> <span class="operator">=</span> attachementUploadUrl+builder.toString();</span><br><span class="line">				<span class="type">File</span> <span class="variable">outDirFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">				outDirFile.mkdirs();</span><br><span class="line">				<span class="keyword">for</span>(AttachmentFileBo fileBo: attachmentFileBoList)&#123;</span><br><span class="line">					<span class="comment">// 每个成果如有重复附件名则不处理</span></span><br><span class="line">					<span class="keyword">if</span>(!fileNameList.contains(fileBo.getFileName()))&#123;</span><br><span class="line">						<span class="type">File</span> <span class="variable">sourceFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(attachementUploadUrl+fileBo.getFileSaveName());</span><br><span class="line">						<span class="keyword">if</span> (!sourceFile.exists()) &#123;</span><br><span class="line">							log.error(<span class="string">&quot;AchievementApplicationServiceImpl.batchDownload附件&#123;&#125;丢失&quot;</span>,fileBo.getFileName());</span><br><span class="line">							<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.ATTACHMENT_LOST, <span class="string">&quot;附件：&quot;</span> + fileBo.getFileName() + <span class="string">&quot;丢失&quot;</span>);</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="comment">// 复制到临时文件夹</span></span><br><span class="line">						<span class="type">File</span> <span class="variable">destinctFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir+<span class="string">&quot;/&quot;</span>+fileBo.getFileName());</span><br><span class="line">						Files.copy(sourceFile.toPath(), destinctFile.toPath());</span><br><span class="line">					&#125;</span><br><span class="line">					fileNameList.add(fileBo.getFileName());</span><br><span class="line">				&#125;</span><br><span class="line">				outDirList.add(outDir);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、对成果申请文件夹压缩</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isNotEmpty(outDirList))&#123;</span><br><span class="line">		ZipUtil.toZip(outDirList, response.getOutputStream(),<span class="literal">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 5、删除临时文件夹</span></span><br><span class="line">	<span class="keyword">for</span>(String outDir: outDirList)&#123;</span><br><span class="line">		<span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">		FileUtils.deleteFile(file);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -978,7 +1082,7 @@ Redis 是一个开源的内存数据库，可以用来作为数据库、缓存�
   <!--增加居中样式-->
   <div class="copyright" style="text-align: center;">
     &copy; 2019 – 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <!--<i class="heart"></i>-->
 	  <i class="fa fa-heart" style="color:red;"></i>

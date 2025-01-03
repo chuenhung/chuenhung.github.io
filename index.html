@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,6 +199,133 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/01/03/coding_notes_eighteen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/03/coding_notes_eighteen/" class="post-title-link" itemprop="url">Java程序猿搬砖笔记(十八)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-03 17:50 17:50:00" itemprop="dateCreated datePublished" datetime="2025-01-03T17:50:00+08:00">2025-01-03 17:50</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="MySQL索引命名规范、索引使用规范"><a class="header-anchor" href="#MySQL索引命名规范、索引使用规范"></a>MySQL索引命名规范、索引使用规范</h2>
+<p><strong>索引命名规范：</strong></p>
+<ul>
+<li>索引名必须全部使用小写。</li>
+<li>非唯一索引按照“idx_字段名称[_字段名称]”进用行命名。例如idx_age_name。</li>
+<li>唯一索引按照“uniq_字段名称[_字段名称]”进用行命名。例如uniq_age_name。</li>
+<li>组合索引建议包含所有字段名,过长的字段名可以采用缩写形式。例如idx_age_name_add。</li>
+</ul>
+<p><strong>索引使用规范：</strong></p>
+<ul>
+<li>单张表中索引数量不超过5个。</li>
+<li>单个索引中的字段数不超过5个。</li>
+<li>表必须有主键,推荐使用UNSIGNED自增列作为主键。</li>
+<li>唯一键由3个以下字段组成,并且字段都是(整)(形)(时),可使用唯一键作为主键。其他情况下,建议使用自增列或发号器作主键。</li>
+<li>联表查询时,JOIN列的数据类型必须相同,关联字段要建立索引。</li>
+<li>不在低基数列上建立索引,例如“性别”。</li>
+<li>选择区分度大的列建立索引。组合索引中,区分度大的字段放在最前。</li>
+<li>对字符串使用前缀索引,前缀索引长度不超过8个字符。</li>
+<li>不对过长的VARCHAR字段建立索引。建议优先考虑前缀索引,或添加CRC32或MD5伪列并建立索引。</li>
+<li>合理创建联合索引,(a,b,c) 相当于 (a) 、(a,b) 、(a,b,c)。</li>
+<li>合理使用覆盖索引减少磁盘IO,避免文件系统排序。</li>
+<li>禁止冗余索引。</li>
+<li>禁止重复索引。</li>
+<li>禁止使用外键。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/01/03/coding_notes_eighteen/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -640,125 +767,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/15/documents4j_libreoffice_convert_word_pdf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/15/documents4j_libreoffice_convert_word_pdf/" class="post-title-link" itemprop="url">Java通过documents4j和LibreOffice把word转为pdf</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-12-15 00:35 00:35:00" itemprop="dateCreated datePublished" datetime="2023-12-15T00:35:00+08:00">2023-12-15 00:35</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="word转pdf的相关第三方jar说明"><a class="header-anchor" href="#word转pdf的相关第三方jar说明"></a>word转pdf的相关第三方jar说明</h2>
-<ul>
-<li>docx4j<br>
-免费开源、稍微复杂点的word，样式完全乱了，且xalan升级为2.7.3后会报错。</li>
-<li>poi<br>
-免费开源、官方文档少、学习成本大、使用复杂、生成的样式也有问题。</li>
-<li>aspire.doc<br>
-样式保留很好、使用方便。<br>
-未付费时，第一行会有红色水印且超过500个段落(大概25页)会被截取。<br>
-网上没有破解版。</li>
-<li>aspose.words<br>
-样式保留很好、使用方便。<br>
-网上有破解版。</li>
-<li>documents4j<br>
-样式保留很好、使用方便。<br>
-底层直接调用微软的office所以，完美保留样式</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/15/documents4j_libreoffice_convert_word_pdf/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -772,7 +780,7 @@
   <!--增加居中样式-->
   <div class="copyright" style="text-align: center;">
     &copy; 2019 – 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <!--<i class="heart"></i>-->
 	  <i class="fa fa-heart" style="color:red;"></i>

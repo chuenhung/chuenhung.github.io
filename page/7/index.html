@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,6 +199,115 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/09/zipoutputstream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/09/zipoutputstream/" class="post-title-link" itemprop="url">Java ZipOutputStream实现将文件列表或者文件夹压缩成zip</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-09 22:58 22:58:00" itemprop="dateCreated datePublished" datetime="2022-06-09T22:58:00+08:00">2022-06-09 22:58</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="需求概述"><a class="header-anchor" href="#需求概述"></a>需求概述</h2>
+<p>支持按勾选的成果申请记录批量下载附件。按&quot;年份&quot;+“成果名称&quot;将对应的成果附件放入文件夹，最后将所有文件夹打包成一个压缩包，名称未&quot;成果附件”+“下载时间(精确到秒)”。例如：<br>
+<img src="https://img-blog.csdnimg.cn/50525706ad4d4ece8b5ef78e916cf249.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/51851aa7ea104e71b18d51bfadf4ac1d.png#pic_center" alt="在这里插入图片描述"></p>
+<!--- more -->
+<h2 id="工具类"><a class="header-anchor" href="#工具类"></a>工具类</h2>
+<p>在网上找了个Zip压缩工具类，基本满足了我的需求，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Zip压缩工具类：支持压缩文件列表(包括压缩包)和文件夹</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2022/06/08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZipUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BUFFER_SIZE</span> <span class="operator">=</span> <span class="number">2</span> * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> srcFiles 需要压缩的文件列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> out 输出流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;File&gt; srcFiles ,OutputStream out)</span> <span class="keyword">throws</span> RuntimeException, FileNotFoundException &#123;</span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            <span class="keyword">for</span> (File srcFile : srcFiles) &#123;</span><br><span class="line">                <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(srcFile.getName()));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>,e);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(zos != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> srcFiles 需要压缩的文件列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outDir 输出文件目录</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;File&gt; srcFiles ,String outDir)</span> <span class="keyword">throws</span> RuntimeException, FileNotFoundException &#123;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="keyword">new</span> <span class="title class_">File</span>(outDir));</span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            <span class="keyword">for</span> (File srcFile : srcFiles) &#123;</span><br><span class="line">                <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(srcFile.getName()));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>,e);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(zos != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outDirList 压缩文件夹路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> KeepDirStructure 是否保留原来的目录结构,</span></span><br><span class="line"><span class="comment">     * 			true:保留目录结构;</span></span><br><span class="line"><span class="comment">     *			false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException 压缩失败会抛出运行时异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">toZip</span><span class="params">(List&lt;String&gt; outDirList, OutputStream out,</span></span><br><span class="line"><span class="params">                             <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> RuntimeException, Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ZipOutputStream</span> <span class="variable">zos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            zos = <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(out);</span><br><span class="line">            List&lt;File&gt; sourceFileList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (String dir : outDirList) &#123;</span><br><span class="line">                <span class="type">File</span> <span class="variable">sourceFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(dir);</span><br><span class="line">                sourceFileList.add(sourceFile);</span><br><span class="line">            &#125;</span><br><span class="line">            compress(sourceFileList, zos, KeepDirStructure);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;zip error from ZipUtil&quot;</span>, e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (zos != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    zos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 递归压缩方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sourceFile 源文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> zos zip输出流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name 压缩后的名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> KeepDirStructure 是否保留原来的目录结构,</span></span><br><span class="line"><span class="comment">     * 			true:保留目录结构;</span></span><br><span class="line"><span class="comment">     *			false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">compress</span><span class="params">(File sourceFile, ZipOutputStream zos,</span></span><br><span class="line"><span class="params">                                 String name, <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">if</span> (sourceFile.isFile()) &#123;</span><br><span class="line">            zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name));</span><br><span class="line">            <span class="type">int</span> len;</span><br><span class="line">            <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(sourceFile);</span><br><span class="line">            <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Complete the entry</span></span><br><span class="line">            zos.closeEntry();</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            File[] listFiles = sourceFile.listFiles();</span><br><span class="line">            <span class="keyword">if</span> (listFiles == <span class="literal">null</span> || listFiles.length == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                    zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name + <span class="string">&quot;/&quot;</span>));</span><br><span class="line">                    zos.closeEntry();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (File file : listFiles) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                        compress(file, zos, name + <span class="string">&quot;/&quot;</span> + file.getName(),</span><br><span class="line">                                KeepDirStructure);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        compress(file, zos, file.getName(), KeepDirStructure);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">compress</span><span class="params">(List&lt;File&gt; sourceFileList,</span></span><br><span class="line"><span class="params">                                 ZipOutputStream zos, <span class="type">boolean</span> KeepDirStructure)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] buf = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">for</span> (File sourceFile : sourceFileList) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> sourceFile.getName();</span><br><span class="line">            <span class="keyword">if</span> (sourceFile.isFile()) &#123;</span><br><span class="line">                zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name));</span><br><span class="line">                <span class="type">int</span> len;</span><br><span class="line">                <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(sourceFile);</span><br><span class="line">                <span class="keyword">while</span> ((len = in.read(buf)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    zos.write(buf, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                zos.closeEntry();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                File[] listFiles = sourceFile.listFiles();</span><br><span class="line">                <span class="keyword">if</span> (listFiles == <span class="literal">null</span> || listFiles.length == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                        zos.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(name + <span class="string">&quot;/&quot;</span>));</span><br><span class="line">                        zos.closeEntry();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">for</span> (File file : listFiles) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (KeepDirStructure) &#123;</span><br><span class="line">                            compress(file, zos, name + <span class="string">&quot;/&quot;</span> + file.getName(),</span><br><span class="line">                                    KeepDirStructure);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            compress(file, zos, file.getName(),</span><br><span class="line">                                    KeepDirStructure);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>业务中需要删除临时文件夹以及下面的所有文件，用到的工具类代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文件工具类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2022/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除文件或文件夹</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: file 如果是文件删除该文件，如果是文件夹删除该文件夹以及下面的所有文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> chuenhung</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2022/6/9/</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">deleteFile</span><span class="params">(File file)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">            file.delete();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            String[] childFilePaths = file.list();</span><br><span class="line">            <span class="keyword">for</span> (String childFilePath : childFilePaths) &#123;</span><br><span class="line">                <span class="type">File</span> <span class="variable">childFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(file.getAbsolutePath() + <span class="string">&quot;/&quot;</span> + childFilePath);</span><br><span class="line">                deleteFile(childFile);</span><br><span class="line">            &#125;</span><br><span class="line">            file.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zeng1994/p/7862288.html">参考链接1</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/wolfies/article/details/79523181">参考链接2</a></p>
+<h2 id="业务代码"><a class="header-anchor" href="#业务代码"></a>业务代码</h2>
+<p>核心逻辑就是要把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：“年份”+“成果名称”，然后对每个成果申请文件夹压缩，最后删除临时文件夹。我在代码中也有详细地写注释，业务代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchDownload</span><span class="params">(HttpServletResponse response, HttpServletRequest request, List&lt;Long&gt; idList)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="comment">// 1、参数校验</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(idList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.PARAM_NULL);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 2、设置response相关内容(包括文件名)</span></span><br><span class="line">	<span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">	builder.append(<span class="string">&quot;成果附件&quot;</span>);</span><br><span class="line">	builder.append(DateUtil.getNowDate(<span class="string">&quot;yyyyMMddHHmmss&quot;</span>));</span><br><span class="line">	builder.append(<span class="string">&quot;.zip&quot;</span>);</span><br><span class="line">	<span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span>  HttpHelper.createDownloadFileName(builder.toString());</span><br><span class="line">	response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">	response.setContentType(<span class="string">&quot;application/force-download&quot;</span>);</span><br><span class="line">	response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment; filename=&quot;</span>+fileName);</span><br><span class="line">	<span class="comment">// 3、根据成果主键批量查询成果信息</span></span><br><span class="line">	Map&lt;String,Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">	map.put(<span class="string">&quot;idList&quot;</span>,idList);</span><br><span class="line">	List&lt;AchievementApplication&gt; applicationList = achievementApplicationMapper.queryAchievementApplicationList(map);</span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isEmpty(applicationList))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.DATA_NOT_FOUND);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、把每个成果申请的所有文件放入到成果申请临时文件夹中，成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">	<span class="comment">// 每一个压缩的成果附件路径</span></span><br><span class="line">	List&lt;String&gt; outDirList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">for</span>(AchievementApplication application: applicationList)&#123;</span><br><span class="line">		<span class="keyword">if</span>(StringUtil.isNotEmpty(application.getAttachment()))&#123;</span><br><span class="line">			List&lt;AttachmentFileBo&gt; attachmentFileBoList = attachmentService.listFormalAttachmentFile(application.getAttachment());</span><br><span class="line">			<span class="keyword">if</span>(CollectionUtil.isNotEmpty(attachmentFileBoList))&#123;</span><br><span class="line">				<span class="comment">// 成果申请临时文件夹名：年份+成果名称</span></span><br><span class="line">				builder.delete(<span class="number">0</span>,builder.length());</span><br><span class="line">				builder.append(application.getYear());</span><br><span class="line">				builder.append(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">				builder.append(application.getName());</span><br><span class="line">				<span class="comment">// 循环对每个成果申请的所有文件压缩</span></span><br><span class="line">				List&lt;String&gt; fileNameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">				<span class="comment">// 每个成果的临时复制后存放的文件夹，之后对这个文件夹压缩</span></span><br><span class="line">				<span class="type">String</span> <span class="variable">outDir</span> <span class="operator">=</span> attachementUploadUrl+builder.toString();</span><br><span class="line">				<span class="type">File</span> <span class="variable">outDirFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">				outDirFile.mkdirs();</span><br><span class="line">				<span class="keyword">for</span>(AttachmentFileBo fileBo: attachmentFileBoList)&#123;</span><br><span class="line">					<span class="comment">// 每个成果如有重复附件名则不处理</span></span><br><span class="line">					<span class="keyword">if</span>(!fileNameList.contains(fileBo.getFileName()))&#123;</span><br><span class="line">						<span class="type">File</span> <span class="variable">sourceFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(attachementUploadUrl+fileBo.getFileSaveName());</span><br><span class="line">						<span class="keyword">if</span> (!sourceFile.exists()) &#123;</span><br><span class="line">							log.error(<span class="string">&quot;AchievementApplicationServiceImpl.batchDownload附件&#123;&#125;丢失&quot;</span>,fileBo.getFileName());</span><br><span class="line">							<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CommonsException</span>(MessageCode.ATTACHMENT_LOST, <span class="string">&quot;附件：&quot;</span> + fileBo.getFileName() + <span class="string">&quot;丢失&quot;</span>);</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="comment">// 复制到临时文件夹</span></span><br><span class="line">						<span class="type">File</span> <span class="variable">destinctFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir+<span class="string">&quot;/&quot;</span>+fileBo.getFileName());</span><br><span class="line">						Files.copy(sourceFile.toPath(), destinctFile.toPath());</span><br><span class="line">					&#125;</span><br><span class="line">					fileNameList.add(fileBo.getFileName());</span><br><span class="line">				&#125;</span><br><span class="line">				outDirList.add(outDir);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 4、对成果申请文件夹压缩</span></span><br><span class="line">	<span class="keyword">if</span>(CollectionUtil.isNotEmpty(outDirList))&#123;</span><br><span class="line">		ZipUtil.toZip(outDirList, response.getOutputStream(),<span class="literal">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 5、删除临时文件夹</span></span><br><span class="line">	<span class="keyword">for</span>(String outDir: outDirList)&#123;</span><br><span class="line">		<span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(outDir);</span><br><span class="line">		FileUtils.deleteFile(file);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -431,113 +540,6 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/05/why_china/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/05/why_china/" class="post-title-link" itemprop="url">《为什么是中国》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-03-05 14:21 14:21:00" itemprop="dateCreated datePublished" datetime="2022-03-05T14:21:00+08:00">2022-03-05 14:21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">生活随笔</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="书籍简介"><a class="header-anchor" href="#书籍简介"></a>书籍简介</h2>
-<p><img src="https://img-blog.csdnimg.cn/9dabfc1e880b446586e689933e866e20.png" width="460px" align="center"></img></p>
-<p>书名：为什么是中国<br>
-作者：金一南<br>
-读完时间：2022年2月</br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/05/why_china/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/05/wisdom_of_life/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -616,6 +618,113 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/03/05/wisdom_of_life/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/05/why_china/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/05/why_china/" class="post-title-link" itemprop="url">《为什么是中国》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-05 14:21 14:21:00" itemprop="dateCreated datePublished" datetime="2022-03-05T14:21:00+08:00">2022-03-05 14:21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">生活随笔</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="书籍简介"><a class="header-anchor" href="#书籍简介"></a>书籍简介</h2>
+<p><img src="https://img-blog.csdnimg.cn/9dabfc1e880b446586e689933e866e20.png" width="460px" align="center"></img></p>
+<p>书名：为什么是中国<br>
+作者：金一南<br>
+读完时间：2022年2月</br></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/05/why_china/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -742,113 +851,6 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/logical_thinking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/20/logical_thinking/" class="post-title-link" itemprop="url">《罗辑思维（全5册）》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-20 18:21 18:21:00" itemprop="dateCreated datePublished" datetime="2022-02-20T18:21:00+08:00">2022-02-20 18:21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">生活随笔</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="书籍简介"><a class="header-anchor" href="#书籍简介"></a>书籍简介</h2>
-<p><img src="https://img-blog.csdnimg.cn/519539bdf658437cb48f9729c825131b.png" width="460px" align="center"></img></p>
-<p>书名：罗辑思维（全5册）：认知篇、历史篇、商业篇、人物篇、人文篇<br>
-作者：罗振宇<br>
-读完时间：2022年2月</br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/20/logical_thinking/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -862,7 +864,7 @@ MySQL的自定义排序，str与str1、str2、str3…进行比较，并按照str
   <!--增加居中样式-->
   <div class="copyright" style="text-align: center;">
     &copy; 2019 – 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <!--<i class="heart"></i>-->
 	  <i class="fa fa-heart" style="color:red;"></i>
