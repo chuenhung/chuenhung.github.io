@@ -388,12 +388,12 @@
 <p>电脑的Notepad<ins>安装目录移动了，发现鼠标右键看不到Notepad</ins>菜单。下面的解决方法也适用于免安装版Notepad++。</p>
 <h2 id="解决方法"><a class="header-anchor" href="#解决方法"></a>解决方法</h2>
 <p>第一步、在注册表HKEY_CLASSES_ROOT*\shell\目录下<strong>新建Open With Notepad<ins>目录。然后在目录下新建一个字符串，字符串的Name为Icon，值为Notepad</ins>的安装路径。</strong><br>
-<img src="https://img-blog.csdnimg.cn/a9c0b0f93c644ef0bac6ab5ff4e47c4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1c7b1896205861b91badd5ecaba9b829.png#pic_center" alt="在这里插入图片描述"><br>
 第二步、在注册表HKEY_CLASSES_ROOT*\shell\Open With Notepad<ins>目录下再<strong>新建一个目录Command(名字不能更改)</strong>，值为Notepad</ins>的安装路径。<br>
-<img src="https://img-blog.csdnimg.cn/f85b74e25ee547618808b752e5be8cb3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/22c55a0026af328bb71122e2fde98d18.png#pic_center" alt="在这里插入图片描述"><br>
 如果不做这步，电脑会提示该文件没有相关联的应用程序来执行操作。</p>
 <p>第三步、测试效果<br>
-<img src="https://img-blog.csdnimg.cn/58f5f9a55e724f4c91b657b3dd6badae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/342a68f04dd61b539a40189f50dcc920.png#pic_center" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -495,33 +495,14 @@
 <p>好记性不如烂笔头</p>
 </blockquote>
 <p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
-<!--- more -->
-<h2 id="Excel的COUNTIFS函数"><a class="header-anchor" href="#Excel的COUNTIFS函数"></a>Excel的COUNTIFS函数</h2>
-<p>基本结构是：<br>
-=COUNTIFS(条件匹配查询区域1，条件1，条件匹配查询区域2，条件2，以此类推…）</p>
-<h2 id="Windows批量改文件名方法"><a class="header-anchor" href="#Windows批量改文件名方法"></a>Windows批量改文件名方法</h2>
-<p>新建txt文件，文件内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">REM</span><br><span class="line">REM rename</span><br><span class="line">REM</span><br><span class="line">ren 原文件名 新文件名</span><br><span class="line">ren 原文件名 新文件名</span><br><span class="line">ren 原文件名 新文件名</span><br></pre></td></tr></table></figure>
-<h2 id="PostgreSQL查询某张表的所有字段"><a class="header-anchor" href="#PostgreSQL查询某张表的所有字段"></a>PostgreSQL查询某张表的所有字段</h2>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  <span class="operator">*</span> <span class="keyword">from</span> information_schema. columns </span><br><span class="line"><span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27;schema名&#x27;</span> <span class="keyword">and</span> table_name <span class="operator">=</span><span class="string">&#x27;表名&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="PostgreSQL查询某张表的所有字段名并用逗号拼接"><a class="header-anchor" href="#PostgreSQL查询某张表的所有字段名并用逗号拼接"></a>PostgreSQL查询某张表的所有字段名并用逗号拼接</h2>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> string_agg(column_name,<span class="string">&#x27;,&#x27;</span>) <span class="keyword">from</span> information_schema. columns </span><br><span class="line"><span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27;schema名&#x27;</span> <span class="keyword">and</span> table_name <span class="operator">=</span><span class="string">&#x27;表名&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="MyBatis的-是占位符-不能做运算，-可以做运算但是会有sql注入风险"><a class="header-anchor" href="#MyBatis的-是占位符-不能做运算，-可以做运算但是会有sql注入风险"></a>MyBatis的#是占位符 不能做运算，$可以做运算但是会有sql注入风险</h2>
-<p>在动态排序或者分页的时候需要用到$</p>
-<h2 id="Java8根据某一字段属性去重"><a class="header-anchor" href="#Java8根据某一字段属性去重"></a>Java8根据某一字段属性去重</h2>
-<h3 id="通过TreeSet"><a class="header-anchor" href="#通过TreeSet"></a>通过TreeSet</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; studentDistinctList = studentList.stream()</span><br><span class="line">.collect(Collectors.collectingAndThen</span><br><span class="line">(Collectors.toCollection(() -&gt;</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(t -&gt; t.getName()))),</span><br><span class="line">ArrayList::<span class="keyword">new</span></span><br><span class="line">)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h3 id="通过district"><a class="header-anchor" href="#通过district"></a>通过district</h3>
-<p>能是简单数据类型比如List<String>。</p>
-<h2 id="Java8筛选集合数据"><a class="header-anchor" href="#Java8筛选集合数据"></a>Java8筛选集合数据</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list <span class="title function_">stream</span><span class="params">()</span>. filter(item-&gt;item.getId&gt;<span class="number">0</span>)</span><br><span class="line">.filter(item-&gt;!StringUtils.isEmpty(item.getName()))</span><br><span class="line">.collect(Collection. toList())</span><br></pre></td></tr></table></figure>
-<p>可以链式筛选，非常方便高效</p>
-<h2 id="Git解决完冲突还说没解决完，IDEA也没显示冲突文件"><a class="header-anchor" href="#Git解决完冲突还说没解决完，IDEA也没显示冲突文件"></a>Git解决完冲突还说没解决完，IDEA也没显示冲突文件</h2>
-<p>先用git status查看，unmerge path下面的都是有冲突的文件</p>
-<h2 id="前端传-，后端会作为大小为1集合接收，用CollectionUtil判不了空，如果sql用like的话就会查所有数据。"><a class="header-anchor" href="#前端传-，后端会作为大小为1集合接收，用CollectionUtil判不了空，如果sql用like的话就会查所有数据。"></a>前端传[&quot;&quot;]，后端会作为大小为1集合接收，用CollectionUtil判不了空，如果sql用like的话就会查所有数据。</h2>
-<h2 id="PostgreSQL插入更新语句"><a class="header-anchor" href="#PostgreSQL插入更新语句"></a>PostgreSQL插入更新语句</h2>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inset <span class="keyword">into</span> 表名(列字段<span class="number">1</span>,列字段<span class="number">2</span>,列字段<span class="number">3</span>)<span class="keyword">values</span>(值<span class="number">1</span>,值<span class="number">2</span>,值<span class="number">3</span>) </span><br><span class="line"><span class="keyword">on</span> conflict(唯一索引) do <span class="keyword">update</span> <span class="keyword">set</span> 列<span class="number">1</span><span class="operator">=</span>值<span class="number">1</span>,列<span class="number">2</span><span class="operator">=</span>值</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/24/coding_notes_five/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -618,15 +599,10 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="问题描述"><a class="header-anchor" href="#问题描述"></a>问题描述</h2>
 <p>IntelliJ IDEA匹配Eclipse快捷键后，按Ctrl+F10快捷键热部署无效而是弹出下图这样的窗口：<br>
-<img src="https://img-blog.csdnimg.cn/ef2a0838c55d420d8f99839a9893025e.png" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/24/idea_ctrl_f10_invalid/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<img src="https://i-blog.csdnimg.cn/blog_migrate/04949a5885574bd11ff7bc33965d6c2a.png" alt="在这里插入图片描述"></p>
+<h2 id="解决方法"><a class="header-anchor" href="#解决方法"></a>解决方法</h2>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/cb73571e2ccc9a72e5868d377a62e5e8.png" alt="在这里插入图片描述"></p>
+
       
     </div>
 

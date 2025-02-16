@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="生成数据 用for循环不断的往字符流中写数据，然后输出到文件系统。代码如下： 12345678910111213141516171819202122232425&#x2F;** * 通过IO流造100万条文本数据并输出到磁盘 *&#x2F;public class CreateData &#123;    public static void main(String[] args) &#123;        try">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210605223624619.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210605223624416.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210605223624560.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/302be1cf9b35a2e22177d7804cd34bc4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/94aca70436088d0d303812e4a0bcec5b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0d883f7ce4b4ba085661e1302b3cac7b.png">
 <meta property="article:published_time" content="2021-06-12T07:48:00.000Z">
 <meta property="article:modified_time" content="2021-06-12T07:48:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210605223624619.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/302be1cf9b35a2e22177d7804cd34bc4.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/06/12/java_create_mysql_date/">
@@ -317,10 +317,10 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `user_log` (</span><br><span class="line">  `id` <span class="type">bigint</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `login_ip` <span class="type">varchar</span>(<span class="number">15</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `login_name` <span class="type">varchar</span>(<span class="number">30</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `log_content` <span class="type">varchar</span>(<span class="number">200</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB AUTO_INCREMENT<span class="operator">=</span><span class="number">1020304</span> <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 <span class="keyword">COLLATE</span><span class="operator">=</span>utf8_bin</span><br></pre></td></tr></table></figure>
 <h3 id="SQLyog导入报错"><a class="header-anchor" href="#SQLyog导入报错"></a>SQLyog导入报错</h3>
 <p>使用SQLyog的导入本地CSV功能：<br>
-<img src="https://img-blog.csdnimg.cn/20210605223624619.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20210605223624416.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/302be1cf9b35a2e22177d7804cd34bc4.png" alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/94aca70436088d0d303812e4a0bcec5b.png" alt="在这里插入图片描述"><br>
 然而，报错了😂<br>
-<img src="https://img-blog.csdnimg.cn/20210605223624560.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/0d883f7ce4b4ba085661e1302b3cac7b.png" alt="在这里插入图片描述"></p>
 <h3 id="成功导入"><a class="header-anchor" href="#成功导入"></a>成功导入</h3>
 <p>解决上面的错误，需要三步。<br>
 <strong>第一步 用cmd进入MySQL的bin目录，登录的时候带上参数–local-infile=1。</strong></p>

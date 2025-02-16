@@ -19,27 +19,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。  synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方">
+    <meta name="description" content="synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方法的调用者   修饰代码块，锁定的时传入的对象  Java线程内存模型(JMM)定义的8中原子操作  read(读取)：从主内存中读取数据 load(载入)：将主内存读取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java程序猿搬砖笔记(十)">
 <meta property="og:url" content="http://yoursite.com/2022/11/10/coding_notes_ten/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说  好记性不如烂笔头  我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。  synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方">
+<meta property="og:description" content="synchronized锁定的对象 synchronized修饰的作用： 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。 synchronized锁定的元素:  修饰方法  静态方法，锁定的是类 普通方法，锁定的时方法的调用者   修饰代码块，锁定的时传入的对象  Java线程内存模型(JMM)定义的8中原子操作  read(读取)：从主内存中读取数据 load(载入)：将主内存读取">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2a08a880133b45d6b6112920dfe056b3.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f041c8c5eae77b974e9e3650f471959e.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7398960fdc994e9c615553469d4ab879.png#pic_center">
 <meta property="article:published_time" content="2022-11-10T15:30:00.000Z">
 <meta property="article:modified_time" content="2022-11-10T15:30:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="Redis">
 <meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Redis">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="SpringBoot">
-<meta property="article:tag" content="Maven">
 <meta property="article:tag" content="RestTemplate">
+<meta property="article:tag" content="Maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/f041c8c5eae77b974e9e3650f471959e.png#pic_center">
 
 
 <link rel="canonical" href="http://yoursite.com/2022/11/10/coding_notes_ten/">
@@ -281,7 +281,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.6k</span>
+      <span>7.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -298,13 +298,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>作为码农平时搜集一些小知识点个人认为是个不错的习惯，书上说</p>
-<blockquote>
-<p>好记性不如烂笔头</p>
-</blockquote>
-<p>我想即使是以前忽略或者新get的很简单的东西，自己动手记下来不管如何印象也会更深刻。</p>
-<!--- more -->
-<h2 id="synchronized锁定的对象"><a class="header-anchor" href="#synchronized锁定的对象"></a>synchronized锁定的对象</h2>
+    <div class="post-body" itemprop="articleBody"><h2 id="synchronized锁定的对象"><a class="header-anchor" href="#synchronized锁定的对象"></a>synchronized锁定的对象</h2>
 <p><strong>synchronized修饰的作用：</strong><br>
 让多个线程排队依次获取某个资源，保证数据不会出错(原子性)。<br>
 <strong>synchronized锁定的元素:</strong></p>
@@ -331,6 +325,7 @@
 多个cpu从主内存读取同一个数据到各自的高速缓存，当其中某个cpu修改了缓存里的数据，该数据会马上同步回主内存，其他cpu通过<strong>总线嗅探机制</strong>可以感知到数据的变化从而将自己缓存里的数据失效。<br>
 一般lock锁加在线程的赋值之后，存储之前，这样的锁的粒度不大。volatile保证数据可见性、synchronized保证原子性。</li>
 </ul>
+<span id="more"></span>
 <h2 id="MySQL分区学习"><a class="header-anchor" href="#MySQL分区学习"></a>MySQL分区学习</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yeyuzhuanjia/p/16149744.html">参考链接</a>、<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RI9kRqvboxPI-rfE4jPqrw">参考链接</a>、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yaowen/p/16547595.html">参考链接</a></p>
 <h2 id="根据hash中的键模糊删除"><a class="header-anchor" href="#根据hash中的键模糊删除"></a>根据hash中的键模糊删除</h2>
@@ -369,13 +364,13 @@
 <strong>调用方的Eureka配置需要添加，fetchRegistry: true //表示可以从Eureka Server获取注册的服务信息</strong></p>
 <h2 id="RestTemplate-postForObject泛型丢失-返回LinkedHashMap-的问题解决方法"><a class="header-anchor" href="#RestTemplate-postForObject泛型丢失-返回LinkedHashMap-的问题解决方法"></a>RestTemplate.postForObject泛型丢失(返回LinkedHashMap)的问题解决方法</h2>
 <p><strong>问题：</strong><br>
-<img src="https://img-blog.csdnimg.cn/13bdd8a6c5f84044a59d3c5fab9b4ecf.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/f041c8c5eae77b974e9e3650f471959e.png#pic_center" alt="在这里插入图片描述"><br>
 如上图所示，data类型本应该为MemberInfoVo，但是泛型丢失变为LinkedHashMap。</p>
 <p><strong>解决方法：</strong><br>
 参考代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ParameterizedTypeReference&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; typeRef = <span class="keyword">new</span> <span class="title class_">ParameterizedTypeReference</span>&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt;() &#123;&#125;;</span><br><span class="line">ResponseEntity&lt;ResponseMsg&lt;MemberInfoVo&gt;&gt; result = restTemplate.exchange(findEmployeeUrl, HttpMethod.POST, formEntity, typeRef);</span><br><span class="line">ResponseMsg&lt;MemberInfoVo&gt; responseMsg = result.getBody(); </span><br></pre></td></tr></table></figure>
 <p><strong>成功效果：</strong><br>
-<img src="https://img-blog.csdnimg.cn/2a08a880133b45d6b6112920dfe056b3.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/7398960fdc994e9c615553469d4ab879.png#pic_center" alt="在这里插入图片描述"><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40162735/article/details/100063040">参考链接</a></p>
 <h2 id="MyBatis批量更新"><a class="header-anchor" href="#MyBatis批量更新"></a>MyBatis批量更新</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/suya2011/article/details/121280725">参考链接</a></p>
@@ -462,12 +457,12 @@ All conflicts fixed but you are still merging(use “git commit” to conclude m
 
           <div class="post-tags">
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
               <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
               <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
               <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
-              <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
               <a href="/tags/RestTemplate/" rel="tag"><i class="fa fa-tag"></i> RestTemplate</a>
+              <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
           </div>
 
         

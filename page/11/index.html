@@ -318,7 +318,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/05/mybatis_Recursive_generate_directory_menu_tree/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/05/mybatis_recursive_generate_directory_menu_tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/custom/headportrait.jpeg">
@@ -336,7 +336,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/09/05/mybatis_Recursive_generate_directory_menu_tree/" class="post-title-link" itemprop="url">MyBatis自查询递归生成目录菜单树</a>
+          <a href="/2021/09/05/mybatis_recursive_generate_directory_menu_tree/" class="post-title-link" itemprop="url">MyBatis自查询递归生成目录菜单树</a>
         </h2>
 
         <div class="post-meta-container">
@@ -390,10 +390,15 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="需求"><a class="header-anchor" href="#需求"></a>需求</h2>
 <p>要求前端展示所有奖励政策分类，一共有两级菜单，如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/295310415a6f4c3c92ac46c643fcf786.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/0d6e2540a046ddea63ece1fa61caea51.png" alt="在这里插入图片描述"></p>
+<h2 id="代码实现"><a class="header-anchor" href="#代码实现"></a>代码实现</h2>
+<p>数据库表设计脚本如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t_incentive_policy_type` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT COMMENT <span class="string">&#x27;奖励分类 id&#x27;</span>,</span><br><span class="line">  `type_name` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;分类名称&#x27;</span>,</span><br><span class="line">  `parent_id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;父id&#x27;</span>,</span><br><span class="line">  `status` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;状态  0 开启  1 关闭&#x27;</span>,</span><br><span class="line">  `icon` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;图标&#x27;</span>,</span><br><span class="line">  `sort` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;-1&#x27;</span> COMMENT <span class="string">&#x27;排序号&#x27;</span>,</span><br><span class="line">  `create_time` datetime <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">  `update_time` datetime <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;修改时间&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB AUTO_INCREMENT<span class="operator">=</span><span class="number">9</span> <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 ROW_FORMAT<span class="operator">=</span><span class="keyword">DYNAMIC</span></span><br></pre></td></tr></table></figure>
+<p>插入几条测试数据：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/238c3699a718d74c84c28aa4cfd82014.png" alt="在这里插入图片描述"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/09/05/mybatis_Recursive_generate_directory_menu_tree/#more" rel="contents">
+              <a class="btn" href="/2021/09/05/mybatis_recursive_generate_directory_menu_tree/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -494,8 +499,8 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="需求"><a class="header-anchor" href="#需求"></a>需求</h2>
-<p>需求要求前端展示所有奖励政策分类，一共有两级菜单，如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/295310415a6f4c3c92ac46c643fcf786.png" alt="在这里插入图片描述"></p>
+<p>要求前端展示所有奖励政策分类，一共有两级菜单，如下图所示：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/0d6e2540a046ddea63ece1fa61caea51.png" alt="在这里插入图片描述"></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/09/05/java_recursively_generate_directory_menu_tree/#more" rel="contents">
@@ -707,7 +712,16 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="需求说明"><a class="header-anchor" href="#需求说明"></a>需求说明</h2>
 <p>最近有个需求：用户点击上下移动可以实现对数据自定义排序，每次移动一个位置。具体如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/c00e626912ff44feb1d68459b96393e4.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/6e1e8937f99b3daee4a35fea922ee2e4.png" alt="在这里插入图片描述"></p>
+<h2 id="实现思路"><a class="header-anchor" href="#实现思路"></a>实现思路</h2>
+<ul>
+<li>数据库表中添加一个order字段，默认设置为和主键一样的值，数据按照order降序排列<br>
+<strong>由于MySQL表只能有一个自增的键</strong>(已设置为主键自增)，所以这里的实现是每次插入数据后获取主键id的值，然后更新order字段的值(设置为id字段的值)。</li>
+<li>上移操作<br>
+取出上一条记录的排序号，将当前记录与上一条记录的排序号调换位置</li>
+<li>下移操作<br>
+取出下一条记录的排序号，将当前记录与下一条记录的排序号调换位置</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/08/15/move_operation/#more" rel="contents">

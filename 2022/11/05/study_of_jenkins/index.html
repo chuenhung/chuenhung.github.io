@@ -19,20 +19,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="Jenkins构建项目的几种方式 参考简书很有用的一篇文章  Jenkins简单的PipeLine流水线脚本 Windows： 12345678910111213141516pipeline &#123;	agent any	stages &#123;		stage(&#x27;Pull code&#x27;) &#123;			steps &#123;				checkout([$class:">
+    <meta name="description" content="Jenkins构建项目的几种方式 参考简书很有用的一篇文章 Jenkins简单的PipeLine流水线脚本 Windows： 12345678910111213141516pipeline &#123;	agent any	stages &#123;		stage(&#x27;Pull code&#x27;) &#123;			steps &#123;				checkout([$class: &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins学习笔记">
 <meta property="og:url" content="http://yoursite.com/2022/11/05/study_of_jenkins/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="Jenkins构建项目的几种方式 参考简书很有用的一篇文章  Jenkins简单的PipeLine流水线脚本 Windows： 12345678910111213141516pipeline &#123;	agent any	stages &#123;		stage(&#x27;Pull code&#x27;) &#123;			steps &#123;				checkout([$class:">
+<meta property="og:description" content="Jenkins构建项目的几种方式 参考简书很有用的一篇文章 Jenkins简单的PipeLine流水线脚本 Windows： 12345678910111213141516pipeline &#123;	agent any	stages &#123;		stage(&#x27;Pull code&#x27;) &#123;			steps &#123;				checkout([$class: &amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/78207ce3ad6542af8bab2a2fa54cf57f.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/67b689f03021479ab1718e6da10edeea.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/42fd03d5a1294b6b983276be2f9d77f3.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/4a59a94a03b6424298126ff07a771367.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/886b3ea0a40045798c44f9c275db3ea5.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/104dafd8020a487086809bb333de8a1a.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/6fac6878f7534cf8bd57fb1684d0317e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0012f7a8801d586ad93c53a1ddd580f0.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f515a09b48340e372c1bce3c701c9d6d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/aa6c07192cec93574bb477bc7ef95949.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dbac90c49e49180824616e522bb6e7b5.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f1f2b710ce4ef8b6b1081e517d4eddfb.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/5c30feff90926bf35b293f7cc12953fe.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/e87aeeba0ddf0f86898dd41eeda34713.png">
 <meta property="article:published_time" content="2022-11-05T07:26:00.000Z">
 <meta property="article:modified_time" content="2022-11-05T07:26:00.000Z">
 <meta property="article:author" content="Chuenhung">
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="Maven">
 <meta property="article:tag" content="Jenkins">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/78207ce3ad6542af8bab2a2fa54cf57f.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/0012f7a8801d586ad93c53a1ddd580f0.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2022/11/05/study_of_jenkins/">
@@ -301,7 +301,6 @@
     
     <div class="post-body" itemprop="articleBody"><h2 id="Jenkins构建项目的几种方式"><a class="header-anchor" href="#Jenkins构建项目的几种方式"></a>Jenkins构建项目的几种方式</h2>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/693857e8b43b?u_atoken=c9b8e448-e5a0-4550-a040-5274ba3e9725&amp;u_asession=01lCSqeojNFLNgiaimTaTyd11QdAw7afGqmrQvdG0kjnJuXJkqcR3ymixEibifC_JkX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K_b8XInk0h7XgprZYVXoc3v61cRpK6RrRpbRcNX0dn1LmBkFo3NEHBv0PZUm6pbxQU&amp;u_asig=05ReNMps794XZLa2116BvqUeufNIjyBecV-FhOTQGha9uOnJGfTgcExc5QNnRkxZ9uzf9G0FWYDgLVtJgqCC3yQtaLeeKSP3UvXhEhndvhlNKZba-OFbguTSfJTEUQZhch_G8Sf2ZtbWJWJabf-YRktFZjYIDW0pkopRKrKqm8aK_9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzZUCddwWBIp6xMictOI8feDNLCyhYfy__qzb_JxMUlopFkLEP8FFBW9mXuUlqJJ5YO3h9VXwMyh6PgyDIVSG1W_eNMwJKOSMEj1agbxDCIdUIRox2heX479OC2z3E-OFfoAuJfH8V9sOgdzEo4BfmpiUPNYjdMWb1TJ-lvKzyC4JmWspDxyAEEo4kbsryBKb9Q&amp;u_aref=/CUKTk9Q6GuE91us7H7ejr5%2b11M=">参考简书很有用的一篇文章</a></p>
-<!--- more -->
 <h2 id="Jenkins简单的PipeLine流水线脚本"><a class="header-anchor" href="#Jenkins简单的PipeLine流水线脚本"></a>Jenkins简单的PipeLine流水线脚本</h2>
 <p><strong>Windows</strong>：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line">	stages &#123;</span><br><span class="line">		stage(<span class="string">&#x27;Pull code&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				checkout([<span class="attr">$class:</span> <span class="string">&#x27;GitSCM&#x27;</span>, <span class="attr">branches:</span> [[<span class="attr">name:</span> <span class="string">&#x27;*/master&#x27;</span>]], <span class="attr">extensions:</span> [], <span class="attr">userRemoteConfigs:</span> [[<span class="attr">credentialsId:</span> <span class="string">&#x27;4f77bfb0-49cc-4359-9b4a-99b190e5c92b&#x27;</span>, <span class="attr">url:</span> <span class="string">&#x27;https://gitee.com/chuenhung/export-java-bean.git&#x27;</span>]]])</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		stage(<span class="string">&#x27;Build project&#x27;</span>) &#123;</span><br><span class="line">			steps &#123;</span><br><span class="line">				bat <span class="string">&quot;mvn clean package&quot;</span></span><br><span class="line">				archiveArtifacts <span class="string">&#x27;**/target/*.jar&#x27;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -310,26 +309,27 @@
 <p><strong>注意：pipeline、stages、stage、steps、checkout…这些词不能改</strong></p>
 <p>构建遇到问题：java.lang.NoSuchMethodError: No such DSL method ‘pipeline’ found among steps [bat, build, checkout, container, containerLog, input, junit, library, libraryResource, load, milestone, node, parallel, podTemplate, powershell, properties<br>
 解决方法：成功安装PipeLine插件。</p>
+<span id="more"></span>
 <h2 id="Jenkins项目构建细节-定时构建、参数化构建等"><a class="header-anchor" href="#Jenkins项目构建细节-定时构建、参数化构建等"></a>Jenkins项目构建细节(定时构建、参数化构建等)</h2>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/17385df9cff2">参考链接</a></p>
 <h2 id="Jenkins远程部署Jar包-非流水线方式"><a class="header-anchor" href="#Jenkins远程部署Jar包-非流水线方式"></a>Jenkins远程部署Jar包(非流水线方式)</h2>
 <h3 id="安装Publish-Over-SSH-插件"><a class="header-anchor" href="#安装Publish-Over-SSH-插件"></a>安装Publish Over SSH 插件</h3>
-<p><img src="https://img-blog.csdnimg.cn/78207ce3ad6542af8bab2a2fa54cf57f.png" alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0012f7a8801d586ad93c53a1ddd580f0.png" alt="在这里插入图片描述"></p>
 <h3 id="配置Publish-Over-SSH"><a class="header-anchor" href="#配置Publish-Over-SSH"></a>配置Publish Over SSH</h3>
 <p>点击<strong>Manage Jenkins-&gt;Configure System</strong><br>
-<img src="https://img-blog.csdnimg.cn/67b689f03021479ab1718e6da10edeea.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/f515a09b48340e372c1bce3c701c9d6d.png" alt="在这里插入图片描述"><br>
 <strong>找到Publish over SSH-&gt;修改用户密码</strong><br>
-<img src="https://img-blog.csdnimg.cn/42fd03d5a1294b6b983276be2f9d77f3.png" alt="在这里插入图片描述"><br>
-<img src="https://img-blog.csdnimg.cn/4a59a94a03b6424298126ff07a771367.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/aa6c07192cec93574bb477bc7ef95949.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/dbac90c49e49180824616e522bb6e7b5.png" alt="在这里插入图片描述"></p>
 <p><strong>填写服务名、服务器ip、用户名、服务器文件夹等信息</strong><br>
-<img src="https://img-blog.csdnimg.cn/886b3ea0a40045798c44f9c275db3ea5.png" alt="!"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/f1f2b710ce4ef8b6b1081e517d4eddfb.png" alt="!"><br>
 <strong>填写完成后，点击Test Configuration 返回Success说明配置没问题。</strong></p>
 <h3 id="项目构建配置"><a class="header-anchor" href="#项目构建配置"></a>项目构建配置</h3>
 <p><strong>在对应构建的项目配置中(非PipeLine)，Post Steps选择Send files or execute commands over SSH</strong><br>
-<img src="https://img-blog.csdnimg.cn/104dafd8020a487086809bb333de8a1a.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/5c30feff90926bf35b293f7cc12953fe.png" alt="在这里插入图片描述"><br>
 <strong>填写下面的配置：</strong><br>
 其中，<strong>Remote directory是在之前的 Publish over SSH配置追加</strong>。比如之前配置了/usr/local/testJenkins/，这里填写/test/upload，最终上传的路径就会变成/usr/local/testJenkins/test/upload<br>
-<img src="https://img-blog.csdnimg.cn/6fac6878f7534cf8bd57fb1684d0317e.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/e87aeeba0ddf0f86898dd41eeda34713.png" alt="在这里插入图片描述"><br>
 最后，重新构建，看日志等着构建成功就好。这里传输如果文件过大速度会比较慢。<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51527921/article/details/124906363">参考链接1</a>、<a target="_blank" rel="noopener" href="https://www.likecs.com/show-204353443.html#sc=1300">参考链接2</a></p>
 <h2 id="Jenkins远程部署Jar包-流水线方式"><a class="header-anchor" href="#Jenkins远程部署Jar包-流水线方式"></a>Jenkins远程部署Jar包(流水线方式)</h2>

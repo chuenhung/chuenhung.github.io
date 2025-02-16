@@ -26,20 +26,20 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="索引的分类 从索引字段特性 主键索引、唯一索引、常规索引、全文索引">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/e57e57b3c88843219989e48009ed2b06.jpeg#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ce713fc843af40c18d960441054c25bf.jpeg#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/d37d059387344a7eb76a1be93f4471d6.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/aaee083afbfd43e7aa85e495b058ee0a.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/62162481ae0344fe99c277ca21eaf939.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/1c56dacce9b745de8cc48df3ab5e014d.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/a6f9ab07c3b6404c860fc0a00a1f8601.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ad4ae90b91c14681b8cfd3bffa64d91d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/721cd7e68833cfdd28044ce4797dc668.jpeg#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/74a7bc9b2254fecde9dbb9e3b5bc69ff.jpeg#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f0967cfba6e4e9701df40575abe8c83d.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0940cfd0c8fa149c7f09df33a0b363b7.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6f1ce448b9fee79835ef4d3208897168.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4df08226240fc62d22150cabd1a72e8d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/87af9ce4fd0c4f337b860b8f52e7e1cd.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d95ca97c8e1faa2d83fd306d1a7a71ec.png">
 <meta property="article:published_time" content="2023-11-26T12:25:00.000Z">
 <meta property="article:modified_time" content="2023-11-26T12:25:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/e57e57b3c88843219989e48009ed2b06.jpeg#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/721cd7e68833cfdd28044ce4797dc668.jpeg#pic_center">
 
 
 <link rel="canonical" href="http://yoursite.com/2023/11/26/study_it_heimei_mysql_index/">
@@ -301,11 +301,11 @@
     <div class="post-body" itemprop="articleBody"><h2 id="索引的分类"><a class="header-anchor" href="#索引的分类"></a>索引的分类</h2>
 <h3 id="从索引字段特性"><a class="header-anchor" href="#从索引字段特性"></a>从索引字段特性</h3>
 <p><strong>主键索引、唯一索引、常规索引、全文索引</strong><br>
-<img src="https://img-blog.csdnimg.cn/e57e57b3c88843219989e48009ed2b06.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/721cd7e68833cfdd28044ce4797dc668.jpeg#pic_center" alt="在这里插入图片描述"></p>
 <span id="more"></span>
 <h3 id="从物理存储"><a class="header-anchor" href="#从物理存储"></a>从物理存储</h3>
 <p><strong>聚簇(集)索引、二级索引</strong><br>
-<img src="https://img-blog.csdnimg.cn/ce713fc843af40c18d960441054c25bf.jpeg#pic_center" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/74a7bc9b2254fecde9dbb9e3b5bc69ff.jpeg#pic_center" alt="在这里插入图片描述"></p>
 <h3 id="从数据结构"><a class="header-anchor" href="#从数据结构"></a>从数据结构</h3>
 <p><strong>B+树索引、Hash索引、全文索引</strong></p>
 <table>
@@ -341,10 +341,10 @@
 <h3 id="组成索引的字段个数"><a class="header-anchor" href="#组成索引的字段个数"></a>组成索引的字段个数</h3>
 <p><strong>单列索引、联合索引</strong></p>
 <h2 id="InnoDB主键索的B-tree高度为多高呢"><a class="header-anchor" href="#InnoDB主键索的B-tree高度为多高呢"></a>InnoDB主键索的B+tree高度为多高呢?</h2>
-<p><img src="https://img-blog.csdnimg.cn/d37d059387344a7eb76a1be93f4471d6.jpeg" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/f0967cfba6e4e9701df40575abe8c83d.jpeg" alt="在这里插入图片描述"><br>
 <strong>图片中n表示主键个数，n+1表示指针数量。</strong></p>
 <h2 id="explain执行计划"><a class="header-anchor" href="#explain执行计划"></a>explain执行计划</h2>
-<p><img src="https://img-blog.csdnimg.cn/aaee083afbfd43e7aa85e495b058ee0a.jpeg" alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0940cfd0c8fa149c7f09df33a0b363b7.jpeg" alt="在这里插入图片描述"></p>
 <h2 id="最左匹配原则"><a class="header-anchor" href="#最左匹配原则"></a>最左匹配原则</h2>
 <ul>
 <li>如果索引了多列(联合索引)，要遵守最左前缀法则。</li>
@@ -375,7 +375,7 @@
 is null、is not null是否走索引取决于表中的数据分布。</li>
 </ul>
 <h2 id="SQL提示"><a class="header-anchor" href="#SQL提示"></a>SQL提示</h2>
-<p><img src="https://img-blog.csdnimg.cn/62162481ae0344fe99c277ca21eaf939.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/6f1ce448b9fee79835ef4d3208897168.png" alt="在这里插入图片描述"><br>
 其中 use是建议MySQL用这个索引</p>
 <h2 id="覆盖索引、回表查询"><a class="header-anchor" href="#覆盖索引、回表查询"></a>覆盖索引、回表查询</h2>
 <p>尽量使用覆盖索引(查询使用了索引，并且需要返回的列，在该索引中已经全部能够找到)，减少select *。</p>
@@ -383,12 +383,12 @@ is null、is not null是否走索引取决于表中的数据分布。</li>
 NULL： 需要回表查询<br>
 using index condition :    查找使用了索引，但是需要回表查询数据<br>
 using where; using index : 查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询数据</p>
-<p><img src="https://img-blog.csdnimg.cn/1c56dacce9b745de8cc48df3ab5e014d.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/4df08226240fc62d22150cabd1a72e8d.png" alt="在这里插入图片描述"><br>
 username、password建立联合索引，避免回表查询。</p>
 <h2 id="前缀索引"><a class="header-anchor" href="#前缀索引"></a>前缀索引</h2>
-<p><img src="https://img-blog.csdnimg.cn/a6f9ab07c3b6404c860fc0a00a1f8601.png" alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/87af9ce4fd0c4f337b860b8f52e7e1cd.png" alt="在这里插入图片描述"></p>
 <h2 id="索引设计原则"><a class="header-anchor" href="#索引设计原则"></a>索引设计原则</h2>
-<p><img src="https://img-blog.csdnimg.cn/ad4ae90b91c14681b8cfd3bffa64d91d.png" alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d95ca97c8e1faa2d83fd306d1a7a71ec.png" alt="在这里插入图片描述"></p>
 
     </div>
 

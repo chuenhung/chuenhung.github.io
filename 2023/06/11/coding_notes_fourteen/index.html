@@ -26,22 +26,22 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="MySQL自定义排序 用locate本质是数字排序 用locate本质是数字排序，可以先把数字打印出来 123SELECT id, second_class, LOCATE(second_class, &#x27;【现场发布】世界互联网大会领先科技成果,世界互联网大会领先科技成果,国际电联WSIS奖-Winner（最高项目奖）,国际电联AI&#x2F;ML in 5G大赛奖,国际电联WSIS奖-Winner">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/be09020f0f10446ba3c99fbe732aaac2.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/744f4f013968419e9842b517766f942d.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/a17f1c48b4984e8380baf15710990f08.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d81a0677ad23034543461dd03827a31d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1717650cfda39812a87ff777287fb20b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c57d8535942cf55d57346e6317989650.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7337c4aa4cd4b6a8bcc8f29ecc7496e0.png">
 <meta property="article:published_time" content="2023-06-11T05:50:00.000Z">
 <meta property="article:modified_time" content="2023-08-11T14:50:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="MySQL">
-<meta property="article:tag" content="Nacos">
-<meta property="article:tag" content="Springboot">
 <meta property="article:tag" content="Maven">
+<meta property="article:tag" content="Springboot">
+<meta property="article:tag" content="Nacos">
 <meta property="article:tag" content="Validation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/d81a0677ad23034543461dd03827a31d.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2023/06/11/coding_notes_fourteen/">
@@ -373,7 +373,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.profiles.active=dev</span> </span><br></pre></td></tr></table></figure>
 <p>激活配置</p>
 <h2 id="Nacos服务配置数据模型"><a class="header-anchor" href="#Nacos服务配置数据模型"></a>Nacos服务配置数据模型</h2>
-<p><img src="https://img-blog.csdnimg.cn/20c04d160f294c999ed1b497f580bd02.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d81a0677ad23034543461dd03827a31d.png" alt="在这里插入图片描述"><br>
 <strong>一共有三种配置方案：</strong><br>
 1、<br>
 默认命名空间(public) + 默认Group分组(DEFAULT_GROUP) + 自定义Data Id（没有默认值）<br>
@@ -386,7 +386,7 @@
 <h3 id="解决Nacos-1-3-1连接MySQL-8数据库报错"><a class="header-anchor" href="#解决Nacos-1-3-1连接MySQL-8数据库报错"></a>解决Nacos 1.3.1连接MySQL 8数据库报错</h3>
 <p>解决方法如下：<br>
 <strong>第一步：在nacos安装目录下新建plugins/mysql文件夹，并放入mysql-connector-java-8.0.18.jar</strong><br>
-<img src="https://img-blog.csdnimg.cn/be09020f0f10446ba3c99fbe732aaac2.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1717650cfda39812a87ff777287fb20b.png" alt="在这里插入图片描述"></p>
 <p>我的数据库是8.0.27，用这个包可以连接上。<br>
 windows和linux都需要做这一步。</p>
 <p><strong>第二步：修改conf/application.properties文件中的数据库信息。注意需要修改url链接。</strong></p>
@@ -428,7 +428,7 @@ windows和linux都需要做这一步。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudoroot:&lt;42&amp;x24&lt;3T&#123;/&#125;5#6</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --list-all</span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --permanent --add-rich-rule=<span class="string">&quot;rule family=&quot;</span>ipv4<span class="string">&quot; source address=&quot;</span>10.1.121.76<span class="string">&quot; port protocol=&quot;</span>tcp<span class="string">&quot; port=&quot;</span>9002<span class="string">&quot; accept&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <h2 id="Mysql-order-by中使用case-when"><a class="header-anchor" href="#Mysql-order-by中使用case-when"></a>Mysql order by中使用case when</h2>
 <p><strong>需求：</strong><br>
-<img src="https://img-blog.csdnimg.cn/744f4f013968419e9842b517766f942d.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c57d8535942cf55d57346e6317989650.png" alt="在这里插入图片描述"></p>
 <p>**实现逻辑：**只管未分配专家的数据，分配了专家的数据按后面的字段排序。<br>
 <strong>代码如下：</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">order</span> <span class="keyword">by</span></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">when</span> awardExpert.id <span class="keyword">is</span> <span class="keyword">null</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">2</span> <span class="keyword">end</span>,</span><br><span class="line">apply.submit_time <span class="keyword">desc</span>,apply.id,expert.update_time <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
@@ -451,7 +451,7 @@ MySQL 8用户连接内存限制，设置单个用户连接可以使用的最大�
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dreamyuzhou/article/details/126262551">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/ActionTech/article/details/123329126">参考链接</a></p>
 <h2 id="鼠标右键没有360压缩菜单的解决"><a class="header-anchor" href="#鼠标右键没有360压缩菜单的解决"></a>鼠标右键没有360压缩菜单的解决</h2>
 <p>确保电脑管家没有禁止自启动：<br>
-<img src="https://img-blog.csdnimg.cn/a17f1c48b4984e8380baf15710990f08.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/7337c4aa4cd4b6a8bcc8f29ecc7496e0.png" alt="在这里插入图片描述"></p>
 
     </div>
 
@@ -482,9 +482,9 @@ MySQL 8用户连接内存限制，设置单个用户连接可以使用的最大�
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
               <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
-              <a href="/tags/Nacos/" rel="tag"><i class="fa fa-tag"></i> Nacos</a>
-              <a href="/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i> Springboot</a>
               <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+              <a href="/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i> Springboot</a>
+              <a href="/tags/Nacos/" rel="tag"><i class="fa fa-tag"></i> Nacos</a>
               <a href="/tags/Validation/" rel="tag"><i class="fa fa-tag"></i> Validation</a>
           </div>
 

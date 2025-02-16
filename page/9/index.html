@@ -389,14 +389,18 @@ Gson代码如下：</li>
     
     <div class="post-body" itemprop="articleBody">
           <p>有时候把pom.xml依赖去除了，但是IntelliJ IDEA中External Libraries还显示之前的依赖。解决方法如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/05/delete_external_jar_in_idea/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<ul>
+<li>
+<p>第一步：清缓存重启IDEA<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/ba282c9c77ba0080f6d4675c1ea3501d.png" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<p>第二步：Maven update<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/45aefe049e75f92fbb7e54f97a55ee4e.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/954e547265f7">参考链接</a></p>
+
       
     </div>
 
@@ -703,7 +707,14 @@ Gson代码如下：</li>
     <div class="post-body" itemprop="articleBody">
           <h2 id="背景"><a class="header-anchor" href="#背景"></a>背景</h2>
 <p>项目需要把Excel导入，并且支持<strong>更新成果简介字段</strong>的值。这种Excel模版一共有9个，对应9大奖项，其中双创奖的导入模版如下：<br>
-<img src="https://img-blog.csdnimg.cn/6fcd4d37236d4c28aade63c6b4db135f.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/473d04f4964ec4428436f3a3c697637e.png" alt="在这里插入图片描述"></p>
+<h2 id="数据库表设计"><a class="header-anchor" href="#数据库表设计"></a>数据库表设计</h2>
+<p>主表为t_awards，<strong>主键用的是UUID</strong>，主要存储合并单元格部分的数据(一级分类、二级分类、获奖年份、成果名称等)，通过award_type区分不同奖项；详细表为t_awards_detail，主要存储非合并单元格数据(获奖单位、获奖个人、员工编号等)，award_id对应t_awards表的主键。</p>
+<p>t_awards表结构如下：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/ed649b4d2c962895e9943a96ea119e8d.png" alt="在这里插入图片描述"><br>
+t_awards_detail表结构如下：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/e5d54deb06a738341b19e15ebe153e68.png" alt="在这里插入图片描述"><br>
+截图中橙色为主键、绿色为普通索引、红色为联合唯一索引。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/11/21/on_duplicate_key_update/#more" rel="contents">

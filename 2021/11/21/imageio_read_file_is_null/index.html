@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="背景 公司项目需要做一个图片预览的功能，并且要展示图片的分辨率(即宽和高)，目前的框架没有这个功能，所以得自己写一个方法去读取上传的附件。百度了一下，发现用Java包中的ImageIO就可以得到图片的宽和高。但是，有部分图片会读出null，然后空指针异常。主要代码如下： 1234File file &#x3D; new File(filePath);BufferedImage image &#x3D; ImageIO">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/5130311e11b14717a2de20e0d40a08f3.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c108df05bebaf13f7188961e4024e25e.png">
 <meta property="article:published_time" content="2021-11-21T02:53:00.000Z">
 <meta property="article:modified_time" content="2021-11-21T02:53:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="ImageIO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/5130311e11b14717a2de20e0d40a08f3.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/c108df05bebaf13f7188961e4024e25e.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/11/21/imageio_read_file_is_null/">
@@ -295,7 +295,6 @@
     <div class="post-body" itemprop="articleBody"><h2 id="背景"><a class="header-anchor" href="#背景"></a>背景</h2>
 <p>公司项目需要做一个图片预览的功能，并且要展示图片的分辨率(即宽和高)，目前的框架没有这个功能，所以得自己写一个方法去读取上传的附件。百度了一下，发现用Java包中的ImageIO就可以得到图片的宽和高。但是，有部分图片会读出null，然后空指针异常。主要代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line"><span class="type">BufferedImage</span> <span class="variable">image</span> <span class="operator">=</span> ImageIO.read(file);</span><br><span class="line">result.put(<span class="string">&quot;width&quot;</span>,image.getWidth());</span><br><span class="line">result.put(<span class="string">&quot;height&quot;</span>,image.getHeight());</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
 <h2 id="解决过程"><a class="header-anchor" href="#解决过程"></a>解决过程</h2>
 <p>造成这个问题的原因是图片的后缀可能是jpg、png，但是图片实际上是另一种格式(比如webp、tif)。先打印一下ImageIO支持的文件格式，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JDK8输出：JPG jpg bmp BMP gif GIF WBMP png PNG wbmp jpeg JPEG</span></span><br><span class="line"><span class="comment">// JDK11输出：JPG jpg tiff bmp BMP gif GIF WBMP png PNG JPEG tif TIF TIFF wbmp jpeg</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ImageIO.getReaderFormatNames().length; i++) &#123;</span><br><span class="line">          System.out.print(ImageIO.getReaderFormatNames()[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
@@ -303,6 +302,7 @@
 如果图片源格式是tif，那么在项目中加入下面的依赖就行：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.twelvemonkeys.imageio&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;imageio-tiff&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">3.4</span><span class="number">.1</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 <p>ImageIO 会自动搜索类路径下继承的接口和子类不用改代码。</p>
+<span id="more"></span>
 <h2 id="最终解决"><a class="header-anchor" href="#最终解决"></a>最终解决</h2>
 <p>我的图片源格式是webp的，网上找了下资料，大部分都是用的第一种方法。</p>
 <h3 id="方法一"><a class="header-anchor" href="#方法一"></a>方法一</h3>
@@ -331,7 +331,7 @@
 <p>至此，终于解决，完美！</p>
 <h2 id="附-快速查看webp格式"><a class="header-anchor" href="#附-快速查看webp格式"></a>附(快速查看webp格式)</h2>
 <p>直接把图片用记事本打开，如果第一行有显示&quot;WEBPVP8&quot;之类的文字就是webp格式的图片。<br>
-<img src="https://img-blog.csdnimg.cn/5130311e11b14717a2de20e0d40a08f3.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c108df05bebaf13f7188961e4024e25e.png" alt="在这里插入图片描述"><br>
 如图所示，文件名虽然是jpg后缀但是内容却是webp。</p>
 
     </div>

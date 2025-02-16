@@ -26,15 +26,15 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="问题描述 电脑的Notepad安装目录移动了，发现鼠标右键看不到Notepad菜单。下面的解决方法也适用于免安装版Notepad++。 解决方法 第一步、在注册表HKEY_CLASSES_ROOT*\shell\目录下新建Open With Notepad目录。然后在目录下新建一个字符串，字符串的Name为Icon，值为Notepad的安装路径。  第二步、在注册表HKEY_CLASSES_ROO">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/a9c0b0f93c644ef0bac6ab5ff4e47c4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f85b74e25ee547618808b752e5be8cb3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/58f5f9a55e724f4c91b657b3dd6badae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1c7b1896205861b91badd5ecaba9b829.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/22c55a0026af328bb71122e2fde98d18.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/342a68f04dd61b539a40189f50dcc920.png#pic_center">
 <meta property="article:published_time" content="2021-07-25T14:33:00.000Z">
 <meta property="article:modified_time" content="2021-07-25T14:33:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/a9c0b0f93c644ef0bac6ab5ff4e47c4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/1c7b1896205861b91badd5ecaba9b829.png#pic_center">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/07/25/notepad++/">
@@ -297,12 +297,12 @@
 <p>电脑的Notepad<ins>安装目录移动了，发现鼠标右键看不到Notepad</ins>菜单。下面的解决方法也适用于免安装版Notepad++。</p>
 <h2 id="解决方法"><a class="header-anchor" href="#解决方法"></a>解决方法</h2>
 <p>第一步、在注册表HKEY_CLASSES_ROOT*\shell\目录下<strong>新建Open With Notepad<ins>目录。然后在目录下新建一个字符串，字符串的Name为Icon，值为Notepad</ins>的安装路径。</strong><br>
-<img src="https://img-blog.csdnimg.cn/a9c0b0f93c644ef0bac6ab5ff4e47c4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1c7b1896205861b91badd5ecaba9b829.png#pic_center" alt="在这里插入图片描述"><br>
 第二步、在注册表HKEY_CLASSES_ROOT*\shell\Open With Notepad<ins>目录下再<strong>新建一个目录Command(名字不能更改)</strong>，值为Notepad</ins>的安装路径。<br>
-<img src="https://img-blog.csdnimg.cn/f85b74e25ee547618808b752e5be8cb3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/22c55a0026af328bb71122e2fde98d18.png#pic_center" alt="在这里插入图片描述"><br>
 如果不做这步，电脑会提示该文件没有相关联的应用程序来执行操作。</p>
 <p>第三步、测试效果<br>
-<img src="https://img-blog.csdnimg.cn/58f5f9a55e724f4c91b657b3dd6badae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/342a68f04dd61b539a40189f50dcc920.png#pic_center" alt="在这里插入图片描述"></p>
 
     </div>
 

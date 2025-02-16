@@ -26,26 +26,26 @@
 <meta property="og:site_name" content="Chuenhung的个人网站">
 <meta property="og:description" content="VirtualBox的7种网络接入模式详解 参考链接、参考链接 各网络模式的默认情况下，网络连接情况     NAT模式 桥接模式 Host-Only模式     虚拟机 -&gt; 宿主机 √ √ 默认不能，需要设置   宿主机 ——&gt; 虚拟机 x √ 默认不能，需要设置   虚拟机 ——&gt; 虚拟机 x √ √   虚拟机 ——&gt; 同局域网下其他主机 √ √ 默认不能，需要设置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f6464bfa79a0413ba37fcdb2e7eca3cc.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/fed6d3b1eafe42d7b500bcb985b0b2fc.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/18cde0da7c254065b60d61af3f6a3ee3.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/09e6b6f3e3df4465843f39dbde66865e.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/486d1c198ebb41c8922fb7c1b93a811e.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/d6f41cc89bb3475ca119b14da37d09dd.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/68e01f621947457cbff55ca3a9f900e2.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/bbe88d6d2895494aad40a8f811cff06d.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ff9639ed1a1d4cf296d3b8be442d834c.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/0f2bbac4c0d74df693e614b46052bee0.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/4802c34db2bb4ddaa818d732767070a9.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/1615e2a9be62477998cdb2a194134797.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a703f5bf7e9baef95afc2bb399336dd3.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4ee69b856339bef5a572b2eaa156eff5.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6a3c43dae765f2659d436a1a6fd1ba83.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b000a2493909d3107df85b8d44338863.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0421f313bd0ba0066f9041bebc5d30d4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dd785cc8810be04d3f51c3f5189312e8.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/18c746d8ade85997334d58bb32773b07.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f36faab786cd327d327f72e42d291117.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8f5f0f8bbc8e58d4bf94c16fb688aef4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/fcff321284c013161e3a2332bbfc6d8e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1d7b487aed4d7843d080fdf1fb9b469e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/acdce70966feb02b8e9754ebb84b45c6.png">
 <meta property="article:published_time" content="2022-11-06T14:30:00.000Z">
 <meta property="article:modified_time" content="2022-11-06T14:30:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Centos">
 <meta property="article:tag" content="VirtualBox">
+<meta property="article:tag" content="Centos">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f6464bfa79a0413ba37fcdb2e7eca3cc.png#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/a703f5bf7e9baef95afc2bb399336dd3.png#pic_center">
 
 
 <link rel="canonical" href="http://yoursite.com/2022/11/06/network_connection_mode_of_VirtualBox/">
@@ -350,46 +350,46 @@
 </tbody>
 </table>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mysticbinary/p/16595169.html">参考链接</a></p>
-<!--- more -->
+<span id="more"></span>
 <h2 id="配置网络地址转换-NAT-模式"><a class="header-anchor" href="#配置网络地址转换-NAT-模式"></a>配置网络地址转换(NAT)模式</h2>
 <p>NAT模式下，宿主机访问虚拟机，虚拟机可以访问宿主机，虚拟机可以访问互联网。</p>
 <h3 id="访问外网"><a class="header-anchor" href="#访问外网"></a>访问外网</h3>
 <p><strong>选择对应虚拟机 -&gt; 设置 -&gt; 网络 -&gt; 选择连接方式为NAT -&gt; 选择控制芯片</strong><br>
-<img src="https://img-blog.csdnimg.cn/f6464bfa79a0413ba37fcdb2e7eca3cc.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/a703f5bf7e9baef95afc2bb399336dd3.png#pic_center" alt="在这里插入图片描述"><br>
 这样配置以后，启动虚拟机，执行<strong>ping www.baidu.com</strong>有响应说明配置成功。如果没有响应换一个控制芯片试试，上图框红的两个控制芯片是可以的。</p>
 <h3 id="宿主机访问虚拟机"><a class="header-anchor" href="#宿主机访问虚拟机"></a>宿主机访问虚拟机</h3>
 <p>配置步骤如下：<br>
 <strong>选择对应虚拟机 -&gt; 设置 -&gt; 网络 -&gt; 端口转发(主机为222,子系统为22,其他不用填)</strong><br>
-<img src="https://img-blog.csdnimg.cn/fed6d3b1eafe42d7b500bcb985b0b2fc.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/4ee69b856339bef5a572b2eaa156eff5.png#pic_center" alt="在这里插入图片描述"><br>
 <strong>配置完重启虚拟机后</strong>，宿主机访问虚拟机连接如下：<br>
-<img src="https://img-blog.csdnimg.cn/18cde0da7c254065b60d61af3f6a3ee3.png#pic_center" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/6a3c43dae765f2659d436a1a6fd1ba83.png#pic_center" alt="在这里插入图片描述"><br>
 <strong>注意，这种模式文件传输非常慢，本地上传一个10多KB的文件到虚拟机花费差不多2分钟。</strong></p>
 <h2 id="配置桥接模式"><a class="header-anchor" href="#配置桥接模式"></a>配置桥接模式</h2>
 <p>桥接模式下，虚拟机和宿主机在同一网段，虚拟机可以访问外网，宿主机可以访问虚拟机，虚拟机可以访问宿主机同一局域网的其他机器。具体配置步骤如下所示：</p>
 <h3 id="网络连接方式设置"><a class="header-anchor" href="#网络连接方式设置"></a>网络连接方式设置</h3>
-<p><img src="https://img-blog.csdnimg.cn/09e6b6f3e3df4465843f39dbde66865e.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/b000a2493909d3107df85b8d44338863.png" alt="在这里插入图片描述"><br>
 <strong>这里的MAC地址和网卡配置文件的HWADDR一致</strong>，否则会重启网络服务失败。<br>
 确定界面名称是网络的适配器，一般默认的没问题。<br>
-<img src="https://img-blog.csdnimg.cn/486d1c198ebb41c8922fb7c1b93a811e.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/0421f313bd0ba0066f9041bebc5d30d4.png" alt="在这里插入图片描述"><br>
 <strong>配置完桥接模式，启动虚拟机，网络就是通的，只是IP不固定。</strong></p>
 <h3 id="修改网卡配置文件"><a class="header-anchor" href="#修改网卡配置文件"></a>修改网卡配置文件</h3>
 <p>这一步的目的是固定虚拟机的IP地址。<br>
 <strong>先查看宿主机的网络信息：</strong><br>
-<img src="https://img-blog.csdnimg.cn/d6f41cc89bb3475ca119b14da37d09dd.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/dd785cc8810be04d3f51c3f5189312e8.png" alt="在这里插入图片描述"><br>
 <strong>修改虚拟机的网卡配置文件：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line"><span class="comment"># 改为静态</span></span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=<span class="built_in">yes</span></span><br><span class="line">IPV6_AUTOCONF=<span class="built_in">yes</span></span><br><span class="line">IPV6_DEFROUTE=<span class="built_in">yes</span></span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line"><span class="comment"># 和ifcfg-enpXXX名一致</span></span><br><span class="line">NAME=enp0s3</span><br><span class="line"><span class="comment"># 可以不写，但是写了就不能和其他网卡相同。可以用uuidgen命令生成。</span></span><br><span class="line">UUID=40263cbd-6ed4-497c-9321-7326e27d4a29</span><br><span class="line"><span class="comment"># 和ifcfg-enpXXX名一致</span></span><br><span class="line">DEVICE=enp0s3</span><br><span class="line"><span class="comment"># 改为yes，即开机</span></span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line"><span class="comment"># 和宿主机在同一网段不同ip</span></span><br><span class="line">IPADDR=10.1.18.156</span><br><span class="line"><span class="comment"># 和宿主机保持一致，否则会重启失败</span></span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line"><span class="comment"># 和宿主机保持一致，否则会重启失败</span></span><br><span class="line">GATEWAY=10.1.18.1</span><br><span class="line"><span class="comment"># 可以注销，不然得写正确，否则会重启失败</span></span><br><span class="line">HWADDR=08:00:27:CB:CB:8E</span><br><span class="line"><span class="comment"># 不要写宿主机的字符串！可以网上查一个服务器，下面用的Google的DNS服务器</span></span><br><span class="line">DNS1=8.8.8.8</span><br></pre></td></tr></table></figure>
 <h3 id="测试网络"><a class="header-anchor" href="#测试网络"></a>测试网络</h3>
 <p>配置正常后，直接ping www.baidu.com就可以联通了。宿主机访问虚拟机，连接方式如下：<br>
-<img src="https://img-blog.csdnimg.cn/68e01f621947457cbff55ca3a9f900e2.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/18c746d8ade85997334d58bb32773b07.png" alt="在这里插入图片描述"></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45536587/article/details/124279045">参考链接</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42383970/article/details/119001039">参考链接</a></p>
 <h2 id="NAT-HostOnly模式组合"><a class="header-anchor" href="#NAT-HostOnly模式组合"></a>NAT+HostOnly模式组合</h2>
 <h3 id="设置主机网络管理器"><a class="header-anchor" href="#设置主机网络管理器"></a>设置主机网络管理器</h3>
-<p><img src="https://img-blog.csdnimg.cn/bbe88d6d2895494aad40a8f811cff06d.png" alt="在这里插入图片描述"><br>
-<img src="https://img-blog.csdnimg.cn/ff9639ed1a1d4cf296d3b8be442d834c.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/f36faab786cd327d327f72e42d291117.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/8f5f0f8bbc8e58d4bf94c16fb688aef4.png" alt="在这里插入图片描述"><br>
 这个是VirtualBox的默认设置，不是这个可以改为这个，后续配置文件就不需要改了。</p>
 <h3 id="网络连接方式设置-v2"><a class="header-anchor" href="#网络连接方式设置-v2"></a>网络连接方式设置</h3>
-<p><img src="https://img-blog.csdnimg.cn/0f2bbac4c0d74df693e614b46052bee0.png" alt="在这里插入图片描述"><br>
-<img src="https://img-blog.csdnimg.cn/4802c34db2bb4ddaa818d732767070a9.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/fcff321284c013161e3a2332bbfc6d8e.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1d7b487aed4d7843d080fdf1fb9b469e.png" alt="在这里插入图片描述"><br>
 设置好后，启动虚拟机。</p>
 <h3 id="虚拟机网卡配置文件修改"><a class="header-anchor" href="#虚拟机网卡配置文件修改"></a>虚拟机网卡配置文件修改</h3>
 <p><strong>Nat模式启动虚拟机就可以访问外网，直接ping www.baidu.com是可以连通的。</strong></p>
@@ -402,7 +402,7 @@
 <p>网卡2为HostOnly网络连接模式的配置文件，需要设置为静态ip，修改后的配置文件如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">TYPE=<span class="string">&quot;Ethernet&quot;</span></span><br><span class="line">PROXY_METHOD=<span class="string">&quot;none&quot;</span></span><br><span class="line">BROWSER_ONLY=<span class="string">&quot;no&quot;</span></span><br><span class="line"><span class="comment"># BOOTPROTO改为static，意为静态模式</span></span><br><span class="line">BOOTPROTO=<span class="string">&quot;static&quot;</span></span><br><span class="line">DEFROUTE=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV4_FAILURE_FATAL=<span class="string">&quot;no&quot;</span></span><br><span class="line">IPV6INIT=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_AUTOCONF=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_DEFROUTE=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPV6_FAILURE_FATAL=<span class="string">&quot;no&quot;</span></span><br><span class="line">IPV6_ADDR_GEN_MODE=<span class="string">&quot;stable-privacy&quot;</span></span><br><span class="line"><span class="comment"># NAME改为enp0s8，和文件名称后缀ifcfg-xxx保持一致。和ip route中的网卡2后缀一致。</span></span><br><span class="line">NAME=<span class="string">&quot;enp0s8&quot;</span></span><br><span class="line"><span class="comment"># 可以不写，但是写了就不能和其他网卡相同。可以用uuidgen命令生成。</span></span><br><span class="line">UUID=<span class="string">&quot;87a8c150-3d1a-4111-97aa-816692dcf504&quot;</span></span><br><span class="line"><span class="comment"># DEVICE改为enp0s8，和文件名称后缀ifcfg-xxx保持一致。和ip route中的网卡2后缀一致。</span></span><br><span class="line">DEVICE=<span class="string">&quot;enp0s8&quot;</span></span><br><span class="line">ONBOOT=<span class="string">&quot;yes&quot;</span></span><br><span class="line"><span class="comment"># IPADDR需要在指定的IP范围内（可以在VirtualBox主机网络配置管理器DHCP服务器中查看）</span></span><br><span class="line">IPADDR=192.168.56.102</span><br><span class="line"><span class="comment"># NETMASK也和指定的服务器子网掩码一致（可以在VirtualBox主机网络配置管理器DHCP服务器中查看）</span></span><br><span class="line">NETMASK=255.255.255.0</span><br></pre></td></tr></table></figure>
 <h3 id="宿主机通过静态ip-HostOnly方式-访问虚拟机"><a class="header-anchor" href="#宿主机通过静态ip-HostOnly方式-访问虚拟机"></a>宿主机通过静态ip(HostOnly方式)访问虚拟机</h3>
-<p><img src="https://img-blog.csdnimg.cn/1615e2a9be62477998cdb2a194134797.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/acdce70966feb02b8e9754ebb84b45c6.png" alt="在这里插入图片描述"><br>
 经测试，这种模式文件传输非常快。</p>
 <p><strong>NAT+HostOnly模式与桥接模式不同的是，IPADDR、网关的配置。</strong></p>
 <ul>
@@ -450,8 +450,8 @@
 
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
-              <a href="/tags/Centos/" rel="tag"><i class="fa fa-tag"></i> Centos</a>
               <a href="/tags/VirtualBox/" rel="tag"><i class="fa fa-tag"></i> VirtualBox</a>
+              <a href="/tags/Centos/" rel="tag"><i class="fa fa-tag"></i> Centos</a>
           </div>
 
         

@@ -19,24 +19,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="Lambda表达式 为什么使用Lambda表达式  Lambda是一个匿名函数，相当于匿名内部类 只有函数式接口(可以用@FunctionalInterface注解修饰) 可以使用Lambda表达式 使用 Lambda省略了写实现类的繁琐步骤，可以写出更简洁、更灵活的代码，使Java的语言表达能力得到了提升。   Lambda表达式语法 Lambda 表达式在Java 语言中引入了一个新的操作符,">
+    <meta name="description" content="Lambda表达式 为什么使用Lambda表达式  Lambda是一个匿名函数，相当于匿名内部类 只有函数式接口(可以用@FunctionalInterface注解修饰) 可以使用Lambda表达式 使用 Lambda省略了写实现类的繁琐步骤，可以写出更简洁、更灵活的代码，使Java的语言表达能力得到了提升。  Lambda表达式语法 Lambda 表达式在Java 语言中引入了一个新的操作符,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java8新特性学习">
 <meta property="og:url" content="http://yoursite.com/2022/12/19/Java8_new_features/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="Lambda表达式 为什么使用Lambda表达式  Lambda是一个匿名函数，相当于匿名内部类 只有函数式接口(可以用@FunctionalInterface注解修饰) 可以使用Lambda表达式 使用 Lambda省略了写实现类的繁琐步骤，可以写出更简洁、更灵活的代码，使Java的语言表达能力得到了提升。   Lambda表达式语法 Lambda 表达式在Java 语言中引入了一个新的操作符,">
+<meta property="og:description" content="Lambda表达式 为什么使用Lambda表达式  Lambda是一个匿名函数，相当于匿名内部类 只有函数式接口(可以用@FunctionalInterface注解修饰) 可以使用Lambda表达式 使用 Lambda省略了写实现类的繁琐步骤，可以写出更简洁、更灵活的代码，使Java的语言表达能力得到了提升。  Lambda表达式语法 Lambda 表达式在Java 语言中引入了一个新的操作符,">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/492c9b3fdf924c97b2a5f44067c56a92.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/cb01d3646e944ac0b9dc4109b88795e5.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/24c413c7d19a4caca2620c37eec97d76.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/7012a16d2a7540338c9c69f02abc207e.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ae1fc0b0fac147f39cfc8d7a72d5e3be.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/e911c77e8f0cf374b2b1d188e71eb3d3.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0947ac10d1c3b84988ed999ced2ab805.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1a2accbdf16be8d16786ae03c9301286.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/26d1d44563dea83463dd9888d57d79b2.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4992341485cd431269527c2c655ef388.png">
 <meta property="article:published_time" content="2022-12-19T14:56:00.000Z">
 <meta property="article:modified_time" content="2023-12-15T13:05:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/492c9b3fdf924c97b2a5f44067c56a92.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/e911c77e8f0cf374b2b1d188e71eb3d3.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2022/12/19/Java8_new_features/">
@@ -309,11 +309,11 @@
 <li>只有<strong>函数式接口(可以用@FunctionalInterface注解修饰)</strong> 可以使用Lambda表达式</li>
 <li>使用 Lambda省略了写实现类的繁琐步骤，可以写出更简洁、更灵活的代码，使Java的语言表达能力得到了提升。</li>
 </ul>
-<!--- more -->
 <h3 id="Lambda表达式语法"><a class="header-anchor" href="#Lambda表达式语法"></a>Lambda表达式语法</h3>
 <p>Lambda 表达式在Java 语言中引入了一个新的操作符, “<strong>-&gt;</strong>”， 它将 Lambda 分为两个部分：<br>
 <strong>左侧：指定了 Lambda表达式的参数列表</strong><br>
 <strong>右侧：指定了 Lambda体，即 Lambda表达式要执行的功能。</strong></p>
+<span id="more"></span>
 <h4 id="语法格式一：无参数，无返回值"><a class="header-anchor" href="#语法格式一：无参数，无返回值"></a>语法格式一：无参数，无返回值</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; System.out.println(<span class="string">&quot;Hello Lambda!&quot;</span>);</span><br></pre></td></tr></table></figure>
 <h4 id="语法格式二：有一个参数，并且无返回值"><a class="header-anchor" href="#语法格式二：有一个参数，并且无返回值"></a>语法格式二：有一个参数，并且无返回值</h4>
@@ -459,7 +459,7 @@
 <li>Stream 操作是延迟执行的。这意味着他们会等到需要结果的时候才执行。</li>
 </ul>
 <h3 id="Stream操作的三个步骤"><a class="header-anchor" href="#Stream操作的三个步骤"></a>Stream操作的三个步骤</h3>
-<p><img src="https://img-blog.csdnimg.cn/492c9b3fdf924c97b2a5f44067c56a92.png" alt="在这里插入图片描述"><br>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/e911c77e8f0cf374b2b1d188e71eb3d3.png" alt="在这里插入图片描述"><br>
 Stream操作的三个步骤如下：</p>
 <ul>
 <li><strong>创建 Stream</strong><br>
@@ -694,8 +694,8 @@ public static<T> Stream<T> of(T… values) : 返回一个流。<br>
 </tbody>
 </table>
 <p>Collector 接口中方法的实现决定了如何对流执行收集操作(如收集到 List、Set、Map)。但是Collectors 实用类提供了很多静态方法，可以方便地创建常见收集器实例，具体方法与实例如下表：<br>
-<img src="https://img-blog.csdnimg.cn/cb01d3646e944ac0b9dc4109b88795e5.png" alt="在这里插入图片描述"><br>
-<img src="https://img-blog.csdnimg.cn/24c413c7d19a4caca2620c37eec97d76.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/0947ac10d1c3b84988ed999ced2ab805.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1a2accbdf16be8d16786ae03c9301286.png" alt="在这里插入图片描述"></p>
 <p>示例代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">List&lt;DeptInfoVo&gt; deptInfoVoList = getDeptInfoVoData();</span><br><span class="line">Set&lt;String&gt; set = deptInfoVoList.stream()</span><br><span class="line">        .map(DeptInfoVo::getDeptName)</span><br><span class="line">        .collect(Collectors.toSet());</span><br><span class="line"></span><br><span class="line">HashSet&lt;String&gt; hashSet = deptInfoVoList.stream()</span><br><span class="line">        .map(DeptInfoVo::getDeptName)</span><br><span class="line">        .collect(Collectors.toCollection(HashSet::<span class="keyword">new</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分组</span></span><br><span class="line">Map&lt;Status, List&lt;Employee&gt;&gt; map = emps.stream()</span><br><span class="line">.collect(Collectors.groupingBy(Employee::getStatus));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多级分组</span></span><br><span class="line">Map&lt;Status, Map&lt;String, List&lt;Employee&gt;&gt;&gt; map = emps.stream()</span><br><span class="line">			.collect(Collectors.groupingBy(Employee::getStatus, Collectors.groupingBy((e) -&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span>(e.getAge() &gt;= <span class="number">60</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="string">&quot;老年&quot;</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span>(e.getAge() &gt;= <span class="number">35</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="string">&quot;中年&quot;</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="keyword">return</span> <span class="string">&quot;成年&quot;</span>;</span><br><span class="line">			&#125;)));</span><br></pre></td></tr></table></figure>
 <h2 id="接口中的默认方法与静态方法"><a class="header-anchor" href="#接口中的默认方法与静态方法"></a>接口中的默认方法与静态方法</h2>
@@ -721,7 +721,7 @@ public static<T> Stream<T> of(T… values) : 返回一个流。<br>
 Java8提供了LocalDate、LocalTime和LocalDateTime 类，它们的实例是<strong>不可变的对象</strong>，<strong>做任何操作都会新生成一个对象</strong>，分别表示使用 ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。</p>
 <p>注：ISO-8601日历系统是国际标准化组织制定的现代公民的日期和时间的表示法<br>
 相关方法如下：<br>
-<img src="https://img-blog.csdnimg.cn/7012a16d2a7540338c9c69f02abc207e.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/26d1d44563dea83463dd9888d57d79b2.png" alt="在这里插入图片描述"><br>
 <strong>示例代码如下：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">System.out.println(ldt);</span><br><span class="line">System.out.println(ldt.getYear());</span><br><span class="line">System.out.println(ldt.getMonthValue());</span><br><span class="line">System.out.println(ldt.getDayOfMonth());</span><br><span class="line">System.out.println(ldt.getHour());</span><br><span class="line">System.out.println(ldt.getMinute());</span><br><span class="line">System.out.println(ldt.getSecond());</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ld2</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2016</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">System.out.println(ld2);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt3</span> <span class="operator">=</span> ld2.plusYears(<span class="number">20</span>);</span><br><span class="line">System.out.println(ldt3);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt4</span> <span class="operator">=</span> ld2.minusMonths(<span class="number">2</span>);</span><br><span class="line">System.out.println(ldt4);</span><br></pre></td></tr></table></figure>
 <h3 id="Instant时间戳"><a class="header-anchor" href="#Instant时间戳"></a>Instant时间戳</h3>
@@ -752,7 +752,7 @@ Java8提供了LocalDate、LocalTime和LocalDateTime 类，它们的实例是<str
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt</span> <span class="operator">=</span> LocalDateTime.now(ZoneId.of(<span class="string">&quot;Asia/Shanghai&quot;</span>));</span><br><span class="line">System.out.println(ldt);</span><br><span class="line"></span><br><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">zdt</span> <span class="operator">=</span> ZonedDateTime.now(ZoneId.of(<span class="string">&quot;US/Pacific&quot;</span>));</span><br><span class="line">System.out.println(zdt);</span><br></pre></td></tr></table></figure>
 <h3 id="与传统日期处理的转换"><a class="header-anchor" href="#与传统日期处理的转换"></a>与传统日期处理的转换</h3>
 <p>相关方法如下：<br>
-<img src="https://img-blog.csdnimg.cn/ae1fc0b0fac147f39cfc8d7a72d5e3be.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/4992341485cd431269527c2c655ef388.png" alt="在这里插入图片描述"></p>
 <h2 id="Optional类"><a class="header-anchor" href="#Optional类"></a>Optional类</h2>
 <p>Optional<T> 类(java.util.Optional) 是一个容器类，代表一个值存在或不存在，原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避免空指针异常。<br>
 <strong>常用方法如下：</strong></p>
@@ -859,8 +859,8 @@ Java8提供了LocalDate、LocalTime和LocalDateTime 类，它们的实例是<str
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/04/02/poi-tl-study/" rel="next" title="poi-tl自定义渲染策略学习">
-                  poi-tl自定义渲染策略学习 <i class="fa fa-angle-right"></i>
+                <a href="/2023/04/02/springBoot_maps_urls/" rel="next" title="SpringBoot映射URL访问本地文件">
+                  SpringBoot映射URL访问本地文件 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

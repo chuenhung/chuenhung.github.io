@@ -19,23 +19,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="简介 什么是线程池 线程池（ThreadPool）是一种基于池化思想管理和使用线程的机制。它是将多个线程预先存储在一个“池子”内，当有任务出现时可以避免重新创建和销毁线程所带来性能开销，只需要从“池子”内取出相应的线程执行对应的任务即可。常见的运用池化思想的有：内存池、数据库连接池。使用线程池的优点如下：  提高线程的利用率 提高程序的相应速度 便于统一管理线程对象">
+    <meta name="description" content="简介 什么是线程池 线程池（ThreadPool）是一种基于池化思想管理和使用线程的机制。它是将多个线程预先存储在一个“池子”内，当有任务出现时可以避免重新创建和销毁线程所带来性能开销，只需要从“池子”内取出相应的线程执行对应的任务即可。常见的运用池化思想的有：内存池、数据库连接池。使用线程池的优点如下：  提高线程的利用率 提高程序的响应速度 便于统一管理线程对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java线程池详解">
 <meta property="og:url" content="http://yoursite.com/2021/05/21/thread_pool/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="简介 什么是线程池 线程池（ThreadPool）是一种基于池化思想管理和使用线程的机制。它是将多个线程预先存储在一个“池子”内，当有任务出现时可以避免重新创建和销毁线程所带来性能开销，只需要从“池子”内取出相应的线程执行对应的任务即可。常见的运用池化思想的有：内存池、数据库连接池。使用线程池的优点如下：  提高线程的利用率 提高程序的相应速度 便于统一管理线程对象">
+<meta property="og:description" content="简介 什么是线程池 线程池（ThreadPool）是一种基于池化思想管理和使用线程的机制。它是将多个线程预先存储在一个“池子”内，当有任务出现时可以避免重新创建和销毁线程所带来性能开销，只需要从“池子”内取出相应的线程执行对应的任务即可。常见的运用池化思想的有：内存池、数据库连接池。使用线程池的优点如下：  提高线程的利用率 提高程序的响应速度 便于统一管理线程对象">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2021051120071238.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210511200824363.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2021051120093393.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210511174601755.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f40c37b86dbcf6eb527e74b0cfb46ffb.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7fd5de056c1ff1a3af36451db41ab3a1.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/84eee14021b33c8d0e3840fe83b1c23f.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/234750a776b7ec97a45a7a15d4093a4a.png">
 <meta property="article:published_time" content="2021-05-21T12:46:00.000Z">
 <meta property="article:modified_time" content="2021-05-21T12:46:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2021051120071238.jpg">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/f40c37b86dbcf6eb527e74b0cfb46ffb.jpeg">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/05/21/thread_pool/">
@@ -299,19 +299,19 @@
 <p>线程池（ThreadPool）是一种基于池化思想管理和使用线程的机制。它是将多个线程预先存储在一个“池子”内，当有任务出现时可以避免重新创建和销毁线程所带来性能开销，只需要从“池子”内取出相应的线程执行对应的任务即可。常见的运用池化思想的有：内存池、数据库连接池。使用线程池的优点如下：</p>
 <ul>
 <li>提高线程的利用率</li>
-<li>提高程序的相应速度</li>
+<li>提高程序的响应速度</li>
 <li>便于统一管理线程对象</li>
 </ul>
 <span id="more"></span>
 <h3 id="银行营业厅案例"><a class="header-anchor" href="#银行营业厅案例"></a>银行营业厅案例</h3>
 <p>假设银行正常可以同时给3个客户办理业务(绿色表示)，最多可同时给5个用户办理业务(多余的用红色表示)，等候区最多可以等待4个客户(用蓝色表示)，小人表示客户。正常的营业厅处理业务流程如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/2021051120071238.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/f40c37b86dbcf6eb527e74b0cfb46ffb.jpeg" alt="在这里插入图片描述"><br>
 注：这个流程用于模拟线程池，和实际银行办理业务还是有点区别。</p>
 <p>假设同时进来7个用户，办理业务效果如下：<br>
-<img src="https://img-blog.csdnimg.cn/20210511200824363.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/7fd5de056c1ff1a3af36451db41ab3a1.jpeg" alt="在这里插入图片描述"><br>
 4个等待区用户只有等前面的窗口办理完才能依次办理。</p>
 <p>假设同时进来10个用户，办理业务效果如下：<br>
-<img src="https://img-blog.csdnimg.cn/2021051120093393.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/84eee14021b33c8d0e3840fe83b1c23f.jpeg" alt="在这里插入图片描述"><br>
 第10个用户超出最大限度被拒绝办理业务，其余等待区用户只有等前面的窗口办理完才能依次办理，4和5号窗口超时后会重新进入空闲状态。</p>
 <h2 id="执行流程"><a class="header-anchor" href="#执行流程"></a>执行流程</h2>
 <p>上面案例中的正常办理业务窗口数对应线程池中的<strong>核心线程数</strong>，最多办理业务窗口数对应线程池中的<strong>最大线程数</strong>，等候区对应线程池中的<strong>阻塞(等待)队列</strong>。线程池关键节点的执行流程如下：</p>
@@ -321,7 +321,7 @@
 <li>当线程数大于等于核心线程数，且任务队列已满：若线程数小于最大线程数，创建线程；若线程数等于最大线程数，抛出异常，拒绝任务。</li>
 </ul>
 <p>线程池的执行流程如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/20210511174601755.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/234750a776b7ec97a45a7a15d4093a4a.png" alt="在这里插入图片描述"></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq36846776/article/details/111312342">参考链接</a></p>
 <h2 id="创建方式"><a class="header-anchor" href="#创建方式"></a>创建方式</h2>
 <h3 id="所有创建方式"><a class="header-anchor" href="#所有创建方式"></a>所有创建方式</h3>

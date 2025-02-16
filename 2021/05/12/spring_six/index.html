@@ -19,23 +19,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="WebFlux概述 简介  WebFlux是Spring5新添加的模块以用于web开发，功能和SpringMVC类似。 Webflux使用响应式编程的框架。 Webflux 是一种异步非阻塞的框架，异步非阻塞的框架在 Servlet3.1 以后才支持，核心是基于Reactor的相关 API 实现的。">
+    <meta name="description" content="WebFlux概述 简介  WebFlux是Spring5新添加的模块以用于web开发，功能和SpringMVC类似。 Webflux使用响应式编程的框架。 Webflux 是一种异步非阻塞的框架，异步非阻塞的框架在 Servlet3.1 以后才支持，核心是基于Reactor的相关 API 实现的。  异步非阻塞 异步和同步针对调用者，调用者发送请求，如果等着对方回应之后才去做其他事情就是同步，如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring学习(六)：WebFlux">
 <meta property="og:url" content="http://yoursite.com/2021/05/12/spring_six/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="WebFlux概述 简介  WebFlux是Spring5新添加的模块以用于web开发，功能和SpringMVC类似。 Webflux使用响应式编程的框架。 Webflux 是一种异步非阻塞的框架，异步非阻塞的框架在 Servlet3.1 以后才支持，核心是基于Reactor的相关 API 实现的。">
+<meta property="og:description" content="WebFlux概述 简介  WebFlux是Spring5新添加的模块以用于web开发，功能和SpringMVC类似。 Webflux使用响应式编程的框架。 Webflux 是一种异步非阻塞的框架，异步非阻塞的框架在 Servlet3.1 以后才支持，核心是基于Reactor的相关 API 实现的。  异步非阻塞 异步和同步针对调用者，调用者发送请求，如果等着对方回应之后才去做其他事情就是同步，如">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210512142121640.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210512142318266.bmp">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210512144605632.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210512161302284.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c6aa44a0cfb7e9bc8a45709ee918e76d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/44555cf7112d1216825839f8a2c7bb66.bmp">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7ddb1232f1271520400c1b3fa8d42b1c.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/caa5762a2c26bd25b7c0c4c8ea6440de.png">
 <meta property="article:published_time" content="2021-05-12T08:35:00.000Z">
 <meta property="article:modified_time" content="2022-09-04T02:55:00.000Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210512142121640.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/c6aa44a0cfb7e9bc8a45709ee918e76d.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/05/12/spring_six/">
@@ -308,10 +308,10 @@
 <li>Webflux使用<strong>响应式编程</strong>的框架。</li>
 <li>Webflux 是一种<strong>异步非阻塞</strong>的框架，异步非阻塞的框架在 Servlet3.1 以后才支持，核心是基于Reactor的相关 API 实现的。</li>
 </ul>
-<span id="more"></span>
 <h3 id="异步非阻塞"><a class="header-anchor" href="#异步非阻塞"></a>异步非阻塞</h3>
 <p><strong>异步和同步</strong>针对调用者，调用者发送请求，如果等着对方回应之后才去做其他事情就是同步，如果发送请求之后不等着对方回应就去做其他事情就是异步。<br>
 <strong>阻塞和非阻塞</strong>针对被调用者，被调用者收到请求之后，做完请求任务之后才给出反馈就是阻塞，收到请求之后马上给出反馈然后再去做事情就是非阻塞。</p>
+<span id="more"></span>
 <h2 id="响应式编程"><a class="header-anchor" href="#响应式编程"></a>响应式编程</h2>
 <h3 id="简介-v2"><a class="header-anchor" href="#简介-v2"></a>简介</h3>
 <p>响应式编程是一种面向数据流和变化传播的编程范式。这意味着可以在编程语言中很方便<br>
@@ -335,11 +335,11 @@ Java8提供观察者模式两个类Observer和Observable，Java9提供Flow类实
 <p>对数据流进行一道道操作成为操作符，比如工厂流水线。</p>
 <ul>
 <li>map元素映射为新元素<br>
-<img src="https://img-blog.csdnimg.cn/20210512142121640.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c6aa44a0cfb7e9bc8a45709ee918e76d.png" alt="在这里插入图片描述"><br>
 比如上图对1、2和3进行了平方操作然后输出</li>
 <li>flatMap元素映射为流<br>
 把每个元素转换流，把转换之后多个流合并大的流<br>
-<img src="https://img-blog.csdnimg.cn/20210512142318266.bmp" alt="在这里插入图片描述"></li>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/44555cf7112d1216825839f8a2c7bb66.bmp" alt="在这里插入图片描述"></li>
 </ul>
 <h4 id="示例代码"><a class="header-anchor" href="#示例代码"></a>示例代码</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 引入依赖</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line"> &lt;groupId&gt;io.projectreactor&lt;/groupId&gt;</span><br><span class="line"> &lt;artifactId&gt;reactor-core&lt;/artifactId&gt;</span><br><span class="line"> &lt;version&gt;<span class="number">3.1</span><span class="number">.5</span>.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
@@ -392,7 +392,7 @@ Java8提供观察者模式两个类Observer和Observable，Java9提供Flow类实
 <p>application.properties：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.port = <span class="number">8081</span></span><br></pre></td></tr></table></figure>
 <p>运行结果：<br>
-<img src="https://img-blog.csdnimg.cn/20210512144605632.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/7ddb1232f1271520400c1b3fa8d42b1c.png" alt="在这里插入图片描述"></p>
 <h2 id="SpringWebflux基于函数式编程"><a class="header-anchor" href="#SpringWebflux基于函数式编程"></a>SpringWebflux基于函数式编程</h2>
 <p>在使用函数式编程模型操作时候，需要自己初始化服务器。基于函数式编程模型时候，有两个核心接口：RouterFunction（实现路由功能，请求转发给对应的 handler）和 HandlerFunction（处理请求生成响应的函数）。核心任务定义两个函数式接口的实现并且启动需要的服务器。SpringWebflux 请 求 和 响 应 不 再 是 ServletRequest和ServletResponse ，而是ServerRequest 和 ServerResponse。</p>
 <h3 id="具体步骤"><a class="header-anchor" href="#具体步骤"></a>具体步骤</h3>
@@ -417,7 +417,7 @@ Java8提供观察者模式两个类Observer和Observable，Java9提供Flow类实
 <p>运行main方法后效果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span>:<span class="number">05</span>:<span class="number">18.184</span> [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.allocator.type: pooled</span><br><span class="line"><span class="number">16</span>:<span class="number">05</span>:<span class="number">18.184</span> [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.threadLocalDirectBufferSize: <span class="number">0</span></span><br><span class="line"><span class="number">16</span>:<span class="number">05</span>:<span class="number">18.184</span> [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.maxThreadLocalCharBufferSize: <span class="number">16384</span></span><br><span class="line"><span class="number">16</span>:<span class="number">05</span>:<span class="number">18.204</span> [reactor-http-nio-<span class="number">1</span>] DEBUG reactor.netty.tcp.TcpServer - [id: <span class="number">0x16e3bd47</span>, L:/<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">51646</span>] Bound <span class="keyword">new</span> <span class="title class_">server</span></span><br><span class="line">enter to exit</span><br></pre></td></tr></table></figure>
 <p><strong>运行成功会有一个端口，比如我这里是51646</strong>,然后在浏览器中用这个端口请求就可以了。如下所示：<br>
-<img src="https://img-blog.csdnimg.cn/20210512161302284.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/caa5762a2c26bd25b7c0c4c8ea6440de.png" alt="在这里插入图片描述"><br>
 如有错误，欢迎指正!</p>
 
     </div>

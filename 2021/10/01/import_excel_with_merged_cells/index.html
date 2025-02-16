@@ -19,15 +19,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="Excel表格 下面是Excel表格，成果简介前可以作为主表数据存储(存在合并)，成果简介后的数据作为从表数据存储。">
+    <meta name="description" content="Excel表格 下面是Excel表格，成果简介前可以作为主表数据存储(存在合并)，成果简介后的数据作为从表数据存储。  实现思路   通过EasyExcel读取Excel数据，用List&lt;AwardsDetailField&gt; list接收 因为POI&#x2F;EasyExcel对合并单元格的数据只读取一次，需要把为空的单元格也赋值，这是核心技术难点。   循环使用hibernate-valid">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EasyExcel导入存在合并单元格的Excel">
 <meta property="og:url" content="http://yoursite.com/2021/10/01/import_excel_with_merged_cells/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="Excel表格 下面是Excel表格，成果简介前可以作为主表数据存储(存在合并)，成果简介后的数据作为从表数据存储。">
+<meta property="og:description" content="Excel表格 下面是Excel表格，成果简介前可以作为主表数据存储(存在合并)，成果简介后的数据作为从表数据存储。  实现思路   通过EasyExcel读取Excel数据，用List&lt;AwardsDetailField&gt; list接收 因为POI&#x2F;EasyExcel对合并单元格的数据只读取一次，需要把为空的单元格也赋值，这是核心技术难点。   循环使用hibernate-valid">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/a3dbc677560b442c937e36e3ee5b0649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f30b548a94e748adab00c21e39a3e9de.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1390b1dcd3b46b5ef207c397de149595.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a237f0729737a57e262928e55445bf68.png">
 <meta property="article:published_time" content="2021-10-01T04:53:00.000Z">
 <meta property="article:modified_time" content="2023-06-03T13:33:00.000Z">
 <meta property="article:author" content="Chuenhung">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="EasyExcel">
 <meta property="article:tag" content="Excel">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/a3dbc677560b442c937e36e3ee5b0649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/1390b1dcd3b46b5ef207c397de149595.png#pic_center">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/10/01/import_excel_with_merged_cells/">
@@ -303,8 +303,7 @@
     
     <div class="post-body" itemprop="articleBody"><h2 id="Excel表格"><a class="header-anchor" href="#Excel表格"></a>Excel表格</h2>
 <p>下面是Excel表格，成果简介前可以作为主表数据存储(存在合并)，成果简介后的数据作为从表数据存储。<br>
-<img src="https://img-blog.csdnimg.cn/a3dbc677560b442c937e36e3ee5b0649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<span id="more"></span>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/1390b1dcd3b46b5ef207c397de149595.png#pic_center" alt="在这里插入图片描述"></p>
 <h2 id="实现思路"><a class="header-anchor" href="#实现思路"></a>实现思路</h2>
 <ul>
 <li>
@@ -330,6 +329,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cage666/p/7352211.html">参考链接</a></p>
 </li>
 </ul>
+<span id="more"></span>
 <h2 id="相关代码"><a class="header-anchor" href="#相关代码"></a>相关代码</h2>
 <p><strong>下面贴出的是通过EasyExcel读取Excel数据的测试代码</strong></p>
 <p><strong>pom依赖：</strong></p>
@@ -345,7 +345,7 @@
 <p>测试类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.importexcel;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021/08/06</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImportTest</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">PATH</span> <span class="operator">=</span> <span class="string">&quot;E:\\Downloads\\&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> PATH + <span class="string">&quot;各奖励网站导入模版.xlsx&quot;</span>;</span><br><span class="line">        ImportExcelHelper&lt;AwardsDetailField&gt; helper = <span class="keyword">new</span> <span class="title class_">ImportExcelHelper</span>&lt;&gt;();</span><br><span class="line">        List&lt;AwardsDetailField&gt; list = helper.getList(fileName,AwardsDetailField.class,<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">        System.out.println(JSON.toJSONString(list));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行后打印的JSON字符串,用JSON工具解析发现完全是想要的效果，成功搞定！<br>
-<img src="https://img-blog.csdnimg.cn/f30b548a94e748adab00c21e39a3e9de.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ExMjc1MzAyMDM2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/a237f0729737a57e262928e55445bf68.png" alt="在这里插入图片描述"><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42195311/article/details/110441885">参考链接</a>、<a target="_blank" rel="noopener" href="https://www.jb51.net/article/258822.htm">参考链接</a></p>
 
     </div>

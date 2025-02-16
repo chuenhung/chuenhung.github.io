@@ -19,38 +19,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="一、概叙 本地代码写好部署到远程服务器需要通过SSH建立通信，Git支持SSH连接，连接成功后可以对Git仓库进行克隆、提交代码等操作，蛋是环境需要自己配置。windows是没有open ssh这个东西的，需要自己装软件来实现这个功能，目前有两种选择：Copssh和Gitblit">
+    <meta name="description" content="一、概述 本地代码写好部署到远程服务器需要通过SSH建立通信，Git支持SSH连接，连接成功后可以对Git仓库进行克隆、提交代码等操作，蛋是环境需要自己配置。windows是没有open ssh这个东西的，需要自己装软件来实现这个功能，目前有两种选择：Copssh和Gitblit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="本地与windows server连接(搭建Git远程私库)">
 <meta property="og:url" content="http://yoursite.com/2019/12/15/windows_remote_private_library/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="一、概叙 本地代码写好部署到远程服务器需要通过SSH建立通信，Git支持SSH连接，连接成功后可以对Git仓库进行克隆、提交代码等操作，蛋是环境需要自己配置。windows是没有open ssh这个东西的，需要自己装软件来实现这个功能，目前有两种选择：Copssh和Gitblit">
+<meta property="og:description" content="一、概述 本地代码写好部署到远程服务器需要通过SSH建立通信，Git支持SSH连接，连接成功后可以对Git仓库进行克隆、提交代码等操作，蛋是环境需要自己配置。windows是没有open ssh这个东西的，需要自己装软件来实现这个功能，目前有两种选择：Copssh和Gitblit">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019121522194657.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215222002654.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215222015138.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215222032613.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215223738671.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215224003716.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215224358769.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215224508743.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215225154506.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019121522574645.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215230009723.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215230122175.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215230531726.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215230648574.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191215231130446.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019122217591227.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6a0960a3e7e0b9ddbf3a30b7e259df4d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b89280b487e404d288468a868a046529.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/23ab6b7679ca57652f6047e694e37ba4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c6bda74f40c3beaab2174927d780eff6.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8d0f7e58d6f02d1e223b91fafb042c43.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d67a03522f735ba95bfe60e227ef5012.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/43c6de73e0d7691ae74d29897f110d21.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a44927338a954990b714300db9aecd61.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/415367da66c56014b4b1d47f3da36b33.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dee7d4180fcd56f6d6466a13e1d16806.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/78125aa37c4a1148d7c2d2261e09234c.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/831b9c77341cadc011c9f7f63e14202c.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7ea23c5b5ee41fc9ca953439c84c3db6.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/2483349556a2c6b1f36936622fd914f1.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/03a12a910b8293107b5047f8f0be34b0.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a5ba6f61955753e06b6de3fe6e27cd51.png">
 <meta property="article:published_time" content="2019-12-14T16:46:00.000Z">
-<meta property="article:modified_time" content="2024-10-18T13:35:32.842Z">
+<meta property="article:modified_time" content="2025-02-16T03:32:55.844Z">
 <meta property="article:author" content="Chuenhung">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="Gitblit">
 <meta property="article:tag" content="Copssh">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019121522194657.png">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/6a0960a3e7e0b9ddbf3a30b7e259df4d.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2019/12/15/windows_remote_private_library/">
@@ -180,7 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%8F%99"><span class="nav-number">1.</span> <span class="nav-text">一、概叙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Copssh"><span class="nav-number">2.</span> <span class="nav-text">二、Copssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Gitblit%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">三、Gitblit安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E3%80%81%E9%85%8D%E7%BD%AEJDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、配置JDK环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E3%80%81Gitblit%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、Gitblit安装与配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A1%AB%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">四、填坑记录</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Copssh"><span class="nav-number">2.</span> <span class="nav-text">二、Copssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Gitblit%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">三、Gitblit安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E3%80%81%E9%85%8D%E7%BD%AEJDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、配置JDK环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E3%80%81Gitblit%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、Gitblit安装与配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A1%AB%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">四、填坑记录</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +269,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-18 21:35 21:35:32" itemprop="dateModified" datetime="2024-10-18T21:35:32+08:00">2024-10-18 21:35</time>
+      <time title="修改时间：2025-02-16 11:32 11:32:55" itemprop="dateModified" datetime="2025-02-16T11:32:55+08:00">2025-02-16 11:32</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -316,7 +316,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="一、概叙"><a class="header-anchor" href="#一、概叙"></a>一、概叙</h2>
+    <div class="post-body" itemprop="articleBody"><h2 id="一、概述"><a class="header-anchor" href="#一、概述"></a>一、概述</h2>
 <p>本地代码写好部署到远程服务器需要通过SSH建立通信，Git支持SSH连接，连接成功后可以对Git仓库进行克隆、提交代码等操作，蛋是环境需要自己配置。windows是没有open ssh这个东西的，需要自己装软件来实现这个功能，目前有两种选择：<strong>Copssh</strong>和<strong>Gitblit</strong><span id="more"></span></p>
 <h2 id="二、Copssh"><a class="header-anchor" href="#二、Copssh"></a>二、Copssh</h2>
 <p>什么是Copssh?</p>
@@ -330,15 +330,16 @@
 <p>Gitblit is an open-source, pure Java stack for managing, viewing, and serving Git repositories. It’s designed primarily as a tool for small workgroups who want to host centralized repositories</p>
 </blockquote>
 <p>Gitblit需要运行在JDK环境上，所以需要先下载安装JDK并配置环境变量。下载安装就不写了。</p>
+<!--more-->
 <h3 id="3-1、配置JDK环境变量"><a class="header-anchor" href="#3-1、配置JDK环境变量"></a>3.1、配置JDK环境变量</h3>
 <p>新建系统变量JAVA_HOME，变量值为JDK所在目录<br>
-<img src="https://img-blog.csdnimg.cn/2019121522194657.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/6a0960a3e7e0b9ddbf3a30b7e259df4d.png" alt="在这里插入图片描述">	<br>
 新建系统变量CLASSPATH，变量值为.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar <strong>（注意前面有个.）</strong><br>
-<img src="https://img-blog.csdnimg.cn/20191215222002654.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/b89280b487e404d288468a868a046529.png" alt="在这里插入图片描述">	<br>
 编辑系统变量Path,加入%JAVA_HOME%\bin ;%JAVA_HOME%\jre\bin变量<br>
-<img src="https://img-blog.csdnimg.cn/20191215222015138.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/23ab6b7679ca57652f6047e694e37ba4.png" alt="在这里插入图片描述">	<br>
 配置完后，在cmd输入javac输出类似下图这样的信息就说明jdk环境变量配置成功了<br>
-<img src="https://img-blog.csdnimg.cn/20191215222032613.png" alt="在这里插入图片描述"></p>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c6bda74f40c3beaab2174927d780eff6.png" alt="在这里插入图片描述"></p>
 <h3 id="3-2、Gitblit安装与配置"><a class="header-anchor" href="#3-2、Gitblit安装与配置"></a>3.2、Gitblit安装与配置</h3>
 <ul>
 <li><strong>3.2.1、下载成功Gitblit后直接解压到指定目录就行了，然后修改/data/defaults.properties文件：</strong></li>
@@ -347,37 +348,37 @@
 <p>注意：我用的版本是1.8.0之前的版本是修改gitblit.properties文件</p>
 <ul>
 <li><strong>3.2.2、双击gitblit.cmd文件就可以启动了，启动效果如下：</strong><br>
-<img src="https://img-blog.csdnimg.cn/20191215223738671.png" alt="在这里插入图片描述"></li>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/8d0f7e58d6f02d1e223b91fafb042c43.png" alt="在这里插入图片描述"></li>
 <li><strong>3.2.3、现在是英文的，如果要改为中文，可以登录后(默认账号密码都是admin)点击my profile-preferences修改。如下所示:</strong><br>
-<img src="https://img-blog.csdnimg.cn/20191215224003716.png" alt="在这里插入图片描述"></li>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/d67a03522f735ba95bfe60e227ef5012.png" alt="在这里插入图片描述"></li>
 <li><strong>3.2.4、把gitblit设置为windows服务</strong><br>
 在Gitblit文件夹中编辑installService.cmd文件<br>
-<img src="https://img-blog.csdnimg.cn/20191215224358769.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/43c6de73e0d7691ae74d29897f110d21.png" alt="在这里插入图片描述"><br>
 修改保存后，以管理员方式运行后，windows服务会生成一个Gitblit服务<br>
-<img src="https://img-blog.csdnimg.cn/20191215224508743.png" alt="在这里插入图片描述"></li>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/a44927338a954990b714300db9aecd61.png" alt="在这里插入图片描述"></li>
 <li><strong>3.2.5、外网访问gitblit</strong><br>
 需要在云服务器控制台中放通1111、29418端口。1111是上面设置的http协议端口,29418是Git提交代码需要访问的端口<br>
-<img src="https://img-blog.csdnimg.cn/20191215225154506.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/415367da66c56014b4b1d47f3da36b33.png" alt="在这里插入图片描述">	<br>
 这样配置后，外网就可以输入<strong>服务ip:1111</strong>访问到Gitblit主页、克隆仓库到本地了</li>
 <li><strong>3.2.6、克隆服务器仓库到本地</strong><br>
 先在服务端创建一个仓库<br>
-<img src="https://img-blog.csdnimg.cn/2019121522574645.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/dee7d4180fcd56f6d6466a13e1d16806.png" alt="在这里插入图片描述">	<br>
 复制刚刚版本库的地址(localhost需要改为公网ip)，通过Git克隆到本地<br>
-<img src="https://img-blog.csdnimg.cn/20191215230009723.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/78125aa37c4a1148d7c2d2261e09234c.png" alt="在这里插入图片描述"><br>
 仓库的初始化文件拉到本地就成功了<br>
-<img src="https://img-blog.csdnimg.cn/20191215230122175.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/831b9c77341cadc011c9f7f63e14202c.png" alt="在这里插入图片描述">	<br>
 能从远程服务器拉代码到本地，说明SSH通信连接已经建立，自然就能提交代码上去，提交代码步骤就不写了。</li>
 <li><strong>3.2.7、自动化部署</strong><br>
 修改C:\gitblit-1.8.0\data\groovy\localclone.groovy文件的rootFolder为你想部署的文件夹<br>
-<img src="https://img-blog.csdnimg.cn/20191215230531726.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/7ea23c5b5ee41fc9ca953439c84c3db6.png" alt="在这里插入图片描述">	<br>
 然后编辑仓库-receive-post-receive脚本-在select中选择刚刚编辑的文件<br>
-<img src="https://img-blog.csdnimg.cn/20191215230648574.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/2483349556a2c6b1f36936622fd914f1.png" alt="在这里插入图片描述">	<br>
 设置完记得保存。这样本地每次提交代码到服务器,Gitblit都会自动把本地的所有最新代码放到c:/blog文件夹下，实现自动化部署。</li>
 </ul>
 <h2 id="四、填坑记录"><a class="header-anchor" href="#四、填坑记录"></a>四、填坑记录</h2>
 <ul>
 <li><strong>4.1、从本地复制JDK到云服务器时多次操作均报类似下面这种错误</strong><br>
-<img src="https://img-blog.csdnimg.cn/20191215231130446.png" alt="在这里插入图片描述">	<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/03a12a910b8293107b5047f8f0be34b0.png" alt="在这里插入图片描述">	<br>
 最终解决是放弃本地文件传输😹，在服务器端直接通过网络下载</li>
 <li><strong>4.2、把Gitblit设置成windows服务后,服务启动不了</strong><br>
 查看C:\gitblit-1.8.0\logs输出的日志</li>
@@ -385,7 +386,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">12</span>] [info]  Run service finished.</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">12</span>] [info]  Commons Daemon procrun finished</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [info]  Commons Daemon <span class="title function_">procrun</span> <span class="params">(<span class="number">1.0</span><span class="number">.10</span><span class="number">.0</span> <span class="number">64</span>-bit)</span> started</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [info]  Running <span class="string">&#x27;gitblit&#x27;</span> Service...</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [info]  Starting service...</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [error] Failed creating java </span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [error] ServiceStart returned <span class="number">1</span></span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [info]  Run service finished.</span><br><span class="line">[<span class="number">2019</span>-<span class="number">12</span>-<span class="number">15</span> <span class="number">13</span>:<span class="number">21</span>:<span class="number">34</span>] [info]  Commons Daemon procrun finished</span><br></pre></td></tr></table></figure>
 <p>关键错误[Failed creating java]，原来我的JDK安装的是32位的，所以设置服务的时候改成SET ARCH=x86，然后用sc delete gitblit删除服务，再重新运行installService.cmd文件就可以了</br><br>
 如果服务还启动不了，可以以管理员运行gitblitw.exe文件，再修改JVM。如下图所示：<br>
-<img src="https://img-blog.csdnimg.cn/2019122217591227.png" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/a5ba6f61955753e06b6de3fe6e27cd51.png" alt="在这里插入图片描述"><br>
 这样就可以重启服务了。还有问题自行百度吧😹</p>
 <ul>
 <li><strong>4.3、删除服务时如果出现&quot;指定的服务已经标记为删除&quot;错误提示了</strong><br>

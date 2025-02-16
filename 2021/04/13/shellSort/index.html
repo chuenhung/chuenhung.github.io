@@ -19,16 +19,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
-    <meta name="description" content="希尔排序 希尔排序是简单插入排序的改进，它是一种不稳定排序算法。由D.L.Shell在1959年提出。希尔排序实质上是一种分组插入方法。">
+    <meta name="description" content="希尔排序 希尔排序是简单插入排序的改进，它是一种不稳定排序算法。由D.L.Shell在1959年提出。希尔排序实质上是一种分组插入方法。 算法描述 1、对于n个待排序的数列，取一个小于n的整数gap(称为步长)将待排序元素分成若干个组子序列，所有距离为gap的倍数的记录放在同一个组中。 2、然后对各组内的元素进行直接插入排序，这一趟排序完成之后，每一个组的元素都是有序的。 3、接下来减小gap的值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="希尔排序">
 <meta property="og:url" content="http://yoursite.com/2021/04/13/shellSort/index.html">
 <meta property="og:site_name" content="Chuenhung的个人网站">
-<meta property="og:description" content="希尔排序 希尔排序是简单插入排序的改进，它是一种不稳定排序算法。由D.L.Shell在1959年提出。希尔排序实质上是一种分组插入方法。">
+<meta property="og:description" content="希尔排序 希尔排序是简单插入排序的改进，它是一种不稳定排序算法。由D.L.Shell在1959年提出。希尔排序实质上是一种分组插入方法。 算法描述 1、对于n个待排序的数列，取一个小于n的整数gap(称为步长)将待排序元素分成若干个组子序列，所有距离为gap的倍数的记录放在同一个组中。 2、然后对各组内的元素进行直接插入排序，这一趟排序完成之后，每一个组的元素都是有序的。 3、接下来减小gap的值">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210413165121259.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210413165523696.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210413165930675.jpg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/bdfb261a0ff7c70ba68f45fac507bf22.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c590008c06b82c9f61d378683ce69497.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b57b471443cc79217d3c52b7c136869c.jpeg">
 <meta property="article:published_time" content="2021-04-13T15:05:05.000Z">
 <meta property="article:modified_time" content="2021-04-13T15:05:05.000Z">
 <meta property="article:author" content="Chuenhung">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="排序算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210413165121259.jpg">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/bdfb261a0ff7c70ba68f45fac507bf22.jpeg">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/04/13/shellSort/">
@@ -297,27 +297,27 @@
     
     <div class="post-body" itemprop="articleBody"><h2 id="希尔排序"><a class="header-anchor" href="#希尔排序"></a>希尔排序</h2>
 <p>希尔排序是简单插入排序的改进，它是一种不稳定排序算法。由D.L.Shell在1959年提出。希尔排序实质上是一种分组插入方法。</p>
-<span id="more"></span>
 <h3 id="算法描述"><a class="header-anchor" href="#算法描述"></a>算法描述</h3>
 <p>1、对于n个待排序的数列，取一个小于n的整数gap(称为步长)将待排序元素分成若干个组子序列，所有距离为gap的倍数的记录放在同一个组中。<br>
 2、然后对各组内的元素进行直接插入排序，这一趟排序完成之后，每一个组的元素都是有序的。<br>
 3、接下来减小gap的值，并重复执行上述的分组和排序。<br>
 4、重复这样的操作，当gap=1时，整个数列就是有序的。</p>
+<span id="more"></span>
 <h3 id="图文演示"><a class="header-anchor" href="#图文演示"></a>图文演示</h3>
 <p>下面以数列{23,20,32,45,6,8,9,15}为例，演示它的希尔排序过程。<br>
 <strong>第1趟：(gap=4)</strong><br>
-<img src="https://img-blog.csdnimg.cn/20210413165121259.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/bdfb261a0ff7c70ba68f45fac507bf22.jpeg" alt="在这里插入图片描述"><br>
 当gap=4时,意味着将数列分为4个组： {23,6}，{20,8}，{32,9}，{45,15}。 对应数列： {23,20,32,45,6,8,9,15}<br>
 对这4个组分别进行排序，排序结果： {6,23}，{8,20}，{9,32}，{15,45}。 对应数列： {6,8,9,15,23,20,32,45}<br>
 <strong>第2趟：(gap=2)</strong><br>
-<img src="https://img-blog.csdnimg.cn/20210413165523696.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c590008c06b82c9f61d378683ce69497.jpeg" alt="在这里插入图片描述"><br>
 当gap=2时,意味着将数列分为2个组：{6,9,23,32}, {8,15,20,45}。 对应数列： {6,8,9,15,23,20,32,45}<br>
 <strong>注意</strong>：{6,9,23,32}实际上是上一步中的两个有序数列{6,23}和{9,32}组成。<br>
 {8,15,20,45}实际上是上一步中的两个有序数列{8,20}和{15,45}组成。<br>
 对这2个组分别进行排序，排序结果：{6,9,23,32}, 8,15,20,45}。 对应数列： {6,8,9,15,23,20,32,45}。<br>
 这一步其实啥都没做，这也可以看出希尔排序的不稳定性。<br>
 <strong>第3趟：(gap=1)</strong><br>
-<img src="https://img-blog.csdnimg.cn/20210413165930675.jpg" alt="在这里插入图片描述"><br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/b57b471443cc79217d3c52b7c136869c.jpeg" alt="在这里插入图片描述"><br>
 当gap=1时,意味着将数列分为1个组：{6,8,9,15,23,20,32,45}<br>
 注意：{6,8,9,15,23,20,32,45}实际上是上一步中的两个有序数列{6,9,23,32},和{8,15,20,45}组成。<br>
 对这1个组分别进行排序，排序结果：{6, 8, 9, 15, 20, 23, 32, 45}</p>
