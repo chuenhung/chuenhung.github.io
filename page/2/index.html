@@ -171,18 +171,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -199,6 +199,227 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/09/08/dbeaver_common_operations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/09/08/dbeaver_common_operations/" class="post-title-link" itemprop="url">DBeaver 常用操作</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-08 22:28 22:28:00" itemprop="dateCreated datePublished" datetime="2024-09-08T22:28:00+08:00">2024-09-08 22:28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="快捷键"><a class="header-anchor" href="#快捷键"></a>快捷键</h2>
+<p><strong>执行sql语句：ctrl+enter</strong><br>
+<strong>sql模板(可以自定义设置)：sf、swhere、scount</strong><br>
+<strong>格式化：ctrl+shift+f</strong><br>
+<strong>转为大写：ctrl+shift+x</strong><br>
+<strong>转为小写：ctrl+shift+y</strong><br>
+<strong>放大/缩小sql编辑器的字体大小：ctrl+、ctrl-</strong></p>
+<h2 id="SQL模板xml文件"><a class="header-anchor" href="#SQL模板xml文件"></a>SQL模板xml文件</h2>
+<p>使用方法，新建一个xml -&gt; 使用下面的代码填充 -&gt; 在界面中导入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> standalone=<span class="string">&quot;no&quot;</span>?&gt;</span><span class="tag">&lt;<span class="name">templates</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">name</span>=<span class="string">&quot;delf&quot;</span>&gt;</span>delete from $&#123;table&#125;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;删除&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">name</span>=<span class="string">&quot;delw&quot;</span>&gt;</span>delete from $&#123;table&#125; where $&#123;column&#125;=&#x27;$&#123;value&#125;&#x27;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;select row count&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">id</span>=<span class="string">&quot;org.jkiss.dbeaver.templates.scount&quot;</span> <span class="attr">name</span>=<span class="string">&quot;scount&quot;</span>&gt;</span>select count(*) from $&#123;table&#125;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;select * from &quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">id</span>=<span class="string">&quot;org.jkiss.dbeaver.templates.sf&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sf&quot;</span>&gt;</span>select * from $&#123;table&#125;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;select with group by&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sg&quot;</span>&gt;</span>select * from $&#123;table&#125; where $&#123;column&#125;=&#x27;$&#123;value&#125;&#x27; group by $&#123;column&#125;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;select with order by&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">id</span>=<span class="string">&quot;org.jkiss.dbeaver.templates.scob&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sorder&quot;</span>&gt;</span>select * from $&#123;table&#125; t order by $&#123;column&#125;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;select with condition&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">id</span>=<span class="string">&quot;org.jkiss.dbeaver.templates.swhere&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sw&quot;</span>&gt;</span>select * from $&#123;table&#125; where $&#123;column&#125;=&#x27;$&#123;value&#125;&#x27;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">name</span>=<span class="string">&quot;updf&quot;</span>&gt;</span>update $&#123;table&#125; set  $&#123;column&#125;=&#x27;&#x27;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">template</span> <span class="attr">autoinsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">context</span>=<span class="string">&quot;sql&quot;</span> <span class="attr">deleted</span>=<span class="string">&quot;false&quot;</span> <span class="attr">description</span>=<span class="string">&quot;更新&quot;</span> <span class="attr">enabled</span>=<span class="string">&quot;true&quot;</span> <span class="attr">name</span>=<span class="string">&quot;updw&quot;</span>&gt;</span>update $&#123;table&#125; set  $&#123;column&#125;=&#x27;&#x27; where $&#123;column&#125;=&#x27;$&#123;value&#125;&#x27;;<span class="tag">&lt;/<span class="name">template</span>&gt;</span><span class="tag">&lt;/<span class="name">templates</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/c6e9f4739b3393b629de6b2314df284c.png" alt="在这里插入图片描述"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/09/08/dbeaver_common_operations/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/09/07/java_abstract_class_autowired/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/09/07/java_abstract_class_autowired/" class="post-title-link" itemprop="url">Java抽象类使用@Autowired注入实例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-07 11:50 11:50:00" itemprop="dateCreated datePublished" datetime="2024-09-07T11:50:00+08:00">2024-09-07 11:50</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>743</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>示例代码如下：</strong><br>
+<strong>抽象类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractWaterMark</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AchievementApplicationService achievementApplicationService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> AchievementApplication <span class="title function_">queryByCode</span><span class="params">(String code)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> achievementApplicationService.queryByCode(code);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>增加子类（需要@Service注解）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WaterMark</span> <span class="keyword">extends</span> <span class="title class_">AbstractWaterMark</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/09/07/java_abstract_class_autowired/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
 
     
 
@@ -513,219 +734,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/09/springboot_aop_update_custom_annotation/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/26/springBoot_valid_list/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/26/springBoot_valid_list/" class="post-title-link" itemprop="url">SpringBoot校验List失效解决方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-11-26 22:55 22:55:00" itemprop="dateCreated datePublished" datetime="2023-11-26T22:55:00+08:00">2023-11-26 22:55</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="SpringBoot校验List失效解决方法"><a class="header-anchor" href="#SpringBoot校验List失效解决方法"></a>SpringBoot校验List失效解决方法</h2>
-<p><strong>失效场景示例代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/v1/jx/flowSummary&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JxFlowSummaryController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;批量修改原始得分&quot;)</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/updateScore&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseDto <span class="title function_">batchUpdateScore</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> List&lt;BatchUpdateScoreDto&gt; dtoList)</span> &#123;</span><br><span class="line">        <span class="comment">// jxFlowSummaryService.batchUpdateScore(dtoList);</span></span><br><span class="line">        <span class="keyword">return</span> ResponseUtil.wrapSuccess(<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决方法一：在controller上加上@Validated注解</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/v1/jx/flowSummary&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JxFlowSummaryController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;批量修改原始得分&quot;)</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/updateScore&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseDto <span class="title function_">batchUpdateScore</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> List&lt;BatchUpdateScoreDto&gt; dtoList)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseUtil.wrapSuccess(<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/26/springBoot_valid_list/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/26/study_it_heimei_mysql_index/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
-      <meta itemprop="name" content="Chuenhung">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chuenhung的个人网站">
-      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chuenhung的个人网站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/26/study_it_heimei_mysql_index/" class="post-title-link" itemprop="url">黑马程序员索引学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-11-26 20:25 20:25:00" itemprop="dateCreated datePublished" datetime="2023-11-26T20:25:00+08:00">2023-11-26 20:25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="索引的分类"><a class="header-anchor" href="#索引的分类"></a>索引的分类</h2>
-<h3 id="从索引字段特性"><a class="header-anchor" href="#从索引字段特性"></a>从索引字段特性</h3>
-<p><strong>主键索引、唯一索引、常规索引、全文索引</strong><br>
-<img src="https://i-blog.csdnimg.cn/blog_migrate/721cd7e68833cfdd28044ce4797dc668.jpeg#pic_center" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/26/study_it_heimei_mysql_index/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
