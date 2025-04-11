@@ -241,6 +241,13 @@
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-11 22:43 22:43:00" itemprop="dateModified" datetime="2025-04-11T22:43:00+08:00">2025-04-11 22:43</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
@@ -260,14 +267,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>14k</span>
+      <span>17k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>13 分钟</span>
+      <span>15 分钟</span>
     </span>
 </div>
 
@@ -278,15 +285,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="什么是IOC"><a class="header-anchor" href="#什么是IOC"></a>什么是IOC</h2>
+          <p>@[toc]</p>
+<h2 id="什么是IOC"><a class="header-anchor" href="#什么是IOC"></a>什么是IOC</h2>
 <p>Inversion of Control的缩写，中文译为控制反转，简单来说就是把对象创建和对象之间的调用过程，交给 Spring 进行管理。<br>
 创建对象实例的控制权从代码控制剥离到IOC容器控制，实际就是你在xml文件控制，<strong>侧重于原理</strong></p>
-<h2 id="底层原理"><a class="header-anchor" href="#底层原理"></a>底层原理</h2>
+<h2 id="IOC的作用"><a class="header-anchor" href="#IOC的作用"></a>IOC的作用</h2>
 <ul>
-<li>XML解析<br>
-使用dom4j解析</li>
-<li>工厂模式</li>
-<li>反射创建类对象</li>
+<li><strong>DI依赖注入</strong><br>
+Spring的DI实现了面向接口编程的核心思想，符合依赖倒置的原则。开发者只需要关注接口，而无需关注具体实现，<strong>降低了耦合度，代码复用性高，可拓展性强</strong></li>
+<li><strong>统一管理bean的生命周期</strong></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
