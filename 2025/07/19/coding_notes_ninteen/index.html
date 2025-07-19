@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/custom/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"right","width_expanded":300,"width_dual_column":180,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":100},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+    <meta name="description" content="Mysql给查询记录增加序列号 使用变量 示例： 123SET @row_number :&#x3D; 0;SELECT (@row_number:&#x3D;@row_number + 1) AS serial_number, t.*FROM (SELECT * FROM your_table) AS t; 使用使用ROW_NUMBER() OVER()窗口函数 需要MySQL版本8.0以上 示例： 12SELEC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序猿搬砖笔记(十九)">
+<meta property="og:url" content="http://yoursite.com/2025/07/19/coding_notes_ninteen/index.html">
+<meta property="og:site_name" content="Chuenhung的个人网站">
+<meta property="og:description" content="Mysql给查询记录增加序列号 使用变量 示例： 123SET @row_number :&#x3D; 0;SELECT (@row_number:&#x3D;@row_number + 1) AS serial_number, t.*FROM (SELECT * FROM your_table) AS t; 使用使用ROW_NUMBER() OVER()窗口函数 需要MySQL版本8.0以上 示例： 12SELEC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8cd012b114ca8161f5ab20a8346b01b9.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/5edfb67a4562c4decc3cebf6f345c381.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4ba762e02c1c079346a96d760fcb6bfa.png">
+<meta property="article:published_time" content="2025-07-19T14:10:00.000Z">
+<meta property="article:modified_time" content="2025-07-19T14:10:00.000Z">
+<meta property="article:author" content="Chuenhung">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="IntelliJ IDEA">
+<meta property="article:tag" content="Maven">
+<meta property="article:tag" content="Springboot">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Mybatis">
+<meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="Redission">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/8cd012b114ca8161f5ab20a8346b01b9.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2025/07/19/coding_notes_ninteen/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2025/07/19/coding_notes_ninteen/","path":"2025/07/19/coding_notes_ninteen/","title":"Java程序猿搬砖笔记(十九)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java程序猿搬砖笔记(十九) | Chuenhung的个人网站</title>
+  
+
+
+
+
+
+
+
+<!--图片防盗链-->
+<meta name="referrer" content="no-referrer">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<!-- 引入jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 页面点击文字 -->
+<script type="text/javascript" src="/js/click-text.js"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chuenhung的个人网站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">chuenhung.github.io</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E7%BB%99%E6%9F%A5%E8%AF%A2%E8%AE%B0%E5%BD%95%E5%A2%9E%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">Mysql给查询记录增加序列号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">使用变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%BF%E7%94%A8ROW-NUMBER-OVER-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">使用使用ROW_NUMBER() OVER()窗口函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E7%B1%BB%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">SpringBoot加载配置类的流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven-compiler-plugin"><span class="nav-number">3.</span> <span class="nav-text">maven-compiler-plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E9%BB%98%E8%AE%A4%E6%89%93%E5%8C%85%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">maven默认打包方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BE%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">Git根据标签创建新的分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springCloud-Gateway-StripPrefix%E5%92%8CPrefixPath%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">springCloud Gateway StripPrefix和PrefixPath过滤器的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-cherry-pick%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">Git cherry-pick命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">8.</span> <span class="nav-text">MySQL 正则表达式匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E4%B8%BAnull%E6%97%B6%EF%BC%8C%E8%BF%94%E5%9B%9E%E6%83%85%E5%86%B5%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">Mybatis查询数据为null时，返回情况总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Jackson%E6%8A%8AJSON%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B8%BAList"><span class="nav-number">10.</span> <span class="nav-text">使用Jackson把JSON字符串转为List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Fastjson%E6%8A%8AJSON%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B8%BAList"><span class="nav-number">11.</span> <span class="nav-text">使用Fastjson把JSON字符串转为List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transactional%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">12.</span> <span class="nav-text">@Transactional注解失效的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Git%E5%88%A0%E9%99%A4%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E9%87%8D%E6%96%B0%E4%BB%8E%E8%BF%9C%E7%A8%8B%E6%8B%89%E5%8F%96%E8%AF%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">13.</span> <span class="nav-text">解决Git删除本地文件无法重新从远程拉取该文件的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows10%E6%93%8D%E4%BD%9C%E7%94%A8%E6%88%B7%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4"><span class="nav-number">14.</span> <span class="nav-text">Windows10操作用户的一些命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BF%E8%B1%86%E6%B2%99%E6%8A%A4%E7%9C%BC%E8%89%B2"><span class="nav-number">15.</span> <span class="nav-text">绿豆沙护眼色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-ConfigurationProperties%E6%B3%A8%E8%A7%A3%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%BAnull"><span class="nav-number">16.</span> <span class="nav-text">SpringBoot @ConfigurationProperties注解注入的属性为null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%87%E9%A1%BF%E5%8F%B7%E5%88%86%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">17.</span> <span class="nav-text">中文顿号分割字符串正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven%E5%91%BD%E4%BB%A4"><span class="nav-number">18.</span> <span class="nav-text">Maven命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RedissonClient%E5%8A%A0%E9%94%81%E3%80%81%E9%87%8A%E6%94%BE%E9%94%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">19.</span> <span class="nav-text">RedissonClient加锁、释放锁示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">20.</span> <span class="nav-text">Git设置代理命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%BB%98%E8%AE%A4%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99"><span class="nav-number">21.</span> <span class="nav-text">查询MySQL数据库的默认字符集和排序规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%80%E6%9C%89%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99"><span class="nav-number">22.</span> <span class="nav-text">查询MySQL数据库所有表字段的字符集和排序规则</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chuenhung"
+      src="/images/custom/headportrait.jpeg">
+  <p class="site-author-name" itemprop="name">Chuenhung</p>
+  <div class="site-description" itemprop="description">技术实践笔记，助力编程成长。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/07/19/coding_notes_ninteen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom/headportrait.jpeg">
+      <meta itemprop="name" content="Chuenhung">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chuenhung的个人网站">
+      <meta itemprop="description" content="技术实践笔记，助力编程成长。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java程序猿搬砖笔记(十九) | Chuenhung的个人网站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java程序猿搬砖笔记(十九)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-07-19 22:10 22:10:00" itemprop="dateCreated datePublished" datetime="2025-07-19T22:10:00+08:00">2025-07-19 22:10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">搬砖笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AC%E7%A0%96%E7%AC%94%E8%AE%B0/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="Mysql给查询记录增加序列号"><a class="header-anchor" href="#Mysql给查询记录增加序列号"></a>Mysql给查询记录增加序列号</h2>
+<h3 id="使用变量"><a class="header-anchor" href="#使用变量"></a>使用变量</h3>
+<p><strong>示例：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="variable">@row_number</span> :<span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">SELECT</span> (<span class="variable">@row_number</span>:<span class="operator">=</span><span class="variable">@row_number</span> <span class="operator">+</span> <span class="number">1</span>) <span class="keyword">AS</span> serial_number, t.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table) <span class="keyword">AS</span> t;</span><br></pre></td></tr></table></figure>
+<h3 id="使用使用ROW-NUMBER-OVER-窗口函数"><a class="header-anchor" href="#使用使用ROW-NUMBER-OVER-窗口函数"></a>使用使用ROW_NUMBER() OVER()窗口函数</h3>
+<p>需要MySQL版本8.0以上<br>
+<strong>示例：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> some_column) <span class="keyword">AS</span> serial_number, <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> your_table;</span><br></pre></td></tr></table></figure>
+<p>在这个查询中，<code>ROW_NUMBER()</code>函数根据<code>some_column</code>列的排序来为每行生成一个序列号。</p>
+<span id="more"></span>
+<h2 id="SpringBoot加载配置类的流程"><a class="header-anchor" href="#SpringBoot加载配置类的流程"></a>SpringBoot加载配置类的流程</h2>
+<p>包含：<br>
+1、SpringBoot加载配置的流程（简化）<br>
+2、@ComponScan和@Import注解的作用<br>
+3、@SpringBootApplication注解原理<br>
+4、SpringFactories机制</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yzx3105/article/details/127080639">参考链接</a></p>
+<h2 id="maven-compiler-plugin"><a class="header-anchor" href="#maven-compiler-plugin"></a>maven-compiler-plugin</h2>
+<p>Maven打包并不一定必须要显式引入maven-compiler-plugin依赖，因为Maven的超级POM（Super POM）已经默认包含了这个插件的基本配置。当您执行Maven构建时，即使在项目的pom.xml中没有明确声明maven-compiler-plugin，Maven仍然会在构建生命周期的compile阶段尝试编译源代码。</p>
+<p>不过，虽然不是“必须”手动引入，但在许多实际场景下，我们往往会针对特定的Java编译版本、源代码和目标字节码版本、或者额外的编译器参数进行自定义配置。在这种情况下，就需要在项目的pom.xml文件中显式地声明并配置maven-compiler-plugin，以确保项目按照期望的方式和环境进行编译。</p>
+<p>例如，如果您正在使用非默认的Java版本，或者想要启用特定的编译器特性，就必须在pom.xml中配置maven-compiler-plugin以适应这些需求。以下是配置示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven.compiler.plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">compilerArgument</span>&gt;</span>-parameters<span class="tag">&lt;/<span class="name">compilerArgument</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/8cd012b114ca8161f5ab20a8346b01b9.png" alt="在这里插入图片描述"></p>
+<h2 id="maven默认打包方式"><a class="header-anchor" href="#maven默认打包方式"></a>maven默认打包方式</h2>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/5edfb67a4562c4decc3cebf6f345c381.png" alt="在这里插入图片描述"></p>
+<h2 id="Git根据标签创建新的分支"><a class="header-anchor" href="#Git根据标签创建新的分支"></a>Git根据标签创建新的分支</h2>
+<p><strong>语法如下：</strong><br>
+git checkout -b 新的分支名 标签名</p>
+<h2 id="springCloud-Gateway-StripPrefix和PrefixPath过滤器的区别"><a class="header-anchor" href="#springCloud-Gateway-StripPrefix和PrefixPath过滤器的区别"></a>springCloud Gateway StripPrefix和PrefixPath过滤器的区别</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010101193/article/details/115725600?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=Spring%20Cloud%20GateWay%20%E8%B7%AF%E7%94%B1%E7%9A%84StripP&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~sobaiduweb~default-0-115725600.nonecase&amp;spm=1018.2226.3001.4450">参考链接</a></p>
+<h2 id="Git-cherry-pick命令"><a class="header-anchor" href="#Git-cherry-pick命令"></a>Git cherry-pick命令</h2>
+<p>命令作用：从分支A挑选一个或多个特定的commit，并将这些提交应用到分支B上。可以快速修复某些问题，而不需要合并整个分支代码。</p>
+<h2 id="MySQL-正则表达式匹配"><a class="header-anchor" href="#MySQL-正则表达式匹配"></a>MySQL 正则表达式匹配</h2>
+<p>MySQL中的REGEXP操作符，允许使用正则表达式来匹配字符串数据。</p>
+<p>示例：<br>
+– 匹配包含&quot;4&quot;的数据<br>
+SELECT *<br>
+FROM t_external_award_apply<br>
+WHERE strategy_domain REGEXP ‘“4”’;<br>
+正则表达式匹配效果：<br>
+<img src="https://i-blog.csdnimg.cn/blog_migrate/4ba762e02c1c079346a96d760fcb6bfa.png" alt="在这里插入图片描述"></p>
+<h2 id="Mybatis查询数据为null时，返回情况总结"><a class="header-anchor" href="#Mybatis查询数据为null时，返回情况总结"></a>Mybatis查询数据为null时，返回情况总结</h2>
+<ul>
+<li>返回类型为<strong>集合类型</strong>，返回一个空集合(大小为0，非null)，[不会]抛空指针异常</li>
+<li>返回类型为<strong>基本类型(int、long)</strong>，[会]抛空指针异常。</li>
+<li>返回类型为<strong>基本类型的包装类型(Integer、Long)</strong>，返回null</li>
+</ul>
+<h2 id="使用Jackson把JSON字符串转为List"><a class="header-anchor" href="#使用Jackson把JSON字符串转为List"></a>使用Jackson把JSON字符串转为List</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 转为JSON字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">jsonString</span> <span class="operator">=</span> JSON.toJSONString(list);<span class="comment">// list为java对象</span></span><br><span class="line">    List&lt;RepetitionRateVo&gt; list = objectMapper.readValue(jsonString, <span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;&gt;()&#123;&#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ListResult</span>&lt;&gt;(list);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JsonProcessingException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用Fastjson把JSON字符串转为List"><a class="header-anchor" href="#使用Fastjson把JSON字符串转为List"></a>使用Fastjson把JSON字符串转为List</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 转为JSON字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">jsonString</span> <span class="operator">=</span> JSON.toJSONString(list); <span class="comment">// list为java对象</span></span><br><span class="line">List&lt;RepetitionRateVo&gt; list =  JSONObject.parseArray(jsonString ,RepetitionRateVo.class);</span><br></pre></td></tr></table></figure>
+<h2 id="Transactional注解失效的场景"><a class="header-anchor" href="#Transactional注解失效的场景"></a>@Transactional注解失效的场景</h2>
+<ul>
+<li>非public修饰的方法；</li>
+<li>注解的timeout设置过小；</li>
+<li>代码中使用 try/catch处理异常,并且没有抛出新异常</li>
+<li>方法没有加@Transactional，调用类内部的@Transactional方法</li>
+<li>bean没有被Spring管理(即类没有加@service、@component注解)</li>
+<li>数据库不支持事务</li>
+</ul>
+<h2 id="解决Git删除本地文件无法重新从远程拉取该文件的问题"><a class="header-anchor" href="#解决Git删除本地文件无法重新从远程拉取该文件的问题"></a>解决Git删除本地文件无法重新从远程拉取该文件的问题</h2>
+<p>执行下面的命令，然后重新拉取即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43265355/article/details/136645091">参考链接</a></p>
+<h2 id="Windows10操作用户的一些命令"><a class="header-anchor" href="#Windows10操作用户的一些命令"></a>Windows10操作用户的一些命令</h2>
+<p><strong>WIN+R运行:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 启用/关闭管理员账户</span><br><span class="line">net user administrator /active:<span class="built_in">yes</span></span><br><span class="line">net user administrator /active:no</span><br><span class="line">// 可以新增、修改、删除用户</span><br><span class="line">netplwiz</span><br></pre></td></tr></table></figure>
+<h2 id="绿豆沙护眼色"><a class="header-anchor" href="#绿豆沙护眼色"></a>绿豆沙护眼色</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RGB <span class="number">204</span> <span class="number">232</span> <span class="number">207</span></span><br></pre></td></tr></table></figure>
+<h2 id="SpringBoot-ConfigurationProperties注解注入的属性为null"><a class="header-anchor" href="#SpringBoot-ConfigurationProperties注解注入的属性为null"></a>SpringBoot @ConfigurationProperties注解注入的属性为null</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;activity&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String reviewObjectStartTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String reviewObjectEndTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String expertReviewStartTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String expertReviewEndTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer reviewObjectLimit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原因：类中没有set方法。<br>
+解决方法：类中加入@Data注解</p>
+<p>和这个依赖没有关系(不加也可以注入成功)：</p>
+<!--和这个依赖没有关系(不加也可以注入成功)-->
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="中文顿号分割字符串正则表达式"><a class="header-anchor" href="#中文顿号分割字符串正则表达式"></a>中文顿号分割字符串正则表达式</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?!、)([^、]+、)*[^、]+(?!、)$</span><br></pre></td></tr></table></figure>
+<p>正确的示例：网络、无线、IT、业务<br>
+错误的示例：网络、无线、IT、业务、<br>
+错误的示例：、网络、无线、IT、业务<br>
+错误的示例：网络、、无线、IT、业务</p>
+<h2 id="Maven命令"><a class="header-anchor" href="#Maven命令"></a>Maven命令</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Maven查看所有定义的配置文件</span><br><span class="line">mvn <span class="built_in">help</span>:all-profiles</span><br><span class="line">// 显示当前构建中激活的所有配置文件 (idea勾选了也没有打印出来，需要启动/打包的时候才生效？)</span><br><span class="line">mvn <span class="built_in">help</span>:active-profiles</span><br></pre></td></tr></table></figure>
+<h2 id="RedissonClient加锁、释放锁示例代码"><a class="header-anchor" href="#RedissonClient加锁、释放锁示例代码"></a>RedissonClient加锁、释放锁示例代码</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RLock</span> <span class="variable">lock</span> <span class="operator">=</span> redissonClient.getLock(<span class="string">&quot;FormalAudit-&quot;</span>+dbAchievementApplication.getCode());</span><br><span class="line"><span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="comment">// 尝试加锁</span></span><br><span class="line">	<span class="keyword">if</span> (lock.tryLock(<span class="number">300</span>, <span class="number">20000</span>, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">			</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		log.info(<span class="string">&quot;线程:&#123;&#125;未获取到锁&quot;</span>,Thread.currentThread().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	log.error(<span class="string">&quot;执行异常:&#123;&#125;&quot;</span>, e.getMessage(),e);</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="comment">//释放锁</span></span><br><span class="line">	<span class="keyword">if</span> (lock.isHeldByCurrentThread()) &#123;</span><br><span class="line">		log.info(<span class="string">&quot;线程:&#123;&#125;准备释放锁,执行业务逻辑消耗时间&#123;&#125;&quot;</span>,Thread.currentThread().getName(),System.currentTimeMillis()- start);</span><br><span class="line">		lock.unlock();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Git设置代理命令"><a class="header-anchor" href="#Git设置代理命令"></a>Git设置代理命令</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 查看代理</span><br><span class="line">git config --global http.proxy</span><br><span class="line"></span><br><span class="line">// 设置代理</span><br><span class="line">git config --global http.proxy http://127.0.0.1:7890</span><br><span class="line">git config --global https.proxy https://127.0.0.1:7890</span><br><span class="line"></span><br><span class="line">// 取消代理</span><br><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+<h2 id="查询MySQL数据库的默认字符集和排序规则"><a class="header-anchor" href="#查询MySQL数据库的默认字符集和排序规则"></a>查询MySQL数据库的默认字符集和排序规则</h2>
+<p><strong>奖励现网查询出的和工具显示的不一致，工具是对的</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME </span><br><span class="line"><span class="keyword">FROM</span> information_schema.SCHEMATA </span><br><span class="line"><span class="keyword">WHERE</span> SCHEMA_NAME <span class="operator">=</span> <span class="string">&#x27;数据库名&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="查询MySQL数据库所有表字段的字符集和排序规则"><a class="header-anchor" href="#查询MySQL数据库所有表字段的字符集和排序规则"></a>查询MySQL数据库所有表字段的字符集和排序规则</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, CHARACTER_SET_NAME, COLLATION_NAME</span><br><span class="line"><span class="keyword">FROM</span> information_schema.COLUMNS</span><br><span class="line"><span class="keyword">WHERE</span> TABLE_SCHEMA <span class="operator">=</span> <span class="string">&#x27;your_database_name&#x27;</span></span><br><span class="line"><span class="keyword">AND</span> TABLE_NAME <span class="operator">=</span> <span class="string">&#x27;your_table_name&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/custom/wechat.jpg" alt="Chuenhung 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/custom/aliPay.jpg" alt="Chuenhung 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/IntelliJ-IDEA/" rel="tag"><i class="fa fa-tag"></i> IntelliJ IDEA</a>
+              <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+              <a href="/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i> Springboot</a>
+              <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+              <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+              <a href="/tags/SpringCloud/" rel="tag"><i class="fa fa-tag"></i> SpringCloud</a>
+              <a href="/tags/Redission/" rel="tag"><i class="fa fa-tag"></i> Redission</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/19/mybatis_error_resolution/" rel="prev" title="IntelliJ IDEA中Mybatis的xml文件报错解决">
+                  <i class="fa fa-angle-left"></i> IntelliJ IDEA中Mybatis的xml文件报错解决
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <!--增加居中样式-->
+  <div class="copyright" style="text-align: center;">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <!--<i class="heart"></i>-->
+	  <i class="fa fa-heart" style="color:red;"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Chuenhung</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+	
+</body>
+</html>
+
+
