@@ -607,6 +607,15 @@ Java中，父类的引用既可以指向父类的对象，也可以指向子类�
 <h3 id="JVM位置"><a class="header-anchor" href="#JVM位置"></a>JVM位置</h3>
 <p><img src="https://i-blog.csdnimg.cn/blog_migrate/671a91a7c775d5198aa690e781a0aa7c.png" alt="在这里插入图片描述"><br>
 JVM是运行在操作系统之上的，它与硬件没有直接的交互。</p>
+<h3 id="JVM体系结构"><a class="header-anchor" href="#JVM体系结构"></a>JVM体系结构</h3>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/598113927dcb4b9f6723bf7fb4f808c6.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>白色的模块说明线程私有，几乎不存在垃圾回收。方法区和堆存在垃圾回收。</li>
+<li>栈管运行，堆管存储。栈是线程私有，不存在垃圾回收。栈保存基本类型变量+对象的引用+实例方法。java方法 = 栈帧。</li>
+<li>栈记录了方法之间调用和执行情况，类似于排班表。用来存储指向下一条指令的地址。它是当前线程所执行的字节码的行号执行器。</li>
+<li>Native方法不归JAVA管，所以计数器是空的 。</li>
+<li>方法区是存放类结构信息的地方，是一种规范。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/15/jvm_gc/#more" rel="contents">
